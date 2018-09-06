@@ -137,13 +137,13 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
         tabs.setSelectedTabIndicatorColor(ThemeStore.accentColor(getActivity()));
 
         updateTabVisibility();
-        
+
         if (PreferenceUtil.getInstance(getContext()).rememberLastTab()) {
             pager.setCurrentItem(PreferenceUtil.getInstance(getContext()).getLastPage());
         }
         pager.addOnPageChangeListener(this);
     }
-    
+
     private void updateTabVisibility() {
         // hide the tab bar when only a single tab is visible
         tabs.setVisibility(pagerAdapter.getCount() == 1 ? View.GONE : View.VISIBLE);

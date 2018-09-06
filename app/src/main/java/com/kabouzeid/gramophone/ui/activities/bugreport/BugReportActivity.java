@@ -260,16 +260,10 @@ public class BugReportActivity extends AbsThemeActivity {
         String bugTitle = inputTitle.getText().toString();
         String bugDescription = inputDescription.getText().toString();
 
-        ExtraInfo extraInfo = new ExtraInfo();
-        onSaveExtraInfo(extraInfo);
-
-        Report report = new Report(bugTitle, bugDescription, deviceInfo, extraInfo);
+        Report report = new Report(bugTitle, bugDescription, deviceInfo, new ExtraInfo());
         GithubTarget target = new GithubTarget("kabouzeid", "Phonograph");
 
         ReportIssueAsyncTask.report(this, report, target, login);
-    }
-
-    protected void onSaveExtraInfo(ExtraInfo extraInfo) {
     }
 
     @Override

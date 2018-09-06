@@ -35,11 +35,6 @@ public class LastAddedPlaylist extends AbsSmartPlaylist {
         return 0;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-    }
-
     protected LastAddedPlaylist(Parcel in) {
         super(in);
     }

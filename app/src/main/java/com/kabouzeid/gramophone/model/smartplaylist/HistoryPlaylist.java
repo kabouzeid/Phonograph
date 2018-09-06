@@ -37,11 +37,6 @@ public class HistoryPlaylist extends AbsSmartPlaylist {
         return 0;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-    }
-
     protected HistoryPlaylist(Parcel in) {
         super(in);
     }

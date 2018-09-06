@@ -92,11 +92,6 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         outState.putString(QUERY, query);
     }
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
     private void setUpToolBar() {
         toolbar.setBackgroundColor(ThemeStore.primaryColor(this));
         setSupportActionBar(toolbar);

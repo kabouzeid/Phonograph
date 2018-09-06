@@ -45,8 +45,7 @@ public class MusicUtil {
     public static final String TAG = MusicUtil.class.getSimpleName();
 
     public static Uri getMediaStoreAlbumCoverUri(int albumId) {
-        final Uri sArtworkUri = Uri
-                .parse("content://media/external/audio/albumart");
+        final Uri sArtworkUri = Uri.parse("content://media/external/audio/albumart");
 
         return ContentUris.withAppendedId(sArtworkUri, albumId);
     }
@@ -58,7 +57,6 @@ public class MusicUtil {
     @NonNull
     public static Intent createShareSongFileIntent(@NonNull final Song song, Context context) {
         try {
-
             return new Intent()
                     .setAction(Intent.ACTION_SEND)
                     .putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName(), new File(song.data)))

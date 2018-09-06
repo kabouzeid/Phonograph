@@ -32,7 +32,6 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
     private MusicStateReceiver musicStateReceiver;
     private boolean receiverRegistered;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
