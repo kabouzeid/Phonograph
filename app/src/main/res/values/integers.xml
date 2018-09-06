@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <integer name="default_grid_columns">2</integer>
     <integer name="default_grid_columns_land">4</integer>
 
