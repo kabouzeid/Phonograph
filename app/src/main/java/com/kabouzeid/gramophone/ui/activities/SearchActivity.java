@@ -54,7 +54,7 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        setDrawUnderStatusbar(true);
+        setDrawUnderStatusbar();
         ButterKnife.bind(this);
 
         setStatusbarColorAuto();

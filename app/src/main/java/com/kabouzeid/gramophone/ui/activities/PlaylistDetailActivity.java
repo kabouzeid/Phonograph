@@ -73,7 +73,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setDrawUnderStatusbar(true);
+        setDrawUnderStatusbar();
         ButterKnife.bind(this);
 
         setStatusbarColorAuto();
