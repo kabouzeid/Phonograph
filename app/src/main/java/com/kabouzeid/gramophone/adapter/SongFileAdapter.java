@@ -64,12 +64,13 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(activity).inflate(itemLayoutRes, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int index) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int index) {
         final File file = dataSet.get(index);
 
         holder.itemView.setActivated(isChecked(file));

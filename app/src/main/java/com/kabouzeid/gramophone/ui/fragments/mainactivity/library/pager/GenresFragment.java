@@ -50,17 +50,18 @@ public class GenresFragment extends AbsLibraryPagerRecyclerViewFragment<GenreAda
     }
 
     @Override
+    @NonNull
     public Loader<ArrayList<Genre>> onCreateLoader(int id, Bundle args) {
         return new GenresFragment.AsyncGenreLoader(getActivity());
     }
 
     @Override
-    public void onLoadFinished(Loader<ArrayList<Genre>> loader, ArrayList<Genre> data) {
+    public void onLoadFinished(@NonNull Loader<ArrayList<Genre>> loader, ArrayList<Genre> data) {
         getAdapter().swapDataSet(data);
     }
 
     @Override
-    public void onLoaderReset(Loader<ArrayList<Genre>> loader) {
+    public void onLoaderReset(@NonNull Loader<ArrayList<Genre>> loader) {
         getAdapter().swapDataSet(new ArrayList<>());
     }
 

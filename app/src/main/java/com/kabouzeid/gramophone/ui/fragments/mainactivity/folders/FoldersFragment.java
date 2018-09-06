@@ -130,7 +130,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(CRUMBS, breadCrumbs.getStateWrapper());
     }
@@ -147,14 +147,14 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_folder, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         getMainActivity().setStatusbarColorAuto();
         getMainActivity().setNavigationbarColorAuto();
         getMainActivity().setTaskDescriptionColorAuto();
@@ -466,12 +466,12 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
     }
 
     @Override
-    public void onLoadFinished(Loader<List<File>> loader, List<File> data) {
+    public void onLoadFinished(@NonNull Loader<List<File>> loader, List<File> data) {
         updateAdapter(data);
     }
 
     @Override
-    public void onLoaderReset(Loader<List<File>> loader) {
+    public void onLoaderReset(@NonNull Loader<List<File>> loader) {
         updateAdapter(new LinkedList<>());
     }
 

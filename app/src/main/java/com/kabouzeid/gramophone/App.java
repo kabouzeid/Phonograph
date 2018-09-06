@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone;
 
 import android.app.Application;
 import android.os.Build;
+import android.support.annotation.NonNull;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
@@ -42,7 +43,7 @@ public class App extends Application {
         // automatically restores purchases
         billingProcessor = new BillingProcessor(this, App.GOOGLE_PLAY_LICENSE_KEY, new BillingProcessor.IBillingHandler() {
             @Override
-            public void onProductPurchased(String productId, TransactionDetails details) {
+            public void onProductPurchased(@NonNull String productId, TransactionDetails details) {
             }
 
             @Override

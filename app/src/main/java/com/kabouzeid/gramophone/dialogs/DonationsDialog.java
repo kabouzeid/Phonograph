@@ -83,7 +83,7 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
     }
 
     @Override
-    public void onProductPurchased(String productId, TransactionDetails details) {
+    public void onProductPurchased(@NonNull String productId, TransactionDetails details) {
         loadSkuDetails();
         Toast.makeText(getContext(), R.string.thank_you, Toast.LENGTH_SHORT).show();
     }
@@ -183,7 +183,8 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
         }
 
         @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
+        @NonNull
+        public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(LAYOUT_RES_ID, parent, false);
             }

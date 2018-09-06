@@ -59,9 +59,9 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
         notifyDataSetChanged();
     }
 
-    @Nullable
     @Override
-    public View getView(final int position, @Nullable View convertView, ViewGroup parent) {
+    @NonNull
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         final Song song = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_list, parent, false);

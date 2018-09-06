@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -98,7 +99,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     private Impl impl;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (Util.isLandscape(getResources())) {
             impl = new LandscapeImpl(this);
         } else {
@@ -111,7 +112,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     }
 
     @Override
-    public void onViewCreated(final View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         impl.init();
