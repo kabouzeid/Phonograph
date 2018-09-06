@@ -165,9 +165,9 @@ public class MusicLibraryPagerAdapter extends FragmentPagerAdapter {
 
         public static MusicFragments of(Class<?> cl) {
             MusicFragments[] fragments = All.FRAGMENTS;
-            for (int i = 0; i < fragments.length; i++) {
-                if (cl.equals(fragments[i].mFragmentClass))
-                    return fragments[i];
+            for (MusicFragments fragment : fragments) {
+                if (cl.equals(fragment.mFragmentClass))
+                    return fragment;
             }
 
             throw new IllegalArgumentException("Unknown music fragment " + cl);
