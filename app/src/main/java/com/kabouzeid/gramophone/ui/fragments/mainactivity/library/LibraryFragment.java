@@ -49,7 +49,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class LibraryFragment extends AbsMainActivityFragment implements CabHolder, MainActivity.MainActivityFragmentCallbacks, ViewPager.OnPageChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
-    public static final String TAG = LibraryFragment.class.getSimpleName();
 
     private Unbinder unbinder;
 

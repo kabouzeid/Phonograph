@@ -29,7 +29,6 @@ import butterknife.ButterKnife;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class NowPlayingScreenPreferenceDialog extends DialogFragment implements MaterialDialog.SingleButtonCallback, ViewPager.OnPageChangeListener {
-    public static final String TAG = NowPlayingScreenPreferenceDialog.class.getSimpleName();
 
     private DialogAction whichButtonClicked;
     private int viewPagerPosition;

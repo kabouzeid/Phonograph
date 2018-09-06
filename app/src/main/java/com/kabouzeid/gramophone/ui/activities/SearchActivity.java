@@ -34,7 +34,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SearchActivity extends AbsMusicServiceActivity implements SearchView.OnQueryTextListener, LoaderManager.LoaderCallbacks<List<Object>> {
-    public static final String TAG = SearchActivity.class.getSimpleName();
+
     public static final String QUERY = "query";
     private static final int LOADER_ID = LoaderIds.SEARCH_ACTIVITY;
 

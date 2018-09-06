@@ -56,7 +56,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbumCoverFragment.Callbacks, SlidingUpPanelLayout.PanelSlideListener {
-    public static final String TAG = FlatPlayerFragment.class.getSimpleName();
 
     private Unbinder unbinder;
 

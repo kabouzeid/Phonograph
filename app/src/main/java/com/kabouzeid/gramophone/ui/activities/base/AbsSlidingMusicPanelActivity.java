@@ -35,7 +35,6 @@ import butterknife.ButterKnife;
  *         {@link #wrapSlidingMusicPanel(int)} first and then return it in {@link #createContentView()}
  */
 public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivity implements SlidingUpPanelLayout.PanelSlideListener, CardPlayerFragment.Callbacks {
-    public static final String TAG = AbsSlidingMusicPanelActivity.class.getSimpleName();
 
     @BindView(R.id.sliding_layout)
     SlidingUpPanelLayout slidingUpPanelLayout;

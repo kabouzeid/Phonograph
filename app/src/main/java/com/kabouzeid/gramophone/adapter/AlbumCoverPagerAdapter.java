@@ -27,7 +27,6 @@ import butterknife.Unbinder;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
-    public static final String TAG = AlbumCoverPagerAdapter.class.getSimpleName();
 
     private ArrayList<Song> dataSet;
 

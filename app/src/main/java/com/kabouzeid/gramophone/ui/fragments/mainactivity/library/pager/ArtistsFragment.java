@@ -22,8 +22,6 @@ import java.util.ArrayList;
  */
 public class ArtistsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFragment<ArtistAdapter, GridLayoutManager> implements LoaderManager.LoaderCallbacks<ArrayList<Artist>> {
 
-    public static final String TAG = ArtistsFragment.class.getSimpleName();
-
     private static final int LOADER_ID = LoaderIds.ARTISTS_FRAGMENT;
 
     @Override

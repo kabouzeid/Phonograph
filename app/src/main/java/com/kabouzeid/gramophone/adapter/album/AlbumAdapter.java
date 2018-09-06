@@ -37,8 +37,6 @@ import java.util.List;
  */
 public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder, Album> implements FastScrollRecyclerView.SectionedAdapter {
 
-    public static final String TAG = AlbumAdapter.class.getSimpleName();
-
     protected final AppCompatActivity activity;
     protected ArrayList<Album> dataSet;
 

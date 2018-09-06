@@ -18,8 +18,6 @@ import java.util.ArrayList;
 
 public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> implements FastScrollRecyclerView.SectionedAdapter {
 
-    public static final String TAG = GenreAdapter.class.getSimpleName();
-
     @NonNull
     private final AppCompatActivity activity;
     private ArrayList<Genre> dataSet;

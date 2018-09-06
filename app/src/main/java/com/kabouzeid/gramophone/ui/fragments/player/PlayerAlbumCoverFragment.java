@@ -33,7 +33,6 @@ import butterknife.Unbinder;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements ViewPager.OnPageChangeListener, MusicProgressViewUpdateHelper.Callback {
-    public static final String TAG = PlayerAlbumCoverFragment.class.getSimpleName();
 
     public static final int VISIBILITY_ANIM_DURATION = 300;
 

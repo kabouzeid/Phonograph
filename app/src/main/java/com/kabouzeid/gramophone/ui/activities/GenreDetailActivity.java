@@ -37,7 +37,6 @@ import butterknife.ButterKnife;
 
 public class GenreDetailActivity extends AbsSlidingMusicPanelActivity implements CabHolder, LoaderManager.LoaderCallbacks<ArrayList<Song>> {
 
-    public static final String TAG = GenreDetailActivity.class.getSimpleName();
     private static final int LOADER_ID = LoaderIds.GENRE_DETAIL_ACTIVITY;
 
     public static final String EXTRA_GENRE = "extra_genre";

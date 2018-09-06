@@ -38,8 +38,6 @@ import java.util.ArrayList;
  */
 public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, Song> implements MaterialCab.Callback, FastScrollRecyclerView.SectionedAdapter {
 
-    public static final String TAG = AlbumSongAdapter.class.getSimpleName();
-
     protected final AppCompatActivity activity;
     protected ArrayList<Song> dataSet;
 

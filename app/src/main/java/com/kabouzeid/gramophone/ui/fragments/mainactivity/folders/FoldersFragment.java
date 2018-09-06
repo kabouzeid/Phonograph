@@ -66,7 +66,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class FoldersFragment extends AbsMainActivityFragment implements MainActivity.MainActivityFragmentCallbacks, CabHolder, BreadCrumbLayout.SelectionCallback, SongFileAdapter.Callbacks, AppBarLayout.OnOffsetChangedListener, LoaderManager.LoaderCallbacks<List<File>> {
-    public static final String TAG = FoldersFragment.class.getSimpleName();
 
     private static final int LOADER_ID = LoaderIds.FOLDERS_FRAGMENT;
 

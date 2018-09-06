@@ -42,7 +42,6 @@ import java.util.regex.Pattern;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class MusicUtil {
-    public static final String TAG = MusicUtil.class.getSimpleName();
 
     public static Uri getMediaStoreAlbumCoverUri(int albumId) {
         final Uri sArtworkUri = Uri.parse("content://media/external/audio/albumart");

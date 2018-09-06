@@ -24,7 +24,6 @@ import java.util.ArrayList;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements MusicServiceEventListener {
-    public static final String TAG = AbsMusicServiceActivity.class.getSimpleName();
 
     private final ArrayList<MusicServiceEventListener> mMusicServiceEventListeners = new ArrayList<>();
 

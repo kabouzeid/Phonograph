@@ -24,8 +24,6 @@ import java.util.ArrayList;
  */
 public class PlaylistsFragment extends AbsLibraryPagerRecyclerViewFragment<PlaylistAdapter, LinearLayoutManager> implements LoaderManager.LoaderCallbacks<ArrayList<Playlist>> {
 
-    public static final String TAG = PlaylistsFragment.class.getSimpleName();
-
     private static final int LOADER_ID = LoaderIds.PLAYLISTS_FRAGMENT;
 
     @Override

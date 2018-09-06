@@ -48,8 +48,6 @@ import butterknife.ButterKnife;
 
 public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity implements CabHolder, LoaderManager.LoaderCallbacks<ArrayList<Song>> {
 
-    public static final String TAG = PlaylistDetailActivity.class.getSimpleName();
-
     private static final int LOADER_ID = LoaderIds.PLAYLIST_DETAIL_ACTIVITY;
 
     @NonNull

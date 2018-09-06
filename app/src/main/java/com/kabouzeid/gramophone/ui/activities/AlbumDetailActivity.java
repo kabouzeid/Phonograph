@@ -67,7 +67,6 @@ import retrofit2.Response;
  */
 public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements PaletteColorHolder, CabHolder, LoaderManager.LoaderCallbacks<Album> {
 
-    public static final String TAG = AlbumDetailActivity.class.getSimpleName();
     private static final int TAG_EDITOR_REQUEST = 2001;
     private static final int LOADER_ID = LoaderIds.ALBUM_DETAIL_ACTIVITY;
 

@@ -18,8 +18,6 @@ import java.util.ArrayList;
 
 public class GenresFragment extends AbsLibraryPagerRecyclerViewFragment<GenreAdapter, LinearLayoutManager> implements LoaderManager.LoaderCallbacks<ArrayList<Genre>> {
 
-    public static final String TAG = GenresFragment.class.getSimpleName();
-
     private static final int LOADER_ID = LoaderIds.GENRES_FRAGMENT;
 
     @Override

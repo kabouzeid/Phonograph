@@ -44,8 +44,6 @@ import java.util.List;
  */
 public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewHolder, Playlist> {
 
-    public static final String TAG = PlaylistAdapter.class.getSimpleName();
-
     private static final int SMART_PLAYLIST = 0;
     private static final int DEFAULT_PLAYLIST = 1;
 
