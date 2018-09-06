@@ -207,7 +207,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     protected View wrapSlidingMusicPanel(@LayoutRes int resId) {
         @SuppressLint("InflateParams")
         View slidingMusicPanelLayout = getLayoutInflater().inflate(R.layout.sliding_music_panel_layout, null);
-        ViewGroup contentContainer = ButterKnife.findById(slidingMusicPanelLayout, R.id.content_container);
+        ViewGroup contentContainer = slidingMusicPanelLayout.findViewById(R.id.content_container);
         getLayoutInflater().inflate(resId, contentContainer);
         return slidingMusicPanelLayout;
     }

@@ -161,7 +161,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     private void initViews() {
         songListHeader = LayoutInflater.from(this).inflate(R.layout.artist_detail_header, songListView, false);
-        albumRecyclerView = ButterKnife.findById(songListHeader, R.id.recycler_view);
+        albumRecyclerView = songListHeader.findViewById(R.id.recycler_view);
     }
 
     private void setUpViews() {

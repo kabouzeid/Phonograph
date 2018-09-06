@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -110,12 +109,12 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         getMenuInflater().inflate(R.menu.menu_search, menu);
 
         final MenuItem searchItem = menu.findItem(R.id.search);
-        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView = (SearchView) searchItem.getActionView();
         searchView.setQueryHint(getString(R.string.search_hint));
         searchView.setMaxWidth(Integer.MAX_VALUE);
 
-        MenuItemCompat.expandActionView(searchItem);
-        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+        searchItem.expandActionView();
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
                 return true;

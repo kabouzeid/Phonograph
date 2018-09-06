@@ -149,7 +149,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
     protected View createContentView() {
         @SuppressLint("InflateParams")
         View contentView = getLayoutInflater().inflate(R.layout.activity_main_drawer_layout, null);
-        ViewGroup drawerContent = ButterKnife.findById(contentView, R.id.drawer_content_container);
+        ViewGroup drawerContent = contentView.findViewById(R.id.drawer_content_container);
         drawerContent.addView(wrapSlidingMusicPanel(R.layout.activity_main_content));
         return contentView;
     }
