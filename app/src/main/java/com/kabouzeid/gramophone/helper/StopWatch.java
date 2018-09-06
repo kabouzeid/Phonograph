@@ -1,5 +1,7 @@
 package com.kabouzeid.gramophone.helper;
 
+import java.util.Locale;
+
 /**
  * Simple thread safe stop watch.
  *
@@ -77,6 +79,6 @@ public class StopWatch {
 
     @Override
     public String toString() {
-        return String.format("%d millis", getElapsedTime());
+        return String.format(Locale.getDefault(), "%d millis", getElapsedTime());
     }
 }
