@@ -29,7 +29,7 @@
     <item
         android:id="@id/action_multi_select_adapter_check_all"
         android:icon="@drawable/ic_select_all_white_24dp"
-        android:title="Select all"
+        android:title="@string/select_all_title"
         app:showAsAction="ifRoom" />
 
 </menu>
