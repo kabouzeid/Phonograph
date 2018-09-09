@@ -21,6 +21,9 @@ public class Song implements Parcelable {
     public final int artistId;
     public final String artistName;
 
+    public float replaygainTrack = Float.NaN;
+    public float replaygainAlbum = Float.NaN;
+
     public Song(int id, String title, int trackNumber, int year, long duration, String data, long dateModified, int albumId, String albumName, int artistId, String artistName) {
         this.id = id;
         this.title = title;

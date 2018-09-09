@@ -31,11 +31,13 @@ public interface Playback {
 
     int seek(int whereto);
 
-    boolean setVolume(float vol);
-
     boolean setAudioSessionId(int sessionId);
 
     int getAudioSessionId();
+
+    void setReplaygain(float replaygain);
+
+    void setDuckingFactor(float duckingFactor);
 
     interface PlaybackCallbacks {
         void onTrackWentToNext();

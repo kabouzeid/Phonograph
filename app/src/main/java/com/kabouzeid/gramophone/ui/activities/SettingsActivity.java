@@ -20,7 +20,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
+
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference;
 import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceFragmentCompat;
@@ -29,20 +33,12 @@ import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appshortcuts.DynamicShortcutManager;
 import com.kabouzeid.gramophone.misc.NonProAllowedColors;
-import com.kabouzeid.gramophone.preferences.BlacklistPreference;
-import com.kabouzeid.gramophone.preferences.BlacklistPreferenceDialog;
-import com.kabouzeid.gramophone.preferences.LibraryPreference;
-import com.kabouzeid.gramophone.preferences.LibraryPreferenceDialog;
-import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreference;
-import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreferenceDialog;
+import com.kabouzeid.gramophone.preferences.*;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.Arrays;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class SettingsActivity extends AbsBaseActivity implements ColorChooserDialog.ColorCallback {
 
@@ -170,6 +166,8 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 return BlacklistPreferenceDialog.newInstance();
             } else if (preference instanceof LibraryPreference) {
                 return LibraryPreferenceDialog.newInstance();
+            } else if (preference instanceof PreAmpPreference) {
+                return PreAmpPreferenceDialog.newInstance();
             }
             return super.onCreatePreferenceDialog(preference);
         }
@@ -310,6 +308,12 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 return true;
             });
 
+            if (PreferenceUtil.getInstance().getReplayGainSourceMode() == 0) {
+                Preference pref = findPreference("replaygain_preamp");
+                pref.setEnabled(false);
+                pref.setSummary("disabled");
+            }
+
             updateNowPlayingScreenSummary();
         }
 
@@ -329,6 +333,16 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 case PreferenceUtil.CLASSIC_NOTIFICATION:
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         findPreference("colored_notification").setEnabled(sharedPreferences.getBoolean(key, false));
+                    }
+                    break;
+                case PreferenceUtil.RG_SOURCE_MODE:
+                    Preference pref = findPreference("replaygain_preamp");
+                    if (!sharedPreferences.getString(key, "none").equals("none")) {
+                        pref.setEnabled(true);
+                        pref.setSummary(R.string.pref_summary_rg_preamp);
+                    } else {
+                        pref.setEnabled(false);
+                        pref.setSummary("disabled");
                     }
                     break;
             }

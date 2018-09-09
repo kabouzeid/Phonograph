@@ -310,4 +310,13 @@
     <string name="sort_order_album">Album</string>
     <string name="sort_order_year">Year</string>
     <string name="finish_current_music_sleep_timer">Finish last song</string>
+    <string name="action_scan_directory">Scan directory</string>
+    <string name="scan_media">Scan media</string>
+    <string name="none">None</string>
+    <string name="track">Track</string>
+    <string name="label_with_rg_info">With Replaygain Tags :</string>
+    <string name="label_without_rg_info">Without Replaygain Tags :</string>
+    <string name="pref_title_rg_source_mode">ReplayGain source mode</string>
+    <string name="pref_title_rg_preamp">ReplayGain preamp</string>
+    <string name="pref_summary_rg_preamp">Set preamp when RpelayGain is enabled</string>
 </resources>

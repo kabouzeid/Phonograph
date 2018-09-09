@@ -3,12 +3,7 @@ package com.kabouzeid.gramophone.service;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
+import android.content.*;
 import android.database.ContentObserver;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -16,14 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.audiofx.AudioEffect;
 import android.media.session.MediaSession;
-import android.os.Binder;
-import android.os.Build;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.IBinder;
-import android.os.Looper;
-import android.os.Message;
-import android.os.PowerManager;
+import android.os.*;
 import android.os.Process;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -38,16 +26,22 @@ import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetBig;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetCard;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetClassic;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetSmall;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
+import com.kabouzeid.gramophone.glide.GlideApp;
+import com.kabouzeid.gramophone.glide.GlideRequest;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
+import com.kabouzeid.gramophone.glide.VinylGlideExtension; // TODO Rename
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
+import com.kabouzeid.gramophone.loader.ReplaygainTagExtractor;
 import com.kabouzeid.gramophone.model.AbsCustomPlaylist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
@@ -504,6 +498,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private boolean openCurrent() {
         synchronized (this) {
             try {
+                applyReplayGain();
                 return playback.setDataSource(getTrackUri(getCurrentSong()));
             } catch (Exception e) {
                 return false;
@@ -887,6 +882,42 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
+    private void applyReplayGain() {
+        byte mode = PreferenceUtil.getInstance().getReplayGainSourceMode();
+        if (mode != 0) {
+            Song song = getCurrentSong();
+
+            if (Float.isNaN(song.replaygainTrack)) {
+                ReplaygainTagExtractor.setReplaygainValues(song);
+            }
+
+            float adjust = 0f;
+
+            if (mode == 2) {
+                adjust = (song.replaygainTrack != 0 ? song.replaygainTrack : adjust);
+                adjust = (song.replaygainAlbum != 0 ? song.replaygainAlbum : adjust);
+            }
+
+            if (mode == 1) {
+                adjust = (song.replaygainAlbum != 0 ? song.replaygainAlbum : adjust);
+                adjust = (song.replaygainTrack != 0 ? song.replaygainTrack : adjust);
+            }
+
+            if (adjust == 0) {
+                adjust = PreferenceUtil.getInstance().getRgPreampWithoutTag();
+            } else {
+                adjust += PreferenceUtil.getInstance().getRgPreampWithTag();
+            }
+
+            float rgResult = ((float) Math.pow(10, (adjust / 20)));
+            rgResult = Math.max(0, Math.min(1, rgResult));
+
+            playback.setReplaygain(rgResult);
+        } else {
+            playback.setReplaygain(Float.NaN);
+        }
+    }
+
     public void playPreviousSong(boolean force) {
         playSongAt(getPreviousPosition(force));
     }
@@ -1128,6 +1159,18 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 initNotification();
                 updateNotification();
                 break;
+            case PreferenceUtil.TRANSPARENT_BACKGROUND_WIDGET:
+                sendChangeInternal(MusicService.TRANSPARENT_WIDGET_CHANGED);
+                break;
+            case PreferenceUtil.RG_SOURCE_MODE:
+                applyReplayGain();
+                break;
+            case PreferenceUtil.RG_PREAMP_WITH_TAG:
+                applyReplayGain();
+                break;
+            case PreferenceUtil.RG_PREAMP_WITHOUT_TAG:
+                applyReplayGain();
+                break;
         }
     }
 
@@ -1171,7 +1214,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                     } else {
                         currentDuckVolume = 1f;
                     }
-                    service.playback.setVolume(currentDuckVolume);
+                    service.playback.setDuckingFactor(currentDuckVolume);
                     break;
 
                 case UNDUCK:
@@ -1185,7 +1228,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                     } else {
                         currentDuckVolume = 1f;
                     }
-                    service.playback.setVolume(currentDuckVolume);
+                    service.playback.setDuckingFactor(currentDuckVolume);
                     break;
 
                 case TRACK_WENT_TO_NEXT:

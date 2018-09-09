@@ -88,6 +88,10 @@ public final class PreferenceUtil {
 
     private static final String REMEMBER_SHUFFLE = "remember_shuffle";
 
+    public static final String RG_SOURCE_MODE = "replaygain_srource_mode";
+    public static final String RG_PREAMP_WITH_TAG = "replaygain_preamp_with_tag";
+    public static final String RG_PREAMP_WITHOUT_TAG = "replaygain_preamp_without_tag";
+
     private static PreferenceUtil sInstance;
 
     private final SharedPreferences mPreferences;
@@ -574,5 +578,35 @@ public final class PreferenceUtil {
         defaultCategoryInfos.add(new CategoryInfo(CategoryInfo.Category.GENRES, true));
         defaultCategoryInfos.add(new CategoryInfo(CategoryInfo.Category.PLAYLISTS, true));
         return defaultCategoryInfos;
+    }
+
+    public byte getReplayGainSourceMode() {
+        byte sourceMode = 0;
+
+        switch (mPreferences.getString(RG_SOURCE_MODE, "none")) {
+            case "track":
+                sourceMode = 1;
+                break;
+            case "album":
+                sourceMode = 2;
+                break;
+        }
+
+        return sourceMode;
+    }
+
+    public float getRgPreampWithTag() {
+        return mPreferences.getFloat(RG_PREAMP_WITH_TAG, 0.0f);
+    }
+
+    public float getRgPreampWithoutTag() {
+        return mPreferences.getFloat(RG_PREAMP_WITHOUT_TAG, 0.0f);
+    }
+
+    public void setReplayGainPreamp(float with, float without) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putFloat(RG_PREAMP_WITH_TAG, with);
+        editor.putFloat(RG_PREAMP_WITHOUT_TAG, without);
+        editor.apply();
     }
 }
