@@ -31,8 +31,8 @@ public class PreAmpPreferenceDialog extends DialogFragment implements SeekBar.On
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     View view = getActivity().getLayoutInflater().inflate(R.layout.preference_dialog_rg_preamp, null);
 
-    withRgValue = PreferenceUtil.getInstance().getRgPreampWithTag();
-    withoutRgValue = PreferenceUtil.getInstance().getRgPreampWithoutTag();
+    withRgValue = PreferenceUtil.getInstance(getActivity()).getRgPreampWithTag();
+    withoutRgValue = PreferenceUtil.getInstance(getActivity()).getRgPreampWithoutTag();
 
     labelWithRg = view.findViewById(R.id.label_with_rg);
     labelWithoutRg = view.findViewById(R.id.label_without_rg);
@@ -66,7 +66,7 @@ public class PreAmpPreferenceDialog extends DialogFragment implements SeekBar.On
   }
 
   private void updateAndClose() {
-    PreferenceUtil.getInstance().setReplayGainPreamp(withRgValue, withoutRgValue);
+    PreferenceUtil.getInstance(getActivity()).setReplayGainPreamp(withRgValue, withoutRgValue);
     dismiss();
   }
 

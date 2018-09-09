@@ -585,7 +585,7 @@ public final class PreferenceUtil {
 
         switch (mPreferences.getString(RG_SOURCE_MODE, "none")) {
             case "track":
-                sourceMode = 1;
+                sourceMode = 1; // TODO Get rid of hard coded constants
                 break;
             case "album":
                 sourceMode = 2;

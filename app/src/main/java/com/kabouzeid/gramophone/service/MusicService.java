@@ -26,7 +26,6 @@ import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetBig;
@@ -34,8 +33,6 @@ import com.kabouzeid.gramophone.appwidgets.AppWidgetCard;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetClassic;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetSmall;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
-import com.kabouzeid.gramophone.glide.GlideApp;
-import com.kabouzeid.gramophone.glide.GlideRequest;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
@@ -882,7 +879,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     private void applyReplayGain() {
-        byte mode = PreferenceUtil.getInstance().getReplayGainSourceMode();
+        final PreferenceUtil pref = PreferenceUtil.getInstance(getApplicationContext());
+        byte mode = pref.getReplayGainSourceMode();
         if (mode != 0) {
             Song song = getCurrentSong();
 
@@ -903,9 +901,9 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             }
 
             if (adjust == 0) {
-                adjust = PreferenceUtil.getInstance().getRgPreampWithoutTag();
+                adjust = pref.getRgPreampWithoutTag();
             } else {
-                adjust += PreferenceUtil.getInstance().getRgPreampWithTag();
+                adjust += pref.getRgPreampWithTag();
             }
 
             float rgResult = ((float) Math.pow(10, (adjust / 20)));
@@ -1157,9 +1155,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             case PreferenceUtil.CLASSIC_NOTIFICATION:
                 initNotification();
                 updateNotification();
-                break;
-            case PreferenceUtil.TRANSPARENT_BACKGROUND_WIDGET:
-                sendChangeInternal(MusicService.TRANSPARENT_WIDGET_CHANGED);
                 break;
             case PreferenceUtil.RG_SOURCE_MODE:
                 applyReplayGain();
