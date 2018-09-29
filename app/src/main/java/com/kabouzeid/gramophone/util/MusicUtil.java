@@ -55,17 +55,32 @@ public class MusicUtil {
 
     @NonNull
     public static Intent createShareSongFileIntent(@NonNull final Song song, Context context) {
+        Cursor mediaCursor = null;
+
         try {
+            // I don't know if every Song object belongs to a content queried from content provider
+            // so this tests whether it can create intent with not exposed data path
+            Uri externalUri = getSongFileUri(song.id);
+            mediaCursor = context.getContentResolver()
+                    .query(externalUri, null, null, null, null);
+
+            Log.d(MusicUtil.class.getSimpleName(), "Sharing content uri: " + externalUri);
+
             return new Intent()
                     .setAction(Intent.ACTION_SEND)
-                    .putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName(), new File(song.data)))
                     .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    .setType("audio/*");
+                    .setType("audio/*")
+                    .putExtra(Intent.EXTRA_STREAM, mediaCursor != null && mediaCursor.moveToFirst()
+                            ? externalUri
+                            : FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName(), new File(song.data)));
         } catch (IllegalArgumentException e) {
             // TODO the path is most likely not like /storage/emulated/0/... but something like /storage/28C7-75B0/...
             e.printStackTrace();
             Toast.makeText(context, "Could not share this file, I'm aware of the issue.", Toast.LENGTH_SHORT).show();
             return new Intent();
+        } finally {
+            if (mediaCursor != null && !mediaCursor.isClosed())
+                mediaCursor.close();
         }
     }
 
