@@ -61,11 +61,10 @@ android {
     }
     signingConfigs {
         release {
-            Properties properties = getProperties('/Users/karim/Documents/PhonographRessources/privatekeys/keystore.properties')
-            storeFile file(getProperty(properties, 'storeFile'))
-            keyAlias getProperty(properties, 'keyAlias')
-            storePassword getProperty(properties, 'storePassword')
-            keyPassword getProperty(properties, 'keyPassword')
+            storeFile file("phono-unsecured.jks")
+            keyAlias = "phono-unsecured"
+            storePassword = "phono-unsecured"
+            keyPassword = "phono-unsecured"
         }
     }
     buildTypes {
@@ -74,6 +73,12 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    def date = new Date().format('yyyyMMdd-HHmm')
+                    outputFileName = "phono-release-" + gitBranch() + date + ".apk"
+                }
+            }
         }
         debug {
             applicationIdSuffix '.debug'
