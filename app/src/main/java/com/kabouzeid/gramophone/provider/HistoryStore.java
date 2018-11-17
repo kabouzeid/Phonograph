@@ -24,8 +24,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.kabouzeid.gramophone.util.PreferenceUtil;
+
 public class HistoryStore extends SQLiteOpenHelper {
-    private static final int MAX_ITEMS_IN_DB = 100;
+    private static final int MAX_ITEMS_IN_DB = 5000;
 
     public static final String DATABASE_NAME = "history.db";
     private static final int VERSION = 1;
@@ -136,10 +138,15 @@ public class HistoryStore extends SQLiteOpenHelper {
         return containsId;
     }
 
-    public Cursor queryRecentIds() {
+    public Cursor queryRecentIds(@NonNull Context context) {
+        long cutoff = PreferenceUtil.getInstance(context).getRecentlyPlayedCutoff();
+
         final SQLiteDatabase database = getReadableDatabase();
         return database.query(RecentStoreColumns.NAME,
-                new String[]{RecentStoreColumns.ID}, null, null, null, null,
+                new String[]{RecentStoreColumns.ID}, 
+                RecentStoreColumns.TIME_PLAYED + ">?",
+                new String[]{String.valueOf(cutoff)}, 
+                null, null,
                 RecentStoreColumns.TIME_PLAYED + " DESC");
     }
 

@@ -19,6 +19,7 @@ package com.kabouzeid.gramophone.loader;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.BaseColumns;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -34,6 +35,23 @@ public class TopAndRecentlyPlayedTracksLoader {
     @NonNull
     public static ArrayList<Song> getRecentlyPlayedTracks(@NonNull Context context) {
         return SongLoader.getSongs(makeRecentTracksCursorAndClearUpDatabase(context));
+    }
+
+    @NonNull
+    public static ArrayList<Song> getNotPlayedLatelyTracks
+(@NonNull Context context) {
+        ArrayList<Song> allSongs = SongLoader.getSongs(
+            SongLoader.makeSongCursor(
+                context, 
+                null, null,
+                MediaStore.Audio.Media.DATE_ADDED + " ASC"));
+
+        ArrayList<Song> recentlyPlayedSongs = SongLoader.getSongs(
+            makeRecentTracksCursorAndClearUpDatabase(context));
+
+        allSongs.removeAll(recentlyPlayedSongs);
+
+        return allSongs;
     }
 
     @NonNull
@@ -76,7 +94,7 @@ public class TopAndRecentlyPlayedTracksLoader {
     @Nullable
     private static SortedLongCursor makeRecentTracksCursorImpl(@NonNull final Context context) {
         // first get the top results ids from the internal database
-        Cursor songs = HistoryStore.getInstance(context).queryRecentIds();
+        Cursor songs = HistoryStore.getInstance(context).queryRecentIds(context);
 
         try {
             return makeSortedCursor(context, songs,
