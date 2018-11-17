@@ -60,6 +60,7 @@ public final class PreferenceUtil {
     public static final String GAPLESS_PLAYBACK = "gapless_playback";
 
     public static final String LAST_ADDED_CUTOFF = "last_added_interval";
+    public static final String LAST_PLAYED_CUTOFF = "last_played_interval";
 
     public static final String ALBUM_ART_ON_LOCKSCREEN = "album_art_on_lockscreen";
     public static final String BLURRED_ALBUM_ART = "blurred_album_art";
@@ -267,10 +268,20 @@ public final class PreferenceUtil {
     }
 
     public long getLastAddedCutoff() {
+        return getCutoff(LAST_ADDED_CUTOFF);
+    }
+
+    public long getRecentlyPlayedCutoff() {
+        return getCutoff(LAST_PLAYED_CUTOFF);
+    }
+
+    private long getCutoff(final String cutoff) {
+        // TODO Show the effective value on the name of the playlist
+        // i.e. "Last added (last 3 months)"
         final CalendarUtil calendarUtil = new CalendarUtil();
         long interval;
 
-        switch (mPreferences.getString(LAST_ADDED_CUTOFF, "")) {
+        switch (mPreferences.getString(cutoff, "")) {
             case "today":
                 interval = calendarUtil.getElapsedToday();
                 break;
