@@ -29,6 +29,21 @@ public class CalendarUtil {
     }
 
     /**
+     * Returns the time elapsed so far last N days in milliseconds.
+     *
+     * @return Time elapsed since N days in milliseconds.
+     */
+    public long getElapsedDays(int numDays) {
+        long elapsed = getElapsedToday();
+
+        if (numDays > 0) {
+            elapsed += numDays * MS_PER_DAY;
+        }
+
+        return elapsed;
+    }
+
+     /**
      * Returns the time elapsed so far this week in milliseconds.
      *
      * @return Time elapsed this week in milliseconds.
