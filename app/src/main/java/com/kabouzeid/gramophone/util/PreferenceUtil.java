@@ -290,6 +290,10 @@ public final class PreferenceUtil {
                 interval = calendarUtil.getElapsedWeek();
                 break;
 
+             case "past_seven_days":
+                interval = calendarUtil.getElapsedDays(7);
+                break;
+
             case "past_three_months":
                 interval = calendarUtil.getElapsedMonths(3);
                 break;
