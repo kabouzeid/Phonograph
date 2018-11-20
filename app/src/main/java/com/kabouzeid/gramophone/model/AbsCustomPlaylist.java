@@ -34,7 +34,7 @@ public abstract class AbsCustomPlaylist extends Playlist {
     public String getInfoString(@NonNull Context context) {
         String baseInfo = super.getInfoString(context);
 
-        int songCount = getSongs(context).size(); // TODO Performance pernalty?
+        int songCount = getSongs(context).size();
         String songCountText = (songCount == 0) ?
             context.getString(R.string.no_songs) :
             String.valueOf(songCount) + " " + context.getString(R.string.songs);

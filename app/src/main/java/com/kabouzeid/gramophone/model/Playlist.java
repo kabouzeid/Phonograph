@@ -24,7 +24,7 @@ public class Playlist implements Parcelable {
 
     @NonNull
     public String getInfoString(@NonNull Context context) {
-        return ""; //TODO Return the number of songs
+        return "";
     }
 
     @Override
