@@ -10,6 +10,7 @@ import android.support.annotation.StyleRes;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.SortOrder;
 import com.kabouzeid.gramophone.model.CategoryInfo;
@@ -267,17 +268,46 @@ public final class PreferenceUtil {
         return mPreferences.getString(GENRE_SORT_ORDER, SortOrder.GenreSortOrder.GENRE_A_Z);
     }
 
-    public long getLastAddedCutoff() {
-        return getCutoff(LAST_ADDED_CUTOFF);
+    public String getLastAddedCutoffText(Context context) {
+        return getCutoffText(LAST_ADDED_CUTOFF, context);
     }
 
-    public long getRecentlyPlayedCutoff() {
-        return getCutoff(LAST_PLAYED_CUTOFF);
+    public String getRecentlyPlayedCutoffText(Context context) {
+        return getCutoffText(LAST_PLAYED_CUTOFF, context);
     }
 
-    private long getCutoff(final String cutoff) {
-        // TODO Show the effective value on the name of the playlist
-        // i.e. "Last added (last 3 months)"
+    private String getCutoffText(final String cutoff, Context context) {
+        switch (mPreferences.getString(cutoff, "")) {
+            case "today":
+                return context.getString(R.string.today);
+
+            case "this_week":
+                return context.getString(R.string.this_week);
+
+             case "past_seven_days":
+                 return context.getString(R.string.past_seven_days);
+
+            case "past_three_months":
+                return context.getString(R.string.past_three_months);
+
+            case "this_year":
+                return context.getString(R.string.this_year);
+
+            case "this_month":
+            default:
+                return context.getString(R.string.this_month);
+        }
+    }
+
+    public long getLastAddedCutoffTime() {
+        return getCutoffTime(LAST_ADDED_CUTOFF);
+    }
+
+    public long getRecentlyPlayedCutoffTime() {
+        return getCutoffTime(LAST_PLAYED_CUTOFF);
+    }
+
+    private long getCutoffTime(final String cutoff) {
         final CalendarUtil calendarUtil = new CalendarUtil();
         long interval;
 
