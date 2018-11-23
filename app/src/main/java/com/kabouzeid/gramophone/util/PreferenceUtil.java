@@ -267,17 +267,15 @@ public final class PreferenceUtil {
         return mPreferences.getString(GENRE_SORT_ORDER, SortOrder.GenreSortOrder.GENRE_A_Z);
     }
 
-    public long getLastAddedCutoff() {
-        return getCutoff(LAST_ADDED_CUTOFF);
+    public long getLastAddedCutoffTimeSecs() {
+        return getCutoffTimeMillis(LAST_ADDED_CUTOFF) / 1000;
     }
 
-    public long getRecentlyPlayedCutoff() {
-        return getCutoff(LAST_PLAYED_CUTOFF);
+    public long getRecentlyPlayedCutoffTimeMillis() {
+        return getCutoffTimeMillis(LAST_PLAYED_CUTOFF);
     }
 
-    private long getCutoff(final String cutoff) {
-        // TODO Show the effective value on the name of the playlist
-        // i.e. "Last added (last 3 months)"
+    private long getCutoffTimeMillis(final String cutoff) {
         final CalendarUtil calendarUtil = new CalendarUtil();
         long interval;
 
@@ -304,7 +302,7 @@ public final class PreferenceUtil {
                 break;
         }
 
-        return (System.currentTimeMillis() - interval) / 1000;
+        return (System.currentTimeMillis() - interval);
     }
 
     public int getLastSleepTimerValue() {
