@@ -299,15 +299,15 @@ public final class PreferenceUtil {
         }
     }
 
-    public long getLastAddedCutoffTime() {
-        return getCutoffTime(LAST_ADDED_CUTOFF);
+    public long getLastAddedCutoffTimeSecs() {
+        return getCutoffTimeMillis(LAST_ADDED_CUTOFF) / 1000;
     }
 
-    public long getRecentlyPlayedCutoffTime() {
-        return getCutoffTime(LAST_PLAYED_CUTOFF);
+    public long getRecentlyPlayedCutoffTimeMillis() {
+        return getCutoffTimeMillis(LAST_PLAYED_CUTOFF);
     }
 
-    private long getCutoffTime(final String cutoff) {
+    private long getCutoffTimeMillis(final String cutoff) {
         final CalendarUtil calendarUtil = new CalendarUtil();
         long interval;
 
@@ -338,7 +338,7 @@ public final class PreferenceUtil {
                 break;
         }
 
-        return (System.currentTimeMillis() - interval) / 1000;
+        return (System.currentTimeMillis() - interval);
     }
 
     public int getLastSleepTimerValue() {

@@ -139,9 +139,10 @@ public class HistoryStore extends SQLiteOpenHelper {
     }
 
     public Cursor queryRecentIds(@NonNull Context context) {
-        long cutoff = PreferenceUtil.getInstance(context).getRecentlyPlayedCutoffTime();
+        long cutoff = PreferenceUtil.getInstance(context).getRecentlyPlayedCutoffTimeMillis();
 
         final SQLiteDatabase database = getReadableDatabase();
+
         return database.query(RecentStoreColumns.NAME,
                 new String[]{RecentStoreColumns.ID}, 
                 RecentStoreColumns.TIME_PLAYED + ">?",
