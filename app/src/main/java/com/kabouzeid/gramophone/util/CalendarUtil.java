@@ -46,6 +46,16 @@ public class CalendarUtil {
     }
 
     /**
+     * @author milsegv
+     * Returns the time in a week in milliseconds.
+     *
+     * @return Time elapsed in a week in milliseconds
+     */
+    public long getWeekDuration() {
+        return MS_PER_DAY * 7;
+    }
+
+    /**
      * Returns the time elapsed so far this month in milliseconds.
      *
      * @return Time elapsed this month in milliseconds.
@@ -82,6 +92,38 @@ public class CalendarUtil {
 
         return elapsed;
     }
+
+    /**
+     * @author milsegv
+     * Returns the time in a month in milliseconds (the month has 31 days)
+     *
+     * @return Time elapsed in a month in milliseconds
+     */
+    public long getMonthDuration() {
+        return MS_PER_DAY * 31;
+    }
+
+    /**
+     * @author milsegv
+     * Returns the time elapsed in numMonths in milliseconds
+     *
+     * @param numMonths The number of months to consider
+     * @return Time elapsed in numMonths in milliseconds
+     */
+    public long getMonthDuration(int numMonths) {
+        return MS_PER_DAY * 31 * numMonths;
+    }
+
+    /**
+     * @author milsegv
+     * Returns the time elapsed in a year in milliseconds
+     *
+     * @return Time elapsed in a year in milliseconds
+     */
+    public long getYearDuration() {
+        return MS_PER_DAY * 365;
+    }
+
 
     /**
      * Returns the time elapsed so far this year in milliseconds.

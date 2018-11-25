@@ -276,20 +276,20 @@ public final class PreferenceUtil {
                 break;
 
             case "this_week":
-                interval = calendarUtil.getElapsedWeek();
+                interval = calendarUtil.getWeekDuration();
                 break;
 
             case "past_three_months":
-                interval = calendarUtil.getElapsedMonths(3);
+                interval = calendarUtil.getMonthDuration(3);
                 break;
 
             case "this_year":
-                interval = calendarUtil.getElapsedYear();
+                interval = calendarUtil.getYearDuration();
                 break;
 
             case "this_month":
             default:
-                interval = calendarUtil.getElapsedMonth();
+                interval = calendarUtil.getMonthDuration();
                 break;
         }
 
