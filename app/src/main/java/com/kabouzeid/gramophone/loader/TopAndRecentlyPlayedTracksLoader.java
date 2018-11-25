@@ -38,8 +38,7 @@ public class TopAndRecentlyPlayedTracksLoader {
     }
 
     @NonNull
-    public static ArrayList<Song> getNotPlayedLatelyTracks
-(@NonNull Context context) {
+    public static ArrayList<Song> getNotPlayedLatelyTracks(@NonNull Context context) {
         ArrayList<Song> allSongs = SongLoader.getSongs(
             SongLoader.makeSongCursor(
                 context, 
