@@ -112,6 +112,7 @@ public class SongLoader {
         // Blacklist
         ArrayList<String> paths = BlacklistStore.getInstance(context).getPaths();
         if (!paths.isEmpty()) {
+            // TODO sqlite limits the ?argument count to 1000
             selection = generateBlacklistSelection(selection, paths.size());
             selectionValues = addBlacklistSelectionValues(selectionValues, paths);
         }
