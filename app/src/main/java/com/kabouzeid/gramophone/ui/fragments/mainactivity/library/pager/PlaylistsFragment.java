@@ -16,7 +16,7 @@ import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.smartplaylist.HistoryPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.LastAddedPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.MyTopTracksPlaylist;
-import com.kabouzeid.gramophone.model.smartplaylist.NotPlayedLatelyPlaylist;
+import com.kabouzeid.gramophone.model.smartplaylist.NotRecentlyPlayedPlaylist;
 
 import java.util.ArrayList;
 
@@ -81,7 +81,7 @@ public class PlaylistsFragment extends AbsLibraryPagerRecyclerViewFragment<Playl
 
             playlists.add(new LastAddedPlaylist(context));
             playlists.add(new HistoryPlaylist(context));
-            playlists.add(new NotPlayedLatelyPlaylist(context));
+            playlists.add(new NotRecentlyPlayedPlaylist(context));
             playlists.add(new MyTopTracksPlaylist(context));
 
             playlists.addAll(PlaylistLoader.getAllPlaylists(context));
