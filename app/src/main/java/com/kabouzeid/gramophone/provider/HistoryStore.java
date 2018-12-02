@@ -24,8 +24,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.kabouzeid.gramophone.util.PreferenceUtil;
-
 public class HistoryStore extends SQLiteOpenHelper {
     private static final int MAX_ITEMS_IN_DB = 5000;
 
