@@ -24,8 +24,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.kabouzeid.gramophone.util.PreferenceUtil;
-
 public class HistoryStore extends SQLiteOpenHelper {
     private static final int MAX_ITEMS_IN_DB = 5000;
 
@@ -138,9 +136,7 @@ public class HistoryStore extends SQLiteOpenHelper {
         return containsId;
     }
 
-    public Cursor queryRecentIds(@NonNull Context context) {
-        long cutoff = PreferenceUtil.getInstance(context).getRecentlyPlayedCutoffTimeMillis();
-
+    public Cursor queryRecentIds(long cutoff) {
         final SQLiteDatabase database = getReadableDatabase();
 
         return database.query(RecentStoreColumns.NAME,
