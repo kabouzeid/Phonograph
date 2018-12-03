@@ -35,10 +35,7 @@ public class CalendarUtil {
      */
     public long getElapsedDays(int numDays) {
         long elapsed = getElapsedToday();
-
-        if (numDays > 0) {
-            elapsed += numDays * MS_PER_DAY;
-        }
+        elapsed += numDays * MS_PER_DAY;
 
         return elapsed;
     }
