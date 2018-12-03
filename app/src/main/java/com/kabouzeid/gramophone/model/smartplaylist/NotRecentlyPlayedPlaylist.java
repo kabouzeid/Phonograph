@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class NotRecentlyPlayedPlaylist extends AbsSmartPlaylist {
 
     public NotRecentlyPlayedPlaylist(@NonNull Context context) {
-        super(context.getString(R.string.not_recently_played), R.drawable.ic_library_music_white_24dp);
+        super(context.getString(R.string.not_recently_played), R.drawable.ic_watch_later_black_24dp);
     }
 
     @NonNull
