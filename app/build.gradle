@@ -47,7 +47,7 @@ static def getProperty(@Nullable Properties properties, String name) {
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.3'
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 27
