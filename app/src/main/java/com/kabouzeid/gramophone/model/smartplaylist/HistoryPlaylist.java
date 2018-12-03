@@ -25,7 +25,7 @@ public class HistoryPlaylist extends AbsSmartPlaylist {
     @Override
     public String getInfoString(@NonNull Context context) {
         String baseInfo = super.getInfoString(context);
-    	String cutoff = PreferenceUtil.getInstance(context).getRecentlyPlayedCutoffText(context);
+        String cutoff = PreferenceUtil.getInstance(context).getRecentlyPlayedCutoffText(context);
 
         if (baseInfo.isEmpty()) {return cutoff;}
         return cutoff + INFO_STRING_SEPARATOR + baseInfo;
