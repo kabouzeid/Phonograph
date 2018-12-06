@@ -30,7 +30,6 @@ import com.kabouzeid.gramophone.model.AbsCustomPlaylist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
-import com.kabouzeid.gramophone.model.smartplaylist.LastAddedPlaylist;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
@@ -144,7 +143,9 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                     Playlist playlist = selection.get(i);
                     if (playlist instanceof AbsSmartPlaylist) {
                         AbsSmartPlaylist absSmartPlaylist = (AbsSmartPlaylist) playlist;
-                        ClearSmartPlaylistDialog.create(absSmartPlaylist).show(activity.getSupportFragmentManager(), "CLEAR_PLAYLIST_" + absSmartPlaylist.name);
+                        if (absSmartPlaylist.isClearable()) {
+                            ClearSmartPlaylistDialog.create(absSmartPlaylist).show(activity.getSupportFragmentManager(), "CLEAR_PLAYLIST_" + absSmartPlaylist.name);
+                        }
                         selection.remove(playlist);
                         i--;
                     }
@@ -241,20 +242,26 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                 menu.setOnClickListener(view -> {
                     final Playlist playlist = dataSet.get(getAdapterPosition());
                     final PopupMenu popupMenu = new PopupMenu(activity, view);
-                    popupMenu.inflate(getItemViewType() == SMART_PLAYLIST ? R.menu.menu_item_smart_playlist : R.menu.menu_item_playlist);
-                    if (playlist instanceof LastAddedPlaylist) {
-                        popupMenu.getMenu().findItem(R.id.action_clear_playlist).setVisible(false);
-                    }
-                    popupMenu.setOnMenuItemClickListener(item -> {
-                        if (item.getItemId() == R.id.action_clear_playlist) {
-                            if (playlist instanceof AbsSmartPlaylist) {
-                                ClearSmartPlaylistDialog.create((AbsSmartPlaylist) playlist).show(activity.getSupportFragmentManager(), "CLEAR_SMART_PLAYLIST_" + playlist.name);
+                    if (playlist instanceof AbsSmartPlaylist) {
+                        popupMenu.inflate(R.menu.menu_item_smart_playlist);
+                        final AbsSmartPlaylist smartPlaylist = (AbsSmartPlaylist) playlist;
+                        popupMenu.getMenu().findItem(R.id.action_clear_playlist).setVisible(smartPlaylist.isClearable());
+                        popupMenu.setOnMenuItemClickListener(item -> {
+                            if (item.getItemId() == R.id.action_clear_playlist) {
+                                ClearSmartPlaylistDialog.create(smartPlaylist).show(activity.getSupportFragmentManager(), "CLEAR_SMART_PLAYLIST_" + smartPlaylist.name);
                                 return true;
                             }
-                        }
-                        return PlaylistMenuHelper.handleMenuClick(
+                            return PlaylistMenuHelper.handleMenuClick(
                                 activity, dataSet.get(getAdapterPosition()), item);
-                    });
+                        });
+                    }
+					else {
+                        popupMenu.inflate(R.menu.menu_item_playlist);
+                        popupMenu.setOnMenuItemClickListener(item -> {
+                            return PlaylistMenuHelper.handleMenuClick(
+                                activity, dataSet.get(getAdapterPosition()), item);
+                        });
+                    }
                     popupMenu.show();
                 });
             }

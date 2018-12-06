@@ -29,6 +29,10 @@ public class LastAddedPlaylist extends AbsSmartPlaylist {
     public void clear(@NonNull Context context) {
     }
 
+    @Override
+    public boolean isClearable() {
+        return false;
+    }
 
     @Override
     public int describeContents() {

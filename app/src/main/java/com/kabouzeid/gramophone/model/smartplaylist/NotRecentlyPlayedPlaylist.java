@@ -28,9 +28,12 @@ public class NotRecentlyPlayedPlaylist extends AbsSmartPlaylist {
 
     @Override
     public void clear(@NonNull Context context) {
-        HistoryStore.getInstance(context).clear();
     }
 
+    @Override
+    public boolean isClearable() {
+        return false;
+    }
 
     @Override
     public int describeContents() {
