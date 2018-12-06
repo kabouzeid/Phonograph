@@ -245,7 +245,9 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                     if (playlist instanceof AbsSmartPlaylist) {
                         popupMenu.inflate(R.menu.menu_item_smart_playlist);
                         final AbsSmartPlaylist smartPlaylist = (AbsSmartPlaylist) playlist;
-                        popupMenu.getMenu().findItem(R.id.action_clear_playlist).setVisible(smartPlaylist.isClearable());
+                        if (!smartPlaylist.isClearable()) {
+                            popupMenu.getMenu().findItem(R.id.action_clear_playlist).setVisible(false);
+                        }
                         popupMenu.setOnMenuItemClickListener(item -> {
                             if (item.getItemId() == R.id.action_clear_playlist) {
                                 ClearSmartPlaylistDialog.create(smartPlaylist).show(activity.getSupportFragmentManager(), "CLEAR_SMART_PLAYLIST_" + smartPlaylist.name);
@@ -255,7 +257,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                                 activity, dataSet.get(getAdapterPosition()), item);
                         });
                     }
-					else {
+                    else {
                         popupMenu.inflate(R.menu.menu_item_playlist);
                         popupMenu.setOnMenuItemClickListener(item -> {
                             return PlaylistMenuHelper.handleMenuClick(
