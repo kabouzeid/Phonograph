@@ -37,4 +37,13 @@
         <item name="android:transitionName" tools:ignore="NewApi">toolbar</item>
     </style>
 
+    <style name="TabLayoutStyle" parent="Base.Widget.Design.TabLayout">
+        <item name="tabIndicator">@drawable/tab_indicator</item>
+        <item name="tabIndicatorFullWidth">false</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabIndicatorHeight">4dp</item>
+        <item name="tabInlineLabel">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>
