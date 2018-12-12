@@ -40,6 +40,7 @@
     <style name="TabLayoutStyle" parent="Base.Widget.Design.TabLayout">
         <item name="tabIndicator">@drawable/tab_indicator</item>
         <item name="tabIndicatorFullWidth">false</item>
+        <item name="tabIndicatorAnimationDuration">@android:integer/config_mediumAnimTime</item>
         <item name="tabGravity">fill</item>
         <item name="tabIndicatorHeight">4dp</item>
         <item name="tabInlineLabel">true</item>
