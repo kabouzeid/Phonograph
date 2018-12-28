@@ -17,12 +17,26 @@
         seekarc:SeekArc_startAngle="30"
         seekarc:SeekArc_sweepAngle="300" />
 
-    <TextView
-        android:id="@+id/timer_display"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textAppearance="?android:textAppearanceLarge" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/timer_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAppearance="?android:textAppearanceLarge" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:text="@string/finish_current_music_sleep_timer" />
+    </LinearLayout>
 
 </FrameLayout>
 

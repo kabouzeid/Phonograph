@@ -3,14 +3,18 @@ package com.kabouzeid.gramophone.dialogs;
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,10 +41,43 @@ public class SleepTimerDialog extends DialogFragment {
     SeekArc seekArc;
     @BindView(R.id.timer_display)
     TextView timerDisplay;
+    @BindView(R.id.checkBox)
+    CheckBox checkBox;
 
     private int seekArcProgress;
     private MaterialDialog materialDialog;
     private TimerUpdater timerUpdater;
+
+    private MusicService mMusicService = null;
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
+            mMusicService = binder.getService();
+
+            UpdateCancelButton();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mMusicService = null;
+        }
+    };
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Intent intent = new Intent(getContext(), MusicService.class);
+        getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mMusicService != null) {
+            getActivity().unbindService(mConnection);
+        }
+    }
 
     @Override
     public void onDismiss(DialogInterface dialog) {
@@ -65,11 +102,13 @@ public class SleepTimerDialog extends DialogFragment {
                         return;
                     }
 
+                    PreferenceUtil.getInstance(getActivity()).setSleepTimerFinishMusic(checkBox.isChecked());
+
                     final int minutes = seekArcProgress;
 
                     PendingIntent pi = makeTimerPendingIntent(PendingIntent.FLAG_CANCEL_CURRENT);
 
-                    final long nextSleepTimerElapsedTime = SystemClock.elapsedRealtime() + minutes * 60 * 1000;
+                    final long nextSleepTimerElapsedTime = SystemClock.elapsedRealtime() + minutes * 1000;
                     PreferenceUtil.getInstance(getActivity()).setNextSleepTimerElapsedRealtime(nextSleepTimerElapsedTime);
                     AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
                     am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextSleepTimerElapsedTime, pi);
@@ -87,6 +126,11 @@ public class SleepTimerDialog extends DialogFragment {
                         previous.cancel();
                         Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_canceled), Toast.LENGTH_SHORT).show();
                     }
+
+                    if (mMusicService != null && mMusicService.pendingQuit) {
+                        mMusicService.pendingQuit = false;
+                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_canceled), Toast.LENGTH_SHORT).show();
+                    }
                 })
                 .showListener(dialog -> {
                     if (makeTimerPendingIntent(PendingIntent.FLAG_NO_CREATE) != null) {
@@ -101,6 +145,9 @@ public class SleepTimerDialog extends DialogFragment {
         }
 
         ButterKnife.bind(this, materialDialog.getCustomView());
+
+        boolean checked = PreferenceUtil.getInstance(getActivity()).getSleepTimerFinishMusic();
+        checkBox.setChecked(checked);
 
         seekArc.setProgressColor(ThemeSingleton.get().positiveColor.getDefaultColor());
         seekArc.setThumbColor(ThemeSingleton.get().positiveColor.getDefaultColor());
@@ -153,8 +200,20 @@ public class SleepTimerDialog extends DialogFragment {
     }
 
     private Intent makeTimerIntent() {
+        if (checkBox.isChecked()) {
+            return new Intent(getActivity(), MusicService.class)
+                    .setAction(MusicService.ACTION_PENDING_QUIT);
+        }
         return new Intent(getActivity(), MusicService.class)
                 .setAction(MusicService.ACTION_QUIT);
+    }
+
+    private void UpdateCancelButton() {
+        if (mMusicService != null && mMusicService.pendingQuit) {
+            materialDialog.setActionButton(DialogAction.NEUTRAL, materialDialog.getContext().getString(R.string.cancel_current_timer));
+        } else {
+            materialDialog.setActionButton(DialogAction.NEUTRAL, null);
+        }
     }
 
     private class TimerUpdater extends CountDownTimer {
@@ -169,7 +228,7 @@ public class SleepTimerDialog extends DialogFragment {
 
         @Override
         public void onFinish() {
-            materialDialog.setActionButton(DialogAction.NEUTRAL, null);
+            UpdateCancelButton();
         }
     }
 }

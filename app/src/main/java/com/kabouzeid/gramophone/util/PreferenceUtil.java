@@ -67,6 +67,7 @@ public final class PreferenceUtil {
 
     public static final String LAST_SLEEP_TIMER_VALUE = "last_sleep_timer_value";
     public static final String NEXT_SLEEP_TIMER_ELAPSED_REALTIME = "next_sleep_timer_elapsed_real_time";
+    public static final String TIMER_FINISH_MUSIC = "sleep_timer_finish_music";
 
     public static final String IGNORE_MEDIA_STORE_ARTWORK = "ignore_media_store_artwork";
 
@@ -328,6 +329,16 @@ public final class PreferenceUtil {
     public void setNextSleepTimerElapsedRealtime(final long value) {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putLong(NEXT_SLEEP_TIMER_ELAPSED_REALTIME, value);
+        editor.apply();
+    }
+
+    public boolean getSleepTimerFinishMusic() {
+        return mPreferences.getBoolean(TIMER_FINISH_MUSIC, false);
+    }
+
+    public void setSleepTimerFinishMusic(final boolean value) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putBoolean(TIMER_FINISH_MUSIC, value);
         editor.apply();
     }
 
