@@ -34,7 +34,7 @@
             android:positiveButtonText="@null"
             android:title="@string/pref_title_rg_source_mode" />
 
-        <com.poupa.vinylmusicplayer.preferences.PreAmpPreference
+        <com.kabouzeid.gramophone.preferences.PreAmpPreference
             android:key="replaygain_preamp"
             android:summary="@string/pref_summary_rg_preamp"
             android:title="@string/pref_title_rg_preamp"

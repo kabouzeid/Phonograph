@@ -48,6 +48,8 @@ public class SongDetailDialog extends DialogFragment {
         return Html.fromHtml("<b>" + context.getResources().getString(titleResId) + ": " + "</b>" + text);
     }
 
+    // TODO Show the ReplayGain info
+
     private static String getFileSizeString(long sizeInBytes) {
         long fileSizeInKB = sizeInBytes / 1024;
         long fileSizeInMB = fileSizeInKB / 1024;

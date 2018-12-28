@@ -1,4 +1,4 @@
-package com.poupa.vinylmusicplayer.preferences;
+package com.kabouzeid.gramophone.preferences;
 
 import android.app.Dialog;
 import android.graphics.PorterDuff;
@@ -10,8 +10,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.appthemehelper.ThemeStore;
-import com.poupa.vinylmusicplayer.R;
-import com.poupa.vinylmusicplayer.util.PreferenceUtil;
+import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import java.util.Locale;
 
 public class PreAmpPreferenceDialog extends DialogFragment implements SeekBar.OnSeekBarChangeListener {

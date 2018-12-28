@@ -1,6 +1,6 @@
-package com.poupa.vinylmusicplayer.loader;
+package com.kabouzeid.gramophone.loader;
 
-import com.poupa.vinylmusicplayer.model.Song;
+import com.kabouzeid.gramophone.model.Song;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;

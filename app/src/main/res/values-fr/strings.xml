@@ -293,8 +293,6 @@
     <string name="sort_order_artist">Artiste</string>
     <string name="sort_order_album">Album</string>
     <string name="sort_order_year">Année</string>
-    <string name="action_scan_directory">Scanner dossier</string>
-    <string name="scan_media">Scanner bibliothèque</string>
     <string name="pref_summary_widget_background_transparent">Rend le fond des widgets transparents.</string>
     <string name="pref_title_widget_background_transparent">Fond des widgets transparents</string>
     <string name="karim_abou_zeid_summary">Auteur original.</string>

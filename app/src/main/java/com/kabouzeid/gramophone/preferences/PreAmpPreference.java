@@ -1,4 +1,4 @@
-package com.poupa.vinylmusicplayer.preferences;
+package com.kabouzeid.gramophone.preferences;
 
 import android.content.Context;
 import android.util.AttributeSet;
