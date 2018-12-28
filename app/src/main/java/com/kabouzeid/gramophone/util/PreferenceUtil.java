@@ -92,6 +92,10 @@ public final class PreferenceUtil {
     public static final String RG_PREAMP_WITH_TAG = "replaygain_preamp_with_tag";
     public static final String RG_PREAMP_WITHOUT_TAG = "replaygain_preamp_without_tag";
 
+    public static final byte RG_SOURCE_MODE_NONE = 0;
+    public static final byte RG_SOURCE_MODE_TRACK = 1;
+    public static final byte RG_SOURCE_MODE_ALBUM = 2;
+
     private static PreferenceUtil sInstance;
 
     private final SharedPreferences mPreferences;
@@ -581,14 +585,14 @@ public final class PreferenceUtil {
     }
 
     public byte getReplayGainSourceMode() {
-        byte sourceMode = 0;
+        byte sourceMode = RG_SOURCE_MODE_NONE;
 
         switch (mPreferences.getString(RG_SOURCE_MODE, "none")) {
             case "track":
-                sourceMode = 1; // TODO Get rid of hard coded constants
+                sourceMode = RG_SOURCE_MODE_TRACK;
                 break;
             case "album":
-                sourceMode = 2;
+                sourceMode = RG_SOURCE_MODE_ALBUM;
                 break;
         }
 

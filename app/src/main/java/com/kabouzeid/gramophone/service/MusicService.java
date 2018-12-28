@@ -881,7 +881,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private void applyReplayGain() {
         final PreferenceUtil pref = PreferenceUtil.getInstance(getApplicationContext());
         byte mode = pref.getReplayGainSourceMode();
-        if (mode != 0) {
+        if (mode != PreferenceUtil.RG_SOURCE_MODE_NONE) {
             Song song = getCurrentSong();
 
             if (Float.isNaN(song.replaygainTrack)) {
@@ -890,12 +890,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
             float adjust = 0f;
 
-            if (mode == 2) {
+            if (mode == PreferenceUtil.RG_SOURCE_MODE_ALBUM) {
                 adjust = (song.replaygainTrack != 0 ? song.replaygainTrack : adjust);
                 adjust = (song.replaygainAlbum != 0 ? song.replaygainAlbum : adjust);
-            }
-
-            if (mode == 1) {
+            } else if (mode == PreferenceUtil.RG_SOURCE_MODE_TRACK) {
                 adjust = (song.replaygainAlbum != 0 ? song.replaygainAlbum : adjust);
                 adjust = (song.replaygainTrack != 0 ? song.replaygainTrack : adjust);
             }

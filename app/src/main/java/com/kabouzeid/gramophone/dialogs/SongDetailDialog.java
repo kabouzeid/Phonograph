@@ -13,9 +13,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.kabouzeid.gramophone.loader.ReplaygainTagExtractor;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -48,8 +50,6 @@ public class SongDetailDialog extends DialogFragment {
         return Html.fromHtml("<b>" + context.getResources().getString(titleResId) + ": " + "</b>" + text);
     }
 
-    // TODO Show the ReplayGain info
-
     private static String getFileSizeString(long sizeInBytes) {
         long fileSizeInKB = sizeInBytes / 1024;
         long fileSizeInMB = fileSizeInKB / 1024;
@@ -76,6 +76,7 @@ public class SongDetailDialog extends DialogFragment {
         final TextView trackLength = dialogView.findViewById(R.id.track_length);
         final TextView bitRate = dialogView.findViewById(R.id.bitrate);
         final TextView samplingRate = dialogView.findViewById(R.id.sampling_rate);
+        final TextView replayGain = dialogView.findViewById(R.id.replay_gain);
 
         fileName.setText(makeTextWithTitle(context, R.string.label_file_name, "-"));
         filePath.setText(makeTextWithTitle(context, R.string.label_file_path, "-"));
@@ -84,6 +85,7 @@ public class SongDetailDialog extends DialogFragment {
         trackLength.setText(makeTextWithTitle(context, R.string.label_track_length, "-"));
         bitRate.setText(makeTextWithTitle(context, R.string.label_bit_rate, "-"));
         samplingRate.setText(makeTextWithTitle(context, R.string.label_sampling_rate, "-"));
+        replayGain.setText(makeTextWithTitle(context, R.string.label_replay_gain, "-"));
 
         if (song != null) {
             final File songFile = new File(song.data);
@@ -99,6 +101,19 @@ public class SongDetailDialog extends DialogFragment {
                     trackLength.setText(makeTextWithTitle(context, R.string.label_track_length, MusicUtil.getReadableDurationString(audioHeader.getTrackLength() * 1000)));
                     bitRate.setText(makeTextWithTitle(context, R.string.label_bit_rate, audioHeader.getBitRate() + " kb/s"));
                     samplingRate.setText(makeTextWithTitle(context, R.string.label_sampling_rate, audioHeader.getSampleRate() + " Hz"));
+
+                    // Extract the replay gain values if needed
+                    if (Float.isNaN(song.replaygainTrack)) {
+                        ReplaygainTagExtractor.setReplaygainValues(song);
+                    }
+                    String replayGainValues = "";
+                    if (!Float.isNaN(song.replaygainTrack) && (song.replaygainTrack != 0.0)) {
+                        replayGainValues += String.format ("%s %.2f dB, ", context.getString(R.string.track), song.replaygainTrack);
+                    }
+                    if (!Float.isNaN(song.replaygainAlbum) && (song.replaygainAlbum != 0.0)) {
+                        replayGainValues += String.format ("%s %.2f dB", context.getString(R.string.album), song.replaygainAlbum);
+                    }
+                    replayGain.setText(makeTextWithTitle(context, R.string.label_replay_gain, replayGainValues));
                 } catch (@NonNull CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e) {
                     Log.e(TAG, "error while reading the song file", e);
                     // fallback

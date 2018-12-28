@@ -56,6 +56,7 @@
     <string name="label_track_length">Length</string>
     <string name="label_bit_rate">Bitrate</string>
     <string name="label_sampling_rate">Sampling rate</string>
+    <string name="label_replay_gain">ReplayGain</string>
     <string name="action_go_to_artist">Go to artist</string>
     <string name="action_go_to_album">Go to album</string>
     <string name="label_playing_queue">Playing queue</string>
