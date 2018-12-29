@@ -105,7 +105,7 @@ public class SongDetailDialog extends DialogFragment {
                     float rgAlbum = song.getReplayGainAlbum();
                     String replayGainValues = "";
                     if (rgTrack != 0.0) {
-                        replayGainValues += String.format ("%s: %.2f dB ", context.getString(R.string.track), rgTrack);
+                        replayGainValues += String.format ("%s: %.2f dB ", context.getString(R.string.song), rgTrack);
                     }
                     if (rgAlbum != 0.0) {
                         replayGainValues += String.format ("%s: %.2f dB ", context.getString(R.string.album), rgAlbum);
