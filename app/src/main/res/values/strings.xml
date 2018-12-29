@@ -315,8 +315,8 @@
     <string name="scan_media">Scan media</string>
     <string name="none">None</string>
     <string name="track">Track</string>
-    <string name="label_with_rg_info">With Replaygain Tags :</string>
-    <string name="label_without_rg_info">Without Replaygain Tags :</string>
+    <string name="label_with_rg_info">With ReplayGain Tags :</string>
+    <string name="label_without_rg_info">Without ReplayGain Tags :</string>
     <string name="pref_title_rg_source_mode">ReplayGain source mode</string>
     <string name="pref_title_rg_preamp">ReplayGain preamp</string>
     <string name="pref_summary_rg_preamp">Set preamp when RpelayGain is enabled</string>

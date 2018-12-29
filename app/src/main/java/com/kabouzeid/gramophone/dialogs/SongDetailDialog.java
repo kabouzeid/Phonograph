@@ -17,7 +17,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.kabouzeid.gramophone.loader.ReplaygainTagExtractor;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -102,16 +101,14 @@ public class SongDetailDialog extends DialogFragment {
                     bitRate.setText(makeTextWithTitle(context, R.string.label_bit_rate, audioHeader.getBitRate() + " kb/s"));
                     samplingRate.setText(makeTextWithTitle(context, R.string.label_sampling_rate, audioHeader.getSampleRate() + " Hz"));
 
-                    // Extract the replay gain values if needed
-                    if (Float.isNaN(song.replaygainTrack)) {
-                        ReplaygainTagExtractor.setReplaygainValues(song);
-                    }
+                    float rgTrack = song.getReplayGainTrack();
+                    float rgAlbum = song.getReplayGainAlbum();
                     String replayGainValues = "";
-                    if (!Float.isNaN(song.replaygainTrack) && (song.replaygainTrack != 0.0)) {
-                        replayGainValues += String.format ("%s %.2f dB, ", context.getString(R.string.track), song.replaygainTrack);
+                    if (rgTrack != 0.0) {
+                        replayGainValues += String.format ("%s: %.2f dB ", context.getString(R.string.track), rgTrack);
                     }
-                    if (!Float.isNaN(song.replaygainAlbum) && (song.replaygainAlbum != 0.0)) {
-                        replayGainValues += String.format ("%s %.2f dB", context.getString(R.string.album), song.replaygainAlbum);
+                    if (rgAlbum != 0.0) {
+                        replayGainValues += String.format ("%s: %.2f dB ", context.getString(R.string.album), rgAlbum);
                     }
                     replayGain.setText(makeTextWithTitle(context, R.string.label_replay_gain, replayGainValues));
                 } catch (@NonNull CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e) {

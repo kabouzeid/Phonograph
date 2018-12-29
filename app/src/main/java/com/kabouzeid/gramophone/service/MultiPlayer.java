@@ -298,7 +298,7 @@ public class MultiPlayer implements Playback, MediaPlayer.OnErrorListener, Media
         return mCurrentMediaPlayer.getAudioSessionId();
     }
 
-    public void setReplaygain(float replaygain) {
+    public void setReplayGain(float replaygain) {
         this.replaygain = replaygain;
         updateVolume();
     }

@@ -35,7 +35,7 @@ public interface Playback {
 
     int getAudioSessionId();
 
-    void setReplaygain(float replaygain);
+    void setReplayGain(float replaygain);
 
     void setDuckingFactor(float duckingFactor);
 

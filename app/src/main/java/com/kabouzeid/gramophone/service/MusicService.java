@@ -37,7 +37,6 @@ import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
-import com.kabouzeid.gramophone.loader.ReplaygainTagExtractor;
 import com.kabouzeid.gramophone.model.AbsCustomPlaylist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
@@ -884,18 +883,16 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         if (mode != PreferenceUtil.RG_SOURCE_MODE_NONE) {
             Song song = getCurrentSong();
 
-            if (Float.isNaN(song.replaygainTrack)) {
-                ReplaygainTagExtractor.setReplaygainValues(song);
-            }
-
             float adjust = 0f;
+            float rgTrack = song.getReplayGainTrack();
+            float rgAlbum = song.getReplayGainAlbum();
 
             if (mode == PreferenceUtil.RG_SOURCE_MODE_ALBUM) {
-                adjust = (song.replaygainTrack != 0 ? song.replaygainTrack : adjust);
-                adjust = (song.replaygainAlbum != 0 ? song.replaygainAlbum : adjust);
+                adjust = (rgTrack != 0 ? rgTrack : adjust);
+                adjust = (rgAlbum != 0 ? rgAlbum : adjust);
             } else if (mode == PreferenceUtil.RG_SOURCE_MODE_TRACK) {
-                adjust = (song.replaygainAlbum != 0 ? song.replaygainAlbum : adjust);
-                adjust = (song.replaygainTrack != 0 ? song.replaygainTrack : adjust);
+                adjust = (rgAlbum != 0 ? rgAlbum : adjust);
+                adjust = (rgTrack != 0 ? rgTrack : adjust);
             }
 
             if (adjust == 0) {
@@ -907,9 +904,9 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             float rgResult = ((float) Math.pow(10, (adjust / 20)));
             rgResult = Math.max(0, Math.min(1, rgResult));
 
-            playback.setReplaygain(rgResult);
+            playback.setReplayGain(rgResult);
         } else {
-            playback.setReplaygain(Float.NaN);
+            playback.setReplayGain(Float.NaN);
         }
     }
 

@@ -13,14 +13,14 @@ import org.jaudiotagger.tag.TagField;
 import org.jaudiotagger.tag.flac.FlacTag;
 import org.jaudiotagger.tag.vorbiscomment.VorbisCommentTag;
 
-public class ReplaygainTagExtractor {
+public class ReplayGainTagExtractor {
   // Normalize all tags using the Vorbis ones
   private static final String REPLAYGAIN_TRACK_GAIN = "REPLAYGAIN_TRACK_GAIN";
   private static final String REPLAYGAIN_ALBUM_GAIN = "REPLAYGAIN_ALBUM_GAIN";
 
-  public static void setReplaygainValues(Song song) {
-    song.replaygainTrack = 0.0f;
-    song.replaygainAlbum = 0.0f;
+  public static void setReplayGainValues(Song song) {
+    float rgTrack = 0.0f;
+    float rgAlbum = 0.0f;
 
     Map<String, Float> tags = null;
 
@@ -41,12 +41,13 @@ public class ReplaygainTagExtractor {
 
     if (tags != null && !tags.isEmpty()) {
       if (tags.containsKey(REPLAYGAIN_TRACK_GAIN)) {
-        song.replaygainTrack = tags.get(REPLAYGAIN_TRACK_GAIN);
+        rgTrack = tags.get(REPLAYGAIN_TRACK_GAIN);
       }
       if (tags.containsKey(REPLAYGAIN_ALBUM_GAIN)) {
-        song.replaygainAlbum = tags.get(REPLAYGAIN_ALBUM_GAIN);
+        rgAlbum = tags.get(REPLAYGAIN_ALBUM_GAIN);
       }
     }
+    song.setReplayGainValues(rgTrack, rgAlbum);
   }
 
   private static Map<String, Float> parseId3Tags(Tag tag, String path) throws Exception {

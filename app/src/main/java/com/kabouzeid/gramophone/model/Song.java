@@ -1,5 +1,7 @@
 package com.kabouzeid.gramophone.model;
 
+import com.kabouzeid.gramophone.loader.ReplayGainTagExtractor;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -21,8 +23,8 @@ public class Song implements Parcelable {
     public final int artistId;
     public final String artistName;
 
-    public float replaygainTrack = Float.NaN;
-    public float replaygainAlbum = Float.NaN;
+    private float replaygainTrack = Float.NaN;
+    private float replaygainAlbum = Float.NaN;
 
     public Song(int id, String title, int trackNumber, int year, long duration, String data, long dateModified, int albumId, String albumName, int artistId, String artistName) {
         this.id = id;
@@ -36,6 +38,27 @@ public class Song implements Parcelable {
         this.albumName = albumName;
         this.artistId = artistId;
         this.artistName = artistName;
+    }
+
+    public void setReplayGainValues(float track, float album) {
+        replaygainTrack = track;
+        replaygainAlbum = album;
+    }
+
+    public float getReplayGainTrack() {
+        // Since the extraction of RG tags incurs I/O, only extract the replay gain values if needed
+        if (Float.isNaN(replaygainTrack)) {
+            ReplayGainTagExtractor.setReplayGainValues(this);
+        }
+        return replaygainTrack;
+    }
+
+    public float getReplayGainAlbum() {
+        // Since the extraction of RG tags incurs I/O, only extract the replay gain values if needed
+        if (Float.isNaN(replaygainAlbum)) {
+            ReplayGainTagExtractor.setReplayGainValues(this);
+        }
+        return replaygainAlbum;
     }
 
     @Override
@@ -92,7 +115,6 @@ public class Song implements Parcelable {
                 ", artistName='" + artistName + '\'' +
                 '}';
     }
-
 
     @Override
     public int describeContents() {
