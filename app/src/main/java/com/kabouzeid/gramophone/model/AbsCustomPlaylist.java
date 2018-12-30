@@ -32,6 +32,7 @@ public abstract class AbsCustomPlaylist extends Playlist {
     @NonNull
     @Override
     public String getInfoString(@NonNull Context context) {
+        // TODO Use String.format
         String baseInfo = super.getInfoString(context);
 
         int songCount = getSongs(context).size();

@@ -105,6 +105,7 @@ public class MusicUtil {
 
     @NonNull
     public static String getArtistInfoString(@NonNull final Context context, @NonNull final Artist artist) {
+        // TODO Use String.format
         int albumCount = artist.getAlbumCount();
         int songCount = artist.getSongCount();
         String albumString = albumCount == 1 ? context.getResources().getString(R.string.album) : context.getResources().getString(R.string.albums);
@@ -114,6 +115,7 @@ public class MusicUtil {
 
     @NonNull
     public static String getGenreInfoString(@NonNull final Context context, @NonNull final Genre genre) {
+        // TODO Use String.format
         int songCount = genre.songCount;
         String songString = songCount == 1 ? context.getResources().getString(R.string.song) : context.getResources().getString(R.string.songs);
         return songCount + " " + songString;
@@ -121,18 +123,21 @@ public class MusicUtil {
 
     @NonNull
     public static String getPlaylistInfoString(@NonNull final Context context, @NonNull List<Song> songs) {
+        // TODO Use String.format
         final long duration = getTotalDuration(context, songs);
         return MusicUtil.getSongCountString(context, songs.size()) + " • " + MusicUtil.getReadableDurationString(duration);
     }
 
     @NonNull
     public static String getSongCountString(@NonNull final Context context, int songCount) {
+        // TODO Use String.format
         final String songString = songCount == 1 ? context.getResources().getString(R.string.song) : context.getResources().getString(R.string.songs);
         return songCount + " " + songString;
     }
 
     @NonNull
     public static String getAlbumCountString(@NonNull final Context context, int albumCount) {
+        // TODO Use String.format
         final String albumString = albumCount == 1 ? context.getResources().getString(R.string.album) : context.getResources().getString(R.string.albums);
         return albumCount + " " + albumString;
     }

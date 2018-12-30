@@ -137,6 +137,7 @@ public abstract class BaseAppWidget extends AppWidgetProvider {
     }
 
     protected String getSongArtistAndAlbum(final Song song) {
+        // TODO Use String.format
         final StringBuilder builder = new StringBuilder();
         builder.append(song.artistName);
         if (!TextUtils.isEmpty(song.artistName) && !TextUtils.isEmpty(song.albumName)) {

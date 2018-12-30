@@ -23,6 +23,7 @@ public class NotRecentlyPlayedPlaylist extends AbsSmartPlaylist {
     @NonNull
     @Override
     public String getInfoString(@NonNull Context context) {
+        // TODO Use String.format
         String baseInfo = super.getInfoString(context);
         String cutoff = PreferenceUtil.getInstance(context).getRecentlyPlayedCutoffText(context);
 
