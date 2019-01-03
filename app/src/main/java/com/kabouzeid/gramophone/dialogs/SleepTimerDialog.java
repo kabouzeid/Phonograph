@@ -41,8 +41,8 @@ public class SleepTimerDialog extends DialogFragment {
     SeekArc seekArc;
     @BindView(R.id.timer_display)
     TextView timerDisplay;
-    @BindView(R.id.checkBox)
-    CheckBox checkBox;
+    @BindView(R.id.should_finish_last_song)
+    CheckBox should_finish_last_song;
 
     private int seekArcProgress;
     private MaterialDialog materialDialog;
@@ -55,7 +55,7 @@ public class SleepTimerDialog extends DialogFragment {
             MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
             mMusicService = binder.getService();
 
-            UpdateCancelButton();
+            updateCancelButton();
         }
 
         @Override
@@ -102,7 +102,7 @@ public class SleepTimerDialog extends DialogFragment {
                         return;
                     }
 
-                    PreferenceUtil.getInstance(getActivity()).setSleepTimerFinishMusic(checkBox.isChecked());
+                    PreferenceUtil.getInstance(getActivity()).setSleepTimerFinishMusic(should_finish_last_song.isChecked());
 
                     final int minutes = seekArcProgress;
 
@@ -146,8 +146,8 @@ public class SleepTimerDialog extends DialogFragment {
 
         ButterKnife.bind(this, materialDialog.getCustomView());
 
-        boolean checked = PreferenceUtil.getInstance(getActivity()).getSleepTimerFinishMusic();
-        checkBox.setChecked(checked);
+        boolean finishMusic = PreferenceUtil.getInstance(getActivity()).getSleepTimerFinishMusic();
+        should_finish_last_song.setChecked(finishMusic);
 
         seekArc.setProgressColor(ThemeSingleton.get().positiveColor.getDefaultColor());
         seekArc.setThumbColor(ThemeSingleton.get().positiveColor.getDefaultColor());
@@ -200,15 +200,14 @@ public class SleepTimerDialog extends DialogFragment {
     }
 
     private Intent makeTimerIntent() {
-        if (checkBox.isChecked()) {
-            return new Intent(getActivity(), MusicService.class)
-                    .setAction(MusicService.ACTION_PENDING_QUIT);
+        Intent intent = new Intent(getActivity(), MusicService.class);
+        if (should_finish_last_song.isChecked()) {
+            return intent.setAction(MusicService.ACTION_PENDING_QUIT);
         }
-        return new Intent(getActivity(), MusicService.class)
-                .setAction(MusicService.ACTION_QUIT);
+        return intent.setAction(MusicService.ACTION_QUIT);
     }
 
-    private void UpdateCancelButton() {
+    private void updateCancelButton() {
         if (mMusicService != null && mMusicService.pendingQuit) {
             materialDialog.setActionButton(DialogAction.NEUTRAL, materialDialog.getContext().getString(R.string.cancel_current_timer));
         } else {
@@ -228,7 +227,7 @@ public class SleepTimerDialog extends DialogFragment {
 
         @Override
         public void onFinish() {
-            UpdateCancelButton();
+            updateCancelButton();
         }
     }
 }
