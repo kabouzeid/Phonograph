@@ -24,6 +24,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.PurchaseActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
@@ -47,37 +48,6 @@ public class SleepTimerDialog extends DialogFragment {
     private int seekArcProgress;
     private MaterialDialog materialDialog;
     private TimerUpdater timerUpdater;
-
-    private MusicService mMusicService = null;
-    private ServiceConnection mConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
-            mMusicService = binder.getService();
-
-            updateCancelButton();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mMusicService = null;
-        }
-    };
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Intent intent = new Intent(getContext(), MusicService.class);
-        getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mMusicService != null) {
-            getActivity().unbindService(mConnection);
-        }
-    }
 
     @Override
     public void onDismiss(DialogInterface dialog) {
@@ -127,8 +97,9 @@ public class SleepTimerDialog extends DialogFragment {
                         Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_canceled), Toast.LENGTH_SHORT).show();
                     }
 
-                    if (mMusicService != null && mMusicService.pendingQuit) {
-                        mMusicService.pendingQuit = false;
+                    MusicService musicService = MusicPlayerRemote.musicService;
+                    if (musicService != null && musicService.pendingQuit) {
+                        musicService.pendingQuit = false;
                         Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_canceled), Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -208,7 +179,8 @@ public class SleepTimerDialog extends DialogFragment {
     }
 
     private void updateCancelButton() {
-        if (mMusicService != null && mMusicService.pendingQuit) {
+        MusicService musicService = MusicPlayerRemote.musicService;
+        if (musicService != null && musicService.pendingQuit) {
             materialDialog.setActionButton(DialogAction.NEUTRAL, materialDialog.getContext().getString(R.string.cancel_current_timer));
         } else {
             materialDialog.setActionButton(DialogAction.NEUTRAL, null);
