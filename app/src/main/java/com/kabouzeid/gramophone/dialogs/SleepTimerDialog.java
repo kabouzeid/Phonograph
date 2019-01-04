@@ -3,14 +3,11 @@ package com.kabouzeid.gramophone.dialogs;
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -43,7 +40,7 @@ public class SleepTimerDialog extends DialogFragment {
     @BindView(R.id.timer_display)
     TextView timerDisplay;
     @BindView(R.id.should_finish_last_song)
-    CheckBox should_finish_last_song;
+    CheckBox shouldFinishLastSong;
 
     private int seekArcProgress;
     private MaterialDialog materialDialog;
@@ -72,7 +69,7 @@ public class SleepTimerDialog extends DialogFragment {
                         return;
                     }
 
-                    PreferenceUtil.getInstance(getActivity()).setSleepTimerFinishMusic(should_finish_last_song.isChecked());
+                    PreferenceUtil.getInstance(getActivity()).setSleepTimerFinishMusic(shouldFinishLastSong.isChecked());
 
                     final int minutes = seekArcProgress;
 
@@ -118,7 +115,7 @@ public class SleepTimerDialog extends DialogFragment {
         ButterKnife.bind(this, materialDialog.getCustomView());
 
         boolean finishMusic = PreferenceUtil.getInstance(getActivity()).getSleepTimerFinishMusic();
-        should_finish_last_song.setChecked(finishMusic);
+        shouldFinishLastSong.setChecked(finishMusic);
 
         seekArc.setProgressColor(ThemeSingleton.get().positiveColor.getDefaultColor());
         seekArc.setThumbColor(ThemeSingleton.get().positiveColor.getDefaultColor());
@@ -172,7 +169,7 @@ public class SleepTimerDialog extends DialogFragment {
 
     private Intent makeTimerIntent() {
         Intent intent = new Intent(getActivity(), MusicService.class);
-        if (should_finish_last_song.isChecked()) {
+        if (shouldFinishLastSong.isChecked()) {
             return intent.setAction(MusicService.ACTION_PENDING_QUIT);
         }
         return intent.setAction(MusicService.ACTION_QUIT);
