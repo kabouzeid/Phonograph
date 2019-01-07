@@ -27,6 +27,7 @@ import com.kabouzeid.gramophone.model.Genre;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.lyrics.AbsSynchronizedLyrics;
+import com.kabouzeid.gramophone.util.MusicUtil;
 
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.tag.FieldKey;
@@ -105,39 +106,57 @@ public class MusicUtil {
 
     @NonNull
     public static String getArtistInfoString(@NonNull final Context context, @NonNull final Artist artist) {
-        // TODO Use String.format
         int albumCount = artist.getAlbumCount();
         int songCount = artist.getSongCount();
-        String albumString = albumCount == 1 ? context.getResources().getString(R.string.album) : context.getResources().getString(R.string.albums);
-        String songString = songCount == 1 ? context.getResources().getString(R.string.song) : context.getResources().getString(R.string.songs);
-        return albumCount + " " + albumString + " • " + songCount + " " + songString;
+
+        return MusicUtil.buildInfoString(
+            MusicUtil.getAlbumCountString(context, albumCount),
+            MusicUtil.getSongCountString(context, songCount)
+        );
+    }
+
+    @NonNull
+    public static String getAlbumInfoString(@NonNull final Context context, @NonNull final Album album) {
+        int songCount = album.getSongCount();
+
+        return MusicUtil.buildInfoString(
+            album.getArtistName(),
+            MusicUtil.getSongCountString(context, songCount)
+        );
+    }
+
+    @NonNull
+    public static String getSongInfoString(@NonNull final Song song) {
+        return MusicUtil.buildInfoString(
+            song.artistName,
+            song.albumName
+        );
     }
 
     @NonNull
     public static String getGenreInfoString(@NonNull final Context context, @NonNull final Genre genre) {
-        // TODO Use String.format
         int songCount = genre.songCount;
-        String songString = songCount == 1 ? context.getResources().getString(R.string.song) : context.getResources().getString(R.string.songs);
-        return songCount + " " + songString;
+        return MusicUtil.getSongInfoString(songCount);
     }
 
     @NonNull
     public static String getPlaylistInfoString(@NonNull final Context context, @NonNull List<Song> songs) {
-        // TODO Use String.format
         final long duration = getTotalDuration(context, songs);
-        return MusicUtil.getSongCountString(context, songs.size()) + " • " + MusicUtil.getReadableDurationString(duration);
+
+        return MusicUtil.buildInfoString(
+            MusicUtil.getSongCountString(context, songs.size()),
+            MusicUtil.getReadableDurationString(duration)
+        );
     }
 
     @NonNull
     public static String getSongCountString(@NonNull final Context context, int songCount) {
-        // TODO Use String.format
         final String songString = songCount == 1 ? context.getResources().getString(R.string.song) : context.getResources().getString(R.string.songs);
         return songCount + " " + songString;
     }
 
     @NonNull
     public static String getAlbumCountString(@NonNull final Context context, int albumCount) {
-        // TODO Use String.format
         final String albumString = albumCount == 1 ? context.getResources().getString(R.string.album) : context.getResources().getString(R.string.albums);
         return albumCount + " " + albumString;
     }
@@ -165,6 +184,22 @@ public class MusicUtil {
             minutes = minutes % 60;
             return String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, seconds);
         }
+    }
+
+    public static String buildInfoString(@NonNull final String string1, @NonNull final String string2)
+    {
+        // Skip empty strings
+        if (string1.isEmpty()) {return string2;}
+        if (string2.isEmpty()) {return string1;}
+        
+        final String separator = "  •  ";
+
+        final StringBuilder builder = new StringBuilder();
+        builder.append(string1);
+        builder.append(separator);
+        builder.append(string2);
+
+        return builder.toString();
     }
 
     //iTunes uses for example 1002 for track 2 CD1 or 3011 for track 11 CD3.

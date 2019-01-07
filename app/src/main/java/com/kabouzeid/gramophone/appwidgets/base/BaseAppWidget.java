@@ -22,6 +22,7 @@ import android.widget.RemoteViews;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
+import com.kabouzeid.gramophone.util.MusicUtil;
 
 public abstract class BaseAppWidget extends AppWidgetProvider {
     public static final String NAME = "app_widget";
@@ -137,13 +138,6 @@ public abstract class BaseAppWidget extends AppWidgetProvider {
     }
 
     protected String getSongArtistAndAlbum(final Song song) {
-        // TODO Use String.format
-        final StringBuilder builder = new StringBuilder();
-        builder.append(song.artistName);
-        if (!TextUtils.isEmpty(song.artistName) && !TextUtils.isEmpty(song.albumName)) {
-            builder.append(" • ");
-        }
-        builder.append(song.albumName);
-        return builder.toString();
+        return MusicUtil.getSongInfoString(song);
     }
 }

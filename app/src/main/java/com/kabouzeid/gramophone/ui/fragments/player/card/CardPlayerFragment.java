@@ -568,7 +568,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         public void updateCurrentSong(Song song) {
             currentSong = song;
             currentSongViewHolder.title.setText(song.title);
-            currentSongViewHolder.text.setText(song.artistName);
+            currentSongViewHolder.text.setText(MusicUtil.getSongInfoString(song));
         }
 
         @Override
