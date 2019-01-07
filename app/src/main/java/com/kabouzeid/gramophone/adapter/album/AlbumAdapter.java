@@ -87,7 +87,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     protected String getAlbumText(Album album) {
         return MusicUtil.buildInfoString(
             album.getArtistName(), 
-            MusicUtil.getSongCountString(activity, album.songs.length)
+            MusicUtil.getSongCountString(activity, album.songs.size())
         );
     }
 
