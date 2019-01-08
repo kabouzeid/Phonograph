@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--grey 300-->
+    <color name="ic_launcher_background">#E0E0E0</color>
+
     <color name="twenty_percent_black_overlay">#34000000</color>
     <color name="fifty_percent_black_overlay">#88000000</color>
 
     <color name="app_shortcut_default_foreground">@color/md_blue_grey_500</color>
     <color name="app_shortcut_default_background">@color/md_grey_50</color>
+
 </resources>

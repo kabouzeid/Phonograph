@@ -22,7 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/default_album_art" />
+                android:src="@drawable/default_album_art"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:id="@+id/header"
@@ -114,6 +115,7 @@
                         android:fontFamily="sans-serif"
                         android:gravity="center_vertical"
                         android:hint="@string/genre"
+                        android:inputType="text|textCapWords"
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 

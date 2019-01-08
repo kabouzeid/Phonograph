@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -59,7 +60,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbumCoverFragment.Callbacks, SlidingUpPanelLayout.PanelSlideListener {
-    public static final String TAG = CardPlayerFragment.class.getSimpleName();
 
     private Unbinder unbinder;
 
@@ -99,7 +99,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     private Impl impl;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (Util.isLandscape(getResources())) {
             impl = new LandscapeImpl(this);
         } else {
@@ -112,7 +112,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     }
 
     @Override
-    public void onViewCreated(final View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         impl.init();
@@ -340,7 +340,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
                             toolbar.getMenu()
                                     .add(Menu.NONE, R.id.action_show_lyrics, Menu.NONE, R.string.action_show_lyrics)
                                     .setIcon(drawable)
-                                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
                         }
                 }
             }
@@ -463,10 +463,9 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         public AnimatorSet createDefaultColorChangeAnimatorSet(int newColor) {
             Animator backgroundAnimator;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                int topMargin = fragment.getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
                 //noinspection ConstantConditions
                 int x = (int) (fragment.playbackControlsFragment.playPauseFab.getX() + fragment.playbackControlsFragment.playPauseFab.getWidth() / 2 + fragment.playbackControlsFragment.getView().getX());
-                int y = (int) (topMargin + fragment.playbackControlsFragment.playPauseFab.getY() + fragment.playbackControlsFragment.playPauseFab.getHeight() / 2 + fragment.playbackControlsFragment.getView().getY());
+                int y = (int) (fragment.playbackControlsFragment.playPauseFab.getY() + fragment.playbackControlsFragment.playPauseFab.getHeight() / 2 + fragment.playbackControlsFragment.getView().getY() + fragment.playbackControlsFragment.progressSlider.getHeight());
                 float startRadius = Math.max(fragment.playbackControlsFragment.playPauseFab.getWidth() / 2, fragment.playbackControlsFragment.playPauseFab.getHeight() / 2);
                 float endRadius = Math.max(fragment.colorBackground.getWidth(), fragment.colorBackground.getHeight());
                 fragment.colorBackground.setBackgroundColor(newColor);
@@ -552,10 +551,9 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         @Override
         public void setUpPanelAndAlbumCoverHeight() {
             WidthFitSquareLayout albumCoverContainer = fragment.getView().findViewById(R.id.album_cover_container);
-            int topMargin = fragment.getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
 
-            final int availablePanelHeight = fragment.slidingUpPanelLayout.getHeight() - fragment.getView().findViewById(R.id.player_content).getHeight() + topMargin;
-            final int minPanelHeight = (int) ViewUtil.convertDpToPixel(72 + 24, fragment.getResources()) + topMargin;
+            final int availablePanelHeight = fragment.slidingUpPanelLayout.getHeight() - fragment.getView().findViewById(R.id.player_content).getHeight() + (int) ViewUtil.convertDpToPixel(8, fragment.getResources());
+            final int minPanelHeight = (int) ViewUtil.convertDpToPixel(72 + 24, fragment.getResources());
             if (availablePanelHeight < minPanelHeight) {
                 albumCoverContainer.getLayoutParams().height = albumCoverContainer.getHeight() - (minPanelHeight - availablePanelHeight);
                 albumCoverContainer.forceSquare(false);
@@ -595,8 +593,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
         @Override
         public void setUpPanelAndAlbumCoverHeight() {
-            int topMargin = fragment.getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
-            int panelHeight = fragment.slidingUpPanelLayout.getHeight() - fragment.playbackControlsFragment.getView().getHeight() + topMargin;
+            int panelHeight = fragment.slidingUpPanelLayout.getHeight() - fragment.playbackControlsFragment.getView().getHeight();
             fragment.slidingUpPanelLayout.setPanelHeight(panelHeight);
 
             ((AbsSlidingMusicPanelActivity) fragment.getActivity()).setAntiDragView(fragment.slidingUpPanelLayout.findViewById(R.id.player_panel));

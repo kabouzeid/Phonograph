@@ -30,6 +30,7 @@
     <string name="action_set_as_start_directory">Başlangıç dizini olarak ayarla</string>
     <string name="albums">Albümler</string>
     <string name="artists">Sanatçılar</string>
+    <string name="genres">Türler</string>
     <string name="songs">Şarkılar</string>
     <string name="playlists">Çalma listeleri</string>
     <string name="unplayable_file">Bu \u015fark\u0131 \u00e7al\u0131namad\u0131.</string>
@@ -47,7 +48,6 @@
     <string name="lyrics">Şarkı sözleri</string>
     <string name="album_or_artist_empty">Albüm başlığı veya albüm sanatçısı bilgisi yok.</string>
     <string name="saving_changes">Değişiklikler kaydediliyor</string>
-    <string name="saving_to_file">Dosyaya kaydediliyor...</string>
     <string name="label_details">Ayrıntılar</string>
     <string name="label_file_name">Dosya adı</string>
     <string name="label_file_path">Dosya yolu</string>
@@ -112,6 +112,7 @@
     <string name="pref_header_now_playing_screen">Şuan çalınan</string>
     <string name="pref_title_general_theme">Genel tema</string>
     <string name="pref_header_audio">Ses</string>
+    <string name="pref_header_library">Kitaplık</string>
     <string name="pref_header_images">Görüntüler</string>
     <string name="pref_header_lockscreen">Kilit ekranı</string>
     <string name="pref_header_playlists">Çalma listeleri</string>
@@ -123,11 +124,12 @@
     <string name="pref_title_blurred_album_art">Bulanık albüm kapağı</string>
     <string name="pref_title_colored_notification">Renkli bildirim</string>
     <string name="pref_title_classic_notification">Klasik bildirim tasarımı</string>
-    <string name="pref_title_ignore_media_store_artwork">Media Store albüm kapağını yoksay</string>
+    <string name="pref_title_ignore_media_store_artwork">Medya Deposu albüm kapağını yoksay</string>
     <string name="pref_title_gapless_playback">Aralıksız çalma</string>
     <string name="pref_title_audio_ducking">Odak kaybına neden olacak sesi azalt</string>
     <string name="pref_title_last_added_interval">Son eklenen çalma listesi süresi</string>
     <string name="pref_title_synchronized_lyrics_show">Senkronize şarkı sözlerini göster</string>
+    <string name="pref_title_remember_last_tab">Son sekmeyi hatırla</string>
     <string name="no_equalizer">Ekolayzer bulunamadı.</string>
     <string name="no_audio_ID">"ilk şarkıyı çalın, daha sonra tekrar deneyin."</string>
     <string name="delete_action">Sil</string>
@@ -135,6 +137,7 @@
     <string name="remove_action">Kaldır</string>
     <string name="rename_action">Yeniden adlandır</string>
     <string name="create_action">Oluştur</string>
+    <string name="reset_action">Sıfırla</string>
     <string name="x_selected">%1$d seçildi</string>
     <string name="primary_color">Ana renk</string>
     <string name="accent_color">Vurgu rengi</string>
@@ -146,6 +149,7 @@
     <string name="no_albums">Albüm yok</string>
     <string name="no_songs">Şarkı yok</string>
     <string name="no_artists">Sanatçı yok</string>
+    <string name="no_genres">Tür yok</string>
     <string name="empty">Boş</string>
     <string name="playlist_name_empty">Çalma listesi adı</string>
     <string name="song">Şarkı</string>
@@ -159,8 +163,9 @@
     <string name="pref_summary_colored_app_shortcuts">Uygulama kısayollarını ana renk ile renklendir.</string>
     <string name="pref_summary_audio_ducking">Bildirimler, gezinme vb.</string>
     <string name="pref_summary_synchronized_lyrics_show">Şu anda yalnızca LRC formatında senkronize edilmiş sözler desteklenmektedir. Gömülü veya ayrı bir dosya olarak.</string>
+    <string name="pref_summary_remember_last_tab">Başlatıldığında son açılan sekmeye git</string>
     <string name="could_not_download_album_cover">"E\u015fle\u015fen bir alb\u00fcm kapa\u011f\u0131 indirilemedi."</string>
-    <string name="search_hint">Kütüphaneniz taranıyor...</string>
+    <string name="search_hint">Kitaplığınız taranıyor...</string>
     <string name="favorites">Favoriler</string>
     <string name="last_added">Son eklenen</string>
     <string name="history">Geçmiş</string>
@@ -215,11 +220,12 @@
     <string name="welcome_to_phonograph">"Phonograph'a Hoşgeldiniz, Android için muhteşem bir müzik çalar. "</string>
     <string name="open_playing_queue_instruction">Şuan çalınıyor ekranı kartını yukarı kaydırmak çalma sırasının tamamını ortaya çıkarır.</string>
     <string name="rearrange_playing_queue_instruction">Çalma sırasını yeniden düzenlemek için şarkının parça numarasını kaydırın</string>
-    <string name="library">Kütüphane</string>
+    <string name="library">Kitaplık</string>
     <string name="folders">Klasörler</string>
     <string name="saved_playlist_to">Çalma listesi %s kaydedildi.</string>
     <string name="failed_to_save_playlist">(%s) çalma listesine kaydetme başarısız.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> medya deposu listesinde yok.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Bazı dosyalar medya deposunda listelenmiyor.</string>
     <string name="nothing_to_scan">Taranacak bir şey yok</string>
     <string name="scanned_files">%1$d - %2$d dosya taranıyor.</string>
     <string name="could_not_scan_files">%d dosya taranamadı.</string>
@@ -268,6 +274,7 @@
     <string name="restore">Geri yükle</string>
     <string name="no_purchase_found">Satın alma bulunamadı.</string>
     <string name="eugene_cheung_summary">Kaynak koda yaptığı katkılardan dolayı.</string>
+    <string name="adrian_summary">Albüm sayfası tasarımı oluşturmak için.</string>
     <string name="add_action">Ekle</string>
     <string name="blacklist">Kara liste</string>
     <string name="remove_from_blacklist">Kara listeden kaldır</string>
@@ -277,4 +284,15 @@
     <string name="pref_summary_blacklist">Kara listeye alınan klasörlerin içeriği kitaplığınızdan gizlenir.</string>
     <string name="reset_artist_image">Sanatçı resmini sıfırla</string>
     <string name="set_artist_image">Sanatçı resmi ayarla</string>
+    <string name="library_categories">Kitaplık kategorileri</string>
+    <string name="pref_summary_library_categories">Kitaplık kategorilerinin görünürlüğünü ve sırasını yapılandırma.</string>
+    <string name="you_have_to_select_at_least_one_category">En az bir kategori seçmeniz gerekiyor.</string>
+    <string name="action_scan_directory">Tarama dizini</string>
+    <string name="scan_media">Medyayı tara</string>
+    <string name="action_sort_order">Sıralama düzeni</string>
+    <string name="sort_order_a_z">Artan</string>
+    <string name="sort_order_z_a">Azalan</string>
+    <string name="sort_order_artist">Sanatçı</string>
+    <string name="sort_order_album">Albüm</string>
+    <string name="sort_order_year">Yıl</string>
 </resources>

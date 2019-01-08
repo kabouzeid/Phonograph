@@ -16,6 +16,7 @@ import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.smartplaylist.HistoryPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.LastAddedPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.MyTopTracksPlaylist;
+import com.kabouzeid.gramophone.model.smartplaylist.NotRecentlyPlayedPlaylist;
 
 import java.util.ArrayList;
 
@@ -23,8 +24,6 @@ import java.util.ArrayList;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class PlaylistsFragment extends AbsLibraryPagerRecyclerViewFragment<PlaylistAdapter, LinearLayoutManager> implements LoaderManager.LoaderCallbacks<ArrayList<Playlist>> {
-
-    public static final String TAG = PlaylistsFragment.class.getSimpleName();
 
     private static final int LOADER_ID = LoaderIds.PLAYLISTS_FRAGMENT;
 
@@ -43,7 +42,7 @@ public class PlaylistsFragment extends AbsLibraryPagerRecyclerViewFragment<Playl
     @NonNull
     @Override
     protected PlaylistAdapter createAdapter() {
-        ArrayList<Playlist> dataSet = getAdapter() == null ? new ArrayList<Playlist>() : getAdapter().getDataSet();
+        ArrayList<Playlist> dataSet = getAdapter() == null ? new ArrayList<>() : getAdapter().getDataSet();
         return new PlaylistAdapter(getLibraryFragment().getMainActivity(), dataSet, R.layout.item_list_single_row, getLibraryFragment());
     }
 
@@ -69,7 +68,7 @@ public class PlaylistsFragment extends AbsLibraryPagerRecyclerViewFragment<Playl
 
     @Override
     public void onLoaderReset(Loader<ArrayList<Playlist>> loader) {
-        getAdapter().swapDataSet(new ArrayList<Playlist>());
+        getAdapter().swapDataSet(new ArrayList<>());
     }
 
     private static class AsyncPlaylistLoader extends WrappedAsyncTaskLoader<ArrayList<Playlist>> {
@@ -82,6 +81,7 @@ public class PlaylistsFragment extends AbsLibraryPagerRecyclerViewFragment<Playl
 
             playlists.add(new LastAddedPlaylist(context));
             playlists.add(new HistoryPlaylist(context));
+            playlists.add(new NotRecentlyPlayedPlaylist(context));
             playlists.add(new MyTopTracksPlaylist(context));
 
             playlists.addAll(PlaylistLoader.getAllPlaylists(context));

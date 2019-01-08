@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -56,7 +57,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbumCoverFragment.Callbacks, SlidingUpPanelLayout.PanelSlideListener {
-    public static final String TAG = FlatPlayerFragment.class.getSimpleName();
 
     private Unbinder unbinder;
 
@@ -95,7 +95,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     private Impl impl;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (Util.isLandscape(getResources())) {
             impl = new LandscapeImpl(this);
         } else {
@@ -108,7 +108,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     }
 
     @Override
-    public void onViewCreated(final View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         impl.init();
@@ -335,7 +335,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
                             toolbar.getMenu()
                                     .add(Menu.NONE, R.id.action_show_lyrics, Menu.NONE, R.string.action_show_lyrics)
                                     .setIcon(drawable)
-                                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
                         }
                 }
             }

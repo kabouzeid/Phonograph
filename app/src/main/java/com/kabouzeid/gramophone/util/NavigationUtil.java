@@ -29,7 +29,11 @@ public class NavigationUtil {
         intent.putExtra(ArtistDetailActivity.EXTRA_ARTIST_ID, artistId);
 
         //noinspection unchecked
-        activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElements).toBundle());
+        if (sharedElements != null && sharedElements.length > 0) {
+            activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElements).toBundle());
+        } else {
+            activity.startActivity(intent);
+        }
     }
 
     public static void goToAlbum(@NonNull final Activity activity, final int albumId, @Nullable Pair... sharedElements) {
@@ -37,7 +41,11 @@ public class NavigationUtil {
         intent.putExtra(AlbumDetailActivity.EXTRA_ALBUM_ID, albumId);
 
         //noinspection unchecked
-        activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElements).toBundle());
+        if (sharedElements != null && sharedElements.length > 0) {
+            activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElements).toBundle());
+        } else {
+            activity.startActivity(intent);
+        }
     }
 
     public static void goToGenre(@NonNull final Activity activity, final Genre genre, @Nullable Pair... sharedElements) {

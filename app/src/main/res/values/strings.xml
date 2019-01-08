@@ -48,7 +48,6 @@
     <string name="lyrics">Lyrics</string>
     <string name="album_or_artist_empty">The title or artist is empty.</string>
     <string name="saving_changes">Saving changes</string>
-    <string name="saving_to_file">Saving to file…</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">File name</string>
     <string name="label_file_path">File path</string>
@@ -88,7 +87,9 @@
     <string name="delete_playlists_title">Delete playlists</string>
     <string name="clear_playlist_title">Clear playlist</string>
     <string name="save_playlist_title">Save as file</string>
+    <string name="save_playlists_title">Save as files</string>
     <string name="add_playlist_title">"Add to playlist"</string>
+    <string name="select_all_title">Select all</string>
     <string name="action_shuffle_all">Shuffle all</string>
     <string name="action_shuffle_album">Shuffle album</string>
     <string name="action_shuffle_artist">Shuffle artist</string>
@@ -105,6 +106,7 @@
     <string name="never">Never</string>
     <string name="today">Today</string>
     <string name="this_week">This week</string>
+    <string name="past_seven_days">Past 7 days</string>
     <string name="this_month">This month</string>
     <string name="past_three_months">Past 3 months</string>
     <string name="this_year">This year</string>
@@ -128,9 +130,11 @@
     <string name="pref_title_ignore_media_store_artwork">Ignore Media Store covers</string>
     <string name="pref_title_gapless_playback">Gapless playback</string>
     <string name="pref_title_audio_ducking">Reduce volume on focus loss</string>
+    <string name="pref_title_recently_played_interval">Recently played playlist interval</string>
     <string name="pref_title_last_added_interval">Last added playlist interval</string>
     <string name="pref_title_synchronized_lyrics_show">Show synchronized lyrics</string>
     <string name="pref_title_remember_last_tab">Remember last tab</string>
+    <string name="pref_title_remember_shuffle">Remember shuffle</string>
     <string name="no_equalizer">No equalizer found.</string>
     <string name="no_audio_ID">"Play a song first, then try again."</string>
     <string name="delete_action">Delete</string>
@@ -165,12 +169,14 @@
     <string name="pref_summary_audio_ducking">Notifications, navigation etc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Currently only synchronized lyrics in LRC format are supported. Either embedded or as a separate file.</string>
     <string name="pref_summary_remember_last_tab">Go to the last opened tab on launch</string>
+    <string name="pref_summary_remember_shuffle">Shuffle mode will stay on when selecting a new list of songs</string>
     <string name="could_not_download_album_cover">"Couldn\u2019t download a matching album cover."</string>
     <string name="search_hint">Search your library…</string>
     <string name="favorites">Favorites</string>
     <string name="last_added">Last added</string>
     <string name="history">History</string>
     <string name="my_top_tracks">My top tracks</string>
+    <string name="not_recently_played">Not recently played</string>
     <string name="remove_cover">Remove cover</string>
     <string name="download_from_last_fm">Download from Last.fm</string>
     <string name="pick_from_local_storage">Pick from local storage</string>
@@ -233,7 +239,10 @@
     <string name="folders">Folders</string>
     <string name="saved_playlist_to">Saved playlist to %s.</string>
     <string name="failed_to_save_playlist">Failed to save playlist (%s).</string>
+    <string name="saved_x_playlists_to_x">Saved %1$d playlists to %2$s.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">Saved %1$d playlists to %2$s, failed to save %3$d.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> is not listed in the media store.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Some files are not listed in the media store.</string>
     <string name="nothing_to_scan">Nothing to scan.</string>
     <string name="scanned_files">Scanned %1$d of %2$d files.</string>
     <string name="could_not_scan_files">Could not scan %d files.</string>
@@ -282,6 +291,7 @@
     <string name="restore">Restore</string>
     <string name="no_purchase_found">No purchase found.</string>
     <string name="eugene_cheung_summary">For his contributions to the source code.</string>
+    <string name="adrian_summary">For creating the album page design.</string>
     <string name="add_action">Add</string>
     <string name="blacklist">Blacklist</string>
     <string name="remove_from_blacklist">Remove from blacklist</string>
@@ -294,4 +304,12 @@
     <string name="library_categories">Library categories</string>
     <string name="pref_summary_library_categories">Configure visibility and order of library categories.</string>
     <string name="you_have_to_select_at_least_one_category">You have to select at least one category.</string>
+    <string name="action_scan_directory">Scan directory</string>
+    <string name="scan_media">Scan media</string>
+    <string name="action_sort_order">Sort order</string>
+    <string name="sort_order_a_z">Ascending</string>
+    <string name="sort_order_z_a">Descending</string>
+    <string name="sort_order_artist">Artist</string>
+    <string name="sort_order_album">Album</string>
+    <string name="sort_order_year">Year</string>
 </resources>

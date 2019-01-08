@@ -23,11 +23,12 @@ public abstract class AbsThemeActivity extends ATHToolbarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(PreferenceUtil.getInstance(this).getGeneralTheme());
         super.onCreate(savedInstanceState);
         MaterialDialogsUtil.updateMaterialDialogsThemeSingleton(this);
     }
 
-    protected void setDrawUnderStatusbar(boolean drawUnderStatusbar) {
+    protected void setDrawUnderStatusbar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             Util.setAllowDrawUnderStatusBar(getWindow());
         else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)

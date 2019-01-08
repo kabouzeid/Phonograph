@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".App"
@@ -125,8 +126,9 @@
             android:name=".ui.activities.SleepTimerActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:theme="@style/Theme.AppCompat.Dialog">
-        </activity>
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity android:name=".ui.activities.PurchaseActivity" />
+
         <service
             android:name=".service.MusicService"
             android:enabled="true" />
@@ -143,9 +145,6 @@
         <meta-data
             android:name="com.lge.support.SPLIT_WINDOW"
             android:value="true" />
-        <meta-data
-            android:name="com.crashlytics.ApiKey"
-            android:value="b23725bd3d266aa65c5a3dd1816b2f801524a189" />
         <meta-data
             android:name="com.kabouzeid.gramophone.glide.PhonographGlideModule"
             android:value="GlideModule" />
@@ -209,7 +208,6 @@
                 android:resource="@xml/app_widget_card_info" />
         </receiver>
 
-        <activity android:name=".ui.activities.PurchaseActivity"></activity>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}"

@@ -48,7 +48,6 @@
     <string name="lyrics">Letra</string>
     <string name="album_or_artist_empty">O título ou artista está vazio.</string>
     <string name="saving_changes">Salvando alterações</string>
-    <string name="saving_to_file">Salvando no arquivo...</string>
     <string name="label_details">Detalhes</string>
     <string name="label_file_name">Nome do arquivo</string>
     <string name="label_file_path">Endereço do arquivo</string>
@@ -113,6 +112,7 @@
     <string name="pref_header_now_playing_screen">Tocando agora</string>
     <string name="pref_title_general_theme">Tema geral</string>
     <string name="pref_header_audio">Áudio</string>
+    <string name="pref_header_library">Biblioteca</string>
     <string name="pref_header_images">Imagens</string>
     <string name="pref_header_lockscreen">Bloqueio de tela</string>
     <string name="pref_header_playlists">Listas de Reprodução</string>
@@ -129,6 +129,7 @@
     <string name="pref_title_audio_ducking">Reduzir o volume de perda de foco</string>
     <string name="pref_title_last_added_interval">Intervalo de adição das playlists mais recentes</string>
     <string name="pref_title_synchronized_lyrics_show">Exibir letras sincronizadas</string>
+    <string name="pref_title_remember_last_tab">Lembrar última aba</string>
     <string name="no_equalizer">Nenhum equalizador encontrado.</string>
     <string name="no_audio_ID">"Sem identificação de áudio, reproduza algo e tente novamente."</string>
     <string name="delete_action">Excluir</string>
@@ -136,6 +137,7 @@
     <string name="remove_action">Remover</string>
     <string name="rename_action">Renomear</string>
     <string name="create_action">Criar</string>
+    <string name="reset_action">Redefinir</string>
     <string name="x_selected">%1$d selecionado</string>
     <string name="primary_color">Cor primária</string>
     <string name="accent_color">Cor dos detalhes</string>
@@ -161,6 +163,7 @@
     <string name="pref_summary_colored_app_shortcuts">Colore os atalhos do app com a cor primária.</string>
     <string name="pref_summary_audio_ducking">Notificações, navegação, etc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Atualmente damos suporte apenas a letras de música no formato LRC. Tanto as encorporadas quanto as anexadas por um arquivo separado.</string>
+    <string name="pref_summary_remember_last_tab">Ir para a última aba aberta ao iniciar</string>
     <string name="could_not_download_album_cover">"N\u00e3o foi poss\u00edvel baixar uma capa do \u00e1lbum correspondente."</string>
     <string name="search_hint">Pesquisar na sua biblioteca...</string>
     <string name="favorites">Favoritos</string>
@@ -222,6 +225,7 @@
     <string name="saved_playlist_to">Salvo à playlist %s.</string>
     <string name="failed_to_save_playlist">Erro ao salvar a playlist (%s).</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> não está listado no armazenamento de mídia.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Alguns arquivos não estão listados no armazenamento de mídia.</string>
     <string name="nothing_to_scan">Nada para escanear.</string>
     <string name="scanned_files">Foram escaneados %1$d dos arquivos %2$d.</string>
     <string name="could_not_scan_files">Não foi possível escanear  os arquivos em %d.</string>
@@ -270,6 +274,7 @@
     <string name="restore">Restituir</string>
     <string name="no_purchase_found">Nenhuma compra feita.</string>
     <string name="eugene_cheung_summary">Pela sua contribuição com o código-fonte.</string>
+    <string name="adrian_summary">Por criar o design da página de álbuns.</string>
     <string name="add_action">Adicionar</string>
     <string name="blacklist">Lista Negra</string>
     <string name="remove_from_blacklist">Remover da lista negra</string>
@@ -279,4 +284,15 @@
     <string name="pref_summary_blacklist">O conteúdo de pastas presentes na lista negra são ocultadas de sua biblioteca.</string>
     <string name="reset_artist_image">Redefinir a imagem do artista</string>
     <string name="set_artist_image">Definir imagem do artista</string>
+    <string name="library_categories">Categorias da biblioteca</string>
+    <string name="pref_summary_library_categories">Configurar a visibilidade e a ordem das categorias da biblioteca.</string>
+    <string name="you_have_to_select_at_least_one_category">Você deve selecionar ao menos uma categoria.</string>
+    <string name="action_scan_directory">Escanear pasta</string>
+    <string name="scan_media">Escanear mídia</string>
+    <string name="action_sort_order">Embaralhar ordem</string>
+    <string name="sort_order_a_z">Ascendente</string>
+    <string name="sort_order_z_a">Descendente</string>
+    <string name="sort_order_artist">Artista</string>
+    <string name="sort_order_album">Álbum</string>
+    <string name="sort_order_year">Ano</string>
 </resources>

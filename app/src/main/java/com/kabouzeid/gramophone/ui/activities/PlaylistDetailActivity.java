@@ -48,8 +48,6 @@ import butterknife.ButterKnife;
 
 public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity implements CabHolder, LoaderManager.LoaderCallbacks<ArrayList<Song>> {
 
-    public static final String TAG = PlaylistDetailActivity.class.getSimpleName();
-
     private static final int LOADER_ID = LoaderIds.PLAYLIST_DETAIL_ACTIVITY;
 
     @NonNull
@@ -73,7 +71,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setDrawUnderStatusbar(true);
+        setDrawUnderStatusbar();
         ButterKnife.bind(this);
 
         setStatusbarColorAuto();
@@ -98,12 +96,12 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         ViewUtil.setUpFastScrollRecyclerViewColor(this, ((FastScrollRecyclerView) recyclerView), ThemeStore.accentColor(this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         if (playlist instanceof AbsCustomPlaylist) {
-            adapter = new PlaylistSongAdapter(this, new ArrayList<Song>(), R.layout.item_list, false, this);
+            adapter = new PlaylistSongAdapter(this, new ArrayList<>(), R.layout.item_list, false, this);
             recyclerView.setAdapter(adapter);
         } else {
             recyclerViewDragDropManager = new RecyclerViewDragDropManager();
             final GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
-            adapter = new OrderablePlaylistSongAdapter(this, new ArrayList<PlaylistSong>(), R.layout.item_list, false, this, (fromPosition, toPosition) -> {
+            adapter = new OrderablePlaylistSongAdapter(this, new ArrayList<>(), R.layout.item_list, false, this, (fromPosition, toPosition) -> {
                 if (PlaylistsUtil.moveItem(PlaylistDetailActivity.this, playlist.id, fromPosition, toPosition)) {
                     Song song = adapter.getDataSet().remove(fromPosition);
                     adapter.getDataSet().add(toPosition, song);
@@ -253,7 +251,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     @Override
     public void onLoaderReset(Loader<ArrayList<Song>> loader) {
         if (adapter != null)
-            adapter.swapDataSet(new ArrayList<Song>());
+            adapter.swapDataSet(new ArrayList<>());
     }
 
     private static class AsyncPlaylistSongLoader extends WrappedAsyncTaskLoader<ArrayList<Song>> {

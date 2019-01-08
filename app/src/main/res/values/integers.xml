@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <integer name="default_grid_columns">2</integer>
     <integer name="default_grid_columns_land">4</integer>
 
@@ -8,5 +9,7 @@
 
     <integer name="max_columns">4</integer>
     <integer name="max_columns_land">6</integer>
+
+    <integer name="detail_header_tile_maxLines">3</integer>
 
 </resources>

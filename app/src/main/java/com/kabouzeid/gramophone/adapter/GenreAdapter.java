@@ -18,8 +18,6 @@ import java.util.ArrayList;
 
 public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> implements FastScrollRecyclerView.SectionedAdapter {
 
-    public static final String TAG = GenreAdapter.class.getSimpleName();
-
     @NonNull
     private final AppCompatActivity activity;
     private ArrayList<Genre> dataSet;
@@ -47,7 +45,7 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(activity).inflate(itemLayoutRes, parent, false);
         return new ViewHolder(view);
     }

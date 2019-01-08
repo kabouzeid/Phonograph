@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter;
 
+import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
@@ -11,8 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.kabouzeid.appthemehelper.util.ATHUtil;
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
@@ -22,14 +25,16 @@ import com.kabouzeid.gramophone.helper.menu.PlaylistMenuHelper;
 import com.kabouzeid.gramophone.helper.menu.SongsMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
+import com.kabouzeid.gramophone.misc.WeakContextAsyncTask;
 import com.kabouzeid.gramophone.model.AbsCustomPlaylist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
-import com.kabouzeid.gramophone.model.smartplaylist.LastAddedPlaylist;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PlaylistsUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +42,6 @@ import java.util.List;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewHolder, Playlist> {
-
-    public static final String TAG = PlaylistAdapter.class.getSimpleName();
 
     private static final int SMART_PLAYLIST = 0;
     private static final int DEFAULT_PLAYLIST = 1;
@@ -69,15 +72,24 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         return dataSet.get(position).id;
     }
 
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(activity).inflate(itemLayoutRes, parent, false);
         return createViewHolder(view, viewType);
     }
 
     protected ViewHolder createViewHolder(View view, int viewType) {
         return new ViewHolder(view, viewType);
+    }
+
+    protected String getPlaylistTitle(Playlist playlist) {
+        return playlist.name;
+    }
+
+    protected String getPlaylistText(Playlist playlist) {
+        Context context = App.getInstance().getApplicationContext();
+        return playlist.getInfoString(context);
     }
 
     @Override
@@ -87,7 +99,10 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         holder.itemView.setActivated(isChecked(playlist));
 
         if (holder.title != null) {
-            holder.title.setText(playlist.name);
+            holder.title.setText(getPlaylistTitle(playlist));
+        }
+        if (holder.text != null) {
+            holder.text.setText(getPlaylistText(playlist));
         }
 
         if (holder.getAdapterPosition() == getItemCount() - 1) {
@@ -140,7 +155,9 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                     Playlist playlist = selection.get(i);
                     if (playlist instanceof AbsSmartPlaylist) {
                         AbsSmartPlaylist absSmartPlaylist = (AbsSmartPlaylist) playlist;
-                        ClearSmartPlaylistDialog.create(absSmartPlaylist).show(activity.getSupportFragmentManager(), "CLEAR_PLAYLIST_" + absSmartPlaylist.name);
+                        if (absSmartPlaylist.isClearable()) {
+                            ClearSmartPlaylistDialog.create(absSmartPlaylist).show(activity.getSupportFragmentManager(), "CLEAR_PLAYLIST_" + absSmartPlaylist.name);
+                        }
                         selection.remove(playlist);
                         i--;
                     }
@@ -149,9 +166,53 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                     DeletePlaylistDialog.create(selection).show(activity.getSupportFragmentManager(), "DELETE_PLAYLIST");
                 }
                 break;
+            case R.id.action_save_playlist:
+                if (selection.size() == 1) {
+                    PlaylistMenuHelper.handleMenuClick(activity, selection.get(0), menuItem);
+                } else {
+                    new SavePlaylistsAsyncTask(activity).execute(selection);
+                }
+                break;
             default:
                 SongsMenuHelper.handleMenuClick(activity, getSongList(selection), menuItem.getItemId());
                 break;
+        }
+    }
+
+    private static class SavePlaylistsAsyncTask extends WeakContextAsyncTask<ArrayList<Playlist>, String, String> {
+        public SavePlaylistsAsyncTask(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected String doInBackground(ArrayList<Playlist>... params) {
+            int successes = 0;
+            int failures = 0;
+
+            String dir = "";
+
+            for (Playlist playlist : params[0]) {
+                try {
+                    dir = PlaylistsUtil.savePlaylist(App.getInstance().getApplicationContext(), playlist).getParent();
+                    successes++;
+                } catch (IOException e) {
+                    failures++;
+                    e.printStackTrace();
+                }
+            }
+
+            return failures == 0
+                    ? String.format(App.getInstance().getApplicationContext().getString(R.string.saved_x_playlists_to_x), successes, dir)
+                    : String.format(App.getInstance().getApplicationContext().getString(R.string.saved_x_playlists_to_x_failed_to_save_x), successes, dir, failures);
+        }
+
+        @Override
+        protected void onPostExecute(String string) {
+            super.onPostExecute(string);
+            Context context = getContext();
+            if (context != null) {
+                Toast.makeText(context, string, Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -193,20 +254,28 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                 menu.setOnClickListener(view -> {
                     final Playlist playlist = dataSet.get(getAdapterPosition());
                     final PopupMenu popupMenu = new PopupMenu(activity, view);
-                    popupMenu.inflate(getItemViewType() == SMART_PLAYLIST ? R.menu.menu_item_smart_playlist : R.menu.menu_item_playlist);
-                    if (playlist instanceof LastAddedPlaylist) {
-                        popupMenu.getMenu().findItem(R.id.action_clear_playlist).setVisible(false);
-                    }
-                    popupMenu.setOnMenuItemClickListener(item -> {
-                        if (item.getItemId() == R.id.action_clear_playlist) {
-                            if (playlist instanceof AbsSmartPlaylist) {
-                                ClearSmartPlaylistDialog.create((AbsSmartPlaylist) playlist).show(activity.getSupportFragmentManager(), "CLEAR_SMART_PLAYLIST_" + playlist.name);
+                    if (playlist instanceof AbsSmartPlaylist) {
+                        popupMenu.inflate(R.menu.menu_item_smart_playlist);
+                        final AbsSmartPlaylist smartPlaylist = (AbsSmartPlaylist) playlist;
+                        if (!smartPlaylist.isClearable()) {
+                            popupMenu.getMenu().findItem(R.id.action_clear_playlist).setVisible(false);
+                        }
+                        popupMenu.setOnMenuItemClickListener(item -> {
+                            if (item.getItemId() == R.id.action_clear_playlist) {
+                                ClearSmartPlaylistDialog.create(smartPlaylist).show(activity.getSupportFragmentManager(), "CLEAR_SMART_PLAYLIST_" + smartPlaylist.name);
                                 return true;
                             }
-                        }
-                        return PlaylistMenuHelper.handleMenuClick(
+                            return PlaylistMenuHelper.handleMenuClick(
                                 activity, dataSet.get(getAdapterPosition()), item);
-                    });
+                        });
+                    }
+                    else {
+                        popupMenu.inflate(R.menu.menu_item_playlist);
+                        popupMenu.setOnMenuItemClickListener(item -> {
+                            return PlaylistMenuHelper.handleMenuClick(
+                                activity, dataSet.get(getAdapterPosition()), item);
+                        });
+                    }
                     popupMenu.show();
                 });
             }

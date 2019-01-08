@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class M3UWriter implements M3UConstants {
-    public static final String TAG = M3UWriter.class.getSimpleName();
 
     public static File write(Context context, File dir, Playlist playlist) throws IOException {
         if (!dir.exists()) //noinspection ResultOfMethodCallIgnored

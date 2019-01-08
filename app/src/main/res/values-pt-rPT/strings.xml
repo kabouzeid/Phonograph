@@ -41,7 +41,6 @@
     <string name="track_hint">"Faixa (2 para faixa 2 ou 3004 para CD3 faixa 4)"</string>
     <string name="album_or_artist_empty">O título do álbum ou o artista está vazio.</string>
     <string name="saving_changes">A gravar alterações</string>
-    <string name="saving_to_file">A gravar no ficheiro...</string>
     <string name="label_details">Detalhes</string>
     <string name="label_file_name">Nome do ficheiro</string>
     <string name="label_file_path">Local do ficheiro</string>

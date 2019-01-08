@@ -30,6 +30,7 @@
     <string name="action_set_as_start_directory">Ustaw jako katalog startowy</string>
     <string name="albums">Albumy</string>
     <string name="artists">Wykonawcy</string>
+    <string name="genres">Gatunki</string>
     <string name="songs">Utwory</string>
     <string name="playlists">Listy odtwarzania</string>
     <string name="unplayable_file">Utw\u00f3r nie mo\u017ce zosta\u0107 odegrany</string>
@@ -47,7 +48,6 @@
     <string name="lyrics">Tekst</string>
     <string name="album_or_artist_empty">Pole tytułu lub artysty jest puste</string>
     <string name="saving_changes">Zapisywanie zmian...</string>
-    <string name="saving_to_file">Zapisywanie do pliku...</string>
     <string name="label_details">Szczegóły</string>
     <string name="label_file_name">Nazwa pliku</string>
     <string name="label_file_path">Ścieżka pliku</string>
@@ -112,6 +112,7 @@
     <string name="pref_header_now_playing_screen">Obecnie Grane</string>
     <string name="pref_title_general_theme">Styl tła motywu</string>
     <string name="pref_header_audio">Dźwięk</string>
+    <string name="pref_header_library">Biblioteka</string>
     <string name="pref_header_images">Obrazy</string>
     <string name="pref_header_lockscreen">Ekran blokady</string>
     <string name="pref_header_playlists">Lista odtwarzania</string>
@@ -268,6 +269,7 @@
     <string name="restore">Przywróć</string>
     <string name="no_purchase_found">Nie znaleziono zakupu.</string>
     <string name="eugene_cheung_summary">Za jego wkład w kod źródłowy.</string>
+    <string name="adrian_summary">Za stworzenie design\'u strony albumu</string>
     <string name="add_action">Dodaj</string>
     <string name="blacklist">Czarna lista</string>
     <string name="remove_from_blacklist">Usuń z czarnej listy</string>
@@ -277,4 +279,15 @@
     <string name="pref_summary_blacklist">Zawartość czarnej listy jest niewidoczna w twojej bibliotece.</string>
     <string name="reset_artist_image">Wyczyść obraz artysty</string>
     <string name="set_artist_image">Zaktualizuj zdjęcie wykonawcy</string>
+    <string name="library_categories">Kategorie biblioteki</string>
+    <string name="pref_summary_library_categories">Ustawia widoczność i kolejność kategorii biblioteki</string>
+    <string name="you_have_to_select_at_least_one_category">Musisz wybrać co najmniej jedną kategorię</string>
+    <string name="action_scan_directory">Skanuj ścieżkę</string>
+    <string name="scan_media">Skanuj media</string>
+    <string name="action_sort_order">Kolejność sortowania</string>
+    <string name="sort_order_a_z">Rosnąco</string>
+    <string name="sort_order_z_a">Malejąco</string>
+    <string name="sort_order_artist">Artysta</string>
+    <string name="sort_order_album">Album</string>
+    <string name="sort_order_year">Rok</string>
 </resources>

@@ -16,6 +16,7 @@ import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.HorizontalAdapterHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Album;
+import com.kabouzeid.gramophone.util.MusicUtil;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,6 @@ import java.util.ArrayList;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class HorizontalAlbumAdapter extends AlbumAdapter {
-    public static final String TAG = AlbumAdapter.class.getSimpleName();
 
     public HorizontalAlbumAdapter(@NonNull AppCompatActivity activity, ArrayList<Album> dataSet, boolean usePalette, @Nullable CabHolder cabHolder) {
         super(activity, dataSet, HorizontalAdapterHelper.LAYOUT_RES, usePalette, cabHolder);
@@ -76,11 +76,7 @@ public class HorizontalAlbumAdapter extends AlbumAdapter {
 
     @Override
     protected String getAlbumText(Album album) {
-		int year = album.getYear();
-		if(year > 0) {
-			return String.valueOf(year);
-		}
-		return "-";
+        return MusicUtil.getYearString(album.getYear());
     }
 
     @Override

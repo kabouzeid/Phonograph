@@ -45,7 +45,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SettingsActivity extends AbsBaseActivity implements ColorChooserDialog.ColorCallback {
-    public static final String TAG = SettingsActivity.class.getSimpleName();
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -54,7 +53,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
-        setDrawUnderStatusbar(true);
+        setDrawUnderStatusbar();
         ButterKnife.bind(this);
 
         setStatusbarColorAuto();
@@ -200,15 +199,13 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     return false;
                 }
 
-                int theme = PreferenceUtil.getThemeResFromPrefValue(themeName);
                 setSummary(generalTheme, o);
-                ThemeStore.editTheme(getActivity())
-                        .activityTheme(theme)
-                        .commit();
+
+                ThemeStore.markChanged(getActivity());
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
                     // Set the new theme so that updateAppShortcuts can pull it
-                    getActivity().setTheme(PreferenceUtil.getThemeResFromPrefValue((String) o));
+                    getActivity().setTheme(PreferenceUtil.getThemeResFromPrefValue(themeName));
                     new DynamicShortcutManager(getActivity()).updateDynamicShortcuts();
                 }
 

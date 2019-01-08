@@ -23,8 +23,6 @@ import butterknife.ButterKnife;
 
 public class SongTagEditorActivity extends AbsTagEditorActivity implements TextWatcher {
 
-    public static final String TAG = SongTagEditorActivity.class.getSimpleName();
-
     @BindView(R.id.title1)
     EditText songTitle;
     @BindView(R.id.title2)

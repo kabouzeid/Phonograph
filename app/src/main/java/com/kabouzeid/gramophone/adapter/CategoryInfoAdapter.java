@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.adapter;
 
 import android.annotation.SuppressLint;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
@@ -28,14 +29,15 @@ public class CategoryInfoAdapter extends RecyclerView.Adapter<CategoryInfoAdapte
     }
 
     @Override
-    public CategoryInfoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public CategoryInfoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.preference_dialog_library_categories_listitem, parent, false);
         return new ViewHolder(view);
     }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public void onBindViewHolder(CategoryInfoAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryInfoAdapter.ViewHolder holder, int position) {
         CategoryInfo categoryInfo = categoryInfos.get(position);
 
         holder.checkBox.setChecked(categoryInfo.visible);
@@ -63,7 +65,6 @@ public class CategoryInfoAdapter extends RecyclerView.Adapter<CategoryInfoAdapte
     public int getItemCount() {
         return categoryInfos.size();
     }
-
 
     public void setCategoryInfos(ArrayList<CategoryInfo> categoryInfos) {
         this.categoryInfos = categoryInfos;

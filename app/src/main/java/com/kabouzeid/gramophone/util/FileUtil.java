@@ -153,11 +153,8 @@ public final class FileUtil {
                 return false;
             }
             String fileTypeMainType = fileType.substring(0, fileTypeDelimiter);
-            if (fileTypeMainType.equals(mimeTypeMainType)) {
-                return true;
-            }
+            return fileTypeMainType.equals(mimeTypeMainType);
         }
-        return false;
     }
 
     public static String stripExtension(String str) {
@@ -192,6 +189,15 @@ public final class FileUtil {
         } catch (IOException e) {
             e.printStackTrace();
             return file.getAbsolutePath();
+        }
+    }
+
+    public static File safeGetCanonicalFile(File file) {
+        try {
+            return file.getCanonicalFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return file.getAbsoluteFile();
         }
     }
 }

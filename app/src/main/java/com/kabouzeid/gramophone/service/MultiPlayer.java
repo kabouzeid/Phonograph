@@ -144,7 +144,7 @@ public class MultiPlayer implements Playback, MediaPlayer.OnErrorListener, Media
      * @param callbacks The callbacks to use
      */
     @Override
-    public void setCallbacks(final Playback.PlaybackCallbacks callbacks) {
+    public void setCallbacks(@Nullable Playback.PlaybackCallbacks callbacks) {
         this.callbacks = callbacks;
     }
 

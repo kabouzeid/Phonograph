@@ -53,10 +53,11 @@ public abstract class AbsOffsetSongAdapter extends SongAdapter {
         return super.getItemId(position);
     }
 
+    @Nullable
     @Override
     protected Song getIdentifier(int position) {
         position--;
-        if (position < 0) return Song.EMPTY_SONG;
+        if (position < 0) return null;
         return super.getIdentifier(position);
     }
 
@@ -87,7 +88,8 @@ public abstract class AbsOffsetSongAdapter extends SongAdapter {
 
         @Override
         protected Song getSong() {
-            if (getItemViewType() == OFFSET_ITEM) return Song.EMPTY_SONG;
+            if (getItemViewType() == OFFSET_ITEM)
+                return Song.EMPTY_SONG; // could also return null, just to be safe return empty song
             return dataSet.get(getAdapterPosition() - 1);
         }
 

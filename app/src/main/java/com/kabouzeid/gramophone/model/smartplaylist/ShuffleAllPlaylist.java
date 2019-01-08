@@ -32,11 +32,6 @@ public class ShuffleAllPlaylist extends AbsSmartPlaylist {
         return 0;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-    }
-
     protected ShuffleAllPlaylist(Parcel in) {
         super(in);
     }
