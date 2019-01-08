@@ -32,6 +32,7 @@ public final class PreferenceUtil {
     public static final String ARTIST_SORT_ORDER = "artist_sort_order";
     public static final String ARTIST_SONG_SORT_ORDER = "artist_song_sort_order";
     public static final String ARTIST_ALBUM_SORT_ORDER = "artist_album_sort_order";
+    public static final String ARTIST_DETAIL_ALBUM_SORT_ORDER = "artist_detail_album_sort_order";
     public static final String ALBUM_SORT_ORDER = "album_sort_order";
     public static final String ALBUM_SONG_SORT_ORDER = "album_song_sort_order";
     public static final String SONG_SORT_ORDER = "song_sort_order";
@@ -263,6 +264,14 @@ public final class PreferenceUtil {
     public void setAlbumSortOrder(final String sortOrder) {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putString(ALBUM_SORT_ORDER, sortOrder);
+        editor.commit();
+    }
+
+    public final String getArtistDetailAlbumSortOrder() { return mPreferences.getString(ARTIST_DETAIL_ALBUM_SORT_ORDER, SortOrder.ArtistAlbumSortOrder.ALBUM_YEAR_ASC); }
+
+    public void setArtistDetailAlbumSortOrder(final String sortOrder) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putString(ARTIST_DETAIL_ALBUM_SORT_ORDER, sortOrder);
         editor.commit();
     }
 
