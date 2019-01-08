@@ -14,8 +14,6 @@ import java.util.ArrayList;
  */
 
 public abstract class AbsCustomPlaylist extends Playlist {
-    public static final String INFO_STRING_SEPARATOR = "  •  ";
-
     public AbsCustomPlaylist(int id, String name) {
         super(id, name);
     }
