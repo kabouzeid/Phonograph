@@ -34,10 +34,9 @@
     <com.kabouzeid.appthemehelper.common.views.ATECheckBox
         android:id="@+id/should_finish_last_song"
         android:layout_width="wrap_content"
-        android:layout_height="42dp"
-        android:layout_gravity="bottom"
-        android:layout_margin="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:text="@string/finish_current_music_sleep_timer" />
 
 </LinearLayout>
-
