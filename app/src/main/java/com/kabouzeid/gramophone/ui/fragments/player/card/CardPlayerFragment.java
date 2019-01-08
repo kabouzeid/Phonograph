@@ -603,7 +603,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         @Override
         public void updateCurrentSong(Song song) {
             fragment.toolbar.setTitle(song.title);
-            fragment.toolbar.setSubtitle(song.artistName);
+            fragment.toolbar.setSubtitle(MusicUtil.getSongInfoString(song));
         }
 
         @Override
