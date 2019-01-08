@@ -16,7 +16,6 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.text.TextUtils;
 import android.widget.RemoteViews;
 
 import com.kabouzeid.gramophone.R;
