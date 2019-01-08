@@ -192,7 +192,7 @@ public class MusicUtil {
         // Skip empty strings
         if (string1.isEmpty()) {return string2;}
         if (string2.isEmpty()) {return string1;}
-        
+
         final String separator = "  •  ";
 
         final StringBuilder builder = new StringBuilder();
