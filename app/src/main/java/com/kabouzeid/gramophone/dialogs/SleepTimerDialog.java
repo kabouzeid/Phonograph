@@ -11,6 +11,7 @@ import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.PurchaseActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
@@ -38,6 +40,8 @@ public class SleepTimerDialog extends DialogFragment {
     SeekArc seekArc;
     @BindView(R.id.timer_display)
     TextView timerDisplay;
+    @BindView(R.id.should_finish_last_song)
+    CheckBox shouldFinishLastSong;
 
     private int seekArcProgress;
     private MaterialDialog materialDialog;
@@ -69,6 +73,8 @@ public class SleepTimerDialog extends DialogFragment {
                         return;
                     }
 
+                    PreferenceUtil.getInstance(getActivity()).setSleepTimerFinishMusic(shouldFinishLastSong.isChecked());
+
                     final int minutes = seekArcProgress;
 
                     PendingIntent pi = SleepTimerUtil.createTimer(getActivity());
@@ -92,6 +98,12 @@ public class SleepTimerDialog extends DialogFragment {
                         getActivity().sendBroadcast(new Intent(MusicService.SLEEP_TIMER_CHANGED));
                         Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_canceled), Toast.LENGTH_SHORT).show();
                     }
+
+                    MusicService musicService = MusicPlayerRemote.musicService;
+                    if (musicService != null && musicService.pendingQuit) {
+                        musicService.pendingQuit = false;
+                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_canceled), Toast.LENGTH_SHORT).show();
+                    }
                 })
                 .showListener(dialog -> {
                     if (SleepTimerUtil.isTimerRunning(getActivity())) {
@@ -106,6 +118,9 @@ public class SleepTimerDialog extends DialogFragment {
         }
 
         ButterKnife.bind(this, materialDialog.getCustomView());
+
+        boolean finishMusic = PreferenceUtil.getInstance(getActivity()).getSleepTimerFinishMusic();
+        shouldFinishLastSong.setChecked(finishMusic);
 
         seekArc.setProgressColor(ThemeSingleton.get().positiveColor.getDefaultColor());
         seekArc.setThumbColor(ThemeSingleton.get().positiveColor.getDefaultColor());
@@ -153,6 +168,27 @@ public class SleepTimerDialog extends DialogFragment {
         timerDisplay.setText(seekArcProgress + " min");
     }
 
+    private PendingIntent makeTimerPendingIntent(int flag) {
+        return PendingIntent.getService(getActivity(), 0, makeTimerIntent(), flag);
+    }
+
+    private Intent makeTimerIntent() {
+        Intent intent = new Intent(getActivity(), MusicService.class);
+        if (shouldFinishLastSong.isChecked()) {
+            return intent.setAction(MusicService.ACTION_PENDING_QUIT);
+        }
+        return intent.setAction(MusicService.ACTION_QUIT);
+    }
+
+    private void updateCancelButton() {
+        MusicService musicService = MusicPlayerRemote.musicService;
+        if (musicService != null && musicService.pendingQuit) {
+            materialDialog.setActionButton(DialogAction.NEUTRAL, materialDialog.getContext().getString(R.string.cancel_current_timer));
+        } else {
+            materialDialog.setActionButton(DialogAction.NEUTRAL, null);
+        }
+    }
+
     private class TimerUpdater extends CountDownTimer {
         public TimerUpdater() {
             super(PreferenceUtil.getInstance(getActivity()).getNextSleepTimerElapsedRealTime() - SystemClock.elapsedRealtime(), 1000);
@@ -165,7 +201,7 @@ public class SleepTimerDialog extends DialogFragment {
 
         @Override
         public void onFinish() {
-            materialDialog.setActionButton(DialogAction.NEUTRAL, null);
+            updateCancelButton();
         }
     }
 

@@ -26,7 +26,6 @@ import android.support.annotation.Nullable;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
-
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ public class TopAndRecentlyPlayedTracksLoader {
 (@NonNull Context context) {
         ArrayList<Song> allSongs = SongLoader.getSongs(
             SongLoader.makeSongCursor(
-                context, 
+                context,
                 null, null,
                 MediaStore.Audio.Media.DATE_ADDED + " ASC"));
 

@@ -93,7 +93,6 @@ public abstract class PlayingNotification {
             notificationChannel.setDescription(service.getString(R.string.playing_notification_description));
             notificationChannel.enableLights(false);
             notificationChannel.enableVibration(false);
-            notificationChannel.setShowBadge(false);
 
             notificationManager.createNotificationChannel(notificationChannel);
         }

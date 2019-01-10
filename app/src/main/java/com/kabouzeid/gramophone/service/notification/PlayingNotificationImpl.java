@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.service.notification;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
@@ -25,10 +24,11 @@ import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
+import com.kabouzeid.gramophone.ui.activities.MainActivity;
+import com.kabouzeid.gramophone.util.ImageUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.SleepTimerUtil;
-import com.kabouzeid.gramophone.util.Util;
 
 import java.util.concurrent.TimeUnit;
 
@@ -164,10 +164,10 @@ public class PlayingNotificationImpl extends PlayingNotification {
                                 int primary = MaterialValueHelper.getPrimaryTextColor(service, dark);
                                 int secondary = MaterialValueHelper.getSecondaryTextColor(service, dark);
 
-                                Bitmap prev = createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_previous_white_24dp, primary), 1.5f);
-                                Bitmap next = createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_next_white_24dp, primary), 1.5f);
-                                Bitmap playPause = createBitmap(Util.getTintedVectorDrawable(service, isPlaying ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp, primary), 1.5f);
-                                Bitmap sleepTimer = createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_timer_white_24dp, primary), 1.5f);
+                                Bitmap prev = ImageUtil.createBitmap(ImageUtil.getTintedVectorDrawable(service, R.drawable.ic_skip_previous_white_24dp, primary), 1.5f);
+                                Bitmap next = ImageUtil.createBitmap(ImageUtil.getTintedVectorDrawable(service, R.drawable.ic_skip_next_white_24dp, primary), 1.5f);
+                                Bitmap playPause = ImageUtil.createBitmap(ImageUtil.getTintedVectorDrawable(service, isPlaying ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp, primary), 1.5f);
+                                Bitmap sleepTimer = ImageUtil.createBitmap(ImageUtil.getTintedVectorDrawable(service, R.drawable.ic_timer_white_24dp, primary), 1.5f);
 
                                 notificationLayout.setTextColor(R.id.title, primary);
                                 notificationLayout.setTextColor(R.id.text, secondary);
@@ -217,11 +217,4 @@ public class PlayingNotificationImpl extends PlayingNotification {
         notificationLayoutBig.setOnClickPendingIntent(R.id.action_sleep_timer, sleepTimer);
     }
 
-    private static Bitmap createBitmap(Drawable drawable, float sizeMultiplier) {
-        Bitmap bitmap = Bitmap.createBitmap((int) (drawable.getIntrinsicWidth() * sizeMultiplier), (int) (drawable.getIntrinsicHeight() * sizeMultiplier), Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(bitmap);
-        drawable.setBounds(0, 0, c.getWidth(), c.getHeight());
-        drawable.draw(c);
-        return bitmap;
-    }
 }

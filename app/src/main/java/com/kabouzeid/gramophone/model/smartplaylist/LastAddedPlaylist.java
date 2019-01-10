@@ -4,9 +4,9 @@ import android.content.Context;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
 
+import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.LastAddedLoader;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
