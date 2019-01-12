@@ -350,7 +350,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             new Handler().postDelayed(() -> startActivityForResult(new Intent(MainActivity.this, AppIntroActivity.class), APP_INTRO_REQUEST), 50);
             return true;
         }
-        return false
+        return false;
     }
 
     private void showChangelog() {
