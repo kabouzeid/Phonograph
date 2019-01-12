@@ -71,7 +71,6 @@ import java.util.Random;
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
  */
 public class MusicService extends Service implements SharedPreferences.OnSharedPreferenceChangeListener, Playback.PlaybackCallbacks {
-    public static final String TAG = MusicService.class.getSimpleName();
 
     public static final String PHONOGRAPH_PACKAGE_NAME = "com.kabouzeid.gramophone";
     public static final String MUSIC_PACKAGE_NAME = "com.android.music";
@@ -84,6 +83,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String ACTION_SKIP = PHONOGRAPH_PACKAGE_NAME + ".skip";
     public static final String ACTION_REWIND = PHONOGRAPH_PACKAGE_NAME + ".rewind";
     public static final String ACTION_QUIT = PHONOGRAPH_PACKAGE_NAME + ".quitservice";
+    public static final String ACTION_PENDING_QUIT = PHONOGRAPH_PACKAGE_NAME + ".pendingquitservice";
     public static final String INTENT_EXTRA_PLAYLIST = PHONOGRAPH_PACKAGE_NAME + "intentextra.playlist";
     public static final String INTENT_EXTRA_SHUFFLE_MODE = PHONOGRAPH_PACKAGE_NAME + ".intentextra.shufflemode";
 
@@ -125,6 +125,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final int SAVE_QUEUES = 0;
 
     private final IBinder musicBind = new MusicBinder();
+
+    public boolean pendingQuit = false;
 
     private AppWidgetBig appWidgetBig = AppWidgetBig.getInstance();
     private AppWidgetClassic appWidgetClassic = AppWidgetClassic.getInstance();
@@ -336,7 +338,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         break;
                     case ACTION_STOP:
                     case ACTION_QUIT:
+                        pendingQuit = false;
                         quit();
+                        break;
+                    case ACTION_PENDING_QUIT:
+                        pendingQuit = true;
                         break;
                 }
             }
@@ -1194,9 +1200,16 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                     break;
 
                 case TRACK_ENDED:
-                    if (service.getRepeatMode() == REPEAT_MODE_NONE && service.isLastTrack()) {
+                    // if there is a timer finished, don't continue
+                    if (service.pendingQuit ||
+                            service.getRepeatMode() == REPEAT_MODE_NONE && service.isLastTrack()) {
                         service.notifyChange(PLAY_STATE_CHANGED);
                         service.seek(0);
+                        if (service.pendingQuit) {
+                            service.pendingQuit = false;
+                            service.quit();
+                            break;
+                        }
                     } else {
                         service.playNextSong(false);
                     }
@@ -1273,18 +1286,24 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         public void onReceive(final Context context, final Intent intent) {
             final String command = intent.getStringExtra(EXTRA_APP_WIDGET_NAME);
 
-            if (AppWidgetClassic.NAME.equals(command)) {
-                final int[] ids = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
-                appWidgetClassic.performUpdate(MusicService.this, ids);
-            } else if (AppWidgetSmall.NAME.equals(command)) {
-                final int[] ids = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
-                appWidgetSmall.performUpdate(MusicService.this, ids);
-            } else if (AppWidgetBig.NAME.equals(command)) {
-                final int[] ids = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
-                appWidgetBig.performUpdate(MusicService.this, ids);
-            } else if (AppWidgetCard.NAME.equals(command)) {
-                final int[] ids = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
-                appWidgetCard.performUpdate(MusicService.this, ids);
+            final int[] ids = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
+            switch (command) {
+                case AppWidgetClassic.NAME: {
+                    appWidgetClassic.performUpdate(MusicService.this, ids);
+                    break;
+                }
+                case AppWidgetSmall.NAME: {
+                    appWidgetSmall.performUpdate(MusicService.this, ids);
+                    break;
+                }
+                case AppWidgetBig.NAME: {
+                    appWidgetBig.performUpdate(MusicService.this, ids);
+                    break;
+                }
+                case AppWidgetCard.NAME: {
+                    appWidgetCard.performUpdate(MusicService.this, ids);
+                    break;
+                }
             }
         }
     };

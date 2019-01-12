@@ -61,7 +61,7 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
 
         @SuppressLint("InflateParams")
         View customView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_donation, null);
-        ProgressBar progressBar = ButterKnife.findById(customView, R.id.progress);
+        ProgressBar progressBar = customView.findViewById(R.id.progress);
         MDTintHelper.setTint(progressBar, ThemeSingleton.get().positiveColor.getDefaultColor());
 
         return new MaterialDialog.Builder(getContext())
@@ -83,7 +83,7 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
     }
 
     @Override
-    public void onProductPurchased(String productId, TransactionDetails details) {
+    public void onProductPurchased(@NonNull String productId, TransactionDetails details) {
         loadSkuDetails();
         Toast.makeText(getContext(), R.string.thank_you, Toast.LENGTH_SHORT).show();
     }
@@ -165,7 +165,7 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
             View customView = ((MaterialDialog) dialog.getDialog()).getCustomView();
             //noinspection ConstantConditions
             customView.findViewById(R.id.progress_container).setVisibility(View.GONE);
-            ListView listView = ButterKnife.findById(customView, R.id.list);
+            ListView listView = customView.findViewById(R.id.list);
             listView.setAdapter(new SkuDetailsAdapter(dialog, skuDetails));
             listView.setVisibility(View.VISIBLE);
         }
@@ -183,7 +183,8 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
         }
 
         @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
+        @NonNull
+        public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(LAYOUT_RES_ID, parent, false);
             }

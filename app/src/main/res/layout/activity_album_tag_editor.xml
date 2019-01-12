@@ -29,7 +29,7 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/default_album_art"
                     android:transitionName="@string/transition_album_art"
-                    tools:ignore="UnusedAttribute" />
+                    tools:ignore="ContentDescription,UnusedAttribute" />
 
             </com.kabouzeid.gramophone.views.WidthFitSquareLayout>
 
@@ -138,7 +138,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="?android:attr/actionBarSize"
         android:background="@drawable/shadow_down" />
 
     <android.support.v7.widget.Toolbar

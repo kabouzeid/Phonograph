@@ -37,11 +37,6 @@ public class MyTopTracksPlaylist extends AbsSmartPlaylist {
         return 0;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-    }
-
     protected MyTopTracksPlaylist(Parcel in) {
         super(in);
     }

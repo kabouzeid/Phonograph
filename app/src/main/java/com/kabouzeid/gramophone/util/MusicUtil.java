@@ -35,17 +35,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class MusicUtil {
-    public static final String TAG = MusicUtil.class.getSimpleName();
 
     public static Uri getMediaStoreAlbumCoverUri(int albumId) {
-        final Uri sArtworkUri = Uri
-                .parse("content://media/external/audio/albumart");
+        final Uri sArtworkUri = Uri.parse("content://media/external/audio/albumart");
 
         return ContentUris.withAppendedId(sArtworkUri, albumId);
     }
@@ -57,7 +56,6 @@ public class MusicUtil {
     @NonNull
     public static Intent createShareSongFileIntent(@NonNull final Song song, Context context) {
         try {
-
             return new Intent()
                     .setAction(Intent.ACTION_SEND)
                     .putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName(), new File(song.data)))
@@ -156,11 +154,11 @@ public class MusicUtil {
         long minutes = (songDurationMillis / 1000) / 60;
         long seconds = (songDurationMillis / 1000) % 60;
         if (minutes < 60) {
-            return String.format("%01d:%02d", minutes, seconds);
+            return String.format(Locale.getDefault(), "%01d:%02d", minutes, seconds);
         } else {
             long hours = minutes / 60;
             minutes = minutes % 60;
-            return String.format("%d:%02d:%02d", hours, minutes, seconds);
+            return String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, seconds);
         }
     }
 

@@ -25,7 +25,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 public class HistoryStore extends SQLiteOpenHelper {
-    private static final int MAX_ITEMS_IN_DB = 100;
+    private static final int MAX_ITEMS_IN_DB = 5000;
 
     public static final String DATABASE_NAME = "history.db";
     private static final int VERSION = 1;
@@ -136,10 +136,14 @@ public class HistoryStore extends SQLiteOpenHelper {
         return containsId;
     }
 
-    public Cursor queryRecentIds() {
+    public Cursor queryRecentIds(long cutoff) {
         final SQLiteDatabase database = getReadableDatabase();
+
         return database.query(RecentStoreColumns.NAME,
-                new String[]{RecentStoreColumns.ID}, null, null, null, null,
+                new String[]{RecentStoreColumns.ID}, 
+                RecentStoreColumns.TIME_PLAYED + ">?",
+                new String[]{String.valueOf(cutoff)}, 
+                null, null,
                 RecentStoreColumns.TIME_PLAYED + " DESC");
     }
 

@@ -9,7 +9,6 @@ import android.view.WindowInsets;
 
 public class StatusBarView extends View {
 
-
     public StatusBarView(Context context) {
         super(context);
     }
@@ -31,4 +30,5 @@ public class StatusBarView extends View {
         }
         return super.onApplyWindowInsets(insets);
     }
+
 }

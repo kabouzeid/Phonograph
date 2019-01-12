@@ -27,8 +27,6 @@ import butterknife.Unbinder;
  */
 public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView.Adapter, LM extends RecyclerView.LayoutManager> extends AbsLibraryPagerFragment implements OnOffsetChangedListener {
 
-    public static final String TAG = AbsLibraryPagerRecyclerViewFragment.class.getSimpleName();
-
     private Unbinder unbinder;
 
     @BindView(R.id.container)

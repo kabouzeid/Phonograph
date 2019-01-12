@@ -43,7 +43,7 @@ public class PurchaseActivity extends AbsBaseActivity implements BillingProcesso
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase);
-        setDrawUnderStatusbar(true);
+        setDrawUnderStatusbar();
         ButterKnife.bind(this);
 
         setStatusbarColor(ACTIVITY_COLOR);

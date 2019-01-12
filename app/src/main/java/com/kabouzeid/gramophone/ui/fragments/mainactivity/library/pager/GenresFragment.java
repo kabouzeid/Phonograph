@@ -18,8 +18,6 @@ import java.util.ArrayList;
 
 public class GenresFragment extends AbsLibraryPagerRecyclerViewFragment<GenreAdapter, LinearLayoutManager> implements LoaderManager.LoaderCallbacks<ArrayList<Genre>> {
 
-    public static final String TAG = GenresFragment.class.getSimpleName();
-
     private static final int LOADER_ID = LoaderIds.GENRES_FRAGMENT;
 
     @Override
@@ -37,7 +35,7 @@ public class GenresFragment extends AbsLibraryPagerRecyclerViewFragment<GenreAda
     @NonNull
     @Override
     protected GenreAdapter createAdapter() {
-        ArrayList<Genre> dataSet = getAdapter() == null ? new ArrayList<Genre>() : getAdapter().getDataSet();
+        ArrayList<Genre> dataSet = getAdapter() == null ? new ArrayList<>() : getAdapter().getDataSet();
         return new GenreAdapter(getLibraryFragment().getMainActivity(), dataSet, R.layout.item_list_no_image);
     }
 
@@ -52,18 +50,19 @@ public class GenresFragment extends AbsLibraryPagerRecyclerViewFragment<GenreAda
     }
 
     @Override
+    @NonNull
     public Loader<ArrayList<Genre>> onCreateLoader(int id, Bundle args) {
         return new GenresFragment.AsyncGenreLoader(getActivity());
     }
 
     @Override
-    public void onLoadFinished(Loader<ArrayList<Genre>> loader, ArrayList<Genre> data) {
+    public void onLoadFinished(@NonNull Loader<ArrayList<Genre>> loader, ArrayList<Genre> data) {
         getAdapter().swapDataSet(data);
     }
 
     @Override
-    public void onLoaderReset(Loader<ArrayList<Genre>> loader) {
-        getAdapter().swapDataSet(new ArrayList<Genre>());
+    public void onLoaderReset(@NonNull Loader<ArrayList<Genre>> loader) {
+        getAdapter().swapDataSet(new ArrayList<>());
     }
 
     private static class AsyncGenreLoader extends WrappedAsyncTaskLoader<ArrayList<Genre>> {

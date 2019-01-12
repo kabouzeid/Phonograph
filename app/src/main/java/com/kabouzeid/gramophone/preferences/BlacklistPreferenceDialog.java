@@ -18,7 +18,6 @@ import java.util.ArrayList;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class BlacklistPreferenceDialog extends DialogFragment implements BlacklistFolderChooserDialog.FolderCallback {
-    public static final String TAG = BlacklistPreferenceDialog.class.getSimpleName();
 
     private ArrayList<String> paths;
 

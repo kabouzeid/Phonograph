@@ -23,8 +23,6 @@ import java.util.ArrayList;
  */
 public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFragment<SongAdapter, GridLayoutManager> implements LoaderManager.LoaderCallbacks<ArrayList<Song>> {
 
-    public static final String TAG = SongsFragment.class.getSimpleName();
-
     private static final int LOADER_ID = LoaderIds.SONGS_FRAGMENT;
 
     @Override
@@ -45,7 +43,7 @@ public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFrag
         int itemLayoutRes = getItemLayoutRes();
         notifyLayoutResChanged(itemLayoutRes);
         boolean usePalette = loadUsePalette();
-        ArrayList<Song> dataSet = getAdapter() == null ? new ArrayList<Song>() : getAdapter().getDataSet();
+        ArrayList<Song> dataSet = getAdapter() == null ? new ArrayList<>() : getAdapter().getDataSet();
 
         if (getGridSize() <= getMaxGridSizeForList()) {
             return new ShuffleButtonSongAdapter(
@@ -141,7 +139,7 @@ public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFrag
 
     @Override
     public void onLoaderReset(Loader<ArrayList<Song>> loader) {
-        getAdapter().swapDataSet(new ArrayList<Song>());
+        getAdapter().swapDataSet(new ArrayList<>());
     }
 
     private static class AsyncSongLoader extends WrappedAsyncTaskLoader<ArrayList<Song>> {

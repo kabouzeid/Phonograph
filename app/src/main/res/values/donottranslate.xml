@@ -7,8 +7,8 @@
     <string name="maarten_corpel" translatable="false">Maarten Corpel</string>
     <string name="michael_cook_cookicons" translatable="false">Michael Cook (Cookicons)</string>
     <string name="aleksandar_tesic" translatable="false">Aleksandar Tešić</string>
-    <string name="eugene_cheung">Eugene Cheung</string>
-    <string name="adrian">Adrian</string>
+    <string name="eugene_cheung" translatable="false">Eugene Cheung</string>
+    <string name="adrian" translatable="false">Adrian</string>
 
     <string name="aachen_germany" translatable="false">Aachen, Germany</string>
 
@@ -16,8 +16,8 @@
     <string name="git_hub" translatable="false">GitHub</string>
     <string name="twitter" translatable="false">Twitter</string>
 
-    <string name="card">Card</string>
-    <string name="flat">Flat</string>
+    <string name="card" translatable="false">Card</string>
+    <string name="flat" translatable="false">Flat</string>
 
     <string-array name="donation_ids" translatable="false">
         <item>donation_1</item>
@@ -30,15 +30,15 @@
 
     <string name="license_dialog_style" translatable="false">
         body {
-        background-color: #{bg-color};
-        color: #{text-color};
-        font-family: sans-serif;
-        overflow-wrap: break-word;
+            background-color: #{bg-color};
+            color: #{text-color};
+            font-family: sans-serif;
+            overflow-wrap: break-word;
         }
         pre {
-        background-color: #{license-bg-color};
-        padding: 1em;
-        white-space: pre-wrap;
+            background-color: #{license-bg-color};
+            padding: 1em;
+            white-space: pre-wrap;
         }
     </string>
 

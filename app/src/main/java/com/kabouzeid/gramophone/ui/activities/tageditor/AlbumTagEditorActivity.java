@@ -45,8 +45,6 @@ import retrofit2.Response;
 
 public class AlbumTagEditorActivity extends AbsTagEditorActivity implements TextWatcher {
 
-    public static final String TAG = AlbumTagEditorActivity.class.getSimpleName();
-
     @BindView(R.id.title)
     EditText albumTitle;
     @BindView(R.id.album_artist)

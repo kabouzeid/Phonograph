@@ -16,6 +16,9 @@
 #   public *;
 #}
 
+-dontwarn
+-ignorewarnings
+
 # RetroFit
 -dontwarn retrofit.**
 -keep class retrofit.** { *; }
@@ -41,6 +44,3 @@
 }
 
 -keep class !android.support.v7.internal.view.menu.**,** {*;}
-
--dontwarn
--ignorewarnings

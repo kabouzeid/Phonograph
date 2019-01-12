@@ -35,7 +35,6 @@ import butterknife.ButterKnife;
  *         {@link #wrapSlidingMusicPanel(int)} first and then return it in {@link #createContentView()}
  */
 public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivity implements SlidingUpPanelLayout.PanelSlideListener, CardPlayerFragment.Callbacks {
-    public static final String TAG = AbsSlidingMusicPanelActivity.class.getSimpleName();
 
     @BindView(R.id.sliding_layout)
     SlidingUpPanelLayout slidingUpPanelLayout;
@@ -82,13 +81,17 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
             public void onGlobalLayout() {
                 slidingUpPanelLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
-                if (getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
-                    onPanelSlide(slidingUpPanelLayout, 1);
-                    onPanelExpanded(slidingUpPanelLayout);
-                } else if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                    onPanelCollapsed(slidingUpPanelLayout);
-                } else {
-                    playerFragment.onHide();
+                switch (getPanelState()) {
+                    case EXPANDED:
+                        onPanelSlide(slidingUpPanelLayout, 1);
+                        onPanelExpanded(slidingUpPanelLayout);
+                        break;
+                    case COLLAPSED:
+                        onPanelCollapsed(slidingUpPanelLayout);
+                        break;
+                    default:
+                        playerFragment.onHide();
+                        break;
                 }
             }
         });
@@ -207,7 +210,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     protected View wrapSlidingMusicPanel(@LayoutRes int resId) {
         @SuppressLint("InflateParams")
         View slidingMusicPanelLayout = getLayoutInflater().inflate(R.layout.sliding_music_panel_layout, null);
-        ViewGroup contentContainer = ButterKnife.findById(slidingMusicPanelLayout, R.id.content_container);
+        ViewGroup contentContainer = slidingMusicPanelLayout.findViewById(R.id.content_container);
         getLayoutInflater().inflate(resId, contentContainer);
         return slidingMusicPanelLayout;
     }

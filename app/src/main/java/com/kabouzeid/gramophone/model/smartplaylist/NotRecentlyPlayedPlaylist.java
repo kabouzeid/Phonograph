@@ -5,26 +5,26 @@ import android.os.Parcel;
 import android.support.annotation.NonNull;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.loader.LastAddedLoader;
+import com.kabouzeid.gramophone.loader.TopAndRecentlyPlayedTracksLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 
 /**
- * @author Karim Abou Zeid (kabouzeid)
+ * @author SC (soncaokim)
  */
-public class LastAddedPlaylist extends AbsSmartPlaylist {
+public class NotRecentlyPlayedPlaylist extends AbsSmartPlaylist {
 
-    public LastAddedPlaylist(@NonNull Context context) {
-        super(context.getString(R.string.last_added), R.drawable.ic_library_add_white_24dp);
+    public NotRecentlyPlayedPlaylist(@NonNull Context context) {
+        super(context.getString(R.string.not_recently_played), R.drawable.ic_watch_later_white_24dp);
     }
 
     @NonNull
     @Override
     public String getInfoString(@NonNull Context context) {
         String baseInfo = super.getInfoString(context);
-        String cutoff = PreferenceUtil.getInstance(context).getLastAddedCutoffText(context);
+        String cutoff = PreferenceUtil.getInstance(context).getRecentlyPlayedCutoffText(context);
 
         if (baseInfo.isEmpty()) {return cutoff;}
         return cutoff + INFO_STRING_SEPARATOR + baseInfo;
@@ -33,7 +33,7 @@ public class LastAddedPlaylist extends AbsSmartPlaylist {
     @NonNull
     @Override
     public ArrayList<Song> getSongs(@NonNull Context context) {
-        return LastAddedLoader.getLastAddedSongs(context);
+        return TopAndRecentlyPlayedTracksLoader.getNotRecentlyPlayedTracks(context);
     }
 
     @Override
@@ -50,17 +50,17 @@ public class LastAddedPlaylist extends AbsSmartPlaylist {
         return 0;
     }
 
-    protected LastAddedPlaylist(Parcel in) {
+    protected NotRecentlyPlayedPlaylist(Parcel in) {
         super(in);
     }
 
-    public static final Creator<LastAddedPlaylist> CREATOR = new Creator<LastAddedPlaylist>() {
-        public LastAddedPlaylist createFromParcel(Parcel source) {
-            return new LastAddedPlaylist(source);
+    public static final Creator<NotRecentlyPlayedPlaylist> CREATOR = new Creator<NotRecentlyPlayedPlaylist>() {
+        public NotRecentlyPlayedPlaylist createFromParcel(Parcel source) {
+            return new NotRecentlyPlayedPlaylist(source);
         }
 
-        public LastAddedPlaylist[] newArray(int size) {
-            return new LastAddedPlaylist[size];
+        public NotRecentlyPlayedPlaylist[] newArray(int size) {
+            return new NotRecentlyPlayedPlaylist[size];
         }
     };
 }
