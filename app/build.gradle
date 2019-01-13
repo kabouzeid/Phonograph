@@ -139,6 +139,7 @@ dependencies {
     implementation 'org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5'
     implementation 'com.jakewharton:butterknife:8.8.1'
     implementation 'com.github.AdrienPoupa:jaudiotagger:2.2.3'
+    compile 'com.rom4ek:arcnavigationview:1.0.3'
     implementation('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.11.0@aar') {
         transitive = true
     }
