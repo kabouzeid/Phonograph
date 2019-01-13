@@ -10,11 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <android.support.design.widget.NavigationView
+    <com.rom4ek.arcnavigationview.ArcNavigationView
         android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/menu_drawer" />
+        android:background="@android:color/white"
+        android:fitsSystemWindows="true"
+        app:arc_cropDirection="cropInside"
+        app:arc_width="96dp"
+        app:itemBackground="@android:color/white"
+        app:headerLayout="@layout/navigation_drawer_header"
+        app:menu="@menu/menu_drawer"/>
 
 </android.support.v4.widget.DrawerLayout>
