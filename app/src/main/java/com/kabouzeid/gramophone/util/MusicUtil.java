@@ -1,10 +1,6 @@
 package com.kabouzeid.gramophone.util;
 
-import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
+import android.content.*;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
@@ -17,23 +13,26 @@ import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
+import com.kabouzeid.gramophone.lyric.ViewLyricsSearcher;
+import com.kabouzeid.gramophone.lyric.model.LyricInfo;
+import com.kabouzeid.gramophone.lyric.model.LyricResult;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Genre;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.lyrics.AbsSynchronizedLyrics;
-
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.tag.FieldKey;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -323,9 +322,10 @@ public class MusicUtil {
         }
 
         if (lyrics == null || lyrics.trim().isEmpty() || !AbsSynchronizedLyrics.isSynchronized(lyrics)) {
-            File dir = file.getAbsoluteFile().getParentFile();
+            final File storageDir = android.os.Environment.getExternalStorageDirectory();
+            File dir = new File(storageDir.getAbsolutePath() + "/Music/Lyrics/" + song.artistName + "/" + song.albumName);
 
-            if (dir != null && dir.exists() && dir.isDirectory()) {
+            if (dir.exists() && dir.isDirectory()) {
                 String format = ".*%s.*\\.(lrc|txt)";
                 String filename = Pattern.quote(FileUtil.stripExtension(file.getName()));
                 String songtitle = Pattern.quote(song.title);
@@ -359,6 +359,130 @@ public class MusicUtil {
             }
         }
 
+
+        if (lyrics == null || lyrics.isEmpty()) {
+            lyrics = searchAndSaveLyrics(song);
+        }
         return lyrics;
+    }
+
+
+    /**
+     * Fetch lyrics from MiniLyrics
+     *
+     * @param song
+     * @return
+     */
+    private static String searchAndSaveLyrics(final Song song) {
+
+        String res = null;
+
+        try {
+            final LyricResult result = ViewLyricsSearcher.search(song.artistName, song.title, 1);
+
+            if (result != null) {
+
+                LyricInfo lyricsFound = null;
+
+                // looking for lrc lyrics first
+                for (LyricInfo lyricInfo : result.getLyricsInfo()) {
+                    final String extension = getExtension(lyricInfo);
+                    if (extension != null && "lrc".equals(extension.toLowerCase().trim())) {
+                        lyricsFound = lyricInfo;
+                        break;
+                    }
+                }
+
+                // if lrc lyrics not found, looking for txt one
+                if (lyricsFound == null) {
+                    for (LyricInfo lyricInfo : result.getLyricsInfo()) {
+                        final String extension = getExtension(lyricInfo);
+                        if (extension != null && "txt".equals(extension.toLowerCase().trim())) {
+                            lyricsFound = lyricInfo;
+                            break;
+                        }
+                    }
+                }
+
+                if (lyricsFound != null) {
+                    final String lyricsAsString = getTextFromUrl(lyricsFound.getLyricURL());
+
+                    final File storageDir = android.os.Environment.getExternalStorageDirectory();
+                    if (song.artistName != null && song.albumName != null) {
+
+                        final String directoryName = storageDir.getAbsolutePath() + "/Music/Lyrics/" + song.artistName + "/" + song.albumName;
+                        final File directory = new File(directoryName);
+                        boolean dirExists = true;
+                        if (!directory.exists()) {
+                            dirExists = directory.mkdirs();
+                        }
+                        final String filename = directoryName + "/" + song.title + "." + getExtension(lyricsFound);
+                        if (dirExists) {
+                            saveLyrics(lyricsAsString, filename);
+                        }
+                    }
+                    res = lyricsAsString;
+                }
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    /**
+     * Save the lyrics on external storage
+     *
+     * @param lyrics   the lyrics to save
+     * @param pathFile the file path
+     */
+    private static void saveLyrics(final String lyrics, final String pathFile) {
+
+        if (isExternalStorageWritable()) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(pathFile))) {
+                writer.write(lyrics);
+
+            } catch (IOException e) {
+                System.out.println(Arrays.toString(e.getStackTrace()));
+            }
+        }
+    }
+
+    private static boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        return Environment.MEDIA_MOUNTED.equals(state);
+    }
+
+    private static String getExtension(final LyricInfo lyric) {
+        String extension = null;
+        if (lyric != null) {
+            int i = lyric.getLyricURL().lastIndexOf('.');
+            if (i > 0) {
+                extension = lyric.getLyricURL().substring(i + 1);
+            }
+        }
+        return extension;
+    }
+
+    private static String getTextFromUrl(final String url) throws Exception {
+        final URL website = new URL(url);
+        final URLConnection connection = website.openConnection();
+        final BufferedReader in = new BufferedReader(
+                new InputStreamReader(
+                        connection.getInputStream()));
+
+        final StringBuilder response = new StringBuilder();
+        String inputLine;
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+            response.append("\n\r");
+        }
+
+        in.close();
+
+        return response.toString();
     }
 }

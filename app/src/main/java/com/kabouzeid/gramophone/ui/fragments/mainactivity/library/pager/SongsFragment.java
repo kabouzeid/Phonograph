@@ -1,12 +1,13 @@
 package com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
-
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.song.ShuffleButtonSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.SongAdapter;
@@ -14,9 +15,11 @@ import com.kabouzeid.gramophone.interfaces.LoaderIds;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -149,7 +152,26 @@ public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFrag
 
         @Override
         public ArrayList<Song> loadInBackground() {
-            return SongLoader.getAllSongs(getContext());
+
+            final ArrayList<Song> allSongs = SongLoader.getAllSongs(getContext());
+            final ConnectivityManager connManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            if (connManager != null && connManager.getActiveNetworkInfo() != null) {
+                LyricsAsyncTaskLoader task = new LyricsAsyncTaskLoader();
+                if (task.getStatus() != AsyncTask.Status.RUNNING) {
+                    task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, allSongs.toArray(new Song[0]));
+                }
+            }
+            return allSongs;
+        }
+    }
+
+    private static class LyricsAsyncTaskLoader extends AsyncTask<Song, Integer, String> {
+
+        @Override
+        public String doInBackground(Song... songs) {
+            Arrays.asList(songs).forEach(MusicUtil::getLyrics);
+            return "";
         }
     }
 }
