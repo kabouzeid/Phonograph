@@ -1,18 +1,6 @@
 import javax.annotation.Nullable
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        //noinspection GradleDynamicVersion
-        classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
-    }
-}
-
 apply plugin: 'com.android.application'
-apply plugin: 'com.jakewharton.hugo'
 
 static def gitBranch() {
     def branch = 'GitHub'
