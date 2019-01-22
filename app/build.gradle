@@ -129,7 +129,7 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
     implementation 'com.afollestad:material-cab:0.1.12'
     implementation 'com.github.ksoichiro:android-observablescrollview:1.6.0'
-    implementation 'com.heinrichreimersoftware:material-intro:1.6.2'
+    implementation 'com.heinrichreimersoftware:material-intro:1.6'
     implementation 'me.zhanghai.android.materialprogressbar:library:1.4.2'
     implementation('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.11.0@aar') {
         transitive = true
