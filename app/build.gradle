@@ -1,18 +1,4 @@
-import javax.annotation.Nullable
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        //noinspection GradleDynamicVersion
-        classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
-    }
-}
-
 apply plugin: 'com.android.application'
-apply plugin: 'com.jakewharton.hugo'
 
 static def gitBranch() {
     def branch = 'GitHub'
@@ -46,13 +32,13 @@ static def getProperty(@Nullable Properties properties, String name) {
 }
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     buildToolsVersion '28.0.3'
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 28
 
-        renderscriptTargetApi 27
+        renderscriptTargetApi 28
         vectorDrawables.useSupportLibrary = true
 
         applicationId 'com.kabouzeid.gramophone'
@@ -100,7 +86,7 @@ android {
 }
 
 ext {
-    supportLibVersion = '27.1.1'
+    supportLibVersion = '28.0.0'
 }
 
 dependencies {

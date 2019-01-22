@@ -1,9 +1,11 @@
-<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/blacklist">
 
         <com.kabouzeid.gramophone.preferences.BlacklistPreference
             android:key="blacklist"
+            app:iconSpaceReserved="false"
             android:summary="@string/pref_summary_blacklist"
             android:title="@string/blacklist" />
 
