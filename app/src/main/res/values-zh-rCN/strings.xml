@@ -194,14 +194,11 @@
     <string name="version">版本</string>
     <string name="author">作者</string>
     <string name="write_an_email">撰写邮件</string>
-    <string name="add_to_google_plus_circles">添加到 Google+ 圈子</string>
     <string name="follow_on_twitter">在 Twitter 上关注</string>
     <string name="fork_on_github">创建 GitHub 分支</string>
     <string name="visit_website">访问网站</string>
     <string name="report_bugs">提交 bug</string>
     <string name="report_bugs_summary">提交 bug 或申请添加新功能</string>
-    <string name="join_community">加入 Google+ 社群</string>
-    <string name="join_community_summary">如果您需要帮助或遇到问题，Google+ 上的 Phonograph 社群或许是个好去处。</string>
     <string name="translate">翻译</string>
     <string name="translate_summary">帮助翻译 Phonograph 。</string>
     <string name="rate_on_google_play">评分</string>

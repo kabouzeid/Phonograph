@@ -186,14 +186,11 @@
     <string name="version">Versio</string>
     <string name="author">Luoja</string>
     <string name="write_an_email">Kirjoita sähköpostia</string>
-    <string name="add_to_google_plus_circles">Lisää Google Plus -piireihin</string>
     <string name="follow_on_twitter">Seuraa Twitterissä</string>
     <string name="fork_on_github">Forkkaa GitHubissa</string>
     <string name="visit_website">Vieraile verkkosivulla</string>
     <string name="report_bugs">Raportoi bugeja</string>
     <string name="report_bugs_summary">Raportoi bugeja tai ehdota uusia ominaisuuksia.</string>
-    <string name="join_community">Liity Google Plus -yhteisöön</string>
-    <string name="join_community_summary">Jos tarvitset apua tai sinulla on kysymyksiä, Phonographin Google Plus -yhteisö on hyvä paikka sille.</string>
     <string name="translate">Käännä</string>
     <string name="translate_summary">Auta kääntämään Phonograph sinun äidinkielellesi.</string>
     <string name="rate_on_google_play">Arvostele</string>
