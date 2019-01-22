@@ -11,7 +11,6 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.media.app.NotificationCompat.MediaStyle;
 import android.support.v7.graphics.Palette;
-import android.text.TextUtils;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
@@ -22,6 +21,7 @@ import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
+import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import static com.kabouzeid.gramophone.service.MusicService.ACTION_REWIND;
@@ -36,11 +36,8 @@ public class PlayingNotificationImpl24 extends PlayingNotification {
 
         final Song song = service.getCurrentSong();
 
-        final String albumName = song.albumName;
-        final String artistName = song.artistName;
         final boolean isPlaying = service.isPlaying();
-        final String text = TextUtils.isEmpty(albumName)
-                ? artistName : artistName + " - " + albumName;
+        final String text = MusicUtil.getSongInfoString(song);
 
         final int playButtonResId = isPlaying
                 ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp;

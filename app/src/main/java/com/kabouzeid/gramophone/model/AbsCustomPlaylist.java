@@ -5,6 +5,7 @@ import android.os.Parcel;
 import android.support.annotation.NonNull;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.util.MusicUtil;
 
 import java.util.ArrayList;
 
@@ -13,8 +14,6 @@ import java.util.ArrayList;
  */
 
 public abstract class AbsCustomPlaylist extends Playlist {
-    public static final String INFO_STRING_SEPARATOR = "  •  ";
-
     public AbsCustomPlaylist(int id, String name) {
         super(id, name);
     }
@@ -32,14 +31,12 @@ public abstract class AbsCustomPlaylist extends Playlist {
     @NonNull
     @Override
     public String getInfoString(@NonNull Context context) {
-        String baseInfo = super.getInfoString(context);
-
         int songCount = getSongs(context).size();
-        String songCountText = (songCount == 0) ?
-            context.getString(R.string.no_songs) :
-            String.valueOf(songCount) + " " + context.getString(R.string.songs);
+        String songCountString = MusicUtil.getSongCountString(context, songCount);
 
-        if (baseInfo.isEmpty()) {return songCountText;}
-        return songCountText + INFO_STRING_SEPARATOR + baseInfo;
+        return MusicUtil.buildInfoString(
+            songCountString,
+            super.getInfoString(context)
+        );
     }
 }
