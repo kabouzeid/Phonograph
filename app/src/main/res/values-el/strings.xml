@@ -69,7 +69,7 @@
     <string name="could_not_create_playlist">\u0394\u03b5\u03bd \u03b5\u03af\u03bd\u03b1\u03b9 \u03b4\u03c5\u03bd\u03b1\u03c4\u03ae \u03b7 \u03b4\u03b7\u03bc\u03b9\u03bf\u03c5\u03c1\u03b3\u03af\u03b1 \u03bb\u03af\u03c3\u03c4\u03b1\u03c2 \u03b1\u03bd\u03b1\u03c0\u03b1\u03c1\u03b1\u03b3\u03c9\u03b3\u03ae\u03c2</string>
     <string name="delete_playlist_x"><![CDATA[Διαγραφή της λίστας <b>%1$s</b>;]]></string>
     <string name="clear_playlist_x"><![CDATA[\u0395\u03ba\u03ba\u03b1\u03b8\u03ac\u03c1\u03b9\u03c3\u03b7 \u03c4\u03b7\u03c2 \u03bb\u03af\u03c3\u03c4\u03b1\u03c2  <b>%1$s</b> ; (\u039c\u03b7 \u03b1\u03bd\u03b1\u03c3\u03c4\u03c1\u03ad\u03c8\u03b9\u03bc\u03bf!)]]></string>
-    <string name="delete_x_playlists"><![CDATA[Θα θέλατε να διαγράψετε <b>%1$d</b> λίστες αναπαραγωγής; 
+    <string name="delete_x_playlists"><![CDATA[Θα θέλατε να διαγράψετε <b>%1$d</b> λίστες αναπαραγωγής;
     ]]></string>
     <string name="delete_song_x"><![CDATA[Θέλετε να διαγράψετε το τραγούδι <b>%1$s</b>;]]></string>
     <string name="delete_x_songs"><![CDATA[Θέλετε να διαγράψετε <b>%1$d</b> τραγούδια;]]></string>
@@ -169,13 +169,10 @@
     <string name="thank_you">Σας ευχαριστώ!</string>
     <string name="version">Έκδοση</string>
     <string name="author">Εκδότης</string>
-    <string name="add_to_google_plus_circles">Προσθήκη στους κύκλους σας στο Google Plus</string>
     <string name="follow_on_twitter">Ακολουθήστε στο Twitter</string>
     <string name="visit_website">Επισκεφθείτε την ιστοσελίδα μας</string>
     <string name="report_bugs">Αναφορά σφαλμάτων</string>
     <string name="report_bugs_summary">Αναφέρετε σφάλματα ή ζητείστε νέα χαρακτηριστικά.</string>
-    <string name="join_community">Γίνετε μέλος της κοινότητας μας στο Google Plus</string>
-    <string name="join_community_summary">Αν χρειάζεστε βοήθεια ή έχετε ερωτήσεις, η κοινότητά μας για το Phonograph στο Google Plus είναι ένα καλό μέρος για να πάτε.</string>
     <string name="translate">Μεταφράστε</string>
     <string name="translate_summary">Βοηθήστε την μετάφραση του Phonograph στη μητρική σας γλώσσα.</string>
     <string name="rate_on_google_play">Βαθμολογήστε</string>

@@ -187,14 +187,11 @@
     <string name="version">Phiên bản</string>
     <string name="author">Tác giả</string>
     <string name="write_an_email">Viết email</string>
-    <string name="add_to_google_plus_circles">Thêm vào vòng kết nối Google Plus</string>
     <string name="follow_on_twitter">Theo dõi trên Twitter</string>
     <string name="fork_on_github">Fork trên GitHub</string>
     <string name="visit_website">Truy cập trang web</string>
     <string name="report_bugs">Báo lỗi</string>
     <string name="report_bugs_summary">Báo lỗi và yêu cầu tính năng mới.</string>
-    <string name="join_community">Tham gia cộng đồng Google Plus</string>
-    <string name="join_community_summary">Nếu bạn cần trợ giúp hoặc có câu hỏi, hãy đến với cộng đồng Phonograph trên Google Plus.</string>
     <string name="translate">Dịch</string>
     <string name="translate_summary">Hỗ trợ dịch Phonograph sang ngôn ngữ của bạn.</string>
     <string name="rate_on_google_play">Đánh giá</string>

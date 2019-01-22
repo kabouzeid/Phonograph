@@ -190,14 +190,11 @@
     <string name="version">Wersja</string>
     <string name="author">O autorze</string>
     <string name="write_an_email">Napisz maila</string>
-    <string name="add_to_google_plus_circles">Dodaj do kręgów Google+</string>
     <string name="follow_on_twitter">Śledź na Twitterze</string>
     <string name="fork_on_github">Aplikacja na GitHub\'ie</string>
     <string name="visit_website">Odwiedź stronę</string>
     <string name="report_bugs">Zgłoś błędy</string>
     <string name="report_bugs_summary">Zgłaszaj błędy lub propozycje nowych funkcji</string>
-    <string name="join_community">Dołącz do społeczności Google+</string>
-    <string name="join_community_summary">Jeśli potrzebujesz pomocy lub masz pytania, społeczność Phonograph na Google+ jest do tego dobrym miejscem</string>
     <string name="translate">Tłumaczenie</string>
     <string name="translate_summary">Pomóż przetłumaczyć Phonograph na Twój ojczysty język</string>
     <string name="rate_on_google_play">Oceń</string>

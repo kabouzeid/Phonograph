@@ -194,14 +194,11 @@
     <string name="version">Версия</string>
     <string name="author">Автор</string>
     <string name="write_an_email">Написать на электронную почту</string>
-    <string name="add_to_google_plus_circles">Добавить в круги Google Plus</string>
     <string name="follow_on_twitter">Следить в Twitter</string>
     <string name="fork_on_github">Ветвление на GitHub</string>
     <string name="visit_website">Посетить сайт</string>
     <string name="report_bugs">Отправить отчёт об ошибке</string>
     <string name="report_bugs_summary">Сообщить об ошибках или предложить новые функции.</string>
-    <string name="join_community">Вступить в сообщество на Google Plus</string>
-    <string name="join_community_summary">Сообщество Phonograph в Google Plus — место, где вы сможете задать вопрос или получить помощь.</string>
     <string name="translate">Перевести</string>
     <string name="translate_summary">Помогите перевести Phonograph на ваш родной язык.</string>
     <string name="rate_on_google_play">Оценить</string>

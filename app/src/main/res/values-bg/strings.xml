@@ -168,13 +168,10 @@
     <string name="thank_you">Благодаря Ви!</string>
     <string name="version">Версия</string>
     <string name="author">Автор</string>
-    <string name="add_to_google_plus_circles">Добави в Гугъл Плюс</string>
     <string name="follow_on_twitter">Последвай в Twitter</string>
     <string name="visit_website">Посети уебсайт</string>
     <string name="report_bugs">Съобщи за бъгове</string>
     <string name="report_bugs_summary">Съобщи за бъгове или предложи нови идеи</string>
-    <string name="join_community">Присъедини се към обществото в Гугъл Плюс</string>
-    <string name="join_community_summary">Ако имате нужда от помощ или някакви въпроси, посете обществото в Гугъл Плюс</string>
     <string name="translate">Преведи</string>
     <string name="translate_summary">Преведете Phonograph на вашият роден език.</string>
     <string name="rate_on_google_play">Оцени</string>

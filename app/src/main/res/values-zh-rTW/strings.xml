@@ -195,14 +195,11 @@
     <string name="version">版本</string>
     <string name="author">作者</string>
     <string name="write_an_email">寫 email 給我們</string>
-    <string name="add_to_google_plus_circles">加入 Google+ 社交圈</string>
     <string name="follow_on_twitter">在 Twitter 上追蹤我們</string>
     <string name="fork_on_github">造訪 GitHub</string>
     <string name="visit_website">造訪網站</string>
     <string name="report_bugs">回報程式錯誤</string>
     <string name="report_bugs_summary">建議新功能或回報問題</string>
-    <string name="join_community">加入 Google+ 社交圈</string>
-    <string name="join_community_summary">如果您需要幫助或遇到問題，Google+ 社交圈的 Phonograph 社群是個發問的好地方。</string>
     <string name="translate">翻譯</string>
     <string name="translate_summary">幫助我們將這款 App 翻譯成您的語言</string>
     <string name="rate_on_google_play">評分</string>
