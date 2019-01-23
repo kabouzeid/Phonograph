@@ -127,6 +127,7 @@
     <string name="pref_title_ignore_media_store_artwork">Ignorer le stockage des pochettes</string>
     <string name="pref_title_gapless_playback">Lecture sans coupure</string>
     <string name="pref_title_audio_ducking">Réduire le volume lorse que le focus est interrompu</string>
+    <string name="pref_title_recently_played_interval">Intervalle de la playlist \"Titres écoutés récemment\"</string>
     <string name="pref_title_last_added_interval">Intervalle de la playlist \"Derniers ajouts\"</string>
     <string name="pref_title_synchronized_lyrics_show">Afficher les paroles synchronisées</string>
     <string name="pref_title_remember_last_tab">Se souvenir de la dernière fenêtre</string>
