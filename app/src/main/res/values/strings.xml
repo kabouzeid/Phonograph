@@ -174,7 +174,7 @@
     <string name="search_hint">Search your library…</string>
     <string name="favorites">Favorites</string>
     <string name="last_added">Last added</string>
-    <string name="history">History</string>
+    <string name="history">Recently played</string>
     <string name="my_top_tracks">My top tracks</string>
     <string name="not_recently_played">Not recently played</string>
     <string name="remove_cover">Remove cover</string>

@@ -124,7 +124,8 @@
     <string name="pref_title_ignore_media_store_artwork">Bỏ qua kho ảnh bìa trong Kho Phương tiện</string>
     <string name="pref_title_gapless_playback">Phát lại quãng lặng</string>
     <string name="pref_title_audio_ducking">Giảm âm lượng khi mất tập trung</string>
-    <string name="pref_title_last_added_interval">Thời gian danh sách nhạc được thêm vào sau cùng</string>
+    <string name="pref_title_recently_played_interval">Khoảng thời gian cho Bài hát mới nghe</string>
+    <string name="pref_title_last_added_interval">Khoảng thời gian cho Bài hát mới thêm</string>
     <string name="pref_title_synchronized_lyrics_show">Hiển thị lời bài hát được đồng bộ</string>
     <string name="no_equalizer">Không có bộ lọc âm thanh nào.</string>
     <string name="no_audio_ID">"Phát một bài hát đầu tiên, sau đó thử lại."</string>
@@ -160,8 +161,8 @@
     <string name="could_not_download_album_cover">"Kh\u00f4ng th\u1ec3 t\u1ea3i v\u1ec1 b\u00eca album ph\u00f9 h\u1ee3p."</string>
     <string name="search_hint">Tìm kiếm thư viện của bạn...</string>
     <string name="favorites">Yêu thích</string>
-    <string name="last_added">Được thêm sau cùng</string>
-    <string name="history">Lịch sử</string>
+    <string name="last_added">Bài hát mới thêm</string>
+    <string name="history">Bài hát mới nghe</string>
     <string name="my_top_tracks">Bài hát hàng đầu</string>
     <string name="remove_cover">Di chuyển bìa</string>
     <string name="download_from_last_fm">Tải về từ Last.fm</string>
