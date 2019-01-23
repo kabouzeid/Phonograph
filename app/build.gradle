@@ -1,7 +1,6 @@
 import javax.annotation.Nullable
 
 apply plugin: 'com.android.application'
-apply plugin: 'com.jakewharton.hugo'
 
 static def gitBranch() {
     def branch = 'GitHub'
