@@ -25,8 +25,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 public class HistoryStore extends SQLiteOpenHelper {
-    private static final int MAX_ITEMS_IN_DB = 5000; // TODO Remove this limit
-
     public static final String DATABASE_NAME = "history.db";
     private static final int VERSION = 1;
     @Nullable
@@ -80,28 +78,6 @@ public class HistoryStore extends SQLiteOpenHelper {
             values.put(RecentStoreColumns.ID, songId);
             values.put(RecentStoreColumns.TIME_PLAYED, System.currentTimeMillis());
             database.insert(RecentStoreColumns.NAME, null, values);
-
-            // if our db is too large, delete the extra items
-            Cursor oldest = null;
-            try {
-                oldest = database.query(RecentStoreColumns.NAME,
-                        new String[]{RecentStoreColumns.TIME_PLAYED}, null, null, null, null,
-                        RecentStoreColumns.TIME_PLAYED + " ASC");
-
-                if (oldest != null && oldest.getCount() > MAX_ITEMS_IN_DB) {
-                    oldest.moveToPosition(oldest.getCount() - MAX_ITEMS_IN_DB);
-                    long timeOfRecordToKeep = oldest.getLong(0);
-
-                    database.delete(RecentStoreColumns.NAME,
-                            RecentStoreColumns.TIME_PLAYED + " < ?",
-                            new String[]{String.valueOf(timeOfRecordToKeep)});
-
-                }
-            } finally {
-                if (oldest != null) {
-                    oldest.close();
-                }
-            }
         } finally {
             database.setTransactionSuccessful();
             database.endTransaction();
