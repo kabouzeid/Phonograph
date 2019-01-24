@@ -31,7 +31,7 @@ import com.kabouzeid.gramophone.util.PreferenceUtil;
 import java.util.ArrayList;
 
 public class TopAndRecentlyPlayedTracksLoader {
-    public static final int NUMBER_OF_TOP_TRACKS = 99;
+    public static final int NUMBER_OF_TOP_TRACKS = 100;
 
     @NonNull
     public static ArrayList<Song> getRecentlyPlayedTracks(@NonNull Context context) {
