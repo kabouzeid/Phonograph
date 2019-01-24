@@ -44,7 +44,7 @@ public final class FileUtil {
         if (files != null) {
             paths = toPathArray(files);
 
-            if (files.size() > 0 && files.size() < 999) { // 999 is the max amount Androids SQL implementation can handle.
+            if (files.size() > 0 && files.size() < 999) { // TODO 999 is the max amount Androids SQL implementation can handle.
                 selection = MediaStore.Audio.AudioColumns.DATA + " IN (" + makePlaceholders(files.size()) + ")";
             }
         }
