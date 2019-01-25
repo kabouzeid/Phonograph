@@ -258,60 +258,72 @@ public class MusicUtil {
         final String[] projection = new String[]{
                 BaseColumns._ID, MediaStore.MediaColumns.DATA
         };
-        // TODO sqlite limits the query length
-        final StringBuilder selection = new StringBuilder();
-        selection.append(BaseColumns._ID + " IN (");
-        for (int i = 0; i < songs.size(); i++) {
-            selection.append(songs.get(i).id);
-            if (i < songs.size() - 1) {
+
+        // SQLite limits the query length to 1000000 bytes
+        // Split the query into multiple batches, and merge the resulting cursors
+        int songIndex = 0;
+        final int batchSize = 5000; // arbitrary value, assuming the batchSize * avg_len(song.id) < limit
+        final int songCount = songs.size();
+
+        while (songIndex < songCount)
+        {
+            final StringBuilder selection = new StringBuilder();
+            selection.append(BaseColumns._ID + " IN (");
+
+            for (int i = 0; (i < batchSize - 1) && (songIndex < songCount - 1); i++, songIndex++) {
+                selection.append(songs.get(songIndex).id);
                 selection.append(",");
             }
-        }
-        selection.append(")");
+            // The last element of a batch
+            selection.append(songs.get(songIndex).id);
+            songIndex++;
+            selection.append(")");
 
-        try {
-            final Cursor cursor = context.getContentResolver().query(
-                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection.toString(),
-                    null, null);
-            if (cursor != null) {
-                // Step 1: Remove selected tracks from the current playlist, as well
-                // as from the album art cache
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    final int id = cursor.getInt(0);
-                    final Song song = SongLoader.getSong(context, id);
-                    MusicPlayerRemote.removeFromQueue(song);
-                    cursor.moveToNext();
-                }
-
-                // Step 2: Remove selected tracks from the database
-                context.getContentResolver().delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                        selection.toString(), null);
-
-                // Step 3: Remove files from card
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    final String name = cursor.getString(1);
-                    try { // File.delete can throw a security exception
-                        final File f = new File(name);
-                        if (!f.delete()) {
-                            // I'm not sure if we'd ever get here (deletion would
-                            // have to fail, but no exception thrown)
-                            Log.e("MusicUtils", "Failed to delete file " + name);
-                        }
+            try {
+                final Cursor cursor = context.getContentResolver().query(
+                        MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection.toString(),
+                        null, null);
+                if (cursor != null) {
+                    // Step 1: Remove selected tracks from the current playlist, as well
+                    // as from the album art cache
+                    cursor.moveToFirst();
+                    while (!cursor.isAfterLast()) {
+                        final int id = cursor.getInt(0);
+                        final Song song = SongLoader.getSong(context, id);
+                        MusicPlayerRemote.removeFromQueue(song);
                         cursor.moveToNext();
-                    } catch (@NonNull final SecurityException ex) {
-                        cursor.moveToNext();
-                    } catch (NullPointerException e) {
-                        Log.e("MusicUtils", "Failed to find file " + name);
                     }
+
+                    // Step 2: Remove selected tracks from the database
+                    context.getContentResolver().delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                            selection.toString(), null);
+
+                    // Step 3: Remove files from card
+                    cursor.moveToFirst();
+                    while (!cursor.isAfterLast()) {
+                        final String name = cursor.getString(1);
+                        try { // File.delete can throw a security exception
+                            final File f = new File(name);
+                            if (!f.delete()) {
+                                // I'm not sure if we'd ever get here (deletion would
+                                // have to fail, but no exception thrown)
+                                Log.e("MusicUtils", "Failed to delete file " + name);
+                            }
+                            cursor.moveToNext();
+                        } catch (@NonNull final SecurityException ex) {
+                            cursor.moveToNext();
+                        } catch (NullPointerException e) {
+                            Log.e("MusicUtils", "Failed to find file " + name);
+                        }
+                    }
+                    cursor.close();
                 }
-                cursor.close();
+            } catch (SecurityException ignored) {
             }
-            context.getContentResolver().notifyChange(Uri.parse("content://media"), null);
-            Toast.makeText(context, context.getString(R.string.deleted_x_songs, songs.size()), Toast.LENGTH_SHORT).show();
-        } catch (SecurityException ignored) {
         }
+
+        context.getContentResolver().notifyChange(Uri.parse("content://media"), null);
+        Toast.makeText(context, context.getString(R.string.deleted_x_songs, songCount), Toast.LENGTH_SHORT).show();
     }
 
     public static boolean isFavoritePlaylist(@NonNull final Context context, @NonNull final Playlist playlist) {

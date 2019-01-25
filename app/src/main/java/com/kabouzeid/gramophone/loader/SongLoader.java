@@ -112,12 +112,13 @@ public class SongLoader {
         // Blacklist
         ArrayList<String> paths = BlacklistStore.getInstance(context).getPaths();
         if (!paths.isEmpty()) {
-            // TODO sqlite limits the ?argument count to 1000
+            // TODO sqlite limits the ?argument count to 999
             selection = generateBlacklistSelection(selection, paths.size());
             selectionValues = addBlacklistSelectionValues(selectionValues, paths);
         }
 
         try {
+            // TODO sqlite limit the query length to 1000000 bytes
             return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                     BASE_PROJECTION, selection, selectionValues, sortOrder);
         } catch (SecurityException e) {
