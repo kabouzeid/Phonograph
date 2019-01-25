@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.loader;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.MergeCursor;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.AudioColumns;
@@ -111,19 +112,26 @@ public class SongLoader {
 
         // Blacklist
         ArrayList<String> paths = BlacklistStore.getInstance(context).getPaths();
-        if (!paths.isEmpty()) {
-            // TODO sqlite limits the ?argument count to 999
-            selection = generateBlacklistSelection(selection, paths.size());
-            selectionValues = addBlacklistSelectionValues(selectionValues, paths);
-        }
+        final int pathCount = paths.size();
+        final int batchSize = 999; // sqlite limit on the number of ? argument
+        int processedPathCount = 0;
+        Array<Cursor> cursors = new ArrayList<>();
+        while (pathCount > 0) {
+        	final int currentBatchSize = min(batchSize, pathCount);
 
-        try {
-            // TODO sqlite limit the query length to 1000000 bytes
-            return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                    BASE_PROJECTION, selection, selectionValues, sortOrder);
-        } catch (SecurityException e) {
-            return null;
-        }
+            selection = generateBlacklistSelection(selection, currentBatchSize);
+            selectionValues = addBlacklistSelectionValues(selectionValues, paths.view(processPathCount, currentBatchSize);
+
+            pathCount -= currentBatchSize;
+            processPathCount += currentBatchSize;
+        
+            try {
+                 cursors.add(context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                        BASE_PROJECTION, selection, selectionValues, sortOrder));
+            } catch (SecurityException ignored) {
+            }
+		}
+		return new MergeCursor(cursors.toArray(new Cursor[]));
     }
 
     private static String generateBlacklistSelection(String selection, int pathCount) {
