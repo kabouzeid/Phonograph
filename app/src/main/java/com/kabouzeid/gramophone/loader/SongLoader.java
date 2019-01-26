@@ -14,6 +14,7 @@ import com.kabouzeid.gramophone.provider.BlacklistStore;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -33,6 +34,7 @@ public class SongLoader {
             AudioColumns.ARTIST_ID,// 9
             AudioColumns.ARTIST,// 10
     };
+    private static final int BATCH_SIZE = 900; // used in makeSongCursor* functions. SQLite limit on the number of ?argument is 999, we leave some to the other call sites.
 
     @NonNull
     public static ArrayList<Song> getAllSongs(@NonNull Context context) {
@@ -98,6 +100,43 @@ public class SongLoader {
     }
 
     @Nullable
+    public static Cursor makeSongCursorFromPaths(@NonNull final Context context, @NonNull ArrayList<String> paths) {
+        // Exclude blacklist
+        paths.removeAll(BlacklistStore.getInstance(context).getPaths());
+
+        int remaining = paths.size();
+        int processed = 0;
+
+        ArrayList<Cursor> cursors = new ArrayList<>();
+        while (remaining > 0) {
+            final int currentBatch = Math.min(BATCH_SIZE, remaining);
+
+            StringBuilder selection = new StringBuilder();
+            selection.append(BASE_SELECTION + " AND " + MediaStore.Audio.AudioColumns.DATA + " IN (?");
+            for (int i = 1; i < currentBatch; i++) {
+                selection.append(",?");
+            }
+            selection.append(")");
+
+            try {
+                Cursor cursor = context.getContentResolver().query(
+                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                    BASE_PROJECTION, 
+                    selection.toString(), 
+                    paths.subList(processed, processed + currentBatch).toArray(new String[currentBatch]),
+                    PreferenceUtil.getInstance(context).getSongSortOrder()
+                );
+                if (cursor != null) {cursors.add(cursor);};
+            } catch (SecurityException ignored) {
+            }
+
+            remaining -= currentBatch;
+            processed += currentBatch;
+        }
+        return new MergeCursor(cursors.toArray(new Cursor[cursors.size()]));
+    }
+
+    @Nullable
     public static Cursor makeSongCursor(@NonNull final Context context, @Nullable final String selection, final String[] selectionValues) {
         return makeSongCursor(context, selection, selectionValues, PreferenceUtil.getInstance(context).getSongSortOrder());
     }
@@ -111,44 +150,59 @@ public class SongLoader {
         }
 
         // Blacklist
-        ArrayList<String> paths = BlacklistStore.getInstance(context).getPaths();
-        final int pathCount = paths.size();
-        final int batchSize = 999; // sqlite limit on the number of ? argument
-        int processedPathCount = 0;
-        Array<Cursor> cursors = new ArrayList<>();
-        while (pathCount > 0) {
-        	final int currentBatchSize = min(batchSize, pathCount);
+        final ArrayList<String> paths = BlacklistStore.getInstance(context).getPaths();
+        int remaining = paths.size();
+        int processed = 0;
 
-            selection = generateBlacklistSelection(selection, currentBatchSize);
-            selectionValues = addBlacklistSelectionValues(selectionValues, paths.view(processPathCount, currentBatchSize);
+        ArrayList<Cursor> cursors = new ArrayList<>();
+        while (remaining > 0) {
+            final int currentBatch = Math.min(BATCH_SIZE, remaining);
 
-            pathCount -= currentBatchSize;
-            processPathCount += currentBatchSize;
-        
+            // Enrich the base selection with the current batch parameters
+            String batchSelection = generateBlacklistSelection(selection, currentBatch);
+            ArrayList<String> batchSelectionValues = addBlacklistSelectionValues(selectionValues, paths.subList(processed, processed + currentBatch));
+
             try {
-                 cursors.add(context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                        BASE_PROJECTION, selection, selectionValues, sortOrder));
+                Cursor cursor = context.getContentResolver().query(
+                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                    BASE_PROJECTION,
+                    batchSelection,
+                    batchSelectionValues.toArray(new String[batchSelectionValues.size()]),
+                    sortOrder
+                );
+                if (cursor != null) {cursors.add(cursor);}
             } catch (SecurityException ignored) {
             }
-		}
-		return new MergeCursor(cursors.toArray(new Cursor[]));
+
+            remaining -= currentBatch;
+            processed += currentBatch;
+        }
+        return new MergeCursor(cursors.toArray(new Cursor[cursors.size()]));
     }
 
     private static String generateBlacklistSelection(String selection, int pathCount) {
-        String newSelection = selection != null && !selection.trim().equals("") ? selection + " AND " : "";
+        String newSelection = (selection != null && !selection.trim().equals("")) ? selection + " AND " : "";
         newSelection += AudioColumns.DATA + " NOT LIKE ?";
-        for (int i = 0; i < pathCount - 1; i++) {
+        for (int i = 1; i < pathCount; i++) {
             newSelection += " AND " + AudioColumns.DATA + " NOT LIKE ?";
         }
         return newSelection;
     }
 
-    private static String[] addBlacklistSelectionValues(String[] selectionValues, ArrayList<String> paths) {
-        if (selectionValues == null) selectionValues = new String[0];
-        String[] newSelectionValues = new String[selectionValues.length + paths.size()];
-        System.arraycopy(selectionValues, 0, newSelectionValues, 0, selectionValues.length);
-        for (int i = selectionValues.length; i < newSelectionValues.length; i++) {
-            newSelectionValues[i] = paths.get(i - selectionValues.length) + "%";
+    private static ArrayList<String> addBlacklistSelectionValues(String[] selectionValues, @NonNull final List<String> paths) {
+        ArrayList<String> newSelectionValues = null;
+        if (selectionValues == null) {
+            newSelectionValues = new ArrayList<String>(paths.size());
+        }
+        else {
+            newSelectionValues = new ArrayList<String>(selectionValues.length + paths.size());
+            for (int i=0; i < selectionValues.length; ++i) {
+                newSelectionValues.add(selectionValues[i]);
+            }
+        }
+
+        for (int i = 0; i < paths.size(); i++) {
+            newSelectionValues.add(paths.get(i) + "%");
         }
         return newSelectionValues;
     }

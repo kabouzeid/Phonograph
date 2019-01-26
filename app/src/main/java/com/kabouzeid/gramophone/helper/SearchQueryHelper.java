@@ -71,7 +71,6 @@ public class SearchQueryHelper {
             return songs;
         }
 
-
         songs = SongLoader.getSongs(SongLoader.makeSongCursor(context, ARTIST_SELECTION, new String[]{query.toLowerCase().trim()}));
         if (!songs.isEmpty()) {
             return songs;

@@ -38,41 +38,22 @@ public final class FileUtil {
 
     @Nullable
     public static SortedCursor makeSongCursor(@NonNull final Context context, @Nullable final List<File> files) {
-        String selection = null;
-        String[] paths = null;
-
+        ArrayList<String> paths = new ArrayList<String>();
         if (files != null) {
             paths = toPathArray(files);
-
-            if (files.size() > 0 && files.size() < 999) { // TODO 999 is the max amount Androids SQL implementation can handle.
-                selection = MediaStore.Audio.AudioColumns.DATA + " IN (" + makePlaceholders(files.size()) + ")";
-            }
         }
 
-        Cursor songCursor = SongLoader.makeSongCursor(context, selection, selection == null ? null : paths);
-
-        return songCursor == null ? null : new SortedCursor(songCursor, paths, MediaStore.Audio.AudioColumns.DATA);
-    }
-
-    private static String makePlaceholders(int len) {
-        StringBuilder sb = new StringBuilder(len * 2 - 1);
-        sb.append("?");
-        for (int i = 1; i < len; i++) {
-            sb.append(",?");
-        }
-        return sb.toString();
+        Cursor songCursor = SongLoader.makeSongCursorFromPaths(context, paths);
+        return songCursor == null ? null : new SortedCursor(songCursor, paths.toArray(new String[paths.size()]), MediaStore.Audio.AudioColumns.DATA);
     }
 
     @Nullable
-    private static String[] toPathArray(@Nullable List<File> files) {
-        if (files != null) {
-            String[] paths = new String[files.size()];
-            for (int i = 0; i < files.size(); i++) {
-                paths[i] = safeGetCanonicalPath(files.get(i));
-            }
-            return paths;
+    private static ArrayList<String> toPathArray(@Nullable List<File> files) {
+        ArrayList<String> paths = new ArrayList<String>(files.size());
+        for (int i = 0; i < files.size(); i++) {
+            paths.set(i, safeGetCanonicalPath(files.get(i)));
         }
-        return null;
+        return paths;
     }
 
     @NonNull
