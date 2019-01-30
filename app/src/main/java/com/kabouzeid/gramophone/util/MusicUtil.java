@@ -259,10 +259,9 @@ public class MusicUtil {
                 BaseColumns._ID, MediaStore.MediaColumns.DATA
         };
 
-        // SQLite limits the query length to 1000000 bytes
         // Split the query into multiple batches, and merge the resulting cursors
         int songIndex = 0;
-        final int batchSize = 5000; // arbitrary value, assuming the batchSize * avg_len(song.id) < limit
+        final int batchSize = 1000000 / 10; // 10^6 being the SQLite limite on the query lenth in bytes, 10 being the max number of digits in an int, used to store the track ID
         final int songCount = songs.size();
 
         while (songIndex < songCount)
