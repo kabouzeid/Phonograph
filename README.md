@@ -26,3 +26,6 @@ This fork is only different from kabouzeid/master in three commits:
 
 ## Contributing
 I love any support, feedback or new ideas. So feel free to contribute in any possible way. I don't have any experience with android programming so I really need help D:
+
+### Getting the App for non-Programmers
+If you want the app but don't know how to build feel free it send me personal message. We will find a solution :)
