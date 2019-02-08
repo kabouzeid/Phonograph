@@ -52,44 +52,31 @@ public class AddToPlaylistDialog extends DialogFragment {
 
         if(songs != null) //TODO: display checkboxes instead of checkmark
         {
-            if(songs.size() == 1) {
-                Boolean[] isSongInPlaylist = new Boolean[playlists.size()];
-                for (int i = 0; i < playlists.size(); i++) {
-                    isSongInPlaylist[i] = PlaylistsUtil.doPlaylistContains(getActivity(), playlists.get(i).id, songs.get(0).id);
+            Boolean[] isAnySongInPlaylist = new Boolean[playlists.size()];
+            Boolean[] areAllSongsInPlaylist = new Boolean[playlists.size()];
 
-                    //TEMP
-                    if (isSongInPlaylist[i]) {
-                        playlistNames[i + 1] = playlists.get(i).name + " \u2713";
-                    }
-                }
+            int[] songId = new int[songs.size()];
+            for(int i = 0; i < songs.size(); i++){
+                songId[i] = songs.get(i).id;
             }
-            else{
-                Boolean[] isAnySongInPlaylist = new Boolean[playlists.size()];
-                Boolean[] areAllSongsInPlaylist = new Boolean[playlists.size()];
 
-                int[] songId = new int[songs.size()];
-                for(int i = 0; i < songs.size(); i++){
-                    songId[i] = songs.get(i).id;
+            for (int i = 0; i < playlists.size(); i++) {
+                int playlistId = playlists.get(i).id;
+                areAllSongsInPlaylist[i] = true;
+                isAnySongInPlaylist[i] = false;
+                for(int j = 0; j < songs.size(); j++){
+                    Boolean isSongInPlaylist= PlaylistsUtil.doPlaylistContains(getActivity(), playlistId, songId[j]);
+                    isAnySongInPlaylist[i] = isAnySongInPlaylist[i] || isSongInPlaylist;
+                    areAllSongsInPlaylist[i] = areAllSongsInPlaylist[i] && isSongInPlaylist;
                 }
 
-                for (int i = 0; i < playlists.size(); i++) {
-                    int playlistId = playlists.get(i).id;
-                    areAllSongsInPlaylist[i] = true;
-                    isAnySongInPlaylist[i] = false;
-                    for(int j = 0; j < songs.size(); j++){
-                        Boolean isSongInPlaylist= PlaylistsUtil.doPlaylistContains(getActivity(), playlistId, songId[j]);
-                        isAnySongInPlaylist[i] = isAnySongInPlaylist[i] || isSongInPlaylist;
-                        areAllSongsInPlaylist[i] = areAllSongsInPlaylist[i] && isSongInPlaylist;
+                //TEMP
+                if (isAnySongInPlaylist[i]) {
+                    if(areAllSongsInPlaylist[i]){
+                        playlistNames[i + 1] = playlists.get(i).name + " \u2713"; //Add checkmark
                     }
-
-                    //TEMP
-                    if (isAnySongInPlaylist[i]) {
-                        if(areAllSongsInPlaylist[i]){
-                            playlistNames[i + 1] = playlists.get(i).name + " \u2713"; //Add checkmark
-                        }
-                        else{
-                            playlistNames[i + 1] = playlists.get(i).name + " (\u2713)"; //Add checkmark in brackets
-                        }
+                    else{
+                        playlistNames[i + 1] = playlists.get(i).name + " (\u2713)"; //Add checkmark in brackets
                     }
                 }
             }
@@ -106,8 +93,7 @@ public class AddToPlaylistDialog extends DialogFragment {
                         CreatePlaylistDialog.create(songs).show(getActivity().getSupportFragmentManager(), "ADD_TO_PLAYLIST");
                     } else {
                         materialDialog.dismiss();
-                        for()
-                        PlaylistsUtil.addToPlaylist(getActivity(), songs, playlists.get(i - 1).id, true);
+                        PlaylistsUtil.addToPlaylistWithoutDuplicates(getActivity(), songs, playlists.get(i - 1).id, true);
                     }
                 })
                 .build();

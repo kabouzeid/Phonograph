@@ -13,7 +13,9 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.adapter.PlaylistAdapter;
 import com.kabouzeid.gramophone.helper.M3UWriter;
+import com.kabouzeid.gramophone.helper.menu.PlaylistMenuHelper;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
@@ -103,6 +105,16 @@ public class PlaylistsUtil {
         List<Song> helperList = new ArrayList<>();
         helperList.add(song);
         addToPlaylist(context, helperList, playlistId, showToastOnFinish);
+    }
+
+    public static void addToPlaylistWithoutDuplicates(@NonNull final Context context, @NonNull final List<Song> songs, final int playlistId, final boolean showToastOnFinish){
+        ArrayList<Song> helperSongs = new ArrayList<Song>();
+        for(int i = 0; i < songs.size(); i++){
+            if(!doPlaylistContains(context, playlistId, songs.get(i).id)){
+                helperSongs.add(songs.get(i));
+            }
+        }
+        addToPlaylist(context, helperSongs, playlistId, showToastOnFinish);
     }
 
     public static void addToPlaylist(@NonNull final Context context, @NonNull final List<Song> songs, final int playlistId, final boolean showToastOnFinish) {
