@@ -16,8 +16,8 @@ The purpose of this fork is to implement an easy to use and powerful way to mana
 
 ![image](https://user-images.githubusercontent.com/33571916/52509049-01e1c300-2bf7-11e9-979a-8cf872436ec2.png)
 
-In the playlist menu checkmarks indicate whether a song/ a number of songs are already in a list.
-The brackets around the checkmark shows that only some of the songs are part of the playlist.
+In the playlist-menu checkmarks indicate whether a song / a number of songs are already in a list.
+The brackets around the checkmark show that only some of the songs are part of the playlist.
 
 This fork is only different from kabouzeid/master in three commits: 
 [6bac337](https://github.com/Sogolumbo/Phonograph/commit/6bac3379636d97a68f50ebb1672654ef1aa310fb),
