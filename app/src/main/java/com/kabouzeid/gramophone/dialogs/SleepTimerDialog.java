@@ -26,6 +26,7 @@ import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.PurchaseActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
+import com.kabouzeid.gramophone.util.SleepTimerUtil;
 import com.triggertrap.seekarc.SeekArc;
 
 import butterknife.BindView;
@@ -50,6 +51,9 @@ public class SleepTimerDialog extends DialogFragment {
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
         timerUpdater.cancel();
+        if (getActivity() instanceof DismissListener) {
+            ((DismissListener) getActivity()).onDismissed();
+        }
     }
 
     @NonNull
@@ -73,24 +77,25 @@ public class SleepTimerDialog extends DialogFragment {
 
                     final int minutes = seekArcProgress;
 
-                    PendingIntent pi = makeTimerPendingIntent(PendingIntent.FLAG_CANCEL_CURRENT);
+                    PendingIntent pi = SleepTimerUtil.createTimer(getActivity());
 
                     final long nextSleepTimerElapsedTime = SystemClock.elapsedRealtime() + minutes * 60 * 1000;
                     PreferenceUtil.getInstance(getActivity()).setNextSleepTimerElapsedRealtime(nextSleepTimerElapsedTime);
                     AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
                     am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextSleepTimerElapsedTime, pi);
-
+                    getActivity().sendBroadcast(new Intent(MusicService.SLEEP_TIMER_CHANGED));
                     Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_set, minutes), Toast.LENGTH_SHORT).show();
                 })
                 .onNeutral((dialog, which) -> {
                     if (getActivity() == null) {
                         return;
                     }
-                    final PendingIntent previous = makeTimerPendingIntent(PendingIntent.FLAG_NO_CREATE);
+                    final PendingIntent previous = SleepTimerUtil.getCurrentTimer(getActivity());
                     if (previous != null) {
                         AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
                         am.cancel(previous);
                         previous.cancel();
+                        getActivity().sendBroadcast(new Intent(MusicService.SLEEP_TIMER_CHANGED));
                         Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_canceled), Toast.LENGTH_SHORT).show();
                     }
 
@@ -101,7 +106,7 @@ public class SleepTimerDialog extends DialogFragment {
                     }
                 })
                 .showListener(dialog -> {
-                    if (makeTimerPendingIntent(PendingIntent.FLAG_NO_CREATE) != null) {
+                    if (SleepTimerUtil.isTimerRunning(getActivity())) {
                         timerUpdater.start();
                     }
                 })
@@ -198,5 +203,9 @@ public class SleepTimerDialog extends DialogFragment {
         public void onFinish() {
             updateCancelButton();
         }
+    }
+
+    public interface DismissListener {
+        void onDismissed();
     }
 }

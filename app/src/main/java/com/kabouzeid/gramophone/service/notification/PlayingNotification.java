@@ -3,11 +3,16 @@ package com.kabouzeid.gramophone.service.notification;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.service.MusicService;
+import com.kabouzeid.gramophone.ui.activities.MainActivity;
+import com.kabouzeid.gramophone.ui.activities.SleepTimerActivity;
+import com.kabouzeid.gramophone.util.SleepTimerUtil;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -39,6 +44,24 @@ public abstract class PlayingNotification {
         stopped = true;
         service.stopForeground(true);
         notificationManager.cancel(NOTIFICATION_ID);
+    }
+
+    PendingIntent clickAction() {
+        Intent intent = new Intent(service, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return PendingIntent.getActivity(service, 0, intent, 0);
+    }
+
+    PendingIntent playbackAction(final String action) {
+        Intent intent = new Intent(service, MusicService.class).setAction(action);
+        return PendingIntent.getService(service, 0, intent, 0);
+    }
+
+    PendingIntent deleteAction() {
+        return PendingIntent.getService(service, 0, SleepTimerUtil.getTimerAction(service), 0);
+    }
+
+    PendingIntent sleepTimerAction() {
+        return PendingIntent.getActivity(service, 0, new Intent(service, SleepTimerActivity.class), 0);
     }
 
     void updateNotifyModeAndPostNotification(Notification notification) {
