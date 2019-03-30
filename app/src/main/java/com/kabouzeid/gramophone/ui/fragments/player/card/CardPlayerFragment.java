@@ -14,7 +14,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -29,17 +28,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
-import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
-import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
-import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
-import com.kabouzeid.gramophone.adapter.song.PlayingQueueAdapter;
 import com.kabouzeid.gramophone.dialogs.LyricsDialog;
 import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -85,13 +79,6 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     private CardPlayerPlaybackControlsFragment playbackControlsFragment;
     private PlayerAlbumCoverFragment playerAlbumCoverFragment;
 
-    private LinearLayoutManager layoutManager;
-
-    private PlayingQueueAdapter playingQueueAdapter;
-
-    private RecyclerView.Adapter wrappedAdapter;
-    private RecyclerViewDragDropManager recyclerViewDragDropManager;
-
     private AsyncTask updateIsFavoriteTask;
     private AsyncTask updateLyricsAsyncTask;
 
@@ -121,7 +108,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         setUpPlayerToolbar();
         setUpSubFragments();
 
-        setUpRecyclerView();
+        setUpRecyclerView(recyclerView,slidingUpPanelLayout);
 
         slidingUpPanelLayout.addPanelSlideListener(this);
         slidingUpPanelLayout.setAntiDragView(view.findViewById(R.id.draggable_area));
@@ -136,16 +123,18 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
         // for some reason the xml attribute doesn't get applied here.
         playingQueueCard.setCardBackgroundColor(ATHUtil.resolveColor(getActivity(), R.attr.cardBackgroundColor));
+
+        //Allows the list items to draw out of bounds when swiping, but also makes the listview
+        //float above everything else. Disabling for now.
+
+//        playingQueueCard.setClipToOutline(false);
+//        disableClipOnParents(recyclerView);
     }
 
     @Override
     public void onDestroyView() {
         if (slidingUpPanelLayout != null) {
             slidingUpPanelLayout.removePanelSlideListener(this);
-        }
-        if (recyclerViewDragDropManager != null) {
-            recyclerViewDragDropManager.release();
-            recyclerViewDragDropManager = null;
         }
 
         if (recyclerView != null) {
@@ -154,12 +143,6 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
             recyclerView = null;
         }
 
-        if (wrappedAdapter != null) {
-            WrapperAdapterUtils.releaseAll(wrappedAdapter);
-            wrappedAdapter = null;
-        }
-        playingQueueAdapter = null;
-        layoutManager = null;
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -250,28 +233,20 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         return super.onMenuItemClick(item);
     }
 
-    private void setUpRecyclerView() {
-        recyclerViewDragDropManager = new RecyclerViewDragDropManager();
-        final GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
+    public void disableClipOnParents(View v) {
 
-        playingQueueAdapter = new PlayingQueueAdapter(
-                ((AppCompatActivity) getActivity()),
-                MusicPlayerRemote.getPlayingQueue(),
-                MusicPlayerRemote.getPosition(),
-                R.layout.item_list,
-                false,
-                null);
-        wrappedAdapter = recyclerViewDragDropManager.createWrappedAdapter(playingQueueAdapter);
 
-        layoutManager = new LinearLayoutManager(getActivity());
+        if (v.getParent() == null) {
+            return;
+        }
 
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(wrappedAdapter);
-        recyclerView.setItemAnimator(animator);
+        if (v instanceof ViewGroup) {
+            ((ViewGroup) v).setClipChildren(false);
+        }
 
-        recyclerViewDragDropManager.attachRecyclerView(recyclerView);
-
-        layoutManager.scrollToPositionWithOffset(MusicPlayerRemote.getPosition() + 1, 0);
+        if (v.getParent() instanceof View) {
+            disableClipOnParents((View) v.getParent());
+        }
     }
 
     private void updateIsFavorite() {

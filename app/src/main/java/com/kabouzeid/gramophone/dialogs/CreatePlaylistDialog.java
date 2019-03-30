@@ -67,6 +67,9 @@ public class CreatePlaylistDialog extends DialogFragment {
                                 if (songs != null && !songs.isEmpty()) {
                                     PlaylistsUtil.addToPlaylist(getActivity(), songs, playlistId, true);
                                 }
+                            } else {
+                                Toast.makeText(getActivity(), getActivity().getResources().getString(
+                                        R.string.playlist_exists, name), Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(getActivity(), getActivity().getResources().getString(

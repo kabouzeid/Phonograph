@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +47,8 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     protected boolean usePalette = false;
     protected boolean showSectionName = true;
 
+    public RecyclerView recyclerView;
+
     public SongAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
         this(activity, dataSet, itemLayoutRes, usePalette, cabHolder, true);
     }
@@ -58,6 +61,12 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
         this.usePalette = usePalette;
         this.showSectionName = showSectionName;
         setHasStableIds(true);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView rV) {
+        super.onAttachedToRecyclerView(rV);
+        recyclerView = rV;
     }
 
     public void swapDataSet(ArrayList<Song> dataSet) {

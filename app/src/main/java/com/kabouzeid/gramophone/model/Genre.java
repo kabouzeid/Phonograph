@@ -6,6 +6,7 @@ import android.os.Parcelable;
 public class Genre implements Parcelable {
     public final int id;
     public final String name;
+
     public final int songCount;
 
     public Genre(final int id, final String name, final int songCount) {
@@ -22,6 +23,7 @@ public class Genre implements Parcelable {
         Genre genre = (Genre) o;
 
         if (id != genre.id) return false;
+
         if (!name.equals(genre.name)) return false;
         return songCount == genre.songCount;
     }

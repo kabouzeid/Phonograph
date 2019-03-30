@@ -7,107 +7,115 @@
     android:foreground="?attr/rectSelector"
     tools:ignore="UnusedAttribute">
 
-    <com.kabouzeid.gramophone.views.IconImageView
-        android:id="@+id/drag_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical|start"
-        android:layout_marginLeft="-8dp"
-        android:layout_marginStart="-8dp"
-        android:tint="?attr/iconColor"
-        android:tintMode="src_in"
-        android:visibility="gone"
-        app:srcCompat="@drawable/ic_drag_vertical_white_24dp"
-        tools:ignore="ContentDescription" />
-
-    <LinearLayout
+    <!-- for getSwipeableContainerView() -->
+    <FrameLayout
+        android:id="@+id/dummy_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:descendantFocusability="blocksDescendants"
-        android:orientation="horizontal">
-
-        <FrameLayout
-            android:id="@+id/image_container"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingEnd="0dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="0dp"
-            android:paddingStart="16dp">
-
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:id="@+id/image_text"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:minHeight="40dp"
-                android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:visibility="gone" />
-
-        </FrameLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingEnd="0dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="0dp"
-            android:paddingStart="16dp">
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-            <TextView
-                android:id="@+id/text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="?android:textColorSecondary" />
-        </LinearLayout>
+        android:layout_height="match_parent">
 
         <com.kabouzeid.gramophone.views.IconImageView
-            android:id="@+id/menu"
-            style="@style/OverFlowButton"
-            android:layout_gravity="center_vertical"
+            android:id="@+id/drag_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginLeft="-8dp"
+            android:layout_marginStart="-8dp"
+            android:tint="?attr/iconColor"
+            android:tintMode="src_in"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_drag_vertical_white_24dp"
             tools:ignore="ContentDescription" />
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants"
+            android:orientation="horizontal">
 
-    <View
-        android:id="@+id/separator"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="bottom"
-        android:background="?attr/dividerColor"
-        android:visibility="gone" />
+            <FrameLayout
+                android:id="@+id/image_container"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingEnd="0dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="0dp"
+                android:paddingStart="16dp">
 
-    <View
-        android:id="@+id/short_separator"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="72dp"
-        android:layout_marginStart="72dp"
-        android:background="?attr/dividerColor" />
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/image_text"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:minHeight="40dp"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingEnd="0dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="0dp"
+                android:paddingStart="16dp">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="?android:textColorSecondary" />
+            </LinearLayout>
+
+            <com.kabouzeid.gramophone.views.IconImageView
+                android:id="@+id/menu"
+                style="@style/OverFlowButton"
+                android:layout_gravity="center_vertical"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="?attr/dividerColor"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/short_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="72dp"
+            android:layout_marginStart="72dp"
+            android:background="?attr/dividerColor" />
+
+    </FrameLayout>
 
 </FrameLayout>

@@ -3,14 +3,24 @@ package com.kabouzeid.gramophone.adapter.song;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter;
-import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemViewHolder;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.ItemDraggableRange;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.annotation.DraggableItemStateFlags;
+import com.h6ah4i.android.widget.advrecyclerview.swipeable.SwipeableItemAdapter;
+import com.h6ah4i.android.widget.advrecyclerview.swipeable.SwipeableItemConstants;
+import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultAction;
+import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultActionDefault;
+import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultActionRemoveItem;
+import com.h6ah4i.android.widget.advrecyclerview.swipeable.annotation.SwipeableItemResults;
+import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
@@ -22,17 +32,23 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAdapter<PlayingQueueAdapter.ViewHolder> {
+public class PlayingQueueAdapter extends SongAdapter
+        implements DraggableItemAdapter<PlayingQueueAdapter.ViewHolder>, SwipeableItemAdapter<PlayingQueueAdapter.ViewHolder> {
 
     private static final int HISTORY = 0;
     private static final int CURRENT = 1;
     private static final int UP_NEXT = 2;
+
+    public Song songToRemove;
+
+    private static Snackbar currentlyShownSnackbar;
 
     private int current;
 
     public PlayingQueueAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, int current, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
         super(activity, dataSet, itemLayoutRes, usePalette, cabHolder);
         this.current = current;
+
     }
 
     @Override
@@ -106,6 +122,15 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
         return null;
     }
 
+    public void onItemDragStarted(int position) {
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemDragFinished(int fromPosition, int toPosition, boolean result) {
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onMoveItem(int fromPosition, int toPosition) {
         MusicPlayerRemote.moveSong(fromPosition, toPosition);
@@ -117,27 +142,50 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
     }
 
     @Override
-    public void onItemDragStarted(int position) {
-        notifyDataSetChanged();
+    public int onGetSwipeReactionType(ViewHolder holder, int position, int x, int y) {
+        if (onCheckCanStartDrag(holder, position, x, y)) {
+            return SwipeableItemConstants.REACTION_CAN_NOT_SWIPE_BOTH_H;
+        } else {
+            return SwipeableItemConstants.REACTION_CAN_SWIPE_BOTH_H;
+        }
     }
 
     @Override
-    public void onItemDragFinished(int fromPosition, int toPosition, boolean result) {
-        notifyDataSetChanged();
+    public void onSwipeItemStarted(ViewHolder holder, int position) {
+
     }
 
-    public class ViewHolder extends SongAdapter.ViewHolder implements DraggableItemViewHolder {
+    @Override
+    public void onSetSwipeBackground(ViewHolder holder, int i, int i1) {
+            holder.itemView.setBackgroundColor(getBackgroundColor(activity));
+            holder.dummyContainer.setBackgroundColor(ATHUtil.resolveColor(activity, R.attr.cardBackgroundColor));
+    }
+
+    @Override
+    public SwipeResultAction onSwipeItem(ViewHolder holder, int position, @SwipeableItemResults int result) {
+
+        if (result == SwipeableItemConstants.RESULT_CANCELED) {
+            return new SwipeResultActionDefault();
+        } else {
+            return new SwipedResultActionRemoveItem(this, position, activity);
+        }
+    }
+
+    public class ViewHolder extends SongAdapter.ViewHolder {
+
         @DraggableItemStateFlags
         private int mDragStateFlags;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             if (imageText != null) {
                 imageText.setVisibility(View.VISIBLE);
             }
             if (image != null) {
                 image.setVisibility(View.GONE);
             }
+
         }
 
         @Override
@@ -156,14 +204,107 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
         }
 
         @Override
-        public void setDragStateFlags(@DraggableItemStateFlags int flags) {
+        public void setDragStateFlags(int flags) {
             mDragStateFlags = flags;
         }
 
         @Override
-        @DraggableItemStateFlags
         public int getDragStateFlags() {
             return mDragStateFlags;
         }
+
+        @Override
+        public View getSwipeableContainerView() {
+            return dummyContainer;
+        }
+    }
+
+    static class SwipedResultActionRemoveItem extends SwipeResultActionRemoveItem {
+        private PlayingQueueAdapter adapter;
+        private int position;
+        private Song songToRemove;
+        private AppCompatActivity activity;
+        private boolean isPlaying;
+        private int songProgressMillis;
+
+        public SwipedResultActionRemoveItem(PlayingQueueAdapter adapter, int position, AppCompatActivity activity) {
+            this.adapter = adapter;
+            this.position = position;
+            this.activity = activity;
+            this.isPlaying = MusicPlayerRemote.isPlaying();
+        }
+
+        @Override
+        protected void onPerformAction() {
+            currentlyShownSnackbar = null;
+        }
+        @Override
+        protected void onSlideAnimationEnd() {
+
+            initializeSnackBar(adapter, position, activity, isPlaying);
+            songToRemove = adapter.dataSet.get(position);
+
+            //Swipe animation is much smoother when we do the heavy lifting after it's completed
+            adapter.setSongToRemove(songToRemove);
+            MusicPlayerRemote.removeFromQueue(songToRemove);
+            //If song removed was the playing song, then play the next song
+            if(isPlaying && position == 0) MusicPlayerRemote.playSongAt(0);
+        }
+    }
+
+    public static int getBackgroundColor(AppCompatActivity activity){
+        //TODO: Find a better way to get the album background color
+        TextView tV = ((TextView) activity.findViewById(R.id.player_queue_sub_header));
+        if(tV != null){
+            int color = tV.getCurrentTextColor();
+            return color;
+        }else{
+            return ATHUtil.resolveColor(activity, R.attr.cardBackgroundColor);
+        }
+    }
+
+    public static void initializeSnackBar(final PlayingQueueAdapter adapter,final int position,
+                                          final AppCompatActivity activity, final Boolean isPlaying){
+
+        CharSequence snackBarTitle = activity.getString(R.string.snack_bar_title_removed_song);
+
+        Snackbar snackbar = Snackbar.make((View) activity.findViewById(R.id.content_container),
+                snackBarTitle,
+                Snackbar.LENGTH_LONG);
+
+        TextView songTitle = (TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
+
+        songTitle.setSingleLine();
+        songTitle.setEllipsize(TextUtils.TruncateAt.END);
+        songTitle.setText(adapter.dataSet.get(position).title + " " + snackBarTitle);
+
+        snackbar.setAction(R.string.snack_bar_action_undo, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Position",Integer.toString(position));
+                MusicPlayerRemote.addSong(position,adapter.getSongToRemove());
+                //If playing and currently playing song is removed, then added back, then play it at
+                //current song progress
+                if(isPlaying && position == 0){
+                    MusicPlayerRemote.playSongAt(position);
+                }
+            }
+        });
+        snackbar.setActionTextColor(getBackgroundColor(activity));
+        snackbar.show();
+
+
+        //Fixes Snackbar not showing when it replaces another Snackbar
+        //See: https://stackoverflow.com/questions/43680655/snackbar-sometimes-doesnt-show-up-when-it-replaces-another-one
+        currentlyShownSnackbar = snackbar;
+
+    }
+
+    public void setSongToRemove (@NonNull Song song){
+        songToRemove = song;
+    }
+
+    public Song getSongToRemove(){
+        return songToRemove;
     }
 }

@@ -42,6 +42,7 @@
     <string name="album">Album</string>
     <string name="artist">Artist</string>
     <string name="genre">Genre</string>
+    <string name="unknown_genre">Unknown genre</string>
     <string name="album_artist">Album artist</string>
     <string name="year">Year</string>
     <string name="track_hint">"Track (2 for track 2 or 3004 for CD3 track 4)"</string>
@@ -276,6 +277,8 @@
     <string name="app_shortcut_top_tracks_short">Top tracks</string>
     <string name="app_shortcut_last_added_short">Last added</string>
     <string name="playlist_is_empty">Playlist is empty</string>
+    <string name="snack_bar_action_undo">undo</string>
+    <string name="snack_bar_title_removed_song">Removed</string>
     <string name="playing_notification_description">The playing notification provides actions for play/pause etc.</string>
     <string name="playing_notification_name">Playing notification</string>
     <string name="only_the_first_5_colors_available">Only the first 5 colors are available in the free version.</string>
