@@ -15,11 +15,13 @@ import com.kabouzeid.gramophone.util.PlaylistsUtil;
  */
 public class RenamePlaylistDialog extends DialogFragment {
 
+    private static final String PLAYLIST_ID = "playlist_id";
+
     @NonNull
     public static RenamePlaylistDialog create(long playlistId) {
         RenamePlaylistDialog dialog = new RenamePlaylistDialog();
         Bundle args = new Bundle();
-        args.putLong("playlist_id", playlistId);
+        args.putLong(PLAYLIST_ID, playlistId);
         dialog.setArguments(args);
         return dialog;
     }
@@ -27,7 +29,7 @@ public class RenamePlaylistDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        long playlistId = getArguments().getLong("playlist_id");
+        long playlistId = getArguments().getLong(PLAYLIST_ID);
         return new MaterialDialog.Builder(getActivity())
                 .title(R.string.rename_playlist_title)
                 .positiveText(R.string.rename_action)
@@ -36,13 +38,11 @@ public class RenamePlaylistDialog extends DialogFragment {
                         InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
                         InputType.TYPE_TEXT_FLAG_CAP_WORDS)
                 .input(getString(R.string.playlist_name_empty), PlaylistsUtil.getNameForPlaylist(getActivity(), playlistId), false,
-                        new MaterialDialog.InputCallback() {
-                            @Override
-                            public void onInput(MaterialDialog materialDialog, @NonNull CharSequence charSequence) {
-                                if (!charSequence.toString().trim().equals("")) {
-                                    long playlistId = getArguments().getLong("playlist_id");
-                                    PlaylistsUtil.renamePlaylist(getActivity(), playlistId, charSequence.toString());
-                                }
+                        (materialDialog, charSequence) -> {
+                            final String name = charSequence.toString().trim();
+                            if (!name.isEmpty()) {
+                                long playlistId1 = getArguments().getLong(PLAYLIST_ID);
+                                PlaylistsUtil.renamePlaylist(getActivity(), playlistId1, name);
                             }
                         })
                 .build();

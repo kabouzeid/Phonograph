@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.dialogs;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -54,16 +53,13 @@ public class ChangelogDialog extends DialogFragment {
                 .title(R.string.changelog)
                 .customView(customView, false)
                 .positiveText(android.R.string.ok)
-                .showListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialog) {
-                        if (getActivity() != null)
-                            setChangelogRead(getActivity());
-                    }
+                .showListener(dialog1 -> {
+                    if (getActivity() != null)
+                        setChangelogRead(getActivity());
                 })
                 .build();
 
-        final WebView webView = (WebView) customView.findViewById(R.id.web_view);
+        final WebView webView = customView.findViewById(R.id.web_view);
         try {
             // Load from phonograph-changelog.html in the assets folder
             StringBuilder buf = new StringBuilder();

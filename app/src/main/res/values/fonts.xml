@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <!-- bold -->
-    <string name="font_fontFamily_medium" translatable="false">sans-serif</string>
-
-</resources>

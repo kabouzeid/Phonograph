@@ -26,6 +26,7 @@ import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
 import com.kabouzeid.gramophone.lastfm.rest.model.LastFmAlbum;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.util.ImageUtil;
 import com.kabouzeid.gramophone.util.LastFMUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 
@@ -43,8 +44,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AlbumTagEditorActivity extends AbsTagEditorActivity implements TextWatcher {
-
-    public static final String TAG = AlbumTagEditorActivity.class.getSimpleName();
 
     @BindView(R.id.title)
     EditText albumTitle;
@@ -100,7 +99,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
             Toast.makeText(this, getResources().getString(R.string.album_or_artist_empty), Toast.LENGTH_SHORT).show();
             return;
         }
-        lastFMRestClient.getApiService().getAlbumInfo(albumTitleStr, albumArtistNameStr).enqueue(new Callback<LastFmAlbum>() {
+        lastFMRestClient.getApiService().getAlbumInfo(albumTitleStr, albumArtistNameStr, null).enqueue(new Callback<LastFmAlbum>() {
             @Override
             public void onResponse(Call<LastFmAlbum> call, Response<LastFmAlbum> response) {
                 LastFmAlbum lastFmAlbum = response.body();
@@ -123,7 +122,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
                                     @Override
                                     public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
-                                        albumArtBitmap = getResizedAlbumCover(resource.getBitmap(), 2048);
+                                        albumArtBitmap = ImageUtil.resizeBitmap(resource.getBitmap(), 2048);
                                         setImageBitmap(albumArtBitmap, PhonographColorUtil.getColor(resource.getPalette(), ATHUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.defaultFooterColor)));
                                         deleteAlbumArt = false;
                                         dataChanged();
@@ -208,7 +207,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                     @Override
                     public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
                         PhonographColorUtil.getColor(resource.getPalette(), Color.TRANSPARENT);
-                        albumArtBitmap = getResizedAlbumCover(resource.getBitmap(), 2048);
+                        albumArtBitmap = ImageUtil.resizeBitmap(resource.getBitmap(), 2048);
                         setImageBitmap(albumArtBitmap, PhonographColorUtil.getColor(resource.getPalette(), ATHUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.defaultFooterColor)));
                         deleteAlbumArt = false;
                         dataChanged();
@@ -230,32 +229,6 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
     @Override
     public void afterTextChanged(Editable s) {
         dataChanged();
-    }
-
-    private static Bitmap getResizedAlbumCover(@NonNull Bitmap src, int maxForSmallerSize) {
-        int width = src.getWidth();
-        int height = src.getHeight();
-
-        final int dstWidth;
-        final int dstHeight;
-
-        if (width < height) {
-            if (maxForSmallerSize >= width) {
-                return src;
-            }
-            float ratio = (float) height / width;
-            dstWidth = maxForSmallerSize;
-            dstHeight = Math.round(maxForSmallerSize * ratio);
-        } else {
-            if (maxForSmallerSize >= height) {
-                return src;
-            }
-            float ratio = (float) width / height;
-            dstWidth = Math.round(maxForSmallerSize * ratio);
-            dstHeight = maxForSmallerSize;
-        }
-
-        return Bitmap.createScaledBitmap(src, dstWidth, dstHeight, false);
     }
 
     @Override

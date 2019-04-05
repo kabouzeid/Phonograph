@@ -19,6 +19,7 @@ import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.RingtoneManager;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -29,10 +30,15 @@ public class SongMenuHelper {
     public static boolean handleMenuClick(@NonNull FragmentActivity activity, @NonNull Song song, int menuItemId) {
         switch (menuItemId) {
             case R.id.action_set_as_ringtone:
-                MusicUtil.setRingtone(activity, song.id);
+                if (RingtoneManager.requiresDialog(activity)) {
+                    RingtoneManager.showDialog(activity);
+                } else {
+                    RingtoneManager ringtoneManager = new RingtoneManager();
+                    ringtoneManager.setRingtone(activity, song.id);
+                }
                 return true;
             case R.id.action_share:
-                activity.startActivity(Intent.createChooser(MusicUtil.createShareSongFileIntent(song), null));
+                activity.startActivity(Intent.createChooser(MusicUtil.createShareSongFileIntent(song, activity), null));
                 return true;
             case R.id.action_delete_from_device:
                 DeleteSongsDialog.create(song).show(activity.getSupportFragmentManager(), "DELETE_SONGS");

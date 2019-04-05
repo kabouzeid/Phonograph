@@ -4,10 +4,30 @@
     tools:context="com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity">
 
     <item
-        android:icon="@drawable/ic_shuffle_white_24dp"
         android:id="@+id/action_shuffle_album"
+        android:icon="@drawable/ic_shuffle_white_24dp"
         android:title="@string/action_shuffle_album"
         app:showAsAction="ifRoom" />
+  
+    <item  
+        android:id="@+id/action_wiki"
+        android:title="@string/wiki"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_play_next"
+        android:title="@string/action_play_next"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_add_to_current_playing"
+        android:title="@string/action_add_to_playing_queue"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_add_to_playlist"
+        android:title="@string/action_add_to_playlist"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_go_to_artist"
@@ -20,14 +40,8 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_sleep_timer"
-        android:title="@string/action_sleep_timer"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_equalizer"
-        android:orderInCategory="99"
-        android:title="@string/equalizer"
+        android:id="@+id/action_delete_from_device"
+        android:title="@string/action_delete_from_device"
         app:showAsAction="never" />
 
 </menu>

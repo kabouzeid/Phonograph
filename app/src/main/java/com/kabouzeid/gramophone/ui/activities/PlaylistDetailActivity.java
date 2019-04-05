@@ -20,23 +20,25 @@ import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropM
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.adapter.song.OrderablePlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.PlaylistSongAdapter;
-import com.kabouzeid.gramophone.adapter.song.SmartPlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.SongAdapter;
-import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.menu.PlaylistMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.LoaderIds;
+import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
+import com.kabouzeid.gramophone.model.AbsCustomPlaylist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
-import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
+import com.kabouzeid.gramophone.util.ViewUtil;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +47,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity implements CabHolder, LoaderManager.LoaderCallbacks<ArrayList<Song>> {
-
-    public static final String TAG = PlaylistDetailActivity.class.getSimpleName();
 
     private static final int LOADER_ID = LoaderIds.PLAYLIST_DETAIL_ACTIVITY;
 
@@ -71,7 +71,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setDrawUnderStatusbar(true);
+        setDrawUnderStatusbar();
         ButterKnife.bind(this);
 
         setStatusbarColorAuto();
@@ -82,7 +82,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
 
         setUpRecyclerView();
 
-        setUpToolBar();
+        setUpToolbar();
 
         getSupportLoaderManager().initLoader(LOADER_ID, null, this);
     }
@@ -93,21 +93,19 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     }
 
     private void setUpRecyclerView() {
+        ViewUtil.setUpFastScrollRecyclerViewColor(this, ((FastScrollRecyclerView) recyclerView), ThemeStore.accentColor(this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        if (playlist instanceof AbsSmartPlaylist) {
-            adapter = new SmartPlaylistSongAdapter(this, new ArrayList<Song>(), R.layout.item_list, false, this);
+        if (playlist instanceof AbsCustomPlaylist) {
+            adapter = new PlaylistSongAdapter(this, new ArrayList<>(), R.layout.item_list, false, this);
             recyclerView.setAdapter(adapter);
         } else {
             recyclerViewDragDropManager = new RecyclerViewDragDropManager();
             final GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
-            adapter = new PlaylistSongAdapter(this, new ArrayList<PlaylistSong>(), R.layout.item_list, false, this, new PlaylistSongAdapter.OnMoveItemListener() {
-                @Override
-                public void onMoveItem(int fromPosition, int toPosition) {
-                    if (PlaylistsUtil.moveItem(PlaylistDetailActivity.this, playlist.id, fromPosition, toPosition)) {
-                        Song song = adapter.getDataSet().remove(fromPosition);
-                        adapter.getDataSet().add(toPosition, song);
-                        adapter.notifyItemMoved(fromPosition, toPosition);
-                    }
+            adapter = new OrderablePlaylistSongAdapter(this, new ArrayList<>(), R.layout.item_list, false, this, (fromPosition, toPosition) -> {
+                if (PlaylistsUtil.moveItem(PlaylistDetailActivity.this, playlist.id, fromPosition, toPosition)) {
+                    Song song = adapter.getDataSet().remove(fromPosition);
+                    adapter.getDataSet().add(toPosition, song);
+                    adapter.notifyItemMoved(fromPosition, toPosition);
                 }
             });
             wrappedAdapter = recyclerViewDragDropManager.createWrappedAdapter(adapter);
@@ -127,17 +125,22 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         });
     }
 
-    private void setUpToolBar() {
+    private void setUpToolbar() {
         toolbar.setBackgroundColor(ThemeStore.primaryColor(this));
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
-        getSupportActionBar().setTitle(playlist.name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setToolbarTitle(playlist.name);
+    }
+
+    private void setToolbarTitle(String title) {
+        //noinspection ConstantConditions
+        getSupportActionBar().setTitle(title);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_playlist_detail, menu);
+        getMenuInflater().inflate(playlist instanceof AbsCustomPlaylist ? R.menu.menu_smart_playlist_detail : R.menu.menu_playlist_detail, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -145,20 +148,14 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.action_sleep_timer:
-                new SleepTimerDialog().show(getSupportFragmentManager(), "SET_SLEEP_TIMER");
-                return true;
             case R.id.action_shuffle_playlist:
                 MusicPlayerRemote.openAndShuffleQueue(adapter.getDataSet(), true);
-                return true;
-            case R.id.action_equalizer:
-                NavigationUtil.openEqualizer(this);
                 return true;
             case android.R.id.home:
                 onBackPressed();
                 return true;
         }
-        return super.onOptionsItemSelected(item);
+        return PlaylistMenuHelper.handleMenuClick(this, playlist, item);
     }
 
     @NonNull
@@ -185,6 +182,22 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     @Override
     public void onMediaStoreChanged() {
         super.onMediaStoreChanged();
+
+        if (!(playlist instanceof AbsCustomPlaylist)) {
+            // Playlist deleted
+            if (!PlaylistsUtil.doesPlaylistExist(this, playlist.id)) {
+                finish();
+                return;
+            }
+
+            // Playlist renamed
+            final String playlistName = PlaylistsUtil.getNameForPlaylist(this, playlist.id);
+            if (!playlistName.equals(playlist.name)) {
+                playlist = PlaylistLoader.getPlaylist(this, playlist.id);
+                setToolbarTitle(playlist.name);
+            }
+        }
+
         getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
     }
 
@@ -238,7 +251,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     @Override
     public void onLoaderReset(Loader<ArrayList<Song>> loader) {
         if (adapter != null)
-            adapter.swapDataSet(new ArrayList<Song>());
+            adapter.swapDataSet(new ArrayList<>());
     }
 
     private static class AsyncPlaylistSongLoader extends WrappedAsyncTaskLoader<ArrayList<Song>> {
@@ -251,8 +264,8 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
 
         @Override
         public ArrayList<Song> loadInBackground() {
-            if (playlist instanceof AbsSmartPlaylist) {
-                return ((AbsSmartPlaylist) playlist).getSongs(getContext());
+            if (playlist instanceof AbsCustomPlaylist) {
+                return ((AbsCustomPlaylist) playlist).getSongs(getContext());
             } else {
                 //noinspection unchecked
                 return (ArrayList<Song>) (List) PlaylistSongLoader.getPlaylistSongList(getContext(), playlist.id);

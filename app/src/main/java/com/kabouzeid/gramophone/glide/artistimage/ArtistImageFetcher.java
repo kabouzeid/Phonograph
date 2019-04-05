@@ -21,7 +21,7 @@ import retrofit2.Response;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistImageFetcher implements DataFetcher<InputStream> {
-    public static final String TAG = ArtistImageFetcher.class.getSimpleName();
+
     private Context context;
     private final LastFMRestClient lastFMRestClient;
     private final ArtistImage model;
@@ -48,8 +48,8 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
 
     @Override
     public InputStream loadData(Priority priority) throws Exception {
-        if (!MusicUtil.isArtistNameUnknown(model.artistName) && Util.isAllowedToAutoDownload(context)) {
-            Response<LastFmArtist> response = lastFMRestClient.getApiService().getArtistInfo(model.artistName, model.skipOkHttpCache ? "no-cache" : null).execute();
+        if (!MusicUtil.isArtistNameUnknown(model.artistName) && Util.isAllowedToDownloadMetadata(context)) {
+            Response<LastFmArtist> response = lastFMRestClient.getApiService().getArtistInfo(model.artistName, null, model.skipOkHttpCache ? "no-cache" : null).execute();
 
             if (!response.isSuccessful()) {
                 throw new IOException("Request failed with code: " + response.code());

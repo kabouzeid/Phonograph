@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.ui.activities.base;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -36,7 +35,6 @@ import butterknife.ButterKnife;
  *         {@link #wrapSlidingMusicPanel(int)} first and then return it in {@link #createContentView()}
  */
 public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivity implements SlidingUpPanelLayout.PanelSlideListener, CardPlayerFragment.Callbacks {
-    public static final String TAG = AbsSlidingMusicPanelActivity.class.getSimpleName();
 
     @BindView(R.id.sliding_layout)
     SlidingUpPanelLayout slidingUpPanelLayout;
@@ -76,25 +74,24 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         miniPlayerFragment = (MiniPlayerFragment) getSupportFragmentManager().findFragmentById(R.id.mini_player_fragment);
 
         //noinspection ConstantConditions
-        miniPlayerFragment.getView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                expandPanel();
-            }
-        });
+        miniPlayerFragment.getView().setOnClickListener(v -> expandPanel());
 
         slidingUpPanelLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 slidingUpPanelLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
-                if (getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
-                    onPanelSlide(slidingUpPanelLayout, 1);
-                    onPanelExpanded(slidingUpPanelLayout);
-                } else if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                    onPanelCollapsed(slidingUpPanelLayout);
-                } else {
-                    playerFragment.onHide();
+                switch (getPanelState()) {
+                    case EXPANDED:
+                        onPanelSlide(slidingUpPanelLayout, 1);
+                        onPanelExpanded(slidingUpPanelLayout);
+                        break;
+                    case COLLAPSED:
+                        onPanelCollapsed(slidingUpPanelLayout);
+                        break;
+                    default:
+                        playerFragment.onHide();
+                        break;
                 }
             }
         });
@@ -119,7 +116,13 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     public void onServiceConnected() {
         super.onServiceConnected();
         if (!MusicPlayerRemote.getPlayingQueue().isEmpty()) {
-            hideBottomBar(false);
+            slidingUpPanelLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    slidingUpPanelLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    hideBottomBar(false);
+                }
+            });
         } // don't call hideBottomBar(true) here as it causes a bug with the SlidingUpPanelLayout
     }
 
@@ -207,7 +210,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     protected View wrapSlidingMusicPanel(@LayoutRes int resId) {
         @SuppressLint("InflateParams")
         View slidingMusicPanelLayout = getLayoutInflater().inflate(R.layout.sliding_music_panel_layout, null);
-        ViewGroup contentContainer = ButterKnife.findById(slidingMusicPanelLayout, R.id.content_container);
+        ViewGroup contentContainer = slidingMusicPanelLayout.findViewById(R.id.content_container);
         getLayoutInflater().inflate(resId, contentContainer);
         return slidingMusicPanelLayout;
     }
@@ -261,13 +264,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                     .ofArgb(getWindow().getNavigationBarColor(), color)
                     .setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME);
             navigationBarColorAnimator.setInterpolator(new PathInterpolator(0.4f, 0f, 1f, 1f));
-            navigationBarColorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    AbsSlidingMusicPanelActivity.super.setNavigationbarColor((Integer) animation.getAnimatedValue());
-                }
-            });
+            navigationBarColorAnimator.addUpdateListener(animation -> AbsSlidingMusicPanelActivity.super.setNavigationbarColor((Integer) animation.getAnimatedValue()));
             navigationBarColorAnimator.start();
         }
     }

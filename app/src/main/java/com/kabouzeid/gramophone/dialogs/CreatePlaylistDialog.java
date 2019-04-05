@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.text.InputType;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
  * @author Karim Abou Zeid (kabouzeid), Aidan Follestad (afollestad)
  */
 public class CreatePlaylistDialog extends DialogFragment {
+
+    private static final String SONGS = "songs";
 
     @NonNull
     public static CreatePlaylistDialog create() {
@@ -36,7 +39,7 @@ public class CreatePlaylistDialog extends DialogFragment {
     public static CreatePlaylistDialog create(ArrayList<Song> songs) {
         CreatePlaylistDialog dialog = new CreatePlaylistDialog();
         Bundle args = new Bundle();
-        args.putParcelableArrayList("songs", songs);
+        args.putParcelableArrayList(SONGS, songs);
         dialog.setArguments(args);
         return dialog;
     }
@@ -51,22 +54,26 @@ public class CreatePlaylistDialog extends DialogFragment {
                 .inputType(InputType.TYPE_CLASS_TEXT |
                         InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
                         InputType.TYPE_TEXT_FLAG_CAP_WORDS)
-                .input(R.string.playlist_name_empty, 0, false, new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(MaterialDialog materialDialog, @NonNull CharSequence charSequence) {
-                        if (getActivity() == null)
-                            return;
-                        if (!charSequence.toString().trim().isEmpty()) {
-                            final int playlistId = PlaylistsUtil.createPlaylist(getActivity(), charSequence.toString());
-                            if (playlistId != -1 && getActivity() != null) {
+                .input(R.string.playlist_name_empty, 0, false, (materialDialog, charSequence) -> {
+                    if (getActivity() == null)
+                        return;
+                    final String name = charSequence.toString().trim();
+                    if (!name.isEmpty()) {
+                        if (!PlaylistsUtil.doesPlaylistExist(getActivity(), name)) {
+                            final int playlistId = PlaylistsUtil.createPlaylist(getActivity(), name);
+                            if (getActivity() != null) {
                                 //noinspection unchecked
-                                ArrayList<Song> songs = getArguments().getParcelableArrayList("songs");
-                                if (songs != null) {
+                                ArrayList<Song> songs = getArguments().getParcelableArrayList(SONGS);
+                                if (songs != null && !songs.isEmpty()) {
                                     PlaylistsUtil.addToPlaylist(getActivity(), songs, playlistId, true);
                                 }
                             }
+                        } else {
+                            Toast.makeText(getActivity(), getActivity().getResources().getString(
+                                    R.string.playlist_exists, name), Toast.LENGTH_SHORT).show();
                         }
                     }
-                }).build();
+                })
+                .build();
     }
 }

@@ -3,10 +3,9 @@ package com.kabouzeid.gramophone.ui.activities.bugreport.model.github;
 import android.text.TextUtils;
 
 public class GithubLogin {
+
     private final String username;
-
     private final String password;
-
     private final String apiToken;
 
     public GithubLogin(String username, String password) {

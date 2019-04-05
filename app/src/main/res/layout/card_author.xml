@@ -64,7 +64,39 @@
                     android:layout_height="wrap_content"
                     android:text="@string/aachen_germany"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
             </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/write_an_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/rectSelector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/md_listitem_height"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <com.kabouzeid.gramophone.views.IconImageView
+                android:id="@+id/icon_email"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/ic_email_white_24dp"
+                tools:ignore="ContentDescription,UnusedAttribute" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginStart="32dp"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:text="@string/write_an_email"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
         </LinearLayout>
 
@@ -126,37 +158,6 @@
                 android:paddingBottom="8dp"
                 android:paddingTop="8dp"
                 android:text="@string/follow_on_twitter"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/fork_on_git_hub"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/rectSelector"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:minHeight="@dimen/md_listitem_height"
-            android:orientation="horizontal"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
-
-            <com.kabouzeid.gramophone.views.IconImageView
-                android:id="@+id/icon_github"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                app:srcCompat="@drawable/ic_github_circle_white_24dp"
-                tools:ignore="ContentDescription,UnusedAttribute" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:layout_marginStart="32dp"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:text="@string/fork_on_git_hub"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
         </LinearLayout>

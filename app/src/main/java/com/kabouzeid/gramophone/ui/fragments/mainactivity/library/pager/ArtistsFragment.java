@@ -9,8 +9,8 @@ import android.support.v7.widget.GridLayoutManager;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.artist.ArtistAdapter;
-import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.interfaces.LoaderIds;
+import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -21,8 +21,6 @@ import java.util.ArrayList;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFragment<ArtistAdapter, GridLayoutManager> implements LoaderManager.LoaderCallbacks<ArrayList<Artist>> {
-
-    public static final String TAG = ArtistsFragment.class.getSimpleName();
 
     private static final int LOADER_ID = LoaderIds.ARTISTS_FRAGMENT;
 
@@ -43,7 +41,7 @@ public class ArtistsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFr
     protected ArtistAdapter createAdapter() {
         int itemLayoutRes = getItemLayoutRes();
         notifyLayoutResChanged(itemLayoutRes);
-        ArrayList<Artist> dataSet = getAdapter() == null ? new ArrayList<Artist>() : getAdapter().getDataSet();
+        ArrayList<Artist> dataSet = getAdapter() == null ? new ArrayList<>() : getAdapter().getDataSet();
         return new ArtistAdapter(
                 getLibraryFragment().getMainActivity(),
                 dataSet,
@@ -59,6 +57,21 @@ public class ArtistsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFr
 
     @Override
     public void onMediaStoreChanged() {
+        getLoaderManager().restartLoader(LOADER_ID, null, this);
+    }
+
+    @Override
+    protected String loadSortOrder() {
+        return PreferenceUtil.getInstance(getActivity()).getArtistSortOrder();
+    }
+
+    @Override
+    protected void saveSortOrder(String sortOrder) {
+        PreferenceUtil.getInstance(getActivity()).setArtistSortOrder(sortOrder);
+    }
+
+    @Override
+    protected void setSortOrder(String sortOrder) {
         getLoaderManager().restartLoader(LOADER_ID, null, this);
     }
 
@@ -118,7 +131,7 @@ public class ArtistsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFr
 
     @Override
     public void onLoaderReset(Loader<ArrayList<Artist>> loader) {
-        getAdapter().swapDataSet(new ArrayList<Artist>());
+        getAdapter().swapDataSet(new ArrayList<>());
     }
 
     private static class AsyncArtistLoader extends WrappedAsyncTaskLoader<ArrayList<Artist>> {

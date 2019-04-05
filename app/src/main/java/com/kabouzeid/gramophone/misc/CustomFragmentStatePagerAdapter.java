@@ -65,14 +65,15 @@ import java.util.ArrayList;
  * complete}
  */
 public abstract class CustomFragmentStatePagerAdapter extends android.support.v4.view.PagerAdapter {
+
     public static final String TAG = CustomFragmentStatePagerAdapter.class.getSimpleName();
     private static final boolean DEBUG = false;
 
     private final FragmentManager mFragmentManager;
     private FragmentTransaction mCurTransaction = null;
 
-    private ArrayList<Fragment.SavedState> mSavedState = new ArrayList<Fragment.SavedState>();
-    private ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
+    private ArrayList<Fragment.SavedState> mSavedState = new ArrayList<>();
+    private ArrayList<Fragment> mFragments = new ArrayList<>();
     private Fragment mCurrentPrimaryItem = null;
 
     public CustomFragmentStatePagerAdapter(FragmentManager fm) {
@@ -203,8 +204,8 @@ public abstract class CustomFragmentStatePagerAdapter extends android.support.v4
             mSavedState.clear();
             mFragments.clear();
             if (fss != null) {
-                for (int i = 0; i < fss.length; i++) {
-                    mSavedState.add((Fragment.SavedState) fss[i]);
+                for (Parcelable fs : fss) {
+                    mSavedState.add((Fragment.SavedState) fs);
                 }
             }
             Iterable<String> keys = bundle.keySet();

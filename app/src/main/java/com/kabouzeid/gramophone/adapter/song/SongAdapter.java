@@ -21,12 +21,14 @@ import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.SortOrder;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.helper.menu.SongsMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
@@ -36,21 +38,25 @@ import java.util.ArrayList;
  */
 public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, Song> implements MaterialCab.Callback, FastScrollRecyclerView.SectionedAdapter {
 
-    public static final String TAG = AlbumSongAdapter.class.getSimpleName();
-
     protected final AppCompatActivity activity;
     protected ArrayList<Song> dataSet;
 
     protected int itemLayoutRes;
 
     protected boolean usePalette = false;
+    protected boolean showSectionName = true;
 
     public SongAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
+        this(activity, dataSet, itemLayoutRes, usePalette, cabHolder, true);
+    }
+
+    public SongAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder, boolean showSectionName) {
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         this.dataSet = dataSet;
         this.itemLayoutRes = itemLayoutRes;
         this.usePalette = usePalette;
+        this.showSectionName = showSectionName;
         setHasStableIds(true);
     }
 
@@ -73,9 +79,9 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
         return dataSet.get(position).id;
     }
 
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(activity).inflate(itemLayoutRes, parent, false);
         return createViewHolder(view);
     }
@@ -178,7 +184,27 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     @NonNull
     @Override
     public String getSectionName(int position) {
-        return MusicUtil.getSectionName(dataSet.get(position).title);
+        if (!showSectionName) {
+            return "";
+        }
+
+        @Nullable String sectionName = null;
+        switch (PreferenceUtil.getInstance(activity).getSongSortOrder()) {
+            case SortOrder.SongSortOrder.SONG_A_Z:
+            case SortOrder.SongSortOrder.SONG_Z_A:
+                sectionName = dataSet.get(position).title;
+                break;
+            case SortOrder.SongSortOrder.SONG_ALBUM:
+                sectionName = dataSet.get(position).albumName;
+                break;
+            case SortOrder.SongSortOrder.SONG_ARTIST:
+                sectionName = dataSet.get(position).artistName;
+                break;
+            case SortOrder.SongSortOrder.SONG_YEAR:
+                return MusicUtil.getYearString(dataSet.get(position).year);
+        }
+
+        return MusicUtil.getSectionName(sectionName);
     }
 
     public class ViewHolder extends MediaEntryViewHolder {

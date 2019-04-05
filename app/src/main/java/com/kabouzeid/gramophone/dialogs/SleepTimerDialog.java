@@ -18,8 +18,10 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.service.MusicService;
+import com.kabouzeid.gramophone.ui.activities.PurchaseActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.triggertrap.seekarc.SeekArc;
@@ -53,45 +55,42 @@ public class SleepTimerDialog extends DialogFragment {
         materialDialog = new MaterialDialog.Builder(getActivity())
                 .title(getActivity().getResources().getString(R.string.action_sleep_timer))
                 .positiveText(R.string.action_set)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (getActivity() == null) {
-                            return;
-                        }
-                        final int minutes = seekArcProgress;
+                .onPositive((dialog, which) -> {
+                    if (getActivity() == null) {
+                        return;
+                    }
+                    if (!App.isProVersion()) {
+                        Toast.makeText(getActivity(), getString(R.string.sleep_timer_is_a_pro_feature), Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(getContext(), PurchaseActivity.class));
+                        return;
+                    }
 
-                        PendingIntent pi = makeTimerPendingIntent(PendingIntent.FLAG_CANCEL_CURRENT);
+                    final int minutes = seekArcProgress;
 
-                        final long nextSleepTimerElapsedTime = SystemClock.elapsedRealtime() + minutes * 60 * 1000;
-                        PreferenceUtil.getInstance(getActivity()).setNextSleepTimerElapsedRealtime(nextSleepTimerElapsedTime);
+                    PendingIntent pi = makeTimerPendingIntent(PendingIntent.FLAG_CANCEL_CURRENT);
+
+                    final long nextSleepTimerElapsedTime = SystemClock.elapsedRealtime() + minutes * 60 * 1000;
+                    PreferenceUtil.getInstance(getActivity()).setNextSleepTimerElapsedRealtime(nextSleepTimerElapsedTime);
+                    AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+                    am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextSleepTimerElapsedTime, pi);
+
+                    Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_set, minutes), Toast.LENGTH_SHORT).show();
+                })
+                .onNeutral((dialog, which) -> {
+                    if (getActivity() == null) {
+                        return;
+                    }
+                    final PendingIntent previous = makeTimerPendingIntent(PendingIntent.FLAG_NO_CREATE);
+                    if (previous != null) {
                         AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-                        am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextSleepTimerElapsedTime, pi);
-
-                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_set, minutes), Toast.LENGTH_SHORT).show();
+                        am.cancel(previous);
+                        previous.cancel();
+                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_canceled), Toast.LENGTH_SHORT).show();
                     }
                 })
-                .onNeutral(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (getActivity() == null) {
-                            return;
-                        }
-                        final PendingIntent previous = makeTimerPendingIntent(PendingIntent.FLAG_NO_CREATE);
-                        if (previous != null) {
-                            AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-                            am.cancel(previous);
-                            previous.cancel();
-                            Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_canceled), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                })
-                .showListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialog) {
-                        if (makeTimerPendingIntent(PendingIntent.FLAG_NO_CREATE) != null) {
-                            timerUpdater.start();
-                        }
+                .showListener(dialog -> {
+                    if (makeTimerPendingIntent(PendingIntent.FLAG_NO_CREATE) != null) {
+                        timerUpdater.start();
                     }
                 })
                 .customView(R.layout.dialog_sleep_timer, false)
@@ -106,17 +105,14 @@ public class SleepTimerDialog extends DialogFragment {
         seekArc.setProgressColor(ThemeSingleton.get().positiveColor.getDefaultColor());
         seekArc.setThumbColor(ThemeSingleton.get().positiveColor.getDefaultColor());
 
-        seekArc.post(new Runnable() {
-            @Override
-            public void run() {
-                int width = seekArc.getWidth();
-                int height = seekArc.getHeight();
-                int small = Math.min(width, height);
+        seekArc.post(() -> {
+            int width = seekArc.getWidth();
+            int height = seekArc.getHeight();
+            int small = Math.min(width, height);
 
-                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(seekArc.getLayoutParams());
-                layoutParams.height = small;
-                seekArc.setLayoutParams(layoutParams);
-            }
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(seekArc.getLayoutParams());
+            layoutParams.height = small;
+            seekArc.setLayoutParams(layoutParams);
         });
 
         seekArcProgress = PreferenceUtil.getInstance(getActivity()).getLastSleepTimerValue();

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -13,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -36,7 +34,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SearchActivity extends AbsMusicServiceActivity implements SearchView.OnQueryTextListener, LoaderManager.LoaderCallbacks<List<Object>> {
-    public static final String TAG = SearchActivity.class.getSimpleName();
+
     public static final String QUERY = "query";
     private static final int LOADER_ID = LoaderIds.SEARCH_ACTIVITY;
 
@@ -56,7 +54,7 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        setDrawUnderStatusbar(true);
+        setDrawUnderStatusbar();
         ButterKnife.bind(this);
 
         setStatusbarColorAuto();
@@ -74,12 +72,9 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         });
         recyclerView.setAdapter(adapter);
 
-        recyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                hideSoftKeyboard();
-                return false;
-            }
+        recyclerView.setOnTouchListener((v, event) -> {
+            hideSoftKeyboard();
+            return false;
         });
 
         setUpToolBar();
@@ -97,11 +92,6 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         outState.putString(QUERY, query);
     }
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
     private void setUpToolBar() {
         toolbar.setBackgroundColor(ThemeStore.primaryColor(this));
         setSupportActionBar(toolbar);
@@ -114,12 +104,12 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         getMenuInflater().inflate(R.menu.menu_search, menu);
 
         final MenuItem searchItem = menu.findItem(R.id.search);
-        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView = (SearchView) searchItem.getActionView();
         searchView.setQueryHint(getString(R.string.search_hint));
         searchView.setMaxWidth(Integer.MAX_VALUE);
 
-        MenuItemCompat.expandActionView(searchItem);
-        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+        searchItem.expandActionView();
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
                 return true;
@@ -133,12 +123,7 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         });
 
         searchView.setQuery(query, false);
-        searchView.post(new Runnable() {
-            @Override
-            public void run() {
-                searchView.setOnQueryTextListener(SearchActivity.this);
-            }
-        });
+        searchView.post(() -> searchView.setOnQueryTextListener(SearchActivity.this));
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -208,19 +193,19 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         public List<Object> loadInBackground() {
             List<Object> results = new ArrayList<>();
             if (!TextUtils.isEmpty(query)) {
-                List songs = SongLoader.getSongs(getContext(), query);
+                List songs = SongLoader.getSongs(getContext(), query.trim());
                 if (!songs.isEmpty()) {
                     results.add(getContext().getResources().getString(R.string.songs));
                     results.addAll(songs);
                 }
 
-                List artists = ArtistLoader.getArtists(getContext(), query);
+                List artists = ArtistLoader.getArtists(getContext(), query.trim());
                 if (!artists.isEmpty()) {
                     results.add(getContext().getResources().getString(R.string.artists));
                     results.addAll(artists);
                 }
 
-                List albums = AlbumLoader.getAlbums(getContext(), query);
+                List albums = AlbumLoader.getAlbums(getContext(), query.trim());
                 if (!albums.isEmpty()) {
                     results.add(getContext().getResources().getString(R.string.albums));
                     results.addAll(albums);

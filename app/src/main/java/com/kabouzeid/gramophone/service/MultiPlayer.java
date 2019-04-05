@@ -13,7 +13,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.service.Playback.Playback;
+import com.kabouzeid.gramophone.service.playback.Playback;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 /**
@@ -144,7 +144,7 @@ public class MultiPlayer implements Playback, MediaPlayer.OnErrorListener, Media
      * @param callbacks The callbacks to use
      */
     @Override
-    public void setCallbacks(final Playback.PlaybackCallbacks callbacks) {
+    public void setCallbacks(@Nullable Playback.PlaybackCallbacks callbacks) {
         this.callbacks = callbacks;
     }
 

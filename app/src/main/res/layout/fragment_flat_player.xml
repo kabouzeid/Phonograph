@@ -8,21 +8,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <View
+        <com.kabouzeid.gramophone.views.StatusBarView
             android:id="@+id/player_status_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/status_bar_padding" />
 
-        <View
+        <com.kabouzeid.gramophone.views.StatusBarView
             android:layout_width="match_parent"
             android:layout_height="@dimen/status_bar_padding"
             android:background="@color/twenty_percent_black_overlay" />
 
     </FrameLayout>
 
-    <com.sothree.slidinguppanel.SlidingUpPanelLayout android:id="@+id/player_sliding_layout"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
         xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/player_sliding_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="false"
@@ -56,12 +56,18 @@
 
             </FrameLayout>
 
-            <include layout="@layout/shadow_toolbar" />
+            <FrameLayout
+                android:id="@+id/toolbar_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_scrim_height"
+                android:background="@drawable/toolbar_gradient">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/player_toolbar"
-                style="@style/Toolbar"
-                android:background="@android:color/transparent" />
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/player_toolbar"
+                    style="@style/Toolbar"
+                    android:background="@android:color/transparent" />
+
+            </FrameLayout>
 
         </FrameLayout>
 
@@ -130,4 +136,5 @@
         </LinearLayout>
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
 </LinearLayout>

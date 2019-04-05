@@ -14,13 +14,14 @@
 package com.kabouzeid.gramophone.service;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
-import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 import android.view.KeyEvent;
 
@@ -32,7 +33,7 @@ import com.kabouzeid.gramophone.BuildConfig;
  * Double press: next track
  * Triple press: previous track
  */
-public class MediaButtonIntentReceiver extends WakefulBroadcastReceiver {
+public class MediaButtonIntentReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = BuildConfig.DEBUG;
     public static final String TAG = MediaButtonIntentReceiver.class.getSimpleName();
 
@@ -83,16 +84,24 @@ public class MediaButtonIntentReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(final Context context, final Intent intent) {
         if (DEBUG) Log.v(TAG, "Received intent: " + intent);
+        if (handleIntent(context, intent) && isOrderedBroadcast()) {
+            abortBroadcast();
+        }
+    }
+
+    public static boolean handleIntent(final Context context, final Intent intent) {
         final String intentAction = intent.getAction();
         if (Intent.ACTION_MEDIA_BUTTON.equals(intentAction)) {
             final KeyEvent event = intent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
             if (event == null) {
-                return;
+                return false;
             }
 
             final int keycode = event.getKeyCode();
             final int action = event.getAction();
-            final long eventTime = event.getEventTime();
+            final long eventTime = event.getEventTime() != 0 ?
+                    event.getEventTime() : System.currentTimeMillis();
+            // Fallback to system time if event time was not available.
 
             String command = null;
             switch (keycode) {
@@ -126,7 +135,7 @@ public class MediaButtonIntentReceiver extends WakefulBroadcastReceiver {
 
                         // The service may or may not be running, but we need to send it
                         // a command.
-                        if (keycode == KeyEvent.KEYCODE_HEADSETHOOK) {
+                        if (keycode == KeyEvent.KEYCODE_HEADSETHOOK || keycode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE) {
                             if (eventTime - mLastClickTime >= DOUBLE_CLICK) {
                                 mClickCounter = 0;
                             }
@@ -147,20 +156,22 @@ public class MediaButtonIntentReceiver extends WakefulBroadcastReceiver {
                         } else {
                             startService(context, command);
                         }
+                        return true;
                     }
                 }
-                if (isOrderedBroadcast()) {
-                    abortBroadcast();
-                }
-                releaseWakeLockIfHandlerIdle();
             }
         }
+        return false;
     }
 
     private static void startService(Context context, String command) {
         final Intent intent = new Intent(context, MusicService.class);
         intent.setAction(command);
-        startWakefulService(context, intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intent);
+        } else {
+            context.startService(intent);
+        }
     }
 
     private static void acquireWakeLockAndSendMessage(Context context, Message msg, long delay) {

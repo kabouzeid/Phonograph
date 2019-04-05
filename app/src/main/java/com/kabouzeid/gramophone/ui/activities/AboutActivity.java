@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
 import com.kabouzeid.gramophone.dialogs.DonationsDialog;
@@ -32,10 +33,11 @@ import de.psdev.licensesdialog.LicensesDialog;
 @SuppressWarnings("FieldCanBeLocal")
 public class AboutActivity extends AbsBaseActivity implements View.OnClickListener {
 
+    private static String GITHUB = "https://github.com/kabouzeid/Phonograph";
+
     private static String GOOGLE_PLUS = "https://google.com/+KarimAbouZeid23697";
-    private static String TWITTER = "https://twitter.com/karim23697";
-    private static String GITHUB = "https://github.com/kabouzeid";
-    private static String WEBSITE = "http://kabouzeid.com/";
+    private static String TWITTER = "https://twitter.com/karimjabouzeid";
+    private static String WEBSITE = "https://kabouzeid.com/";
 
     private static String GOOGLE_PLUS_COMMUNITY = "https://plus.google.com/u/0/communities/106227738496107108513";
     private static String TRANSLATE = "https://phonograph.oneskyapp.com/collaboration/project?id=26521";
@@ -45,11 +47,17 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     private static String AIDAN_FOLLESTAD_GITHUB = "https://github.com/afollestad";
 
     private static String MICHAEL_COOK_GOOGLE_PLUS = "https://plus.google.com/102718493746376292361";
-    private static String MICHAEL_COOK_WEBSITE = "http://cookicons.co/";
+    private static String MICHAEL_COOK_WEBSITE = "https://cookicons.co/";
 
     private static String MAARTEN_CORPEL_GOOGLE_PLUS = "https://google.com/+MaartenCorpel";
 
     private static String ALEKSANDAR_TESIC_GOOGLE_PLUS = "https://google.com/+aleksandartešić";
+
+    private static String EUGENE_CHEUNG_GITHUB = "https://github.com/arkon";
+    private static String EUGENE_CHEUNG_WEBSITE = "https://echeung.me/";
+
+    private static String ADRIAN_TWITTER = "https://twitter.com/froschgames";
+    private static String ADRIAN_WEBSITE = "https://froschgames.com/";
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -61,11 +69,13 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     LinearLayout intro;
     @BindView(R.id.licenses)
     LinearLayout licenses;
+    @BindView(R.id.write_an_email)
+    LinearLayout writeAnEmail;
     @BindView(R.id.add_to_google_plus_circles)
     LinearLayout addToGooglePlusCircles;
     @BindView(R.id.follow_on_twitter)
     LinearLayout followOnTwitter;
-    @BindView(R.id.fork_on_git_hub)
+    @BindView(R.id.fork_on_github)
     LinearLayout forkOnGitHub;
     @BindView(R.id.visit_website)
     LinearLayout visitWebsite;
@@ -91,12 +101,20 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     AppCompatButton maartenCorpelGooglePlus;
     @BindView(R.id.aleksandar_tesic_google_plus)
     AppCompatButton aleksandarTesicGooglePlus;
+    @BindView(R.id.eugene_cheung_git_hub)
+    AppCompatButton eugeneCheungGitHub;
+    @BindView(R.id.eugene_cheung_website)
+    AppCompatButton eugeneCheungWebsite;
+    @BindView(R.id.adrian_twitter)
+    AppCompatButton adrianTwitter;
+    @BindView(R.id.adrian_website)
+    AppCompatButton adrianWebsite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        setDrawUnderStatusbar(true);
+        setDrawUnderStatusbar();
         ButterKnife.bind(this);
 
         setStatusbarColorAuto();
@@ -132,6 +150,7 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         forkOnGitHub.setOnClickListener(this);
         visitWebsite.setOnClickListener(this);
         reportBugs.setOnClickListener(this);
+        writeAnEmail.setOnClickListener(this);
         joinGooglePlusCommunity.setOnClickListener(this);
         translate.setOnClickListener(this);
         rateOnGooglePlay.setOnClickListener(this);
@@ -142,6 +161,10 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         michaelCookWebsite.setOnClickListener(this);
         maartenCorpelGooglePlus.setOnClickListener(this);
         aleksandarTesicGooglePlus.setOnClickListener(this);
+        eugeneCheungGitHub.setOnClickListener(this);
+        eugeneCheungWebsite.setOnClickListener(this);
+        adrianTwitter.setOnClickListener(this);
+        adrianWebsite.setOnClickListener(this);
     }
 
     @Override
@@ -155,11 +178,11 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
 
     private static String getCurrentVersionName(@NonNull final Context context) {
         try {
-            return context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+            return context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName + (App.isProVersion() ? " Pro" : "");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        return "0.0.0";
+        return "Unkown";
     }
 
     @Override
@@ -180,6 +203,12 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
             openUrl(WEBSITE);
         } else if (v == reportBugs) {
             startActivity(new Intent(this, BugReportActivity.class));
+        } else if (v == writeAnEmail) {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:contact@kabouzeid.com"));
+            intent.putExtra(Intent.EXTRA_EMAIL, "contact@kabouzeid.com");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Phonograph");
+            startActivity(Intent.createChooser(intent, "E-Mail"));
         } else if (v == joinGooglePlusCommunity) {
             openUrl(GOOGLE_PLUS_COMMUNITY);
         } else if (v == translate) {
@@ -187,7 +216,11 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         } else if (v == rateOnGooglePlay) {
             openUrl(RATE_ON_GOOGLE_PLAY);
         } else if (v == donate) {
-            DonationsDialog.create().show(getSupportFragmentManager(), "DONATION_DIALOG");
+            if (App.isProVersion()) {
+                DonationsDialog.create().show(getSupportFragmentManager(), "DONATION_DIALOG");
+            } else {
+                startActivity(new Intent(this, PurchaseActivity.class));
+            }
         } else if (v == aidanFollestadGooglePlus) {
             openUrl(AIDAN_FOLLESTAD_GOOGLE_PLUS);
         } else if (v == aidanFollestadGitHub) {
@@ -200,6 +233,14 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
             openUrl(MAARTEN_CORPEL_GOOGLE_PLUS);
         } else if (v == aleksandarTesicGooglePlus) {
             openUrl(ALEKSANDAR_TESIC_GOOGLE_PLUS);
+        } else if (v == eugeneCheungGitHub) {
+            openUrl(EUGENE_CHEUNG_GITHUB);
+        } else if (v == eugeneCheungWebsite) {
+            openUrl(EUGENE_CHEUNG_WEBSITE);
+        } else if (v == adrianTwitter) {
+            openUrl(ADRIAN_TWITTER);
+        } else if (v == adrianWebsite) {
+            openUrl(ADRIAN_WEBSITE);
         }
     }
 

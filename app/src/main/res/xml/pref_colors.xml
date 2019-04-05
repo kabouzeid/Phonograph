@@ -1,9 +1,21 @@
-<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/pref_header_colors">
 
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="light"
+            android:entries="@array/pref_general_theme_list_titles"
+            android:entryValues="@array/pref_general_theme_list_values"
+            android:key="general_theme"
+            app:iconSpaceReserved="false"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_general_theme" />
+
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference
             android:key="primary_color"
+            app:iconSpaceReserved="false"
             android:persistent="false"
             android:summary="@string/primary_color_desc"
             android:title="@string/primary_color" />
@@ -11,21 +23,24 @@
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference
             android:key="accent_color"
             android:persistent="false"
+            app:iconSpaceReserved="false"
             android:summary="@string/accent_color_desc"
             android:title="@string/accent_color" />
 
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="true"
-            android:key="colored_notification"
-            android:summary="@string/pref_summary_colored_notification"
-            android:title="@string/pref_title_colored_notification" />
-
-        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
+            app:iconSpaceReserved="false"
             android:key="should_color_navigation_bar"
             android:persistent="false"
             android:summary="@string/pref_summary_colored_navigation_bar"
             android:title="@string/pref_title_navigation_bar" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            android:key="should_color_app_shortcuts"
+            android:summary="@string/pref_summary_colored_app_shortcuts"
+            android:title="@string/pref_title_app_shortcuts" />
 
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 

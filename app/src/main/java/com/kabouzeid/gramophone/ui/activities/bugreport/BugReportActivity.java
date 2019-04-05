@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,7 +16,6 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -25,7 +23,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.TintHelper;
@@ -72,15 +69,23 @@ public class BugReportActivity extends AbsThemeActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.input_layout_title)
+    TextInputLayout inputLayoutTitle;
     @BindView(R.id.input_title)
     TextInputEditText inputTitle;
+    @BindView(R.id.input_layout_description)
+    TextInputLayout inputLayoutDescription;
     @BindView(R.id.input_description)
     TextInputEditText inputDescription;
     @BindView(R.id.air_textDeviceInfo)
     TextView textDeviceInfo;
 
+    @BindView(R.id.input_layout_username)
+    TextInputLayout inputLayoutUsername;
     @BindView(R.id.input_username)
     TextInputEditText inputUsername;
+    @BindView(R.id.input_layout_password)
+    TextInputLayout inputLayoutPassword;
     @BindView(R.id.input_password)
     TextInputEditText inputPassword;
     @BindView(R.id.option_use_account)
@@ -91,7 +96,7 @@ public class BugReportActivity extends AbsThemeActivity {
     @BindView(R.id.button_send)
     FloatingActionButton sendFab;
 
-    private static final String ISSUE_TRACKER_LINK = "https://github.com/kabouzeid/phonograph-issue-tracker";
+    private static final String ISSUE_TRACKER_LINK = "https://github.com/kabouzeid/Phonograph";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,31 +167,18 @@ public class BugReportActivity extends AbsThemeActivity {
             }
         });
 
-        inputPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
-                    reportIssue();
-                    return true;
-                }
-                return false;
+        inputPassword.setOnEditorActionListener((textView, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
+                reportIssue();
+                return true;
             }
+            return false;
         });
 
-        textDeviceInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                copyDeviceInfoToClipBoard();
-            }
-        });
+        textDeviceInfo.setOnClickListener(v -> copyDeviceInfoToClipBoard());
 
         TintHelper.setTintAuto(sendFab, accentColor, true);
-        sendFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reportIssue();
-            }
-        });
+        sendFab.setOnClickListener(v -> reportIssue());
 
         TintHelper.setTintAuto(inputTitle, accentColor, false);
         TintHelper.setTintAuto(inputDescription, accentColor, false);
@@ -223,45 +215,43 @@ public class BugReportActivity extends AbsThemeActivity {
 
         if (optionUseAccount.isChecked()) {
             if (TextUtils.isEmpty(inputUsername.getText())) {
-                setError(inputUsername, R.string.bug_report_no_username);
+                setError(inputLayoutUsername, R.string.bug_report_no_username);
                 hasErrors = true;
             } else {
-                removeError(inputUsername);
+                removeError(inputLayoutUsername);
             }
 
             if (TextUtils.isEmpty(inputPassword.getText())) {
-                setError(inputPassword, R.string.bug_report_no_password);
+                setError(inputLayoutPassword, R.string.bug_report_no_password);
                 hasErrors = true;
             } else {
-                removeError(inputPassword);
+                removeError(inputLayoutPassword);
             }
         }
 
         if (TextUtils.isEmpty(inputTitle.getText())) {
-            setError(inputTitle, R.string.bug_report_no_title);
+            setError(inputLayoutTitle, R.string.bug_report_no_title);
             hasErrors = true;
         } else {
-            removeError(inputTitle);
+            removeError(inputLayoutTitle);
         }
 
         if (TextUtils.isEmpty(inputDescription.getText())) {
-            setError(inputDescription, R.string.bug_report_no_description);
+            setError(inputLayoutDescription, R.string.bug_report_no_description);
             hasErrors = true;
         } else {
-            removeError(inputDescription);
+            removeError(inputLayoutDescription);
         }
 
         return !hasErrors;
     }
 
-    private void setError(TextInputEditText editText, @StringRes int errorRes) {
-        TextInputLayout layout = (TextInputLayout) editText.getParent();
-        layout.setError(getString(errorRes));
+    private void setError(TextInputLayout editTextLayout, @StringRes int errorRes) {
+        editTextLayout.setError(getString(errorRes));
     }
 
-    private void removeError(TextInputEditText editText) {
-        TextInputLayout layout = (TextInputLayout) editText.getParent();
-        layout.setError(null);
+    private void removeError(TextInputLayout editTextLayout) {
+        editTextLayout.setError(null);
     }
 
     private void sendBugReport(GithubLogin login) {
@@ -270,16 +260,10 @@ public class BugReportActivity extends AbsThemeActivity {
         String bugTitle = inputTitle.getText().toString();
         String bugDescription = inputDescription.getText().toString();
 
-        ExtraInfo extraInfo = new ExtraInfo();
-        onSaveExtraInfo(extraInfo);
-
-        Report report = new Report(bugTitle, bugDescription, deviceInfo, extraInfo);
-        GithubTarget target = new GithubTarget("kabouzeid", "phonograph-issue-tracker");
+        Report report = new Report(bugTitle, bugDescription, deviceInfo, new ExtraInfo());
+        GithubTarget target = new GithubTarget("kabouzeid", "Phonograph");
 
         ReportIssueAsyncTask.report(this, report, target, login);
-    }
-
-    protected void onSaveExtraInfo(ExtraInfo extraInfo) {
     }
 
     @Override
@@ -386,19 +370,8 @@ public class BugReportActivity extends AbsThemeActivity {
                             .title(R.string.bug_report_failed)
                             .content(R.string.bug_report_failed_unknown)
                             .positiveText(android.R.string.ok)
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog,
-                                                    @NonNull DialogAction which) {
-                                    tryToFinishActivity();
-                                }
-                            })
-                            .cancelListener(new DialogInterface.OnCancelListener() {
-                                @Override
-                                public void onCancel(DialogInterface dialog) {
-                                    tryToFinishActivity();
-                                }
-                            })
+                            .onPositive((dialog, which) -> tryToFinishActivity())
+                            .cancelListener(dialog -> tryToFinishActivity())
                             .show();
                     break;
             }

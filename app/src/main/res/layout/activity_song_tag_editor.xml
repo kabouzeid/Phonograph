@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -21,7 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/default_album_art" />
+                android:src="@drawable/default_album_art"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:id="@+id/header"
@@ -83,7 +85,6 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -114,11 +115,11 @@
                         android:fontFamily="sans-serif"
                         android:gravity="center_vertical"
                         android:hint="@string/genre"
+                        android:inputType="text|textCapWords"
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 </android.support.design.widget.TextInputLayout>
-
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -138,7 +139,6 @@
 
                 </android.support.design.widget.TextInputLayout>
 
-
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -157,10 +157,26 @@
 
                 </android.support.design.widget.TextInputLayout>
 
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/lyrics"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center_vertical"
+                        android:hint="@string/lyrics"
+                        android:inputType="textMultiLine"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                </android.support.design.widget.TextInputLayout>
+
             </LinearLayout>
 
         </RelativeLayout>
-
 
     </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
 
@@ -168,6 +184,7 @@
         android:id="@+id/toolbar"
         style="@style/Toolbar"
         android:layout_gravity="start|left"
+        android:elevation="0dp"
         android:background="#00000000"
         tools:ignore="RtlHardcoded" />
 
@@ -179,4 +196,3 @@
         app:srcCompat="@drawable/ic_save_white_24dp" />
 
 </FrameLayout>
-

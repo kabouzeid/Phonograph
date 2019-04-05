@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
@@ -49,19 +48,16 @@ public class AddToPlaylistDialog extends DialogFragment {
         return new MaterialDialog.Builder(getActivity())
                 .title(R.string.add_playlist_title)
                 .items(playlistNames)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(@NonNull MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
-                        //noinspection unchecked
-                        final ArrayList<Song> songs = getArguments().getParcelableArrayList("songs");
-                        if (songs == null) return;
-                        if (i == 0) {
-                            materialDialog.dismiss();
-                            CreatePlaylistDialog.create(songs).show(getActivity().getSupportFragmentManager(), "ADD_TO_PLAYLIST");
-                        } else {
-                            materialDialog.dismiss();
-                            PlaylistsUtil.addToPlaylist(getActivity(), songs, playlists.get(i - 1).id, true);
-                        }
+                .itemsCallback((materialDialog, view, i, charSequence) -> {
+                    //noinspection unchecked
+                    final ArrayList<Song> songs = getArguments().getParcelableArrayList("songs");
+                    if (songs == null) return;
+                    if (i == 0) {
+                        materialDialog.dismiss();
+                        CreatePlaylistDialog.create(songs).show(getActivity().getSupportFragmentManager(), "ADD_TO_PLAYLIST");
+                    } else {
+                        materialDialog.dismiss();
+                        PlaylistsUtil.addToPlaylist(getActivity(), songs, playlists.get(i - 1).id, true);
                     }
                 })
                 .build();

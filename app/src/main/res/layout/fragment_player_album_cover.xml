@@ -10,16 +10,53 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <FrameLayout
+        android:id="@+id/player_lyrics"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:background="@drawable/shadow_up"
+        android:padding="16dp"
+        android:clipToPadding="false"
+        android:visibility="gone"
+        android:alpha="0">
+
+        <TextView
+            android:id="@+id/player_lyrics_line1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:textColor="@color/md_white_1000"
+            android:shadowColor="@color/md_black_1000"
+            android:shadowRadius="4"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/player_lyrics_line2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:textColor="@color/md_white_1000"
+            android:shadowColor="@color/md_black_1000"
+            android:shadowRadius="4" />
+
+    </FrameLayout>
+
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/player_favorite_icon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:padding="72dp"
+        android:scaleType="fitXY"
         android:tint="@color/md_pink_A400"
         android:tintMode="src_in"
-        android:scaleType="fitXY"
         android:visibility="invisible"
         app:srcCompat="@drawable/ic_favorite_white_24dp"
         tools:ignore="ContentDescription,UnusedAttribute" />
+
 </FrameLayout>

@@ -49,7 +49,7 @@ public class Util {
         return size;
     }
 
-    @TargetApi(19)
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     public static void setStatusBarTranslucent(@NonNull Window window) {
         window.setFlags(
                 WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
@@ -121,7 +121,7 @@ public class Util {
         } else return false;
     }
 
-    public static boolean isAllowedToAutoDownload(final Context context) {
+    public static boolean isAllowedToDownloadMetadata(final Context context) {
         switch (PreferenceUtil.getInstance(context).autoDownloadImagesPolicy()) {
             case "always":
                 return true;

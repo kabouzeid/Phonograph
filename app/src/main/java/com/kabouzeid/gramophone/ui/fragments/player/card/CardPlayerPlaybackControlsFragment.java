@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.ui.fragments.player.card;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,8 +69,7 @@ public class CardPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_card_player_playback_controls, container, false);
     }
 
@@ -145,13 +145,10 @@ public class CardPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
         playPauseFab.setImageDrawable(playerFabPlayPauseDrawable); // Note: set the drawable AFTER TintHelper.setTintAuto() was called
         playPauseFab.setColorFilter(MaterialValueHelper.getPrimaryTextColor(getContext(), ColorUtil.isColorLight(fabColor)), PorterDuff.Mode.SRC_IN);
         playPauseFab.setOnClickListener(new PlayPauseButtonOnClickHandler());
-        playPauseFab.post(new Runnable() {
-            @Override
-            public void run() {
-                if (playPauseFab != null) {
-                    playPauseFab.setPivotX(playPauseFab.getWidth() / 2);
-                    playPauseFab.setPivotY(playPauseFab.getHeight() / 2);
-                }
+        playPauseFab.post(() -> {
+            if (playPauseFab != null) {
+                playPauseFab.setPivotX(playPauseFab.getWidth() / 2);
+                playPauseFab.setPivotY(playPauseFab.getHeight() / 2);
             }
         });
     }
@@ -174,18 +171,8 @@ public class CardPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
 
     private void setUpPrevNext() {
         updatePrevNextColor();
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MusicPlayerRemote.playNextSong();
-            }
-        });
-        prevButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MusicPlayerRemote.back();
-            }
-        });
+        nextButton.setOnClickListener(v -> MusicPlayerRemote.playNextSong());
+        prevButton.setOnClickListener(v -> MusicPlayerRemote.back());
     }
 
     private void updateProgressTextColor() {
@@ -200,12 +187,7 @@ public class CardPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
     }
 
     private void setUpShuffleButton() {
-        shuffleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MusicPlayerRemote.toggleShuffleMode();
-            }
-        });
+        shuffleButton.setOnClickListener(v -> MusicPlayerRemote.toggleShuffleMode());
     }
 
     private void updateShuffleState() {
@@ -220,12 +202,7 @@ public class CardPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
     }
 
     private void setUpRepeatButton() {
-        repeatButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MusicPlayerRemote.cycleRepeatMode();
-            }
-        });
+        repeatButton.setOnClickListener(v -> MusicPlayerRemote.cycleRepeatMode());
     }
 
     private void updateRepeatState() {

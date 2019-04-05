@@ -9,8 +9,8 @@ import android.support.v7.widget.GridLayoutManager;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.album.AlbumAdapter;
-import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.interfaces.LoaderIds;
+import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -21,7 +21,6 @@ import java.util.ArrayList;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridLayoutManager> implements LoaderManager.LoaderCallbacks<ArrayList<Album>> {
-    public static final String TAG = AlbumsFragment.class.getSimpleName();
 
     private static final int LOADER_ID = LoaderIds.ALBUMS_FRAGMENT;
 
@@ -41,7 +40,7 @@ public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFra
     protected AlbumAdapter createAdapter() {
         int itemLayoutRes = getItemLayoutRes();
         notifyLayoutResChanged(itemLayoutRes);
-        ArrayList<Album> dataSet = getAdapter() == null ? new ArrayList<Album>() : getAdapter().getDataSet();
+        ArrayList<Album> dataSet = getAdapter() == null ? new ArrayList<>() : getAdapter().getDataSet();
         return new AlbumAdapter(
                 getLibraryFragment().getMainActivity(),
                 dataSet,
@@ -53,6 +52,21 @@ public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFra
     @Override
     protected int getEmptyMessage() {
         return R.string.no_albums;
+    }
+
+    @Override
+    protected String loadSortOrder() {
+        return PreferenceUtil.getInstance(getActivity()).getAlbumSortOrder();
+    }
+
+    @Override
+    protected void saveSortOrder(String sortOrder) {
+        PreferenceUtil.getInstance(getActivity()).setAlbumSortOrder(sortOrder);
+    }
+
+    @Override
+    protected void setSortOrder(String sortOrder) {
+        getLoaderManager().restartLoader(LOADER_ID, null, this);
     }
 
     @Override
@@ -113,7 +127,7 @@ public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFra
 
     @Override
     public void onLoaderReset(Loader<ArrayList<Album>> loader) {
-        getAdapter().swapDataSet(new ArrayList<Album>());
+        getAdapter().swapDataSet(new ArrayList<>());
     }
 
     private static class AsyncAlbumLoader extends WrappedAsyncTaskLoader<ArrayList<Album>> {

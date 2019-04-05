@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.adapter;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -27,7 +28,6 @@ import butterknife.Unbinder;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
-    public static final String TAG = AlbumCoverPagerAdapter.class.getSimpleName();
 
     private ArrayList<Song> dataSet;
 
@@ -50,6 +50,7 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
     }
 
     @Override
+    @NonNull
     public Object instantiateItem(ViewGroup container, int position) {
         Object o = super.instantiateItem(container, position);
         if (currentColorReceiver != null && currentColorReceiverPosition == position) {
@@ -102,15 +103,14 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
+        public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_album_cover, container, false);
             unbinder = ButterKnife.bind(this, view);
             return view;
         }
 
         @Override
-        public void onViewCreated(View view, Bundle savedInstanceState) {
+        public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
             forceSquareAlbumCover(false);
             // TODO
