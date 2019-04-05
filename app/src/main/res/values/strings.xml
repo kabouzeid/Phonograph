@@ -312,4 +312,6 @@
     <string name="sort_order_artist">Artist</string>
     <string name="sort_order_album">Album</string>
     <string name="sort_order_year">Year</string>
+    <string name="dialog_ringtone_title">Set ringtone</string>
+    <string name="dialog_ringtone_message">Allow phonograph to modify audio settings</string>
 </resources>
