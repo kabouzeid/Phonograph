@@ -17,6 +17,11 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways">
 
+            <ViewStub
+                android:id="@+id/cab_stub"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize" />
+
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 style="@style/Toolbar"
@@ -25,18 +30,12 @@
 
             </android.support.v7.widget.Toolbar>
 
-            <ViewStub
-                android:id="@+id/cab_stub"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/actionBarSize" />
-
         </FrameLayout>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="@dimen/tab_height"
-            style="@style/TabLayoutStyle"
             app:tabContentStart="72dp"
             app:tabMode="scrollable" />
 
