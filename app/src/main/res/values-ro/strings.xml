@@ -194,14 +194,11 @@
     <string name="version">Versiune</string>
     <string name="author">Autor</string>
     <string name="write_an_email">Scrieţi un e-mail</string>
-    <string name="add_to_google_plus_circles">Adăugaţi în cercurile Google lus</string>
     <string name="follow_on_twitter">Urmăriţi pe Twitter</string>
     <string name="fork_on_github">Fork pe GitHub</string>
     <string name="visit_website">Vizitati site-ul web</string>
     <string name="report_bugs">Raportaţi probleme</string>
     <string name="report_bugs_summary">Raportați probleme sau solicitați noi funcții.</string>
-    <string name="join_community">Alăturați-vă comunității Google Plus</string>
-    <string name="join_community_summary">Dacă aveți nevoie de ajutor sau aveți întrebări, intraţi pe comunitatea Phonograph de pe Google Plus.</string>
     <string name="translate">Traducere</string>
     <string name="translate_summary">Ajutaţi la traducerea Phonograph în limba maternă.</string>
     <string name="rate_on_google_play">Evaluaţi</string>

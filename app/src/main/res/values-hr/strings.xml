@@ -194,14 +194,11 @@
     <string name="version">Verzija</string>
     <string name="author">Autor</string>
     <string name="write_an_email">Napiši email</string>
-    <string name="add_to_google_plus_circles">Dodaj u Google Plus krugove</string>
     <string name="follow_on_twitter">Prati na Twitteru</string>
     <string name="fork_on_github">Forkaj na GitHubu</string>
     <string name="visit_website">Posjeti web-stranicu</string>
     <string name="report_bugs">Prijavi pogreške</string>
     <string name="report_bugs_summary">Prijavite pogreške i zatražite nove mogućnosti.</string>
-    <string name="join_community">Pridruži se Google Plus zajednici</string>
-    <string name="join_community_summary">Ako trebate pomoć ili imate pitanja, trebali bi posjetiti Phonograph zajednicu na Google+.</string>
     <string name="translate">Prevedi</string>
     <string name="translate_summary">Pomozite prevesti Phonograph na svoj jezik.</string>
     <string name="rate_on_google_play">Ocijeni</string>

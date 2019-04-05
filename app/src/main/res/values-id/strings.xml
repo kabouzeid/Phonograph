@@ -194,14 +194,11 @@
     <string name="version">Versi</string>
     <string name="author">Penulis</string>
     <string name="write_an_email">Tuliskan email</string>
-    <string name="add_to_google_plus_circles">Tambahkan ke lingkaran Google Plus</string>
     <string name="follow_on_twitter">Ikuti di Twitter</string>
     <string name="fork_on_github">Gabung di Github</string>
     <string name="visit_website">Kunjungi situs</string>
     <string name="report_bugs">Laporkan masalah</string>
     <string name="report_bugs_summary">Laporkan masalah atau sarankan fitur baru</string>
-    <string name="join_community">Gabung di komunitas Google Plus</string>
-    <string name="join_community_summary">"Anda dapat meminta bantuan atau mengajukan pertanyaan di komunitas Phonograph di Google Plus. "</string>
     <string name="translate">Terjemahkan</string>
     <string name="translate_summary">"Bantu terjemahkan Phonograph ke dalam bahasa Anda. "</string>
     <string name="rate_on_google_play">Beri nilai</string>

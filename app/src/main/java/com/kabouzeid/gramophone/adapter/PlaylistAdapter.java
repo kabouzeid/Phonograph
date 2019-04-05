@@ -83,6 +83,15 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         return new ViewHolder(view, viewType);
     }
 
+    protected String getPlaylistTitle(Playlist playlist) {
+        return playlist.name;
+    }
+
+    protected String getPlaylistText(Playlist playlist) {
+        Context context = App.getInstance().getApplicationContext();
+        return playlist.getInfoString(context);
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Playlist playlist = dataSet.get(position);
@@ -90,7 +99,10 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         holder.itemView.setActivated(isChecked(playlist));
 
         if (holder.title != null) {
-            holder.title.setText(playlist.name);
+            holder.title.setText(getPlaylistTitle(playlist));
+        }
+        if (holder.text != null) {
+            holder.text.setText(getPlaylistText(playlist));
         }
 
         if (holder.getAdapterPosition() == getItemCount() - 1) {

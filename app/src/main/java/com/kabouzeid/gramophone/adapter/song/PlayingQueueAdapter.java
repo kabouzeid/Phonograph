@@ -46,6 +46,7 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
         if (holder.imageText != null) {
             holder.imageText.setText(String.valueOf(position - current));
         }
+
         if (holder.getItemViewType() == HISTORY || holder.getItemViewType() == CURRENT) {
             setAlpha(holder, 0.5f);
         }
