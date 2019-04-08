@@ -53,7 +53,9 @@ public class App extends Application {
 
             @Override
             public void onPurchaseHistoryRestored() {
-//                Toast.makeText(App.this, R.string.restored_previous_purchase_please_restart, Toast.LENGTH_LONG).show();
+                if (App.isProVersion()) {
+                    App.notifyProVersionChanged();
+                }
             }
 
             @Override
@@ -69,6 +71,19 @@ public class App extends Application {
 
     public static boolean isProVersion() {
         return BuildConfig.DEBUG || app.billingProcessor.isPurchased(PRO_VERSION_PRODUCT_ID);
+    }
+
+    private static OnProVersionChangedListener onProVersionChangedListener;
+    public static void setOnProVersionChangedListener(OnProVersionChangedListener listener) {
+        onProVersionChangedListener = listener;
+    }
+    public static void notifyProVersionChanged() {
+        if (onProVersionChangedListener != null) {
+            onProVersionChangedListener.onProVersionChanged();
+        }
+    }
+    public interface OnProVersionChangedListener {
+        void onProVersionChanged();
     }
 
     public static App getInstance() {
@@ -91,9 +106,15 @@ public class App extends Application {
 
     private static class LoadOwnedPurchasesFromGoogleAsyncTask extends AsyncTask<Void, Void, Void> {
         private final WeakReference<BillingProcessor> billingProcessorWeakReference;
+        private boolean wasPro;
 
-        public LoadOwnedPurchasesFromGoogleAsyncTask(BillingProcessor billingProcessor) {
+        LoadOwnedPurchasesFromGoogleAsyncTask(BillingProcessor billingProcessor) {
             this.billingProcessorWeakReference = new WeakReference<>(billingProcessor);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            wasPro = App.isProVersion();
         }
 
         @Override
@@ -106,6 +127,13 @@ public class App extends Application {
                 billingProcessor.loadOwnedPurchasesFromGoogle();
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if (wasPro != App.isProVersion()) {
+                App.notifyProVersionChanged();
+            }
         }
     }
 }
