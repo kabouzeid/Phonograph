@@ -6,12 +6,10 @@
 
         <com.kabouzeid.gramophone.preferences.NowPlayingScreenPreference
             android:key="now_playing_screen_id"
-            app:iconSpaceReserved="false"
             android:title="@string/pref_title_now_playing_screen_appearance" />
 
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="true"
-            app:iconSpaceReserved="false"
             android:key="synchronized_lyrics_show"
             android:summary="@string/pref_summary_synchronized_lyrics_show"
             android:title="@string/pref_title_synchronized_lyrics_show" />

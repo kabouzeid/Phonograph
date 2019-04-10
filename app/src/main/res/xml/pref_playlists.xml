@@ -9,7 +9,6 @@
             android:entryValues="@array/pref_playlists_recently_played_interval_values"
             android:key="recently_played_interval"
             android:negativeButtonText="@null"
-            app:iconSpaceReserved="false"
             android:positiveButtonText="@null"
             android:title="@string/pref_title_recently_played_interval" />
 
@@ -20,8 +19,7 @@
             android:key="last_added_interval"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
-            android:title="@string/pref_title_last_added_interval"
-            app:iconSpaceReserved="false" />
+            android:title="@string/pref_title_last_added_interval"  />
 
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 

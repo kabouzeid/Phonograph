@@ -5,7 +5,6 @@
 
         <com.kabouzeid.gramophone.preferences.BlacklistPreference
             android:key="blacklist"
-            app:iconSpaceReserved="false"
             android:summary="@string/pref_summary_blacklist"
             android:title="@string/blacklist" />
 
