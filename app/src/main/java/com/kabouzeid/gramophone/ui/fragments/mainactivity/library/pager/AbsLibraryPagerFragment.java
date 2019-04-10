@@ -1,7 +1,7 @@
 package com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager;
 
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
+import androidx.loader.app.LoaderManager;
 
 import com.kabouzeid.gramophone.ui.fragments.AbsMusicServiceFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.LibraryFragment;

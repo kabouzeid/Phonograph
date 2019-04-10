@@ -123,7 +123,7 @@
             android:layout_height="56dp"
             android:layout_centerInParent="true" />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/player_play_pause_fab"
             style="@style/Fab"
             android:layout_centerInParent="true"

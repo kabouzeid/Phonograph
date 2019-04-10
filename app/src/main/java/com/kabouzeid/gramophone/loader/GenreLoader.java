@@ -3,8 +3,8 @@ package com.kabouzeid.gramophone.loader;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore.Audio.Genres;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.kabouzeid.gramophone.model.Genre;
 import com.kabouzeid.gramophone.model.Song;

@@ -1,8 +1,10 @@
-<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/pref_header_playlists">
 
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEListPreference
+            app:iconSpaceReserved="false"
             android:defaultValue="this_month"
             android:entries="@array/pref_playlists_recently_played_interval_titles"
             android:entryValues="@array/pref_playlists_recently_played_interval_values"
@@ -12,6 +14,7 @@
             android:title="@string/pref_title_recently_played_interval" />
 
          <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEListPreference
+            app:iconSpaceReserved="false"
             android:defaultValue="this_month"
             android:entries="@array/pref_playlists_last_added_interval_titles"
             android:entryValues="@array/pref_playlists_last_added_interval_values"
@@ -22,4 +25,4 @@
 
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
-</android.support.v7.preference.PreferenceScreen>
+</androidx.preference.PreferenceScreen>

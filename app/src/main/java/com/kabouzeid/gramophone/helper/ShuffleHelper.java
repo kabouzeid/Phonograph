@@ -1,6 +1,6 @@
 package com.kabouzeid.gramophone.helper;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.kabouzeid.gramophone.model.Song;
 
