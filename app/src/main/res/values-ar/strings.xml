@@ -160,13 +160,10 @@
     <string name="thank_you">شكراً لك!</string>
     <string name="version">النسخة</string>
     <string name="author">المؤلف</string>
-    <string name="add_to_google_plus_circles">أضف إلى دوائر جوجل +</string>
     <string name="follow_on_twitter">تابع في تويتر</string>
     <string name="visit_website">زر موقعنا</string>
     <string name="report_bugs">أبلغ عن وجود مشكلة</string>
     <string name="report_bugs_summary">أبلغ عن وجود مشاكل أو طلب ميزات جديدة</string>
-    <string name="join_community">انضم لمجموعة جوجل +</string>
-    <string name="join_community_summary">إذا كنت تحتاج إلى مساعدة أو لديك أسئلة؛ مجتمع Phonograph في جوجل+ هو المكان المناسب لطرحها</string>
     <string name="translate">ترجمة</string>
     <string name="translate_summary">ساعدنا في ترجمة Phonograph إلى لغتك الأم</string>
     <string name="rate_on_google_play">قيّم</string>

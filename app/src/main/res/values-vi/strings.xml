@@ -124,7 +124,8 @@
     <string name="pref_title_ignore_media_store_artwork">Bỏ qua kho ảnh bìa trong Kho Phương tiện</string>
     <string name="pref_title_gapless_playback">Phát lại quãng lặng</string>
     <string name="pref_title_audio_ducking">Giảm âm lượng khi mất tập trung</string>
-    <string name="pref_title_last_added_interval">Thời gian danh sách nhạc được thêm vào sau cùng</string>
+    <string name="pref_title_recently_played_interval">Khoảng thời gian cho Bài hát mới nghe</string>
+    <string name="pref_title_last_added_interval">Khoảng thời gian cho Bài hát mới thêm</string>
     <string name="pref_title_synchronized_lyrics_show">Hiển thị lời bài hát được đồng bộ</string>
     <string name="no_equalizer">Không có bộ lọc âm thanh nào.</string>
     <string name="no_audio_ID">"Phát một bài hát đầu tiên, sau đó thử lại."</string>
@@ -160,8 +161,8 @@
     <string name="could_not_download_album_cover">"Kh\u00f4ng th\u1ec3 t\u1ea3i v\u1ec1 b\u00eca album ph\u00f9 h\u1ee3p."</string>
     <string name="search_hint">Tìm kiếm thư viện của bạn...</string>
     <string name="favorites">Yêu thích</string>
-    <string name="last_added">Được thêm sau cùng</string>
-    <string name="history">Lịch sử</string>
+    <string name="last_added">Bài hát mới thêm</string>
+    <string name="history">Bài hát mới nghe</string>
     <string name="my_top_tracks">Bài hát hàng đầu</string>
     <string name="remove_cover">Di chuyển bìa</string>
     <string name="download_from_last_fm">Tải về từ Last.fm</string>
@@ -187,14 +188,11 @@
     <string name="version">Phiên bản</string>
     <string name="author">Tác giả</string>
     <string name="write_an_email">Viết email</string>
-    <string name="add_to_google_plus_circles">Thêm vào vòng kết nối Google Plus</string>
     <string name="follow_on_twitter">Theo dõi trên Twitter</string>
     <string name="fork_on_github">Fork trên GitHub</string>
     <string name="visit_website">Truy cập trang web</string>
     <string name="report_bugs">Báo lỗi</string>
     <string name="report_bugs_summary">Báo lỗi và yêu cầu tính năng mới.</string>
-    <string name="join_community">Tham gia cộng đồng Google Plus</string>
-    <string name="join_community_summary">Nếu bạn cần trợ giúp hoặc có câu hỏi, hãy đến với cộng đồng Phonograph trên Google Plus.</string>
     <string name="translate">Dịch</string>
     <string name="translate_summary">Hỗ trợ dịch Phonograph sang ngôn ngữ của bạn.</string>
     <string name="rate_on_google_play">Đánh giá</string>

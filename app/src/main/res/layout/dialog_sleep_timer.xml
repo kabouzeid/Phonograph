@@ -1,28 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:seekarc="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <com.triggertrap.seekarc.SeekArc
-        android:id="@+id/seek_arc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="30dp"
-        seekarc:SeekArc_clockwise="false"
-        seekarc:SeekArc_max="120"
-        seekarc:SeekArc_progressColor="?colorAccent"
-        seekarc:SeekArc_rotation="180"
-        seekarc:SeekArc_startAngle="30"
-        seekarc:SeekArc_sweepAngle="300" />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/timer_display"
+        <com.triggertrap.seekarc.SeekArc
+            android:id="@+id/seek_arc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="30dp"
+            seekarc:SeekArc_clockwise="false"
+            seekarc:SeekArc_max="120"
+            seekarc:SeekArc_progressColor="?colorAccent"
+            seekarc:SeekArc_rotation="180"
+            seekarc:SeekArc_startAngle="30"
+            seekarc:SeekArc_sweepAngle="300" />
+
+        <TextView
+            android:id="@+id/timer_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAppearance="?android:textAppearanceLarge" />
+
+    </FrameLayout>
+
+    <com.kabouzeid.appthemehelper.common.views.ATECheckBox
+        android:id="@+id/should_finish_last_song"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textAppearance="?android:textAppearanceLarge" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/finish_current_music_sleep_timer" />
 
-</FrameLayout>
-
+</LinearLayout>

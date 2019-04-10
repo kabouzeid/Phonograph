@@ -194,14 +194,11 @@
     <string name="version">גרסה</string>
     <string name="author">מחבר</string>
     <string name="write_an_email">כתוב אימייל</string>
-    <string name="add_to_google_plus_circles">הוסף למעגלי Google+</string>
     <string name="follow_on_twitter">עקוב בטוויטר</string>
     <string name="fork_on_github">גירסה בGitHub</string>
     <string name="visit_website">ביקור באתר</string>
     <string name="report_bugs">דווח על באגים</string>
     <string name="report_bugs_summary">דווח על באגים או בקש פיצ\'רים חדשים.</string>
-    <string name="join_community">הצטרף לקהילת ה-Google+</string>
-    <string name="join_community_summary">אם אתה צריך עזרה או שיש לך שאלות, קהילת Phonograph ב-Google+ היא מקום טוב ללכת אליו.</string>
     <string name="translate">תרגם</string>
     <string name="translate_summary">עזור לתרגם את Phonograph לשפת האם שלך.</string>
     <string name="rate_on_google_play">דרג</string>

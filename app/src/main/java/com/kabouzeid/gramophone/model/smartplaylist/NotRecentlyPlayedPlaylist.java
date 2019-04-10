@@ -7,7 +7,8 @@ import android.support.annotation.NonNull;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.TopAndRecentlyPlayedTracksLoader;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.provider.HistoryStore;
+import com.kabouzeid.gramophone.util.MusicUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,17 @@ public class NotRecentlyPlayedPlaylist extends AbsSmartPlaylist {
 
     public NotRecentlyPlayedPlaylist(@NonNull Context context) {
         super(context.getString(R.string.not_recently_played), R.drawable.ic_watch_later_white_24dp);
+    }
+
+    @NonNull
+    @Override
+    public String getInfoString(@NonNull Context context) {
+        String cutoff = PreferenceUtil.getInstance(context).getRecentlyPlayedCutoffText(context);
+
+        return MusicUtil.buildInfoString(
+            cutoff,
+            super.getInfoString(context)
+        );
     }
 
     @NonNull

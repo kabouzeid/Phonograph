@@ -52,7 +52,6 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
-import com.kabouzeid.gramophone.util.Util;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -234,7 +233,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                             return;
                         }
 
-                        if (!Util.isAllowedToDownloadMetadata(ArtistDetailActivity.this)) {
+                        if (!PreferenceUtil.isAllowedToDownloadMetadata(ArtistDetailActivity.this)) {
                             if (biography != null) {
                                 biographyDialog.setContent(biography);
                             } else {
@@ -355,7 +354,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                             .positiveText(android.R.string.ok)
                             .build();
                 }
-                if (Util.isAllowedToDownloadMetadata(ArtistDetailActivity.this)) { // wiki should've been already downloaded
+                if (PreferenceUtil.isAllowedToDownloadMetadata(ArtistDetailActivity.this)) { // wiki should've been already downloaded
                     if (biography != null) {
                         biographyDialog.setContent(biography);
                         biographyDialog.show();
@@ -437,7 +436,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         this.artist = artist;
         loadArtistImage();
 
-        if (Util.isAllowedToDownloadMetadata(this)) {
+        if (PreferenceUtil.isAllowedToDownloadMetadata(this)) {
             loadBiography();
         }
 

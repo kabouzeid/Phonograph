@@ -194,14 +194,11 @@
     <string name="version">Verze</string>
     <string name="author">Autor</string>
     <string name="write_an_email">Napsat e-mail</string>
-    <string name="add_to_google_plus_circles">Přidat do kruhů Google Plus</string>
     <string name="follow_on_twitter">Sledovat na Twitteru</string>
     <string name="fork_on_github">Fork na GitHubu</string>
     <string name="visit_website">Navštívit stránku</string>
     <string name="report_bugs">Ohlásit chybu</string>
     <string name="report_bugs_summary">"Nahlásit chyby nebo požádat o nové funkce. "</string>
-    <string name="join_community">Přidejte se ke komunitě Google Plus</string>
-    <string name="join_community_summary">Pokud potřebujete pomoc nebo máte otázky, komunita Phonographu na Google Plus je to správné místo.</string>
     <string name="translate">Překládejte</string>
     <string name="translate_summary">"Pomozte nám přeložit Phonograph do vašeho mateřského jazyka. "</string>
     <string name="rate_on_google_play">Ohodnotit</string>

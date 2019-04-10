@@ -51,7 +51,7 @@ import com.kabouzeid.gramophone.ui.activities.tageditor.AlbumTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
-import com.kabouzeid.gramophone.util.Util;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -271,7 +271,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                             return;
                         }
 
-                        if (!Util.isAllowedToDownloadMetadata(AlbumDetailActivity.this)) {
+                        if (!PreferenceUtil.isAllowedToDownloadMetadata(AlbumDetailActivity.this)) {
                             if (wiki != null) {
                                 wikiDialog.setContent(wiki);
                             } else {
@@ -332,7 +332,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                             .positiveText(android.R.string.ok)
                             .build();
                 }
-                if (Util.isAllowedToDownloadMetadata(this)) {
+                if (PreferenceUtil.isAllowedToDownloadMetadata(this)) {
                     if (wiki != null) {
                         wikiDialog.setContent(wiki);
                         wikiDialog.show();
@@ -409,7 +409,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         this.album = album;
         loadAlbumCover();
 
-        if (Util.isAllowedToDownloadMetadata(this)) {
+        if (PreferenceUtil.isAllowedToDownloadMetadata(this)) {
             loadWiki();
         }
 
