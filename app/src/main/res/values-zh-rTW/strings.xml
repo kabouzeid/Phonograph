@@ -88,6 +88,7 @@
     <string name="delete_playlists_title">刪除多個播放清單</string>
     <string name="clear_playlist_title">清空播放清單</string>
     <string name="save_playlist_title">儲存為檔案</string>
+    <string name="save_playlists_title">儲存為檔案</string>
     <string name="add_playlist_title">"加入播放清單"</string>
     <string name="action_shuffle_all">隨機播放</string>
     <string name="action_shuffle_album">隨機播放專輯</string>
@@ -222,6 +223,8 @@
     <string name="folders">文件夾</string>
     <string name="saved_playlist_to">已儲存播放清單至%s</string>
     <string name="failed_to_save_playlist">無法儲存播放清單 \"%s\"</string>
+    <string name="saved_x_playlists_to_x">儲存播放清單 %1$d 至 %2$s</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">儲存播放清單 %1$d 至 %2$s ， %3$d 儲存失敗</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b>未被列在音樂庫裡。]]></string>
     <string name="some_files_are_not_listed_in_the_media_store">部分檔案未被列在音樂庫中。</string>
     <string name="nothing_to_scan">沒有東西可掃描。</string>

@@ -14,7 +14,7 @@
     <string name="action_remove_from_favorites">Видалити з улюблених</string>
     <string name="action_search">Пошук</string>
     <string name="action_play_next">Відтворити наступною</string>
-    <string name="action_play">Відтворити</string>
+    <string name="action_play">Грати</string>
     <string name="action_play_pause">Відтворити/Зупинити</string>
     <string name="action_previous">Попередня</string>
     <string name="action_next">Наступна</string>

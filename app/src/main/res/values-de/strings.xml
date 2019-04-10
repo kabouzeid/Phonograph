@@ -87,6 +87,7 @@
     <string name="delete_playlists_title">Wiedergabelisten löschen</string>
     <string name="clear_playlist_title">Wiedergabeliste leeren</string>
     <string name="save_playlist_title">Als Datei speichern</string>
+    <string name="save_playlists_title">Als Dateien speichern</string>
     <string name="add_playlist_title">"Zu Wiedergabeliste hinzufügen"</string>
     <string name="action_shuffle_all">Zufällige Wiedergabe</string>
     <string name="action_shuffle_album">Album zufällig wiedergeben</string>
@@ -221,6 +222,8 @@
     <string name="folders">Ordner</string>
     <string name="saved_playlist_to">Playlist wurde in %s gespeichert.</string>
     <string name="failed_to_save_playlist">Speichern der Playlist fehlgeschlagen (%s).</string>
+    <string name="saved_x_playlists_to_x">%1$d Wiedergabelisten wurden in %2$s gespeichert.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">%1$d Wiedergabelisten wurden in %2$s gespeichert, %3$d konnten nicht gespeichert werden.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> ist nicht im Media Store gelistet.]]></string>
     <string name="some_files_are_not_listed_in_the_media_store">Einige Dateien sind nicht im Medienverzeichnis gelistet.</string>
     <string name="nothing_to_scan">Nichts zu scannen.</string>

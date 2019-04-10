@@ -87,6 +87,7 @@
     <string name="delete_playlists_title">Elimina playlist</string>
     <string name="clear_playlist_title">Svuota playlist</string>
     <string name="save_playlist_title">Salva come file</string>
+    <string name="save_playlists_title">Salva come file</string>
     <string name="add_playlist_title">"Aggiungi alla playlist"</string>
     <string name="action_shuffle_all">Riproduzione casuale</string>
     <string name="action_shuffle_album">Riproduzione casuale album</string>
@@ -221,6 +222,8 @@
     <string name="folders">Cartelle</string>
     <string name="saved_playlist_to">Playlist salvata in %s.</string>
     <string name="failed_to_save_playlist">Salvataggio playlist fallito (%s).</string>
+    <string name="saved_x_playlists_to_x">Salvate %1$d playlist in %2$s.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">Salvate %1$d playlist in %2$s, %3$d non salvato.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> non è elencato nel media store.]]></string>
     <string name="some_files_are_not_listed_in_the_media_store">Alcuni file non sono elencati nel media store.</string>
     <string name="nothing_to_scan">Nulla da scansionare.</string>

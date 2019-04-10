@@ -87,6 +87,7 @@
     <string name="delete_playlists_title">删除多个播放列表</string>
     <string name="clear_playlist_title">清空播放列表</string>
     <string name="save_playlist_title">另存为</string>
+    <string name="save_playlists_title">另存为</string>
     <string name="add_playlist_title">"添加到播放列表"</string>
     <string name="action_shuffle_all">随机播放所有歌曲</string>
     <string name="action_shuffle_album">随机播放此专辑</string>
@@ -221,6 +222,8 @@
     <string name="folders">文件夹</string>
     <string name="saved_playlist_to">已保存播放列表到 %s。</string>
     <string name="failed_to_save_playlist">保存播放列表（%s）失败。</string>
+    <string name="saved_x_playlists_to_x">已保存 %1$d 播放列表到 %2$s。</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">已保存 %1$d 播放列表到 %2$s，保存 %3$d 失败。</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> 没有列在媒体储存中。]]></string>
     <string name="some_files_are_not_listed_in_the_media_store">部分文件未在媒体储存中列出</string>
     <string name="nothing_to_scan">没有可扫描的对象。</string>
@@ -271,6 +274,7 @@
     <string name="restore">恢复</string>
     <string name="no_purchase_found">未找到购买记录</string>
     <string name="eugene_cheung_summary">因他对源代码的贡献。</string>
+    <string name="adrian_summary">以新增专辑封面设计。</string>
     <string name="add_action">添加</string>
     <string name="blacklist">黑名单</string>
     <string name="remove_from_blacklist">从黑名单中移除</string>
@@ -291,5 +295,4 @@
     <string name="sort_order_artist">艺术家</string>
     <string name="sort_order_album">专辑</string>
     <string name="sort_order_year">年份</string>
-    <string name="finish_current_music_sleep_timer">播完当前音乐</string>
 </resources>

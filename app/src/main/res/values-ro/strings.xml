@@ -87,6 +87,7 @@
     <string name="delete_playlists_title">Ștergeți listele de redare</string>
     <string name="clear_playlist_title">Ştergeţi lista de redare</string>
     <string name="save_playlist_title">Salveaza ca fișier</string>
+    <string name="save_playlists_title">Salvează ca fișiere</string>
     <string name="add_playlist_title">"Adăugaţi la lista de redare"</string>
     <string name="action_shuffle_all">Amestecare tot</string>
     <string name="action_shuffle_album">Amestecare album</string>
@@ -221,8 +222,10 @@
     <string name="folders">Dosare</string>
     <string name="saved_playlist_to">Listă de redare salvată în %s.</string>
     <string name="failed_to_save_playlist">Salvarea listei de redare (%s) a eșuat.</string>
+    <string name="saved_x_playlists_to_x">Au fost salvate %1$d liste de redare în %2$s.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">Au fost salvate %1$d liste de redare în %2$s, salvarea %3$d eșuând.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> nu este listat(ă) în stocarea media.]]></string>
-    <string name="some_files_are_not_listed_in_the_media_store">Unele fișiere nu sunt listate in media</string>
+    <string name="some_files_are_not_listed_in_the_media_store">Unele fișiere nu sunt afișate în librăria media.</string>
     <string name="nothing_to_scan">Nimic de scanat.</string>
     <string name="scanned_files">Scanate %1$d din %2$d fişiere.</string>
     <string name="could_not_scan_files">Nu s-au putut scana %d fişiere.</string>
