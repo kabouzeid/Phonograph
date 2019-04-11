@@ -54,6 +54,7 @@ import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -109,6 +110,11 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     private MaterialDialog biographyDialog;
     private HorizontalAlbumAdapter albumAdapter;
     private ArtistSongAdapter songAdapter;
+
+    private int albumSortOrder;
+    private static final int SORT_AZ_ASC = 0;
+    private static final int SORT_AZ_DESC = 1;
+    private static final int SORT_YEAR_ASC = 2;
 
     private LastFMRestClient lastFMRestClient;
 
@@ -376,6 +382,21 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                 CustomArtistImageUtil.getInstance(ArtistDetailActivity.this).resetCustomArtistImage(artist);
                 forceDownload = true;
                 return true;
+            case R.id.action_artist_album_sort_order_asc:
+                item.setChecked(!item.isChecked());
+                albumSortOrder = SORT_AZ_ASC;
+                reload();
+                return true;
+            case R.id.action_artist_album_sort_order_desc:
+                item.setChecked(!item.isChecked());
+                albumSortOrder = SORT_AZ_DESC;
+                reload();
+                return true;
+            case R.id.action_artist_album_sort_order_year:
+                item.setChecked(!item.isChecked());
+                albumSortOrder = SORT_YEAR_ASC;
+                reload();
+                return true;
             case R.id.action_colored_footers:
                 item.setChecked(!item.isChecked());
                 setUsePalette(item.isChecked());
@@ -444,6 +465,20 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         songCountTextView.setText(MusicUtil.getSongCountString(this, artist.getSongCount()));
         albumCountTextView.setText(MusicUtil.getAlbumCountString(this, artist.getAlbumCount()));
         durationTextView.setText(MusicUtil.getReadableDurationString(MusicUtil.getTotalDuration(this, artist.getSongs())));
+
+        switch(albumSortOrder) {
+            case SORT_AZ_ASC:
+                Collections.sort(artist.albums, (o1, o2) -> o1.getTitle().compareTo(o2.getTitle()));
+                break;
+            case SORT_AZ_DESC:
+                Collections.sort(artist.albums, (o1, o2) -> o2.getTitle().compareTo(o1.getTitle()));
+                break;
+            case SORT_YEAR_ASC:
+                Collections.sort(artist.albums, (o1, o2) -> String.valueOf(o1.getYear()).compareTo(String.valueOf(o2.getYear())));
+                break;
+            default:
+                break;
+        }
 
         songAdapter.swapDataSet(artist.getSongs());
         albumAdapter.swapDataSet(artist.albums);

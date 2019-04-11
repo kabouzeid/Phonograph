@@ -40,6 +40,23 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_sort_order"
+        android:title="@string/action_sort_order"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/action_artist_album_sort_order_asc"
+                android:title="@string/sort_order_a_z" />
+            <item
+                android:id="@+id/action_artist_album_sort_order_desc"
+                android:title="@string/sort_order_z_a" />
+            <item
+                android:id="@id/action_artist_album_sort_order_year"
+                android:title="@string/sort_order_year" />
+        </menu>
+    </item>
+
+    <item
         android:id="@+id/action_colored_footers"
         android:checkable="true"
         android:title="@string/colored_footers"
