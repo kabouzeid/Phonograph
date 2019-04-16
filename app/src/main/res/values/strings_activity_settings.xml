@@ -27,6 +27,7 @@
     <string-array name="pref_playlists_last_added_interval_titles">
         <item>@string/today</item>
         <item>@string/this_week</item>
+        <item>@string/past_seven_days</item>
         <item>@string/this_month</item>
         <item>@string/past_three_months</item>
         <item>@string/this_year</item>
@@ -35,6 +36,7 @@
     <string-array name="pref_playlists_last_added_interval_values">
         <item>today</item>
         <item>this_week</item>
+        <item>past_seven_days</item>
         <item>this_month</item>
         <item>past_three_months</item>
         <item>this_year</item>
