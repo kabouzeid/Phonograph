@@ -89,6 +89,7 @@
     <string name="save_playlist_title">Guardar como archivo</string>
     <string name="save_playlists_title">Español</string>
     <string name="add_playlist_title">"Añadir a lista de reproducción"</string>
+    <string name="select_all_title">Seleccionar todo</string>
     <string name="action_shuffle_all">Modo aleatorio</string>
     <string name="action_shuffle_album">Reproducción aleatoria del álbum</string>
     <string name="action_shuffle_artist">Reproducción aleatoria del artista</string>
@@ -105,6 +106,7 @@
     <string name="never">Nunca</string>
     <string name="today">Hoy</string>
     <string name="this_week">Esta semana</string>
+    <string name="past_seven_days">Últimos 7 días</string>
     <string name="this_month">Este mes</string>
     <string name="past_three_months">Últimos 3 meses</string>
     <string name="this_year">Este año</string>
@@ -128,9 +130,11 @@
     <string name="pref_title_ignore_media_store_artwork">Ignorar carátulas provenientes del almacenamiento local</string>
     <string name="pref_title_gapless_playback">Reproducción sin interrupciones</string>
     <string name="pref_title_audio_ducking">Reducir volumen en la pérdida del enfoque</string>
+    <string name="pref_title_recently_played_interval">Intervalo de tiempo de la lista de reproducción de pistas reproducidas recientemente</string>
     <string name="pref_title_last_added_interval">Intervalo de la última lista de reproducción</string>
     <string name="pref_title_synchronized_lyrics_show">Mostrar letras sincronizadas</string>
     <string name="pref_title_remember_last_tab">Recordar la última pestaña</string>
+    <string name="pref_title_remember_shuffle">Recordar aleatorio</string>
     <string name="no_equalizer">No se encontró ningún ecualizador</string>
     <string name="no_audio_ID">"Reproduce una canción primero, luego intentalo otra vez."</string>
     <string name="delete_action">Borrar</string>
@@ -165,12 +169,14 @@
     <string name="pref_summary_audio_ducking">Notificaciones, navegación etc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Actualmente sólo se admiten las letras sincronizadas en formato LRC. Tanto si están embebidas como si están en un archivo aparte.</string>
     <string name="pref_summary_remember_last_tab">Ir a la última pestaña abierta en el lanzamiento</string>
+    <string name="pref_summary_remember_shuffle">Modo aleatorio estará activado cuando se seleccione una nueva lista de canciones</string>
     <string name="could_not_download_album_cover">"No se puede descargar una car\u00e1tula de \u00e1lbum que coincida."</string>
     <string name="search_hint">Buscar en la biblioteca...</string>
     <string name="favorites">Favoritos</string>
     <string name="last_added">Último agregado</string>
     <string name="history">Historial de reproducción</string>
     <string name="my_top_tracks">Canciones más reproducidas</string>
+    <string name="not_recently_played">No reproducidas recientemente</string>
     <string name="remove_cover">Eliminar carátula</string>
     <string name="download_from_last_fm">Descargar desde Last.fm</string>
     <string name="pick_from_local_storage">Seleccionar de almacenamiento interno</string>
@@ -223,6 +229,7 @@
     <string name="saved_playlist_to">Lista de reproducción guardada en %s.</string>
     <string name="failed_to_save_playlist">No se pudo guardar la lista de reproducción (%s).</string>
     <string name="saved_x_playlists_to_x">%1$d de %2$s listas de reproducción guardadas.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">Guardada %1$d de %2$s listas de reproducción, fallo al guardar la %3$d.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> no se encuentra listado en los medios almacenados]]></string>
     <string name="some_files_are_not_listed_in_the_media_store">Español</string>
     <string name="nothing_to_scan">Nada para analizar</string>
@@ -295,4 +302,5 @@ El contenido de las carpetas de la lista negra está oculto en tu biblioteca"</s
     <string name="sort_order_artist">Artista</string>
     <string name="sort_order_album">Álbum</string>
     <string name="sort_order_year">Año</string>
+    <string name="finish_current_music_sleep_timer">Terminar la última canción</string>
 </resources>

@@ -89,6 +89,7 @@
     <string name="save_playlist_title">Сохранить как файл</string>
     <string name="save_playlists_title">Сохранить как файлы</string>
     <string name="add_playlist_title">"Добавить в плейлист"</string>
+    <string name="select_all_title">Выбрать все</string>
     <string name="action_shuffle_all">Перемешать всё</string>
     <string name="action_shuffle_album">Перемешать альбом</string>
     <string name="action_shuffle_artist">Перемешать исполнителя</string>
@@ -105,6 +106,7 @@
     <string name="never">Никогда</string>
     <string name="today">Сегодня</string>
     <string name="this_week">Эта неделя</string>
+    <string name="past_seven_days">Последние 7 дней</string>
     <string name="this_month">Этот месяц</string>
     <string name="past_three_months">Последние 3 месяца</string>
     <string name="this_year">Этот год</string>
@@ -128,9 +130,11 @@
     <string name="pref_title_ignore_media_store_artwork">Игнорировать хранилище обложек альбомов</string>
     <string name="pref_title_gapless_playback">Воспроизведение без пауз</string>
     <string name="pref_title_audio_ducking">Уменьшить громкость при уведомлениях</string>
+    <string name="pref_title_recently_played_interval">Интервал истории прослушивания</string>
     <string name="pref_title_last_added_interval">Интервал последнего добавленного плейлиста</string>
     <string name="pref_title_synchronized_lyrics_show">Показать синхронизированные тексты</string>
     <string name="pref_title_remember_last_tab">Запомнить последнюю вкладку</string>
+    <string name="pref_title_remember_shuffle">Запомнить перемешивание</string>
     <string name="no_equalizer">Эквалайзер не найден.</string>
     <string name="no_audio_ID">"Сначала воспроизведите песню, а затем попробуйте снова."</string>
     <string name="delete_action">Удалить</string>
@@ -165,12 +169,14 @@
     <string name="pref_summary_audio_ducking">Уведомления, навигация, т.д.</string>
     <string name="pref_summary_synchronized_lyrics_show">В настоящее время поддерживаются только синхронизированные тексты в формате LRC. Либо встроенные, либо как отдельный файл.</string>
     <string name="pref_summary_remember_last_tab">Перейти на последнюю открытую вкладку при запуске</string>
+    <string name="pref_summary_remember_shuffle">Режим перемешивания останется включенным при выборе нового списка песен</string>
     <string name="could_not_download_album_cover">"\u041d\u0435 \u0443\u0434\u0430\u043b\u043e\u0441\u044c \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044c \u043f\u043e\u0434\u0445\u043e\u0434\u044f\u0449\u0443\u044e \u043e\u0431\u043b\u043e\u0436\u043a\u0443 \u0430\u043b\u044c\u0431\u043e\u043c\u0430."</string>
     <string name="search_hint">Поиск в библиотеке...</string>
     <string name="favorites">Избранное</string>
     <string name="last_added">Последние добавленные</string>
-    <string name="history">История прослушивания</string>
+    <string name="history">Недавно воспроизведённые</string>
     <string name="my_top_tracks">Мои популярные треки</string>
+    <string name="not_recently_played">История прослушивания отсутствует</string>
     <string name="remove_cover">Удалить обложку</string>
     <string name="download_from_last_fm">Загрузить из Last.fm</string>
     <string name="pick_from_local_storage">Выбрать из локального хранилища</string>
@@ -295,4 +301,5 @@
     <string name="sort_order_artist">Исполнитель</string>
     <string name="sort_order_album">Альбом</string>
     <string name="sort_order_year">Год</string>
+    <string name="finish_current_music_sleep_timer">Последняя песня завершилась</string>
 </resources>

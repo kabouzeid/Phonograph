@@ -72,7 +72,7 @@
     <string name="playlist_exists">Daftar putar %1$s sudah ada.</string>
     <string name="could_not_create_playlist">Tidak dapat membuat daftar putar.</string>
     <string name="delete_playlist_x"><![CDATA[Hapus daftar putar {<b>}{%1$s}{</b>}?]]></string>
-    <string name="clear_playlist_x"><![CDATA[Kosongkan daftar putar {<b>}{%1$s}{</b>}? Tindakan ini tidak dapat diputarbalik.]]></string>
+    <string name="clear_playlist_x"><![CDATA[Kosongkan daftar putar {<b>}{%1$s}{</b>}? Tindakan ini tidak dapat diurungkan.]]></string>
     <string name="delete_x_playlists"><![CDATA[Hapus <b>%1$d</b> daftar putar?]]></string>
     <string name="delete_song_x"><![CDATA[Hapus lagu <b>%1$s</b>?]]></string>
     <string name="delete_x_songs"><![CDATA[Hapus <b>%1$d</b> lagu?]]></string>
@@ -89,6 +89,7 @@
     <string name="save_playlist_title">Simpan sebagai berkas</string>
     <string name="save_playlists_title">Simpan sebagai berkas</string>
     <string name="add_playlist_title">"Tambahkan ke daftar putar"</string>
+    <string name="select_all_title">Pilih semua</string>
     <string name="action_shuffle_all">Acak semua</string>
     <string name="action_shuffle_album">Putar album secara acak</string>
     <string name="action_shuffle_artist">Putar artis secara acak</string>
@@ -105,6 +106,7 @@
     <string name="never">Tidak pernah</string>
     <string name="today">Hari ini</string>
     <string name="this_week">Minggu ini</string>
+    <string name="past_seven_days">7 hari terakhir</string>
     <string name="this_month">Bulan ini</string>
     <string name="past_three_months">3 bulan terakhir</string>
     <string name="this_year">Tahun ini</string>
@@ -120,17 +122,19 @@
     <string name="pref_header_notification">Notifikasi</string>
     <string name="pref_title_navigation_bar">Alat Navigasi Berwarna</string>
     <string name="pref_title_app_shortcuts">Pintasan Berwarna</string>
-    <string name="pref_title_album_art_on_lockscreen">Tampilkan cover album</string>
+    <string name="pref_title_album_art_on_lockscreen">Tampilkan sampul album</string>
     <string name="pref_title_auto_download_metadata">Otomatis mengunduh metadata</string>
     <string name="pref_title_blurred_album_art">Buramkan sampul album</string>
     <string name="pref_title_colored_notification">Notifikasi berwarna</string>
     <string name="pref_title_classic_notification">Desain notifikasi klasik</string>
-    <string name="pref_title_ignore_media_store_artwork">Abaikan sampul-sampul dari \'Media Store\' android.</string>
+    <string name="pref_title_ignore_media_store_artwork">Abaikan sampul-sampul pada Media Penyimpanan</string>
     <string name="pref_title_gapless_playback">Pemutaran tanpa jeda</string>
     <string name="pref_title_audio_ducking">Kurangi suara saat ada pemberitahuan</string>
+    <string name="pref_title_recently_played_interval">Sela waktu daftar putar yang baru dimainkan</string>
     <string name="pref_title_last_added_interval">Sela daftar putar yang terakhir ditambahkan</string>
     <string name="pref_title_synchronized_lyrics_show">Tampilkan lirik yang tersinkronisasi</string>
     <string name="pref_title_remember_last_tab">Ingat tab terakhir</string>
+    <string name="pref_title_remember_shuffle">Ingat putar acak</string>
     <string name="no_equalizer">Tidak ada ekualiser yang ditemukan.</string>
     <string name="no_audio_ID">"Silahkan mainkan sebuah lagu dan coba lagi. "</string>
     <string name="delete_action">Hapus</string>
@@ -165,12 +169,14 @@
     <string name="pref_summary_audio_ducking">Pemberitahuan, navigasi dll.</string>
     <string name="pref_summary_synchronized_lyrics_show">Saat ini hanya mendukung lirik dalam format LRC yang disinkronkan. Antara tertanam atau sebagai file terpisah.</string>
     <string name="pref_summary_remember_last_tab">Pergi ke tab yang terakhir saat aplikasi dibuka</string>
+    <string name="pref_summary_remember_shuffle">Mode putar acak akan tetap aktif saat memilih daftar lagu baru</string>
     <string name="could_not_download_album_cover">"Tidak dapat mengunduh sampul album yang cocok."</string>
     <string name="search_hint">Mencari pustaka Anda...</string>
     <string name="favorites">Favorit</string>
     <string name="last_added">Terakhir ditambahkan</string>
-    <string name="history">Riwayat</string>
+    <string name="history">Diputar baru-baru ini</string>
     <string name="my_top_tracks">Sering Diputar</string>
+    <string name="not_recently_played">Belum diputar baru-baru ini</string>
     <string name="remove_cover">Hapus sampul</string>
     <string name="download_from_last_fm">Unduh dari Last.fm</string>
     <string name="pick_from_local_storage">Ambil dari penyimpanan lokal</string>
@@ -282,10 +288,10 @@
     <string name="clear_blacklist">Bersihkan daftar hitam</string>
     <string name="do_you_want_to_clear_the_blacklist">Apakah Anda ingin menghapus daftar hitam?</string>
     <string name="pref_summary_blacklist">Konten yang sudah di daftar hitamkan tersembunyi dari pustaka Anda.</string>
-    <string name="reset_artist_image">Muat ulang gambar artist</string>
-    <string name="set_artist_image">Pasang gambar artist</string>
+    <string name="reset_artist_image">Atur ulang gambar artist</string>
+    <string name="set_artist_image">Pasang gambar artis</string>
     <string name="library_categories">Kategori perpustakaan</string>
-    <string name="pref_summary_library_categories">Mengkonfigurasi visibilitas dan susunan kategori perpustakaan.</string>
+    <string name="pref_summary_library_categories">Konfigurasi visibilitas dan urutan kategori perpustakaan.</string>
     <string name="you_have_to_select_at_least_one_category">Anda harus memilih setidaknya satu kategori</string>
     <string name="action_scan_directory">Pindai direktori</string>
     <string name="scan_media">Pindai media</string>
@@ -295,4 +301,5 @@
     <string name="sort_order_artist">Artis</string>
     <string name="sort_order_album">Album</string>
     <string name="sort_order_year">Tahun</string>
+    <string name="finish_current_music_sleep_timer">Selesaikan lagu terakhir</string>
 </resources>

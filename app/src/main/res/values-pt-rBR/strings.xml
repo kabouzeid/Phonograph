@@ -89,6 +89,7 @@
     <string name="save_playlist_title">Salvar como arquivo</string>
     <string name="save_playlists_title">Salvar como arquivos</string>
     <string name="add_playlist_title">"Adicionar à playlist"</string>
+    <string name="select_all_title">Selecionar tudo</string>
     <string name="action_shuffle_all">Misturar todas</string>
     <string name="action_shuffle_album">Misturar álbum</string>
     <string name="action_shuffle_artist">Misturar artista</string>
@@ -105,6 +106,7 @@
     <string name="never">Nunca</string>
     <string name="today">Hoje</string>
     <string name="this_week">Essa semana</string>
+    <string name="past_seven_days">Última semana</string>
     <string name="this_month">Esse mês</string>
     <string name="past_three_months">Últimos 3 meses</string>
     <string name="this_year">Esse ano</string>
@@ -128,9 +130,11 @@
     <string name="pref_title_ignore_media_store_artwork">Ignorar capas Media Store</string>
     <string name="pref_title_gapless_playback">Reprodução contínua</string>
     <string name="pref_title_audio_ducking">Reduzir o volume de perda de foco</string>
+    <string name="pref_title_recently_played_interval">Intervalo de playlists recentemente tocadas</string>
     <string name="pref_title_last_added_interval">Intervalo de adição das playlists mais recentes</string>
     <string name="pref_title_synchronized_lyrics_show">Exibir letras sincronizadas</string>
     <string name="pref_title_remember_last_tab">Lembrar última aba</string>
+    <string name="pref_title_remember_shuffle">Memorizar aleatorização</string>
     <string name="no_equalizer">Nenhum equalizador encontrado.</string>
     <string name="no_audio_ID">"Sem identificação de áudio, reproduza algo e tente novamente."</string>
     <string name="delete_action">Excluir</string>
@@ -165,12 +169,14 @@
     <string name="pref_summary_audio_ducking">Notificações, navegação, etc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Atualmente damos suporte apenas a letras de música no formato LRC. Tanto as encorporadas quanto as anexadas por um arquivo separado.</string>
     <string name="pref_summary_remember_last_tab">Ir para a última aba aberta ao iniciar</string>
+    <string name="pref_summary_remember_shuffle">Modo aleatório continuará ativo quando uma nova lista de músicas for selecionada</string>
     <string name="could_not_download_album_cover">"N\u00e3o foi poss\u00edvel baixar uma capa do \u00e1lbum correspondente."</string>
     <string name="search_hint">Pesquisar na sua biblioteca...</string>
     <string name="favorites">Favoritos</string>
     <string name="last_added">Última Adição</string>
-    <string name="history">Histórico</string>
+    <string name="history">Reproduzidas recentemente</string>
     <string name="my_top_tracks">Minhas melhores faixas</string>
+    <string name="not_recently_played">Não tocadas recentemente</string>
     <string name="remove_cover">Remover capa</string>
     <string name="download_from_last_fm">Baixar do Last.fm</string>
     <string name="pick_from_local_storage">Escolher do armazenamento local</string>
@@ -295,4 +301,5 @@
     <string name="sort_order_artist">Artista</string>
     <string name="sort_order_album">Álbum</string>
     <string name="sort_order_year">Ano</string>
+    <string name="finish_current_music_sleep_timer">Finalizar última música</string>
 </resources>

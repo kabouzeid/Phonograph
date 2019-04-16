@@ -89,6 +89,7 @@
     <string name="save_playlist_title">另存为</string>
     <string name="save_playlists_title">另存为</string>
     <string name="add_playlist_title">"添加到播放列表"</string>
+    <string name="select_all_title">全选</string>
     <string name="action_shuffle_all">随机播放所有歌曲</string>
     <string name="action_shuffle_album">随机播放此专辑</string>
     <string name="action_shuffle_artist">随机播放此艺术家</string>
@@ -105,6 +106,7 @@
     <string name="never">从不</string>
     <string name="today">今日</string>
     <string name="this_week">本周</string>
+    <string name="past_seven_days">过去7天</string>
     <string name="this_month">本月</string>
     <string name="past_three_months">过去三个月</string>
     <string name="this_year">本年</string>

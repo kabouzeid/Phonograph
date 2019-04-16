@@ -89,6 +89,7 @@
     <string name="save_playlist_title">Tallenna tiedostona</string>
     <string name="save_playlists_title">Tallenna tiedostoina</string>
     <string name="add_playlist_title">"Lisää soittolistaan"</string>
+    <string name="select_all_title">Valitse kaikki</string>
     <string name="action_shuffle_all">Sekoita kaikki</string>
     <string name="action_shuffle_album">Sekoita albumit</string>
     <string name="action_shuffle_artist">Sekoita artistit</string>
@@ -105,6 +106,7 @@
     <string name="never">Ei koskaan</string>
     <string name="today">1 päivä</string>
     <string name="this_week">1 viikko</string>
+    <string name="past_seven_days">Edelliset 7 päivää</string>
     <string name="this_month">1 kuukausi</string>
     <string name="past_three_months">3 kuukautta</string>
     <string name="this_year">1 vuosi</string>
@@ -128,9 +130,11 @@
     <string name="pref_title_ignore_media_store_artwork">Sivuuta Media Storen albumikannet</string>
     <string name="pref_title_gapless_playback">Tauoton toisto</string>
     <string name="pref_title_audio_ducking">Hiljennä ääntä, kun kohdistus menetetään</string>
+    <string name="pref_title_recently_played_interval">Viimeksi toistettu -soittolistan aikaväli</string>
     <string name="pref_title_last_added_interval">Viimeksi lisätyt -soittolistan aikaväli</string>
     <string name="pref_title_synchronized_lyrics_show">Näytä synkronoidut sanoitukset</string>
     <string name="pref_title_remember_last_tab">Muista viimeisin välilehti</string>
+    <string name="pref_title_remember_shuffle">Muista sekoitus</string>
     <string name="no_equalizer">Taajuuskorjainta ei löytynyt.</string>
     <string name="no_audio_ID">"Toista jokin kappale ensin, koita sitten uudelleen."</string>
     <string name="delete_action">Poista</string>
@@ -165,12 +169,14 @@
     <string name="pref_summary_audio_ducking">Ilmoitukset, liikkuminen jne.</string>
     <string name="pref_summary_synchronized_lyrics_show">Nykyiseltään sovellus tukee vain LRC-muodossa olevia sanoituksia, joko sulautettuna tai erillisinä tiedostoina.</string>
     <string name="pref_summary_remember_last_tab">Palauttaa käynnistyessään viimeksi avoinna olleen välilehden.</string>
+    <string name="pref_summary_remember_shuffle">Sekoitus-tila pysyy päällä, kun valitset uuden listan kappaleita</string>
     <string name="could_not_download_album_cover">"Ei voitu ladata albumia vastaavaa albumin kantta."</string>
     <string name="search_hint">Etsi kirjastostasi...</string>
     <string name="favorites">Suosikit</string>
     <string name="last_added">Viimeksi lisätyt</string>
-    <string name="history">Historia</string>
+    <string name="history">Viimeksi toistettu</string>
     <string name="my_top_tracks">Eniten kuunnellut</string>
+    <string name="not_recently_played">Ei toistettu viimeksi</string>
     <string name="remove_cover">Poista kansi</string>
     <string name="download_from_last_fm">Lataa Last.fm-sivustolta</string>
     <string name="pick_from_local_storage">Valitse paikallisesta muistista</string>
@@ -295,4 +301,5 @@
     <string name="sort_order_artist">Artisti</string>
     <string name="sort_order_album">Albumi</string>
     <string name="sort_order_year">Vuosi</string>
+    <string name="finish_current_music_sleep_timer">Lopeta viimeinen kappale</string>
 </resources>
