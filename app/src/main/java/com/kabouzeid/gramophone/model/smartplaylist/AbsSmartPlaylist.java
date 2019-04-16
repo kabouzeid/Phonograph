@@ -27,10 +27,6 @@ public abstract class AbsSmartPlaylist extends AbsCustomPlaylist {
 
     public abstract void clear(Context context);
 
-    public boolean isClearable() {
-        return true;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
