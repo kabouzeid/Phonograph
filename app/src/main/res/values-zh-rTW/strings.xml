@@ -131,7 +131,6 @@
     <string name="pref_title_ignore_media_store_artwork">忽略音訊檔內嵌的專輯封面</string>
     <string name="pref_title_gapless_playback">無縫播放</string>
     <string name="pref_title_audio_ducking">在焦點音訊響起時降低音量</string>
-    <string name="pref_title_recently_played_interval">最近播放的時間範圍</string>
     <string name="pref_title_last_added_interval">最後新增列表的時間範圍</string>
     <string name="pref_title_synchronized_lyrics_show">同步顯示歌詞</string>
     <string name="pref_title_remember_last_tab">記住最後開啟的頁面</string>
@@ -177,7 +176,6 @@
     <string name="last_added">最後新增</string>
     <string name="history">最近播放</string>
     <string name="my_top_tracks">我的最佳單曲</string>
-    <string name="not_recently_played">最近沒有播放</string>
     <string name="remove_cover">移除封面</string>
     <string name="download_from_last_fm">從 Last.fm 下載</string>
     <string name="pick_from_local_storage">從手機裡選擇（SD卡或記憶體）</string>

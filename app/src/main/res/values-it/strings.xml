@@ -130,7 +130,6 @@
     <string name="pref_title_ignore_media_store_artwork">Ignora le copertine del Media Store</string>
     <string name="pref_title_gapless_playback">Riproduzione senza intervalli</string>
     <string name="pref_title_audio_ducking">Riduci volume in caso di perdita di focus audio</string>
-    <string name="pref_title_recently_played_interval">Intervallo playlist ascoltati di recente</string>
     <string name="pref_title_last_added_interval">Ultimo intervallo di playlist aggiunto</string>
     <string name="pref_title_synchronized_lyrics_show">Mostra testi sincronizzati</string>
     <string name="pref_title_remember_last_tab">Ricorda ultima scheda</string>
@@ -176,7 +175,6 @@
     <string name="last_added">Aggiunti di recente</string>
     <string name="history">Ascoltati di recente</string>
     <string name="my_top_tracks">Brani preferiti</string>
-    <string name="not_recently_played">Non ascoltato di recente</string>
     <string name="remove_cover">Rimuovi copertina</string>
     <string name="download_from_last_fm">Scarica da Last.fm</string>
     <string name="pick_from_local_storage">Scegli dai tuoi file.</string>

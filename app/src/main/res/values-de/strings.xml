@@ -130,7 +130,6 @@
     <string name="pref_title_ignore_media_store_artwork">Media Store Cover ignorieren</string>
     <string name="pref_title_gapless_playback">Lückenlose Wiedergabe</string>
     <string name="pref_title_audio_ducking">Lautstärke bei Fokusverlust verringern</string>
-    <string name="pref_title_recently_played_interval">Zuletzt wiedergegeben-Zeitspanne</string>
     <string name="pref_title_last_added_interval">Intervall der \"Zuletzt hinzugefügt\"-Wiedergabeliste</string>
     <string name="pref_title_synchronized_lyrics_show">Synchronisierten Songtext anzeigen</string>
     <string name="pref_title_remember_last_tab">Letzten Tab merken</string>
@@ -176,7 +175,6 @@
     <string name="last_added">Zuletzt hinzugefügt</string>
     <string name="history">Verlauf</string>
     <string name="my_top_tracks">Meine Lieblingstitel</string>
-    <string name="not_recently_played">Zuletzt nicht wiedergegeben</string>
     <string name="remove_cover">Cover entfernen</string>
     <string name="download_from_last_fm">Von Last.fm herunterladen</string>
     <string name="pick_from_local_storage">Aus lokalem Speicher wählen</string>

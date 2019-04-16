@@ -130,7 +130,6 @@
     <string name="pref_title_ignore_media_store_artwork">Abaikan sampul-sampul pada Media Penyimpanan</string>
     <string name="pref_title_gapless_playback">Pemutaran tanpa jeda</string>
     <string name="pref_title_audio_ducking">Kurangi suara saat ada pemberitahuan</string>
-    <string name="pref_title_recently_played_interval">Sela waktu daftar putar yang baru dimainkan</string>
     <string name="pref_title_last_added_interval">Sela daftar putar yang terakhir ditambahkan</string>
     <string name="pref_title_synchronized_lyrics_show">Tampilkan lirik yang tersinkronisasi</string>
     <string name="pref_title_remember_last_tab">Ingat tab terakhir</string>
@@ -176,7 +175,6 @@
     <string name="last_added">Terakhir ditambahkan</string>
     <string name="history">Diputar baru-baru ini</string>
     <string name="my_top_tracks">Sering Diputar</string>
-    <string name="not_recently_played">Belum diputar baru-baru ini</string>
     <string name="remove_cover">Hapus sampul</string>
     <string name="download_from_last_fm">Unduh dari Last.fm</string>
     <string name="pick_from_local_storage">Ambil dari penyimpanan lokal</string>

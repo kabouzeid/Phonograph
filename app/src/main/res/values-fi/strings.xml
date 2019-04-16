@@ -130,7 +130,6 @@
     <string name="pref_title_ignore_media_store_artwork">Sivuuta Media Storen albumikannet</string>
     <string name="pref_title_gapless_playback">Tauoton toisto</string>
     <string name="pref_title_audio_ducking">Hiljennä ääntä, kun kohdistus menetetään</string>
-    <string name="pref_title_recently_played_interval">Viimeksi toistettu -soittolistan aikaväli</string>
     <string name="pref_title_last_added_interval">Viimeksi lisätyt -soittolistan aikaväli</string>
     <string name="pref_title_synchronized_lyrics_show">Näytä synkronoidut sanoitukset</string>
     <string name="pref_title_remember_last_tab">Muista viimeisin välilehti</string>
@@ -176,7 +175,6 @@
     <string name="last_added">Viimeksi lisätyt</string>
     <string name="history">Viimeksi toistettu</string>
     <string name="my_top_tracks">Eniten kuunnellut</string>
-    <string name="not_recently_played">Ei toistettu viimeksi</string>
     <string name="remove_cover">Poista kansi</string>
     <string name="download_from_last_fm">Lataa Last.fm-sivustolta</string>
     <string name="pick_from_local_storage">Valitse paikallisesta muistista</string>

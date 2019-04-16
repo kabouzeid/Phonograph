@@ -130,7 +130,6 @@
     <string name="pref_title_ignore_media_store_artwork">Игнорировать хранилище обложек альбомов</string>
     <string name="pref_title_gapless_playback">Воспроизведение без пауз</string>
     <string name="pref_title_audio_ducking">Уменьшить громкость при уведомлениях</string>
-    <string name="pref_title_recently_played_interval">Интервал истории прослушивания</string>
     <string name="pref_title_last_added_interval">Интервал последнего добавленного плейлиста</string>
     <string name="pref_title_synchronized_lyrics_show">Показать синхронизированные тексты</string>
     <string name="pref_title_remember_last_tab">Запомнить последнюю вкладку</string>
@@ -176,7 +175,6 @@
     <string name="last_added">Последние добавленные</string>
     <string name="history">Недавно воспроизведённые</string>
     <string name="my_top_tracks">Мои популярные треки</string>
-    <string name="not_recently_played">История прослушивания отсутствует</string>
     <string name="remove_cover">Удалить обложку</string>
     <string name="download_from_last_fm">Загрузить из Last.fm</string>
     <string name="pick_from_local_storage">Выбрать из локального хранилища</string>

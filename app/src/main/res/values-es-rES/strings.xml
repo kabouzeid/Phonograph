@@ -130,7 +130,6 @@
     <string name="pref_title_ignore_media_store_artwork">Ignorar carátulas provenientes del almacenamiento local</string>
     <string name="pref_title_gapless_playback">Reproducción sin interrupciones</string>
     <string name="pref_title_audio_ducking">Reducir volumen en la pérdida del enfoque</string>
-    <string name="pref_title_recently_played_interval">Intervalo de tiempo de la lista de reproducción de pistas reproducidas recientemente</string>
     <string name="pref_title_last_added_interval">Intervalo de la última lista de reproducción</string>
     <string name="pref_title_synchronized_lyrics_show">Mostrar letras sincronizadas</string>
     <string name="pref_title_remember_last_tab">Recordar la última pestaña</string>
@@ -176,7 +175,6 @@
     <string name="last_added">Último agregado</string>
     <string name="history">Historial de reproducción</string>
     <string name="my_top_tracks">Canciones más reproducidas</string>
-    <string name="not_recently_played">No reproducidas recientemente</string>
     <string name="remove_cover">Eliminar carátula</string>
     <string name="download_from_last_fm">Descargar desde Last.fm</string>
     <string name="pick_from_local_storage">Seleccionar de almacenamiento interno</string>
