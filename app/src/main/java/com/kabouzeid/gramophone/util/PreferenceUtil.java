@@ -3,13 +3,16 @@ package com.kabouzeid.gramophone.util;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.SortOrder;
 import com.kabouzeid.gramophone.model.CategoryInfo;
@@ -60,13 +63,13 @@ public final class PreferenceUtil {
     public static final String GAPLESS_PLAYBACK = "gapless_playback";
 
     public static final String LAST_ADDED_CUTOFF = "last_added_interval";
-    public static final String RECENTLY_PLAYED_CUTOFF = "recently_played_interval";
 
     public static final String ALBUM_ART_ON_LOCKSCREEN = "album_art_on_lockscreen";
     public static final String BLURRED_ALBUM_ART = "blurred_album_art";
 
     public static final String LAST_SLEEP_TIMER_VALUE = "last_sleep_timer_value";
     public static final String NEXT_SLEEP_TIMER_ELAPSED_REALTIME = "next_sleep_timer_elapsed_real_time";
+    public static final String SLEEP_TIMER_FINISH_SONG = "sleep_timer_finish_music";
 
     public static final String IGNORE_MEDIA_STORE_ARTWORK = "ignore_media_store_artwork";
 
@@ -98,6 +101,20 @@ public final class PreferenceUtil {
             sInstance = new PreferenceUtil(context.getApplicationContext());
         }
         return sInstance;
+    }
+
+    public static boolean isAllowedToDownloadMetadata(final Context context) {
+        switch (getInstance(context).autoDownloadImagesPolicy()) {
+            case "always":
+                return true;
+            case "only_wifi":
+                final ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+                return netInfo != null && netInfo.getType() == ConnectivityManager.TYPE_WIFI && netInfo.isConnectedOrConnecting();
+            case "never":
+            default:
+                return false;
+        }
     }
 
     public void registerOnSharedPreferenceChangedListener(SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener) {
@@ -267,21 +284,11 @@ public final class PreferenceUtil {
         return mPreferences.getString(GENRE_SORT_ORDER, SortOrder.GenreSortOrder.GENRE_A_Z);
     }
 
-    // The last added cutoff time is compared against the Android media store timestamps, which is seconds based.
-    public long getLastAddedCutoffTimeSecs() {
-        return getCutoffTimeMillis(LAST_ADDED_CUTOFF) / 1000;
-    }
-
-    // The recently played cutoff time is compared against the internal (private) database timestamps, which is milliseconds based.
-    public long getRecentlyPlayedCutoffTimeMillis() {
-        return getCutoffTimeMillis(RECENTLY_PLAYED_CUTOFF);
-    }
-
-    private long getCutoffTimeMillis(final String cutoff) {
+    public long getLastAddedCutoff() {
         final CalendarUtil calendarUtil = new CalendarUtil();
         long interval;
 
-        switch (mPreferences.getString(cutoff, "")) {
+        switch (mPreferences.getString(LAST_ADDED_CUTOFF, "")) {
             case "today":
                 interval = calendarUtil.getElapsedToday();
                 break;
@@ -308,7 +315,7 @@ public final class PreferenceUtil {
                 break;
         }
 
-        return (System.currentTimeMillis() - interval);
+        return (System.currentTimeMillis() - interval) / 1000;
     }
 
     public int getLastSleepTimerValue() {
@@ -328,6 +335,16 @@ public final class PreferenceUtil {
     public void setNextSleepTimerElapsedRealtime(final long value) {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putLong(NEXT_SLEEP_TIMER_ELAPSED_REALTIME, value);
+        editor.apply();
+    }
+
+    public boolean getSleepTimerFinishMusic() {
+        return mPreferences.getBoolean(SLEEP_TIMER_FINISH_SONG, false);
+    }
+
+    public void setSleepTimerFinishMusic(final boolean value) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putBoolean(SLEEP_TIMER_FINISH_SONG, value);
         editor.apply();
     }
 

@@ -1,13 +1,16 @@
-<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/pref_header_library">
 
         <com.kabouzeid.gramophone.preferences.LibraryPreference
+            app:iconSpaceReserved="false"
             android:key="library_categories"
             android:summary="@string/pref_summary_library_categories"
             android:title="@string/library_categories" />
 
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            app:iconSpaceReserved="false"
             android:defaultValue="true"
             android:key="remember_last_tab"
             android:summary="@string/pref_summary_remember_last_tab"
@@ -15,4 +18,4 @@
 
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
-</android.support.v7.preference.PreferenceScreen>
+</androidx.preference.PreferenceScreen>

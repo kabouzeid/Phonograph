@@ -87,7 +87,9 @@
     <string name="delete_playlists_title">删除多个播放列表</string>
     <string name="clear_playlist_title">清空播放列表</string>
     <string name="save_playlist_title">另存为</string>
+    <string name="save_playlists_title">另存为</string>
     <string name="add_playlist_title">"添加到播放列表"</string>
+    <string name="select_all_title">全选</string>
     <string name="action_shuffle_all">随机播放所有歌曲</string>
     <string name="action_shuffle_album">随机播放此专辑</string>
     <string name="action_shuffle_artist">随机播放此艺术家</string>
@@ -104,6 +106,7 @@
     <string name="never">从不</string>
     <string name="today">今日</string>
     <string name="this_week">本周</string>
+    <string name="past_seven_days">过去7天</string>
     <string name="this_month">本月</string>
     <string name="past_three_months">过去三个月</string>
     <string name="this_year">本年</string>
@@ -194,14 +197,11 @@
     <string name="version">版本</string>
     <string name="author">作者</string>
     <string name="write_an_email">撰写邮件</string>
-    <string name="add_to_google_plus_circles">添加到 Google+ 圈子</string>
     <string name="follow_on_twitter">在 Twitter 上关注</string>
     <string name="fork_on_github">创建 GitHub 分支</string>
     <string name="visit_website">访问网站</string>
     <string name="report_bugs">提交 bug</string>
     <string name="report_bugs_summary">提交 bug 或申请添加新功能</string>
-    <string name="join_community">加入 Google+ 社群</string>
-    <string name="join_community_summary">如果您需要帮助或遇到问题，Google+ 上的 Phonograph 社群或许是个好去处。</string>
     <string name="translate">翻译</string>
     <string name="translate_summary">帮助翻译 Phonograph 。</string>
     <string name="rate_on_google_play">评分</string>
@@ -224,6 +224,8 @@
     <string name="folders">文件夹</string>
     <string name="saved_playlist_to">已保存播放列表到 %s。</string>
     <string name="failed_to_save_playlist">保存播放列表（%s）失败。</string>
+    <string name="saved_x_playlists_to_x">已保存 %1$d 播放列表到 %2$s。</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">已保存 %1$d 播放列表到 %2$s，保存 %3$d 失败。</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> 没有列在媒体储存中。]]></string>
     <string name="some_files_are_not_listed_in_the_media_store">部分文件未在媒体储存中列出</string>
     <string name="nothing_to_scan">没有可扫描的对象。</string>
@@ -274,6 +276,7 @@
     <string name="restore">恢复</string>
     <string name="no_purchase_found">未找到购买记录</string>
     <string name="eugene_cheung_summary">因他对源代码的贡献。</string>
+    <string name="adrian_summary">以新增专辑封面设计。</string>
     <string name="add_action">添加</string>
     <string name="blacklist">黑名单</string>
     <string name="remove_from_blacklist">从黑名单中移除</string>

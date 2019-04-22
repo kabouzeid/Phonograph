@@ -10,7 +10,7 @@ import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
 import com.kabouzeid.gramophone.lastfm.rest.model.LastFmArtist;
 import com.kabouzeid.gramophone.util.LastFMUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.kabouzeid.gramophone.util.Util;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,7 +48,7 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
 
     @Override
     public InputStream loadData(Priority priority) throws Exception {
-        if (!MusicUtil.isArtistNameUnknown(model.artistName) && Util.isAllowedToDownloadMetadata(context)) {
+        if (!MusicUtil.isArtistNameUnknown(model.artistName) && PreferenceUtil.isAllowedToDownloadMetadata(context)) {
             Response<LastFmArtist> response = lastFMRestClient.getApiService().getArtistInfo(model.artistName, null, model.skipOkHttpCache ? "no-cache" : null).execute();
 
             if (!response.isSuccessful()) {

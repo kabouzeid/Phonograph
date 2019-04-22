@@ -87,7 +87,9 @@
     <string name="delete_playlists_title">Elimina playlist</string>
     <string name="clear_playlist_title">Svuota playlist</string>
     <string name="save_playlist_title">Salva come file</string>
+    <string name="save_playlists_title">Salva come file</string>
     <string name="add_playlist_title">"Aggiungi alla playlist"</string>
+    <string name="select_all_title">Seleziona tutto</string>
     <string name="action_shuffle_all">Riproduzione casuale</string>
     <string name="action_shuffle_album">Riproduzione casuale album</string>
     <string name="action_shuffle_artist">Riproduzione casuale artista</string>
@@ -104,12 +106,13 @@
     <string name="never">Mai</string>
     <string name="today">Oggi</string>
     <string name="this_week">Questa settimana</string>
+    <string name="past_seven_days">Ultimi 7 giorni</string>
     <string name="this_month">Questo mese</string>
     <string name="past_three_months">Ultimi 3 mesi</string>
     <string name="this_year">Quest\'anno</string>
     <string name="equalizer">Equalizzatore</string>
     <string name="pref_header_colors">Colori</string>
-    <string name="pref_header_now_playing_screen">Schermata in riproduzione</string>
+    <string name="pref_header_now_playing_screen">Schermata di riproduzione</string>
     <string name="pref_title_general_theme">Tema generale</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_library">Libreria</string>
@@ -120,7 +123,7 @@
     <string name="pref_title_navigation_bar">Barra di navigazione colorata</string>
     <string name="pref_title_app_shortcuts">Scorciatoie app colorate</string>
     <string name="pref_title_album_art_on_lockscreen">Mostra copertina album nella schermata di blocco</string>
-    <string name="pref_title_auto_download_metadata">Scarica automaticamente i dati</string>
+    <string name="pref_title_auto_download_metadata">Ottieni automaticamente i metadati</string>
     <string name="pref_title_blurred_album_art">Sfoca la copertina</string>
     <string name="pref_title_colored_notification">Notifica colorata</string>
     <string name="pref_title_classic_notification">Design di notifica classico</string>
@@ -130,6 +133,7 @@
     <string name="pref_title_last_added_interval">Ultimo intervallo di playlist aggiunto</string>
     <string name="pref_title_synchronized_lyrics_show">Mostra testi sincronizzati</string>
     <string name="pref_title_remember_last_tab">Ricorda ultima scheda</string>
+    <string name="pref_title_remember_shuffle">Ricorda casuale</string>
     <string name="no_equalizer">Nessun equalizzatore trovato</string>
     <string name="no_audio_ID">"Riproduci un brano e prova di nuovo."</string>
     <string name="delete_action">Elimina</string>
@@ -164,11 +168,12 @@
     <string name="pref_summary_audio_ducking">Notifiche, navigazione ecc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Attualmente solo i testi sincronizzati in formato LRC sono supportati. Sia integrati o come file separati.</string>
     <string name="pref_summary_remember_last_tab">All\'avvio vai all\'ultima scheda aperta</string>
+    <string name="pref_summary_remember_shuffle">La modalità casuale rimarrà attiva quando si seleziona un nuovo elenco di brani</string>
     <string name="could_not_download_album_cover">"Impossibile scaricare una copertina adatta."</string>
     <string name="search_hint">Cercando nella tua libreria...</string>
     <string name="favorites">Preferiti</string>
     <string name="last_added">Aggiunti di recente</string>
-    <string name="history">Cronologia</string>
+    <string name="history">Ascoltati di recente</string>
     <string name="my_top_tracks">Brani preferiti</string>
     <string name="remove_cover">Rimuovi copertina</string>
     <string name="download_from_last_fm">Scarica da Last.fm</string>
@@ -194,14 +199,11 @@
     <string name="version">Versione</string>
     <string name="author">Autore</string>
     <string name="write_an_email">Scrivi un\'email</string>
-    <string name="add_to_google_plus_circles">Aggiungi alle cerchie di Google+</string>
     <string name="follow_on_twitter">Segui su Twitter</string>
     <string name="fork_on_github">Vai su GitHub</string>
     <string name="visit_website">Visita sito web</string>
     <string name="report_bugs">Segnala bug</string>
     <string name="report_bugs_summary">Segnala bug o richiedi nuove funzionalità.</string>
-    <string name="join_community">Unisciti alla community di Google+</string>
-    <string name="join_community_summary">Se hai bisogno di aiuto o hai domande, la community di Phonograph su Google+ è un buon posto dove andare.</string>
     <string name="translate">Traduci</string>
     <string name="translate_summary">Aiuta a tradurre Phonograph nella tua lingua.</string>
     <string name="rate_on_google_play">Valuta</string>
@@ -224,6 +226,8 @@
     <string name="folders">Cartelle</string>
     <string name="saved_playlist_to">Playlist salvata in %s.</string>
     <string name="failed_to_save_playlist">Salvataggio playlist fallito (%s).</string>
+    <string name="saved_x_playlists_to_x">Salvate %1$d playlist in %2$s.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">Salvate %1$d playlist in %2$s, %3$d non salvato.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> non è elencato nel media store.]]></string>
     <string name="some_files_are_not_listed_in_the_media_store">Alcuni file non sono elencati nel media store.</string>
     <string name="nothing_to_scan">Nulla da scansionare.</string>
@@ -296,4 +300,5 @@
     <string name="sort_order_artist">Artista</string>
     <string name="sort_order_album">Album</string>
     <string name="sort_order_year">Anno</string>
+    <string name="finish_current_music_sleep_timer">Termina l\'ultimo brano</string>
 </resources>

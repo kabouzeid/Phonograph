@@ -20,40 +20,21 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
 
-import com.kabouzeid.gramophone.util.PreferenceUtil;
-
 import java.util.ArrayList;
 
 public class TopAndRecentlyPlayedTracksLoader {
-    public static final int NUMBER_OF_TOP_TRACKS = 99;
+    public static final int NUMBER_OF_TOP_TRACKS = 100;
 
     @NonNull
     public static ArrayList<Song> getRecentlyPlayedTracks(@NonNull Context context) {
         return SongLoader.getSongs(makeRecentTracksCursorAndClearUpDatabase(context));
-    }
-
-    @NonNull
-    public static ArrayList<Song> getNotRecentlyPlayedTracks
-(@NonNull Context context) {
-        ArrayList<Song> allSongs = SongLoader.getSongs(
-            SongLoader.makeSongCursor(
-                context, 
-                null, null,
-                MediaStore.Audio.Media.DATE_ADDED + " ASC"));
-
-        ArrayList<Song> recentlyPlayedSongs = SongLoader.getSongs(
-            makeRecentTracksCursorAndClearUpDatabase(context));
-
-        allSongs.removeAll(recentlyPlayedSongs);
-
-        return allSongs;
     }
 
     @NonNull
@@ -96,8 +77,7 @@ public class TopAndRecentlyPlayedTracksLoader {
     @Nullable
     private static SortedLongCursor makeRecentTracksCursorImpl(@NonNull final Context context) {
         // first get the top results ids from the internal database
-        final long cutoff = PreferenceUtil.getInstance(context).getRecentlyPlayedCutoffTimeMillis();
-        Cursor songs = HistoryStore.getInstance(context).queryRecentIds(cutoff);
+        Cursor songs = HistoryStore.getInstance(context).queryRecentIds();
 
         try {
             return makeSortedCursor(context, songs,

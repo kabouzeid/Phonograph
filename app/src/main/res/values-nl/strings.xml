@@ -87,6 +87,7 @@
     <string name="delete_playlists_title">Verwijder afspeellijst</string>
     <string name="clear_playlist_title">Afspeellijst legen</string>
     <string name="save_playlist_title">Opslaan als bestand</string>
+    <string name="save_playlists_title">Opslaan als bestanden</string>
     <string name="add_playlist_title">"Toevoegen aan afspeellijst"</string>
     <string name="action_shuffle_all">Shuffle alles</string>
     <string name="action_shuffle_album">Shuffle album</string>
@@ -194,14 +195,11 @@
     <string name="version">Versie</string>
     <string name="author">Auteur</string>
     <string name="write_an_email">Schrijf een email</string>
-    <string name="add_to_google_plus_circles">Toevoegen aan Google Plus cirkels</string>
     <string name="follow_on_twitter">Volgen op Twitter</string>
     <string name="fork_on_github">Fork op GitHub</string>
     <string name="visit_website">Bezoek website</string>
     <string name="report_bugs">Rapporteer bugs</string>
     <string name="report_bugs_summary">Rapporteer bugs of verzoek nieuwe functies.</string>
-    <string name="join_community">Deelnemen aan de Google Plus communiteit</string>
-    <string name="join_community_summary">Als je hulp nodig hebt of vragen hebt, is de Phonograph communiteit op Google Plus een goede bron om te raadplegen.</string>
     <string name="translate">Vertalen</string>
     <string name="translate_summary">Help Phonograph te vertalen naar jouw moedertaal.</string>
     <string name="rate_on_google_play">Beoordelen</string>
@@ -224,6 +222,8 @@
     <string name="folders">Mappen</string>
     <string name="saved_playlist_to">Afspeellijst opgeslagen in %s.</string>
     <string name="failed_to_save_playlist">Opslaan van afspeellijst (%s) mislukt.</string>
+    <string name="saved_x_playlists_to_x">%1$d afspeellijsten opgeslagen in %2$s.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">%1$d afspeellijsten opgeslagen in %2$s, opslaan van %3$d mislukt.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> is niet aanwezig in mediaopslag.]]></string>
     <string name="some_files_are_not_listed_in_the_media_store">Sommige bestanden worden niet vermeld in de mediaopslag.</string>
     <string name="nothing_to_scan">Niets te scannen.</string>

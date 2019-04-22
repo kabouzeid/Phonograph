@@ -2,8 +2,8 @@ package com.kabouzeid.gramophone.dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 
 import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -58,7 +58,7 @@ public class AddToPlaylistDialog extends DialogFragment {
                         CreatePlaylistDialog.create(songs).show(getActivity().getSupportFragmentManager(), "ADD_TO_PLAYLIST");
                     } else {
                         materialDialog.dismiss();
-                        ArrayList<Song> updatedSongs = getNotExistingSngs(songs,  playlists.get(i - 1).id);
+                        ArrayList<Song> updatedSongs = getNotExistingSongs(songs,  playlists.get(i - 1).id);
                         if (updatedSongs.size() > 0 ){
                             PlaylistsUtil.addToPlaylist(getActivity(), updatedSongs,  playlists.get(i - 1).id, true);
                         }else {
@@ -69,11 +69,17 @@ public class AddToPlaylistDialog extends DialogFragment {
                 .build();
     }
 
-    private ArrayList<Song> getNotExistingSngs(ArrayList<Song> songs, int id ){
+    /**
+     * getNotExistingSongs helps get rid of songs that already exxist in a playlist,
+     * returns a list of songs
+     * @param songs list of songs to be added to playlist
+     * @param playlistId playlist Id
+     */
+    private ArrayList<Song> getNotExistingSongs(ArrayList<Song> songs, int playlistId ){
         ArrayList<Song> newSongsList = new ArrayList<>();
         if (songs.size()>0){
             for (Song song : songs){
-                if (!PlaylistsUtil.doPlaylistContains(getActivity(), id, song.id)){
+                if (!PlaylistsUtil.doPlaylistContains(getActivity(), playlistId, song.id)){
                     newSongsList.add(song);
                 }
             }

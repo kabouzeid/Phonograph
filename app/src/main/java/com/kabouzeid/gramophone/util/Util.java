@@ -7,16 +7,10 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
-import android.support.annotation.AttrRes;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.graphics.drawable.VectorDrawableCompat;
+import androidx.annotation.AttrRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
@@ -24,7 +18,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.kabouzeid.appthemehelper.util.TintHelper;
 import com.kabouzeid.gramophone.R;
 
 /**
@@ -80,37 +73,11 @@ public class Util {
         return resources.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
-    public static Drawable resolveDrawable(@NonNull Context context, @AttrRes int drawableAttr) {
-        TypedArray a = context.obtainStyledAttributes(new int[]{drawableAttr});
-        Drawable drawable = a.getDrawable(0);
-        a.recycle();
-        return drawable;
-    }
-
     public static int resolveDimensionPixelSize(@NonNull Context context, @AttrRes int dimenAttr) {
         TypedArray a = context.obtainStyledAttributes(new int[]{dimenAttr});
         int dimensionPixelSize = a.getDimensionPixelSize(0, 0);
         a.recycle();
         return dimensionPixelSize;
-    }
-
-    public static Drawable getVectorDrawable(@NonNull Context context, @DrawableRes int id) {
-        return getVectorDrawable(context.getResources(), id, context.getTheme());
-    }
-
-    public static Drawable getVectorDrawable(@NonNull Resources res, @DrawableRes int resId, @Nullable Resources.Theme theme) {
-        if (Build.VERSION.SDK_INT >= 21) {
-            return res.getDrawable(resId, theme);
-        }
-        return VectorDrawableCompat.create(res, resId, theme);
-    }
-
-    public static Drawable getTintedVectorDrawable(@NonNull Context context, @DrawableRes int id, @ColorInt int color) {
-        return TintHelper.createTintedDrawable(getVectorDrawable(context.getResources(), id, context.getTheme()), color);
-    }
-
-    public static Drawable getTintedVectorDrawable(@NonNull Resources res, @DrawableRes int resId, @Nullable Resources.Theme theme, @ColorInt int color) {
-        return TintHelper.createTintedDrawable(getVectorDrawable(res, resId, theme), color);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -119,20 +86,6 @@ public class Util {
             Configuration config = context.getResources().getConfiguration();
             return config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
         } else return false;
-    }
-
-    public static boolean isAllowedToDownloadMetadata(final Context context) {
-        switch (PreferenceUtil.getInstance(context).autoDownloadImagesPolicy()) {
-            case "always":
-                return true;
-            case "only_wifi":
-                final ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
-                return netInfo != null && netInfo.getType() == ConnectivityManager.TYPE_WIFI && netInfo.isConnectedOrConnecting();
-            case "never":
-            default:
-                return false;
-        }
     }
 
 }

@@ -1,8 +1,10 @@
-<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/pref_header_colors">
 
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEListPreference
+            app:iconSpaceReserved="false"
             android:defaultValue="light"
             android:entries="@array/pref_general_theme_list_titles"
             android:entryValues="@array/pref_general_theme_list_values"
@@ -12,18 +14,21 @@
             android:title="@string/pref_title_general_theme" />
 
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference
+            app:iconSpaceReserved="false"
             android:key="primary_color"
             android:persistent="false"
             android:summary="@string/primary_color_desc"
             android:title="@string/primary_color" />
 
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference
+            app:iconSpaceReserved="false"
             android:key="accent_color"
             android:persistent="false"
             android:summary="@string/accent_color_desc"
             android:title="@string/accent_color" />
 
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            app:iconSpaceReserved="false"
             android:defaultValue="false"
             android:key="should_color_navigation_bar"
             android:persistent="false"
@@ -31,6 +36,7 @@
             android:title="@string/pref_title_navigation_bar" />
 
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            app:iconSpaceReserved="false"
             android:defaultValue="true"
             android:key="should_color_app_shortcuts"
             android:summary="@string/pref_summary_colored_app_shortcuts"
@@ -38,4 +44,4 @@
 
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
-</android.support.v7.preference.PreferenceScreen>
+</androidx.preference.PreferenceScreen>
