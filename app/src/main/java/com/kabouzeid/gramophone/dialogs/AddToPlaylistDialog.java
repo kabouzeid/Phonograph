@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 
+import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
@@ -57,9 +58,26 @@ public class AddToPlaylistDialog extends DialogFragment {
                         CreatePlaylistDialog.create(songs).show(getActivity().getSupportFragmentManager(), "ADD_TO_PLAYLIST");
                     } else {
                         materialDialog.dismiss();
-                        PlaylistsUtil.addToPlaylist(getActivity(), songs, playlists.get(i - 1).id, true);
+                        ArrayList<Song> updatedSongs = getNotExistingSngs(songs,  playlists.get(i - 1).id);
+                        if (updatedSongs.size() > 0 ){
+                            PlaylistsUtil.addToPlaylist(getActivity(), updatedSongs,  playlists.get(i - 1).id, true);
+                        }else {
+                            Toast.makeText(getActivity(), " Inserted "+updatedSongs.size()+" songs ins to the Playlist", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .build();
+    }
+
+    private ArrayList<Song> getNotExistingSngs(ArrayList<Song> songs, int id ){
+        ArrayList<Song> newSongsList = new ArrayList<>();
+        if (songs.size()>0){
+            for (Song song : songs){
+                if (!PlaylistsUtil.doPlaylistContains(getActivity(), id, song.id)){
+                    newSongsList.add(song);
+                }
+            }
+        }
+        return newSongsList;
     }
 }

@@ -123,7 +123,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         setUpRecyclerView();
 
         slidingUpPanelLayout.addPanelSlideListener(this);
-        slidingUpPanelLayout.setAntiDragView(view.findViewById(R.id.draggable_area));
+        slidingUpPanelLayout.setDragView(view.findViewById(R.id.draggable_area));
 
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override

@@ -107,7 +107,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     public void setAntiDragView(View antiDragView) {
-        slidingUpPanelLayout.setAntiDragView(antiDragView);
+        slidingUpPanelLayout.setDragView(antiDragView);
     }
 
     protected abstract View createContentView();

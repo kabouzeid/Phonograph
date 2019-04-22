@@ -120,7 +120,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
         if (slidingUpPanelLayout != null) {
             slidingUpPanelLayout.addPanelSlideListener(this);
-            slidingUpPanelLayout.setAntiDragView(view.findViewById(R.id.draggable_area));
+            slidingUpPanelLayout.setDragView(view.findViewById(R.id.draggable_area));
         }
 
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
