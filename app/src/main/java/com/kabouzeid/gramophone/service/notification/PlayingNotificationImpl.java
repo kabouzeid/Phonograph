@@ -71,6 +71,7 @@ public class PlayingNotificationImpl extends PlayingNotification {
 
         final Notification notification = new NotificationCompat.Builder(service, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
+                .setSubText(song.albumName)
                 .setContentIntent(clickIntent)
                 .setDeleteIntent(deleteIntent)
                 .setCategory(NotificationCompat.CATEGORY_SERVICE)
