@@ -87,6 +87,7 @@
     <string name="delete_playlists_title">Lejátszási lista törlése</string>
     <string name="clear_playlist_title">Lejátszási lista kiürítése</string>
     <string name="save_playlist_title">Mentés fájlként</string>
+    <string name="save_playlists_title">Mentés fájlként</string>
     <string name="add_playlist_title">"Hozzáadás a lejátszási listához"</string>
     <string name="action_shuffle_all">Összes keverése</string>
     <string name="action_shuffle_album">Album dalainak keverése</string>
@@ -194,14 +195,11 @@
     <string name="version">Verzió</string>
     <string name="author">Készítő</string>
     <string name="write_an_email">Írjon e-mailt</string>
-    <string name="add_to_google_plus_circles">Google Plus</string>
     <string name="follow_on_twitter">Twitter</string>
     <string name="fork_on_github">Villog a GitHubon</string>
     <string name="visit_website">Látogassa meg a honlapot</string>
     <string name="report_bugs">Hibajelentés</string>
     <string name="report_bugs_summary">Problémák jelentése, új funkciók kérése.</string>
-    <string name="join_community">Csatlakozzon a Google Plus közösséghez</string>
-    <string name="join_community_summary">Ha segítségre lenne szüksége, vagy kérdései vannak, keresse fel a Phonograph közösséget a Google Plus-on.</string>
     <string name="translate">Fordítás</string>
     <string name="translate_summary">Segítsen lefordítani a Phonograph-ot a saját nyelvére.</string>
     <string name="rate_on_google_play">Értékelés</string>
@@ -224,6 +222,8 @@
     <string name="folders">Mappák</string>
     <string name="saved_playlist_to">Lejátszási lista mentve ide: %s.</string>
     <string name="failed_to_save_playlist">Nem sikerült menteni a lejátszási listát (%s).</string>
+    <string name="saved_x_playlists_to_x">Mentés %1$d lejátszási listát %2$s-re.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">Mentés %1$d lejátszási listák %2$s, nem sikerült menteni a %3$d.</string>
     <string name="not_listed_in_media_store"><![CDATA[A(z) <b>%s</b> nem szerepel a médiatárban.]]></string>
     <string name="some_files_are_not_listed_in_the_media_store">Egyes fájlok nem szerepelnek a médiában.</string>
     <string name="nothing_to_scan">Nincs mit beolvasni.</string>

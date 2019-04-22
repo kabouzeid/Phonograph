@@ -22,7 +22,7 @@ import okhttp3.OkHttpClient;
 
 public class ArtistImageLoader implements StreamModelLoader<ArtistImage> {
     // we need these very low values to make sure our artist image loading calls doesn't block the image loading queue
-    private static final int TIMEOUT = 500;
+    private static final int TIMEOUT = 700;
 
     private Context context;
     private LastFMRestClient lastFMClient;

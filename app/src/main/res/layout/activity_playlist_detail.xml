@@ -16,7 +16,7 @@
         android:elevation="@dimen/toolbar_elevation"
         tools:ignore="UnusedAttribute">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/Toolbar"
             android:background="@android:color/transparent" />

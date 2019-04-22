@@ -39,7 +39,7 @@
                 android:paddingTop="8dp"
                 tools:ignore="UnusedAttribute">
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -55,9 +55,9 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="@color/ate_primary_text_dark" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -72,7 +72,7 @@
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="@color/ate_primary_text_dark" />
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
@@ -85,7 +85,7 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -101,9 +101,9 @@
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -119,9 +119,9 @@
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -137,9 +137,9 @@
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -155,9 +155,9 @@
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -172,7 +172,7 @@
                         android:inputType="textMultiLine"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
@@ -180,7 +180,7 @@
 
     </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
         android:layout_gravity="start|left"
@@ -188,7 +188,7 @@
         android:background="#00000000"
         tools:ignore="RtlHardcoded" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/play_pause_fab"
         style="@style/Fab"
         android:layout_gravity="bottom|end"

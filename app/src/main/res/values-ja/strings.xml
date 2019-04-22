@@ -87,6 +87,7 @@
     <string name="delete_playlists_title">プレイリストの複数削除</string>
     <string name="clear_playlist_title">プレイリストの消去</string>
     <string name="save_playlist_title">ファイルに保存</string>
+    <string name="save_playlists_title">ファイルを保存</string>
     <string name="add_playlist_title">"プレイリストに追加"</string>
     <string name="action_shuffle_all">全曲シャッフル</string>
     <string name="action_shuffle_album">アルバムをシャッフル</string>
@@ -194,14 +195,11 @@
     <string name="version">バージョン</string>
     <string name="author">製作者</string>
     <string name="write_an_email">メールを書く</string>
-    <string name="add_to_google_plus_circles">Google+ のサークルに参加</string>
     <string name="follow_on_twitter">Twitter でフォロー</string>
     <string name="fork_on_github">GitHub でフォーク</string>
     <string name="visit_website">ウェブサイトを開く</string>
     <string name="report_bugs">バグを報告</string>
     <string name="report_bugs_summary">パグの報告または新機能のリクエスト</string>
-    <string name="join_community">GooglePlusコミュニティに参加する</string>
-    <string name="join_community_summary">質問があったり助けが必要だったりする場合は、Phonograph の Google+ コミュニティを訪れてみると良いかもしれません。(英語限定)</string>
     <string name="translate">翻訳</string>
     <string name="translate_summary">Phonograph をあなたの母国語に翻訳するのをお手伝いください。</string>
     <string name="rate_on_google_play">評価</string>
@@ -224,8 +222,10 @@
     <string name="folders">フォルダ</string>
     <string name="saved_playlist_to">プレイリストを%sに保存しました。</string>
     <string name="failed_to_save_playlist">プレイリスト(%s)の保存に失敗しました。</string>
+    <string name="saved_x_playlists_to_x">%1$dプレイリストを%2$sに保存しました</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">%1$dプレイリストを%2$sに保存しました、%3$dに保存できませんでした。</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b>はメディアストアにリストされていません。]]></string>
-    <string name="some_files_are_not_listed_in_the_media_store">Alguns arquivos não estão listados na biblioteca local.</string>
+    <string name="some_files_are_not_listed_in_the_media_store">メディアストアに追加されていないファイルがあります。</string>
     <string name="nothing_to_scan">スキャンするものがありません。</string>
     <string name="scanned_files">%1$d中の%2$dをスキャンしました。</string>
     <string name="could_not_scan_files">%d個のファイルをスキャンできませんでした。</string>

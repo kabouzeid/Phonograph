@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -101,37 +101,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/add_to_google_plus_circles"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/rectSelector"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:minHeight="@dimen/md_listitem_height"
-            android:orientation="horizontal"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
-
-            <com.kabouzeid.gramophone.views.IconImageView
-                android:id="@+id/icon_google_plus"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                app:srcCompat="@drawable/ic_google_plus_white_24dp"
-                tools:ignore="ContentDescription,UnusedAttribute" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:layout_marginStart="32dp"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:text="@string/add_to_google_plus_circles"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/follow_on_twitter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -195,4 +164,4 @@
 
     </LinearLayout>
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

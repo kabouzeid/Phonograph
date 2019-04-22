@@ -87,6 +87,7 @@
     <string name="delete_playlists_title">재생 목록 삭제</string>
     <string name="clear_playlist_title">재생 목록 비우기</string>
     <string name="save_playlist_title">파일로 저장</string>
+    <string name="save_playlists_title">파일들로 저장</string>
     <string name="add_playlist_title">"재생 목록에 추가"</string>
     <string name="action_shuffle_all">모든 곡 랜덤 재생</string>
     <string name="action_shuffle_album">앨범 랜덤 재생</string>
@@ -126,9 +127,9 @@
     <string name="pref_title_classic_notification">클래식 알림 디자인</string>
     <string name="pref_title_ignore_media_store_artwork">미디어 스토어 앨범 커버 무시</string>
     <string name="pref_title_gapless_playback">갭리스 재생</string>
-    <string name="pref_title_audio_ducking">포커스 상실 시 볼륨 감소</string>
-    <string name="pref_title_last_added_interval">최근 추가됨 재생 목록 기간</string>
-    <string name="pref_title_synchronized_lyrics_show">동기화된 가사 보이기</string>
+    <string name="pref_title_audio_ducking">포커스 상실 시 볼륨 감소하기</string>
+    <string name="pref_title_last_added_interval">최근 추가된 재생 목록 간격</string>
+    <string name="pref_title_synchronized_lyrics_show">동기화된 가사 보기</string>
     <string name="pref_title_remember_last_tab">마지막 탭 기억</string>
     <string name="no_equalizer">설치된 이퀄라이저가 없습니다.</string>
     <string name="no_audio_ID">"먼저 노래를 재생한 후 다시 시도해 주세요."</string>
@@ -164,7 +165,7 @@
     <string name="pref_summary_colored_navigation_bar">하단바가 색깔을 주 색상으로 색칠합니다.</string>
     <string name="pref_summary_colored_app_shortcuts">주 색상으로 앱 바로가기 색칠</string>
     <string name="pref_summary_audio_ducking">알림 소리, 버튼음 등</string>
-    <string name="pref_summary_synchronized_lyrics_show">임베딩 또는 별개로 저장된 LRC 형식의 동기화된 자막 파일만 지원합니다.</string>
+    <string name="pref_summary_synchronized_lyrics_show">현재는 임베딩 또는 별개로 저장된 LRC 형식의 동기화된 자막 파일만 지원합니다.</string>
     <string name="pref_summary_remember_last_tab">마지막으로 연 탭으로 시작</string>
     <string name="could_not_download_album_cover">"\uc77c\uce58\ud558\ub294 \uc568\ubc94 \ucee4\ubc84\ub97c \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4."</string>
     <string name="search_hint">저장소 검색...</string>
@@ -196,14 +197,11 @@
     <string name="version">버전</string>
     <string name="author">제작자</string>
     <string name="write_an_email">이메일 작성</string>
-    <string name="add_to_google_plus_circles">Google + 서클에 추가</string>
     <string name="follow_on_twitter">트위터에서 팔로우하기</string>
     <string name="fork_on_github">깃허브 포크</string>
     <string name="visit_website">웹사이트 방문</string>
     <string name="report_bugs">버그 제보</string>
     <string name="report_bugs_summary">버그를  제보하거나 새로운 기능을 제안합니다.</string>
-    <string name="join_community">Google + 커뮤니티에 가입하세요.</string>
-    <string name="join_community_summary">Google + 의 Phonograph 커뮤니티에서 질문을 하거나 도움을 받을 수 있습니다.</string>
     <string name="translate">번역</string>
     <string name="translate_summary">Phonograph의 우리말 번역에 기여하세요.</string>
     <string name="rate_on_google_play">별점</string>
@@ -226,6 +224,8 @@
     <string name="folders">폴더</string>
     <string name="saved_playlist_to">재생 목록을 %s 로 저장했습니다.</string>
     <string name="failed_to_save_playlist">재생 목록을 저장하는 과정에서 오류가 발생했습니다. (%s)</string>
+    <string name="saved_x_playlists_to_x">%1$d 재생목록을 %2$s에 저장함.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">%1$d 재생목록을 %2$s에 저장함 / %3$d 저장 실패</string>
     <string name="not_listed_in_media_store"><![CDATA[미디어 스토어에서 <b>%s</b> 을(를) 찾을 수 없습니다.]]></string>
     <string name="some_files_are_not_listed_in_the_media_store">몇몇 파일은 미디어 리스트에 기록되지 않습니다.</string>
     <string name="nothing_to_scan">스캔할 내용이 없습니다.</string>
@@ -278,7 +278,7 @@
     <string name="eugene_cheung_summary">소스 코드에 대한 기여</string>
     <string name="adrian_summary">앨범 페이지 디자인 제작</string>
     <string name="add_action">추가</string>
-    <string name="blacklist">제외 목록</string>
+    <string name="blacklist">제외할 목록</string>
     <string name="remove_from_blacklist">제외 목록에서 제거</string>
     <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[<b>%1$s</b> 을(를) 제외 목록에서 제거하시겠습니까?]]></string>
     <string name="clear_blacklist">제외 목록 비우기</string>
@@ -286,8 +286,8 @@
     <string name="pref_summary_blacklist">제외 목록에 추가된 폴더의 내용은 보관함에 표시되지 않습니다.</string>
     <string name="reset_artist_image">아티스트 이미지 초기화</string>
     <string name="set_artist_image">아티스트 이미지 설정</string>
-    <string name="library_categories">보관함 카테고리</string>
-    <string name="pref_summary_library_categories">보관함 카테고리의 표시 여부 및 배열 순서를 조정합니다.</string>
+    <string name="library_categories">라이브러리 카테고리</string>
+    <string name="pref_summary_library_categories">라이브러리 카테고리의 표시 여부 및 배열 순서를 조정합니다.</string>
     <string name="you_have_to_select_at_least_one_category">적어도 하나의 카테고리는 선택해야 합니다.</string>
     <string name="action_scan_directory">디렉토리 스캔하기</string>
     <string name="scan_media">미디어 스캔</string>

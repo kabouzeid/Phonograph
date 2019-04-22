@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -35,11 +35,9 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
 
     private static String GITHUB = "https://github.com/kabouzeid/Phonograph";
 
-    private static String GOOGLE_PLUS = "https://google.com/+KarimAbouZeid23697";
     private static String TWITTER = "https://twitter.com/karimjabouzeid";
     private static String WEBSITE = "https://kabouzeid.com/";
 
-    private static String GOOGLE_PLUS_COMMUNITY = "https://plus.google.com/u/0/communities/106227738496107108513";
     private static String TRANSLATE = "https://phonograph.oneskyapp.com/collaboration/project?id=26521";
     private static String RATE_ON_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.kabouzeid.gramophone";
 
@@ -71,8 +69,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     LinearLayout licenses;
     @BindView(R.id.write_an_email)
     LinearLayout writeAnEmail;
-    @BindView(R.id.add_to_google_plus_circles)
-    LinearLayout addToGooglePlusCircles;
     @BindView(R.id.follow_on_twitter)
     LinearLayout followOnTwitter;
     @BindView(R.id.fork_on_github)
@@ -81,8 +77,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     LinearLayout visitWebsite;
     @BindView(R.id.report_bugs)
     LinearLayout reportBugs;
-    @BindView(R.id.join_google_plus_community)
-    LinearLayout joinGooglePlusCommunity;
     @BindView(R.id.translate)
     LinearLayout translate;
     @BindView(R.id.donate)
@@ -145,13 +139,11 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         changelog.setOnClickListener(this);
         intro.setOnClickListener(this);
         licenses.setOnClickListener(this);
-        addToGooglePlusCircles.setOnClickListener(this);
         followOnTwitter.setOnClickListener(this);
         forkOnGitHub.setOnClickListener(this);
         visitWebsite.setOnClickListener(this);
         reportBugs.setOnClickListener(this);
         writeAnEmail.setOnClickListener(this);
-        joinGooglePlusCommunity.setOnClickListener(this);
         translate.setOnClickListener(this);
         rateOnGooglePlay.setOnClickListener(this);
         donate.setOnClickListener(this);
@@ -193,8 +185,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
             showLicenseDialog();
         } else if (v == intro) {
             startActivity(new Intent(this, AppIntroActivity.class));
-        } else if (v == addToGooglePlusCircles) {
-            openUrl(GOOGLE_PLUS);
         } else if (v == followOnTwitter) {
             openUrl(TWITTER);
         } else if (v == forkOnGitHub) {
@@ -209,8 +199,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
             intent.putExtra(Intent.EXTRA_EMAIL, "contact@kabouzeid.com");
             intent.putExtra(Intent.EXTRA_SUBJECT, "Phonograph");
             startActivity(Intent.createChooser(intent, "E-Mail"));
-        } else if (v == joinGooglePlusCommunity) {
-            openUrl(GOOGLE_PLUS_COMMUNITY);
         } else if (v == translate) {
             openUrl(TRANSLATE);
         } else if (v == rateOnGooglePlay) {
@@ -262,6 +250,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
                 )
                 .setIncludeOwnLicense(true)
                 .build()
-                .showAppCompat();
+                .show();
     }
 }

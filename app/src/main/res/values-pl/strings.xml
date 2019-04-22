@@ -87,6 +87,7 @@
     <string name="delete_playlists_title">Usuń listy odtwarzania</string>
     <string name="clear_playlist_title">Wyczyść listę odtwarzania</string>
     <string name="save_playlist_title">Zapisz jako plik</string>
+    <string name="save_playlists_title">Zapisz jako pliki</string>
     <string name="add_playlist_title">"Dodaj do listy odtwarzania"</string>
     <string name="action_shuffle_all">Wszystkie losowo</string>
     <string name="action_shuffle_album">Losowy album</string>
@@ -129,6 +130,7 @@
     <string name="pref_title_audio_ducking">Zmniejszaj głośność przy powiadomieniach</string>
     <string name="pref_title_last_added_interval">Okres ostatnio dodanych list odtwarzania</string>
     <string name="pref_title_synchronized_lyrics_show">Pokazuj zsynchronizowany tekst</string>
+    <string name="pref_title_remember_last_tab">"Zapamiętaj ostatnią zakładkę "</string>
     <string name="no_equalizer">Nie znaleziono korektora</string>
     <string name="no_audio_ID">"Odegraj utwór, następnie ponów próbę"</string>
     <string name="delete_action">Usuń</string>
@@ -136,6 +138,7 @@
     <string name="remove_action">Usuń</string>
     <string name="rename_action">Zmień</string>
     <string name="create_action">Utwórz</string>
+    <string name="reset_action">Resetuj</string>
     <string name="x_selected">%1$d zaznaczono</string>
     <string name="primary_color">Kolor podstawowy</string>
     <string name="accent_color">Kolor dodatków</string>
@@ -147,6 +150,7 @@
     <string name="no_albums">Brak albumów</string>
     <string name="no_songs">Brak utworów</string>
     <string name="no_artists">Brak wykonawców</string>
+    <string name="no_genres">Brak gatunków</string>
     <string name="empty">Pusto</string>
     <string name="playlist_name_empty">Nazwa listy odtwarzania</string>
     <string name="song">Utwór</string>
@@ -160,6 +164,7 @@
     <string name="pref_summary_colored_app_shortcuts">Kolory skrótów aplikacji w kolorze podstawowym</string>
     <string name="pref_summary_audio_ducking">Notyfikacje, nawigacja, itp.</string>
     <string name="pref_summary_synchronized_lyrics_show">Obecnie wspierane są tylko napisy w formacie LRC oraz te osadzone w osobnym pliku.</string>
+    <string name="pref_summary_remember_last_tab">Idź do ostatniej otwartej zakładki przy starcie</string>
     <string name="could_not_download_album_cover">"Nie uda\u0142o si\u0119 pobra\u0107 pasuj\u0105cej ok\u0142adki albumu"</string>
     <string name="search_hint">Szukaj w bibliotece...</string>
     <string name="favorites">Ulubione</string>
@@ -190,14 +195,11 @@
     <string name="version">Wersja</string>
     <string name="author">O autorze</string>
     <string name="write_an_email">Napisz maila</string>
-    <string name="add_to_google_plus_circles">Dodaj do kręgów Google+</string>
     <string name="follow_on_twitter">Śledź na Twitterze</string>
     <string name="fork_on_github">Aplikacja na GitHub\'ie</string>
     <string name="visit_website">Odwiedź stronę</string>
     <string name="report_bugs">Zgłoś błędy</string>
     <string name="report_bugs_summary">Zgłaszaj błędy lub propozycje nowych funkcji</string>
-    <string name="join_community">Dołącz do społeczności Google+</string>
-    <string name="join_community_summary">Jeśli potrzebujesz pomocy lub masz pytania, społeczność Phonograph na Google+ jest do tego dobrym miejscem</string>
     <string name="translate">Tłumaczenie</string>
     <string name="translate_summary">Pomóż przetłumaczyć Phonograph na Twój ojczysty język</string>
     <string name="rate_on_google_play">Oceń</string>
@@ -220,7 +222,10 @@
     <string name="folders">Foldery</string>
     <string name="saved_playlist_to">Zapisz listę odtwarzania do %s</string>
     <string name="failed_to_save_playlist">Błąd podczas zapisywania listy odtwarzania (%s)</string>
+    <string name="saved_x_playlists_to_x">Zapisano %1$d playliste w %2$s.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">Zapisano %1$d playlistę w %2$s, niepowodzenie zapisu %3$d.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> nie figuruje w Media Store]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Niektóre pliki nie figuruje w Media Store.</string>
     <string name="nothing_to_scan">Nie ma nic do skanowania</string>
     <string name="scanned_files">Przeskanowano %1$d z %2$d plików</string>
     <string name="could_not_scan_files">Nie można przeskanować %d plików</string>

@@ -1,6 +1,6 @@
 package com.kabouzeid.gramophone.lastfm.rest.service;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.kabouzeid.gramophone.lastfm.rest.model.LastFmAlbum;
 import com.kabouzeid.gramophone.lastfm.rest.model.LastFmArtist;

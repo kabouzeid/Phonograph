@@ -161,13 +161,10 @@
     <string name="thank_you">Obrigado!</string>
     <string name="version">Versão</string>
     <string name="author">Autor</string>
-    <string name="add_to_google_plus_circles">Adicionar aos seus círculos do Google Plus</string>
     <string name="follow_on_twitter">Seguir no Twitter</string>
     <string name="visit_website">Visitar sítio na Internet</string>
     <string name="report_bugs">Reportar erros</string>
     <string name="report_bugs_summary">Reportar erros ou sugerir novas funcionalidades.</string>
-    <string name="join_community">Junte-se à comunidade Google Plus</string>
-    <string name="join_community_summary">Se necessitar de ajuda ou tiver dúvidas, a comunidade Phonograph no Google Plus é um bom sítio para ir.</string>
     <string name="translate">Traduzir</string>
     <string name="translate_summary">Ajude a traduzir o Phonograph para o seu idioma nativo.</string>
     <string name="rate_on_google_play">Classifique</string>
