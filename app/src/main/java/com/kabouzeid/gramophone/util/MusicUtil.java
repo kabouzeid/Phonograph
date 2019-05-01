@@ -192,20 +192,20 @@ public class MusicUtil {
      * to a music library item.
      * Ex: for a given album --> buildInfoString(album.artist, album.songCount)
      */
-    public static String buildInfoString(@NonNull final String string1, @NonNull final String string2)
+    @NonNull
+    public static String buildInfoString(@Nullable final String string1, @Nullable final String string2)
     {
         // Skip empty strings
-        if (string1.isEmpty()) {return string2;}
-        if (string2.isEmpty()) {return string1;}
+        if (TextUtils.isEmpty(string1)) {
+            //noinspection ConstantConditions
+            return TextUtils.isEmpty(string2) ? "" : string2;
+        }
+        if (TextUtils.isEmpty(string2)) {
+            //noinspection ConstantConditions
+            return TextUtils.isEmpty(string1) ? "" : string1;
+        }
 
-        final String separator = "  •  ";
-
-        final StringBuilder builder = new StringBuilder();
-        builder.append(string1);
-        builder.append(separator);
-        builder.append(string2);
-
-        return builder.toString();
+        return string1 + "  •  " + string2;
     }
 
     //iTunes uses for example 1002 for track 2 CD1 or 3011 for track 11 CD3.
