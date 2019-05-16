@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone;
 
 import android.app.Application;
 import android.os.Build;
+
 import androidx.annotation.NonNull;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
@@ -62,7 +63,7 @@ public class App extends Application {
     }
 
     public static boolean isProVersion() {
-        return BuildConfig.DEBUG || app.billingProcessor.isPurchased(PRO_VERSION_PRODUCT_ID);
+        return true;
     }
 
     public static App getInstance() {

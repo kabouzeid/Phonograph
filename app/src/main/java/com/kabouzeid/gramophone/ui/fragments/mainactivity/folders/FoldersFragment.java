@@ -326,7 +326,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
     }
 
     @Override
-    public void onMultipleItemAction(MenuItem item, ArrayList<File> files) {
+    public void onMultipleItemAction(MenuItem item, List<File> files) {
         final int itemId = item.getItemId();
         new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
             if (!songs.isEmpty()) {
@@ -347,8 +347,8 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         }).execute(new ListSongsAsyncTask.LoadingInfo(files, AUDIO_FILE_FILTER, getFileComparator()));
     }
 
-    private ArrayList<File> toList(File file) {
-        ArrayList<File> files = new ArrayList<>(1);
+    private List<File> toList(File file) {
+        List<File> files = new ArrayList<>(1);
         files.add(file);
         return files;
     }
@@ -523,7 +523,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         }
 
         @Override
-        protected ArrayList<Song> doInBackground(LoadingInfo... params) {
+        protected List<Song> doInBackground(LoadingInfo... params) {
             try {
                 LoadingInfo info = params[0];
                 List<File> files = FileUtil.listFilesDeep(info.files, info.fileFilter);

@@ -17,11 +17,12 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFragment<SongAdapter, GridLayoutManager> implements LoaderManager.LoaderCallbacks<ArrayList<Song>> {
+public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFragment<SongAdapter, GridLayoutManager> implements LoaderManager.LoaderCallbacks<List<Song>> {
 
     private static final int LOADER_ID = LoaderIds.SONGS_FRAGMENT;
 
@@ -43,7 +44,7 @@ public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFrag
         int itemLayoutRes = getItemLayoutRes();
         notifyLayoutResChanged(itemLayoutRes);
         boolean usePalette = loadUsePalette();
-        ArrayList<Song> dataSet = getAdapter() == null ? new ArrayList<>() : getAdapter().getDataSet();
+        List<Song> dataSet = getAdapter() == null ? new ArrayList<>() : getAdapter().getDataSet();
 
         if (getGridSize() <= getMaxGridSizeForList()) {
             return new ShuffleButtonSongAdapter(
