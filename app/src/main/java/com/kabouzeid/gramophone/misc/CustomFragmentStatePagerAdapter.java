@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implementation of {@link PagerAdapter} that
@@ -74,8 +75,8 @@ public abstract class CustomFragmentStatePagerAdapter extends PagerAdapter {
     private final FragmentManager mFragmentManager;
     private FragmentTransaction mCurTransaction = null;
 
-    private ArrayList<Fragment.SavedState> mSavedState = new ArrayList<>();
-    private ArrayList<Fragment> mFragments = new ArrayList<>();
+    private List<Fragment.SavedState> mSavedState = new ArrayList<>();
+    private List<Fragment> mFragments = new ArrayList<>();
     private Fragment mCurrentPrimaryItem = null;
 
     public CustomFragmentStatePagerAdapter(FragmentManager fm) {

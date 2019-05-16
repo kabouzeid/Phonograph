@@ -129,27 +129,27 @@ public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFrag
     }
 
     @Override
-    public Loader<ArrayList<Song>> onCreateLoader(int id, Bundle args) {
+    public Loader<List<Song>> onCreateLoader(int id, Bundle args) {
         return new AsyncSongLoader(getActivity());
     }
 
     @Override
-    public void onLoadFinished(Loader<ArrayList<Song>> loader, ArrayList<Song> data) {
+    public void onLoadFinished(Loader<List<Song>> loader, List<Song> data) {
         getAdapter().swapDataSet(data);
     }
 
     @Override
-    public void onLoaderReset(Loader<ArrayList<Song>> loader) {
+    public void onLoaderReset(Loader<List<Song>> loader) {
         getAdapter().swapDataSet(new ArrayList<>());
     }
 
-    private static class AsyncSongLoader extends WrappedAsyncTaskLoader<ArrayList<Song>> {
+    private static class AsyncSongLoader extends WrappedAsyncTaskLoader<List<Song>> {
         public AsyncSongLoader(Context context) {
             super(context);
         }
 
         @Override
-        public ArrayList<Song> loadInBackground() {
+        public List<Song> loadInBackground() {
             return SongLoader.getAllSongs(getContext());
         }
     }

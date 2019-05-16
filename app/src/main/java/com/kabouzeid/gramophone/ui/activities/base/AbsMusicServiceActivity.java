@@ -19,13 +19,14 @@ import com.kabouzeid.gramophone.service.MusicService;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements MusicServiceEventListener {
 
-    private final ArrayList<MusicServiceEventListener> mMusicServiceEventListeners = new ArrayList<>();
+    private final List<MusicServiceEventListener> mMusicServiceEventListeners = new ArrayList<>();
 
     private MusicPlayerRemote.ServiceToken serviceToken;
     private MusicStateReceiver musicStateReceiver;

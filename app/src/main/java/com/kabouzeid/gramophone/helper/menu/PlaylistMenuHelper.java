@@ -22,6 +22,7 @@ import com.kabouzeid.gramophone.util.PlaylistsUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -55,7 +56,7 @@ public class PlaylistMenuHelper {
     }
 
     @NonNull
-    private static ArrayList<? extends Song> getPlaylistSongs(@NonNull Activity activity, Playlist playlist) {
+    private static List<? extends Song> getPlaylistSongs(@NonNull Activity activity, Playlist playlist) {
         return playlist instanceof AbsCustomPlaylist ?
                 ((AbsCustomPlaylist) playlist).getSongs(activity) :
                 PlaylistSongLoader.getPlaylistSongList(activity, playlist.id);

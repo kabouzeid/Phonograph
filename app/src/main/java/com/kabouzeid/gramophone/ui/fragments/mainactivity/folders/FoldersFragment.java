@@ -6,16 +6,22 @@ import android.content.Context;
 import android.media.MediaScannerConnection;
 import android.os.Bundle;
 import android.os.Environment;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.google.android.material.appbar.AppBarLayout;
+
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
 import com.google.android.material.snackbar.Snackbar;
+
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -291,7 +297,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
             case R.id.action_scan:
                 BreadCrumbLayout.Crumb crumb = getActiveCrumb();
                 if (crumb != null) {
-                    new ListPathsAsyncTask(getActivity(), this::scanPaths).execute(new ListPathsAsyncTask.LoadingInfo(crumb.getFile(), AUDIO_FILE_FILTER));
+                    new ArrayListPathsAsyncTask(getActivity(), this::scanPaths).execute(new ArrayListPathsAsyncTask.LoadingInfo(crumb.getFile(), AUDIO_FILE_FILTER));
                 }
                 return true;
         }
@@ -305,7 +311,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
             setCrumb(new BreadCrumbLayout.Crumb(canonicalFile), true);
         } else {
             FileFilter fileFilter = pathname -> !pathname.isDirectory() && AUDIO_FILE_FILTER.accept(pathname);
-            new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
+            new ArrayListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
                 int startIndex = -1;
                 for (int i = 0; i < songs.size(); i++) {
                     if (canonicalFile.getPath().equals(songs.get(i).data)) {
@@ -321,14 +327,14 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                             .setActionTextColor(ThemeStore.accentColor(getActivity()))
                             .show();
                 }
-            }).execute(new ListSongsAsyncTask.LoadingInfo(toList(canonicalFile.getParentFile()), fileFilter, getFileComparator()));
+            }).execute(new ArrayListSongsAsyncTask.LoadingInfo(toList(canonicalFile.getParentFile()), fileFilter, getFileComparator()));
         }
     }
 
     @Override
     public void onMultipleItemAction(MenuItem item, List<File> files) {
         final int itemId = item.getItemId();
-        new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
+        new ArrayListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
             if (!songs.isEmpty()) {
                 SongsMenuHelper.handleMenuClick(getActivity(), songs, itemId);
             }
@@ -344,7 +350,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                         .setActionTextColor(ThemeStore.accentColor(getActivity()))
                         .show();
             }
-        }).execute(new ListSongsAsyncTask.LoadingInfo(files, AUDIO_FILE_FILTER, getFileComparator()));
+        }).execute(new ArrayListSongsAsyncTask.LoadingInfo(files, AUDIO_FILE_FILTER, getFileComparator()));
     }
 
     private List<File> toList(File file) {
@@ -380,18 +386,18 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                     case R.id.action_add_to_current_playing:
                     case R.id.action_add_to_playlist:
                     case R.id.action_delete_from_device:
-                        new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
+                        new ArrayListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
                             if (!songs.isEmpty()) {
                                 SongsMenuHelper.handleMenuClick(getActivity(), songs, itemId);
                             }
-                        }).execute(new ListSongsAsyncTask.LoadingInfo(toList(file), AUDIO_FILE_FILTER, getFileComparator()));
+                        }).execute(new ArrayListSongsAsyncTask.LoadingInfo(toList(file), AUDIO_FILE_FILTER, getFileComparator()));
                         return true;
                     case R.id.action_set_as_start_directory:
                         PreferenceUtil.getInstance(getActivity()).setStartDirectory(file);
                         Toast.makeText(getActivity(), String.format(getString(R.string.new_start_directory), file.getPath()), Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.action_scan:
-                        new ListPathsAsyncTask(getActivity(), this::scanPaths).execute(new ListPathsAsyncTask.LoadingInfo(file, AUDIO_FILE_FILTER));
+                        new ArrayListPathsAsyncTask(getActivity(), this::scanPaths).execute(new ArrayListPathsAsyncTask.LoadingInfo(file, AUDIO_FILE_FILTER));
                         return true;
                 }
                 return false;
@@ -411,7 +417,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                     case R.id.action_details:
                     case R.id.action_set_as_ringtone:
                     case R.id.action_delete_from_device:
-                        new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
+                        new ArrayListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
                             if (!songs.isEmpty()) {
                                 SongMenuHelper.handleMenuClick(getActivity(), songs.get(0), itemId);
                             } else {
@@ -420,7 +426,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                                         .setActionTextColor(ThemeStore.accentColor(getActivity()))
                                         .show();
                             }
-                        }).execute(new ListSongsAsyncTask.LoadingInfo(toList(file), AUDIO_FILE_FILTER, getFileComparator()));
+                        }).execute(new ArrayListSongsAsyncTask.LoadingInfo(toList(file), AUDIO_FILE_FILTER, getFileComparator()));
                         return true;
                     case R.id.action_scan:
                         scanPaths(new String[]{FileUtil.safeGetCanonicalPath(file)});
@@ -503,12 +509,12 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         }
     }
 
-    private static class ListSongsAsyncTask extends ListingFilesDialogAsyncTask<ListSongsAsyncTask.LoadingInfo, Void, ArrayList<Song>> {
+    private static class ArrayListSongsAsyncTask extends ListingFilesDialogAsyncTask<ArrayListSongsAsyncTask.LoadingInfo, Void, List<Song>> {
         private WeakReference<Context> contextWeakReference;
         private WeakReference<OnSongsListedCallback> callbackWeakReference;
         private final Object extra;
 
-        public ListSongsAsyncTask(Context context, Object extra, OnSongsListedCallback callback) {
+        public ArrayListSongsAsyncTask(Context context, Object extra, OnSongsListedCallback callback) {
             super(context, 500);
             this.extra = extra;
             contextWeakReference = new WeakReference<>(context);
@@ -546,7 +552,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Song> songs) {
+        protected void onPostExecute(List<Song> songs) {
             super.onPostExecute(songs);
             OnSongsListedCallback callback = checkCallbackReference();
             if (songs != null && callback != null)
@@ -582,14 +588,14 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         }
 
         public interface OnSongsListedCallback {
-            void onSongsListed(@NonNull ArrayList<Song> songs, Object extra);
+            void onSongsListed(@NonNull List<Song> songs, Object extra);
         }
     }
 
-    public static class ListPathsAsyncTask extends ListingFilesDialogAsyncTask<ListPathsAsyncTask.LoadingInfo, String, String[]> {
+    public static class ArrayListPathsAsyncTask extends ListingFilesDialogAsyncTask<ArrayListPathsAsyncTask.LoadingInfo, String, String[]> {
         private WeakReference<OnPathsListedCallback> onPathsListedCallbackWeakReference;
 
-        public ListPathsAsyncTask(Context context, OnPathsListedCallback callback) {
+        public ArrayListPathsAsyncTask(Context context, OnPathsListedCallback callback) {
             super(context, 500);
             onPathsListedCallbackWeakReference = new WeakReference<>(callback);
         }

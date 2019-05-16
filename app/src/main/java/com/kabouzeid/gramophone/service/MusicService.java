@@ -134,8 +134,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private AppWidgetCard appWidgetCard = AppWidgetCard.getInstance();
 
     private Playback playback;
-    private ArrayList<Song> playingQueue = new ArrayList<>();
-    private ArrayList<Song> originalPlayingQueue = new ArrayList<>();
+    private List<Song> playingQueue = new ArrayList<>();
+    private List<Song> originalPlayingQueue = new ArrayList<>();
     private int position = -1;
     private int nextPosition = -1;
     private int shuffleMode;
@@ -305,12 +305,12 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         Playlist playlist = intent.getParcelableExtra(INTENT_EXTRA_PLAYLIST);
                         int shuffleMode = intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, getShuffleMode());
                         if (playlist != null) {
-                            ArrayList<Song> playlistSongs;
+                            List<Song> playlistSongs;
                             if (playlist instanceof AbsCustomPlaylist) {
                                 playlistSongs = ((AbsCustomPlaylist) playlist).getSongs(getApplicationContext());
                             } else {
                                 //noinspection unchecked
-                                playlistSongs = (ArrayList<Song>) (List) PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id);
+                                playlistSongs = (List<Song>) (List) PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id);
                             }
                             if (!playlistSongs.isEmpty()) {
                                 if (shuffleMode == SHUFFLE_MODE_SHUFFLE) {
@@ -428,8 +428,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     private synchronized void restoreQueuesAndPositionIfNecessary() {
         if (!queuesRestored && playingQueue.isEmpty()) {
-            ArrayList<Song> restoredQueue = MusicPlaybackQueueStore.getInstance(this).getSavedPlayingQueue();
-            ArrayList<Song> restoredOriginalQueue = MusicPlaybackQueueStore.getInstance(this).getSavedOriginalPlayingQueue();
+            List<Song> restoredQueue = MusicPlaybackQueueStore.getInstance(this).getSavedPlayingQueue();
+            List<Song> restoredOriginalQueue = MusicPlaybackQueueStore.getInstance(this).getSavedOriginalPlayingQueue();
             int restoredPosition = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION, -1);
             int restoredPositionInTrack = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION_IN_TRACK, -1);
 
@@ -677,7 +677,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         return getPosition() == getPlayingQueue().size() - 1;
     }
 
-    public ArrayList<Song> getPlayingQueue() {
+    public List<Song> getPlayingQueue() {
         return playingQueue;
     }
 
@@ -700,7 +700,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
-    public void openQueue(@Nullable final ArrayList<Song> playingQueue, final int startPosition, final boolean startPlaying) {
+    public void openQueue(@Nullable final List<Song> playingQueue, final int startPosition, final boolean startPlaying) {
         if (playingQueue != null && !playingQueue.isEmpty() && startPosition >= 0 && startPosition < playingQueue.size()) {
             // it is important to copy the playing queue here first as we might add/remove songs later
             originalPlayingQueue = new ArrayList<>(playingQueue);
@@ -869,7 +869,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
-    public void playSongs(ArrayList<Song> songs, int shuffleMode) {
+    public void playSongs(List<Song> songs, int shuffleMode) {
         if (songs != null && !songs.isEmpty()) {
             if (shuffleMode == SHUFFLE_MODE_SHUFFLE) {
                 int startPosition = 0;

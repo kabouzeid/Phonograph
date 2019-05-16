@@ -61,7 +61,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
         setHasStableIds(true);
     }
 
-    public void swapDataSet(ArrayList<Song> dataSet) {
+    public void swapDataSet(List<Song> dataSet) {
         this.dataSet = dataSet;
         notifyDataSetChanged();
     }
@@ -178,7 +178,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     }
 
     @Override
-    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Song> selection) {
+    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull List<Song> selection) {
         SongsMenuHelper.handleMenuClick(activity, selection, menuItem.getItemId());
     }
 

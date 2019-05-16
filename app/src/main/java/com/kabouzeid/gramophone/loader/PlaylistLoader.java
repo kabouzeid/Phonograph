@@ -11,11 +11,12 @@ import androidx.annotation.Nullable;
 import com.kabouzeid.gramophone.model.Playlist;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlaylistLoader {
 
     @NonNull
-    public static ArrayList<Playlist> getAllPlaylists(@NonNull final Context context) {
+    public static List<Playlist> getAllPlaylists(@NonNull final Context context) {
         return getAllPlaylists(makePlaylistCursor(context, null, null));
     }
 
@@ -54,8 +55,8 @@ public class PlaylistLoader {
     }
 
     @NonNull
-    public static ArrayList<Playlist> getAllPlaylists(@Nullable final Cursor cursor) {
-        ArrayList<Playlist> playlists = new ArrayList<>();
+    public static List<Playlist> getAllPlaylists(@Nullable final Cursor cursor) {
+        List<Playlist> playlists = new ArrayList<>();
 
         if (cursor != null && cursor.moveToFirst()) {
             do {

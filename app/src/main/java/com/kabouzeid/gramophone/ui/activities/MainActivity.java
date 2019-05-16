@@ -49,6 +49,7 @@ import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -277,7 +278,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
         boolean handled = false;
 
         if (intent.getAction() != null && intent.getAction().equals(MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH)) {
-            final ArrayList<Song> songs = SearchQueryHelper.getSongs(this, intent.getExtras());
+            final List<Song> songs = SearchQueryHelper.getSongs(this, intent.getExtras());
             if (MusicPlayerRemote.getShuffleMode() == MusicService.SHUFFLE_MODE_SHUFFLE) {
                 MusicPlayerRemote.openAndShuffleQueue(songs, true);
             } else {
@@ -293,7 +294,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             final int id = (int) parseIdFromIntent(intent, "playlistId", "playlist");
             if (id >= 0) {
                 int position = intent.getIntExtra("position", 0);
-                ArrayList<Song> songs = new ArrayList<>(PlaylistSongLoader.getPlaylistSongList(this, id));
+                List<Song> songs = new ArrayList<>(PlaylistSongLoader.getPlaylistSongList(this, id));
                 MusicPlayerRemote.openQueue(songs, position, true);
                 handled = true;
             }

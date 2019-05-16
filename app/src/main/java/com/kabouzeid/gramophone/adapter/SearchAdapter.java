@@ -164,7 +164,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                             ));
                     break;
                 case SONG:
-                    ArrayList<Song> playList = new ArrayList<>();
+                    List<Song> playList = new ArrayList<>();
                     playList.add((Song) item);
                     MusicPlayerRemote.openQueue(playList, 0, true);
                     break;

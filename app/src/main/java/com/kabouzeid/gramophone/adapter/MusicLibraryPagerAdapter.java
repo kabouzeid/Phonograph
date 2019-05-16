@@ -38,7 +38,7 @@ public class MusicLibraryPagerAdapter extends FragmentPagerAdapter {
         setCategoryInfos(PreferenceUtil.getInstance(context).getLibraryCategoryInfos());
     }
 
-    public void setCategoryInfos(@NonNull ArrayList<CategoryInfo> categoryInfos) {
+    public void setCategoryInfos(@NonNull List<CategoryInfo> categoryInfos) {
         mHolderList.clear();
 
         for (CategoryInfo categoryInfo : categoryInfos) {

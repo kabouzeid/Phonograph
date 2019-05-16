@@ -19,6 +19,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,12 +30,12 @@ import butterknife.Unbinder;
  */
 public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
 
-    private ArrayList<Song> dataSet;
+    private List<Song> dataSet;
 
     private AlbumCoverFragment.ColorReceiver currentColorReceiver;
     private int currentColorReceiverPosition = -1;
 
-    public AlbumCoverPagerAdapter(FragmentManager fm, ArrayList<Song> dataSet) {
+    public AlbumCoverPagerAdapter(FragmentManager fm, List<Song> dataSet) {
         super(fm);
         this.dataSet = dataSet;
     }

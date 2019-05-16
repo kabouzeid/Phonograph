@@ -45,7 +45,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity implements CabHolder, LoaderManager.LoaderCallbacks<ArrayList<Song>> {
+public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity implements CabHolder, LoaderManager.LoaderCallbacks<List<Song>> {
 
     private static final int LOADER_ID = LoaderIds.PLAYLIST_DETAIL_ACTIVITY;
 
@@ -237,23 +237,23 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     }
 
     @Override
-    public Loader<ArrayList<Song>> onCreateLoader(int id, Bundle args) {
+    public Loader<List<Song>> onCreateLoader(int id, Bundle args) {
         return new AsyncPlaylistSongLoader(this, playlist);
     }
 
     @Override
-    public void onLoadFinished(Loader<ArrayList<Song>> loader, ArrayList<Song> data) {
+    public void onLoadFinished(Loader<List<Song>> loader, List<Song> data) {
         if (adapter != null)
             adapter.swapDataSet(data);
     }
 
     @Override
-    public void onLoaderReset(Loader<ArrayList<Song>> loader) {
+    public void onLoaderReset(Loader<List<Song>> loader) {
         if (adapter != null)
             adapter.swapDataSet(new ArrayList<>());
     }
 
-    private static class AsyncPlaylistSongLoader extends WrappedAsyncTaskLoader<ArrayList<Song>> {
+    private static class AsyncPlaylistSongLoader extends WrappedAsyncTaskLoader<List<Song>> {
         private final Playlist playlist;
 
         public AsyncPlaylistSongLoader(Context context, Playlist playlist) {
@@ -262,12 +262,12 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         }
 
         @Override
-        public ArrayList<Song> loadInBackground() {
+        public List<Song> loadInBackground() {
             if (playlist instanceof AbsCustomPlaylist) {
                 return ((AbsCustomPlaylist) playlist).getSongs(getContext());
             } else {
                 //noinspection unchecked
-                return (ArrayList<Song>) (List) PlaylistSongLoader.getPlaylistSongList(getContext(), playlist.id);
+                return (List<Song>) (List) PlaylistSongLoader.getPlaylistSongList(getContext(), playlist.id);
             }
         }
     }

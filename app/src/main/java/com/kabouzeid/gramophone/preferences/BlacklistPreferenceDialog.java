@@ -13,13 +13,14 @@ import com.kabouzeid.gramophone.provider.BlacklistStore;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class BlacklistPreferenceDialog extends DialogFragment implements BlacklistFolderChooserDialog.FolderCallback {
 
-    private ArrayList<String> paths;
+    private List<String> paths;
 
     public static BlacklistPreferenceDialog newInstance() {
         return new BlacklistPreferenceDialog();

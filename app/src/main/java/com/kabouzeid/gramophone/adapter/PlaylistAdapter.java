@@ -48,10 +48,10 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
     private static final int DEFAULT_PLAYLIST = 1;
 
     protected final AppCompatActivity activity;
-    protected ArrayList<Playlist> dataSet;
+    protected List<Playlist> dataSet;
     protected int itemLayoutRes;
 
-    public PlaylistAdapter(AppCompatActivity activity, ArrayList<Playlist> dataSet, @LayoutRes int itemLayoutRes, @Nullable CabHolder cabHolder) {
+    public PlaylistAdapter(AppCompatActivity activity, List<Playlist> dataSet, @LayoutRes int itemLayoutRes, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_playlists_selection);
         this.activity = activity;
         this.dataSet = dataSet;
@@ -59,11 +59,11 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         setHasStableIds(true);
     }
 
-    public ArrayList<Playlist> getDataSet() {
+    public List<Playlist> getDataSet() {
         return dataSet;
     }
 
-    public void swapDataSet(ArrayList<Playlist> dataSet) {
+    public void swapDataSet(List<Playlist> dataSet) {
         this.dataSet = dataSet;
         notifyDataSetChanged();
     }
@@ -137,7 +137,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
     }
 
     @Override
-    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Playlist> selection) {
+    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull List<Playlist> selection) {
         switch (menuItem.getItemId()) {
             case R.id.action_delete_playlist:
                 for (int i = 0; i < selection.size(); i++) {
@@ -166,13 +166,13 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         }
     }
 
-    private static class SavePlaylistsAsyncTask extends WeakContextAsyncTask<ArrayList<Playlist>, String, String> {
+    private static class SavePlaylistsAsyncTask extends WeakContextAsyncTask<List<Playlist>, String, String> {
         public SavePlaylistsAsyncTask(Context context) {
             super(context);
         }
 
         @Override
-        protected String doInBackground(ArrayList<Playlist>... params) {
+        protected String doInBackground(List<Playlist>... params) {
             int successes = 0;
             int failures = 0;
 
@@ -204,8 +204,8 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
     }
 
     @NonNull
-    private ArrayList<Song> getSongList(@NonNull List<Playlist> playlists) {
-        final ArrayList<Song> songs = new ArrayList<>();
+    private List<Song> getSongList(@NonNull List<Playlist> playlists) {
+        final List<Song> songs = new ArrayList<>();
         for (Playlist playlist : playlists) {
             if (playlist instanceof AbsCustomPlaylist) {
                 songs.addAll(((AbsCustomPlaylist) playlist).getSongs(activity));

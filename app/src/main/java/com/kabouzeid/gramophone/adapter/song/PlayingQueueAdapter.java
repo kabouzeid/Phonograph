@@ -18,6 +18,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ViewUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -30,7 +31,7 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
 
     private int current;
 
-    public PlayingQueueAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, int current, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
+    public PlayingQueueAdapter(AppCompatActivity activity, List<Song> dataSet, int current, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
         super(activity, dataSet, itemLayoutRes, usePalette, cabHolder);
         this.current = current;
     }
@@ -66,7 +67,7 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
         // We don't want to load it in this adapter
     }
 
-    public void swapDataSet(ArrayList<Song> dataSet, int position) {
+    public void swapDataSet(List<Song> dataSet, int position) {
         this.dataSet = dataSet;
         current = position;
         notifyDataSetChanged();
