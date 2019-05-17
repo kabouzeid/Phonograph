@@ -10,6 +10,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -22,7 +23,7 @@ public class MyTopTracksPlaylist extends AbsSmartPlaylist {
 
     @NonNull
     @Override
-    public ArrayList<Song> getSongs(@NonNull Context context) {
+    public List<Song> getSongs(@NonNull Context context) {
         return TopAndRecentlyPlayedTracksLoader.getTopTracks(context);
     }
 

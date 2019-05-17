@@ -32,7 +32,7 @@ public final class FileUtil {
     }
 
     @NonNull
-    public static ArrayList<Song> matchFilesWithMediaStore(@NonNull Context context, @Nullable List<File> files) {
+    public static List<Song> matchFilesWithMediaStore(@NonNull Context context, @Nullable List<File> files) {
         return SongLoader.getSongs(makeSongCursor(context, files));
     }
 

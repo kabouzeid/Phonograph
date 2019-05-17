@@ -10,6 +10,7 @@ import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -21,13 +22,13 @@ public class SearchQueryHelper {
     private static final String AND = " AND ";
 
     @NonNull
-    public static ArrayList<Song> getSongs(@NonNull final Context context, @NonNull final Bundle extras) {
+    public static List<Song> getSongs(@NonNull final Context context, @NonNull final Bundle extras) {
         final String query = extras.getString(SearchManager.QUERY, null);
         final String artistName = extras.getString(MediaStore.EXTRA_MEDIA_ARTIST, null);
         final String albumName = extras.getString(MediaStore.EXTRA_MEDIA_ALBUM, null);
         final String titleName = extras.getString(MediaStore.EXTRA_MEDIA_TITLE, null);
 
-        ArrayList<Song> songs = new ArrayList<>();
+        List<Song> songs = new ArrayList<>();
 
         if (artistName != null && albumName != null && titleName != null) {
             songs = SongLoader.getSongs(SongLoader.makeSongCursor(context, ARTIST_SELECTION + AND + ALBUM_SELECTION + AND + TITLE_SELECTION, new String[]{artistName.toLowerCase().trim(), albumName.toLowerCase().trim(), titleName.toLowerCase().trim()}));

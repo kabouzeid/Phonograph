@@ -15,25 +15,26 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> implements FastScrollRecyclerView.SectionedAdapter {
 
     @NonNull
     private final AppCompatActivity activity;
-    private ArrayList<Genre> dataSet;
+    private List<Genre> dataSet;
     private int itemLayoutRes;
 
-    public GenreAdapter(@NonNull AppCompatActivity activity, ArrayList<Genre> dataSet, @LayoutRes int itemLayoutRes) {
+    public GenreAdapter(@NonNull AppCompatActivity activity, List<Genre> dataSet, @LayoutRes int itemLayoutRes) {
         this.activity = activity;
         this.dataSet = dataSet;
         this.itemLayoutRes = itemLayoutRes;
     }
 
-    public ArrayList<Genre> getDataSet() {
+    public List<Genre> getDataSet() {
         return dataSet;
     }
 
-    public void swapDataSet(ArrayList<Genre> dataSet) {
+    public void swapDataSet(List<Genre> dataSet) {
         this.dataSet = dataSet;
         notifyDataSetChanged();
     }

@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class M3UWriter implements M3UConstants {
 
@@ -20,7 +21,7 @@ public class M3UWriter implements M3UConstants {
             dir.mkdirs();
         File file = new File(dir, playlist.name.concat("." + EXTENSION));
 
-        ArrayList<? extends Song> songs;
+        List<? extends Song> songs;
         if (playlist instanceof AbsCustomPlaylist) {
             songs = ((AbsCustomPlaylist) playlist).getSongs(context);
         } else {

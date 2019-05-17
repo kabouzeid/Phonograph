@@ -9,6 +9,7 @@ import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShuffleAllPlaylist extends AbsSmartPlaylist {
 
@@ -18,7 +19,7 @@ public class ShuffleAllPlaylist extends AbsSmartPlaylist {
 
     @NonNull
     @Override
-    public ArrayList<Song> getSongs(@NonNull Context context) {
+    public List<Song> getSongs(@NonNull Context context) {
         return SongLoader.getAllSongs(context);
     }
 

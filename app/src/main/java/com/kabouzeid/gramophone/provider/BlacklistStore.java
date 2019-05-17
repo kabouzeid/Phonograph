@@ -15,6 +15,7 @@ import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BlacklistStore extends SQLiteOpenHelper {
     private static BlacklistStore sInstance = null;
@@ -130,12 +131,12 @@ public class BlacklistStore extends SQLiteOpenHelper {
     }
 
     @NonNull
-    public ArrayList<String> getPaths() {
+    public List<String> getPaths() {
         Cursor cursor = getReadableDatabase().query(BlacklistStoreColumns.NAME,
                 new String[]{BlacklistStoreColumns.PATH},
                 null, null, null, null, null);
 
-        ArrayList<String> paths = new ArrayList<>();
+        List<String> paths = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 paths.add(cursor.getString(0));

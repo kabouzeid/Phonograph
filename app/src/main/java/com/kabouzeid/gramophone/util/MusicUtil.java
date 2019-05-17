@@ -376,7 +376,7 @@ public class MusicUtil {
                 String filename = Pattern.quote(FileUtil.stripExtension(file.getName()));
                 String songtitle = Pattern.quote(song.title);
 
-                final ArrayList<Pattern> patterns = new ArrayList<>();
+                final List<Pattern> patterns = new ArrayList<>();
                 patterns.add(Pattern.compile(String.format(format, filename), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
                 patterns.add(Pattern.compile(String.format(format, songtitle), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
 

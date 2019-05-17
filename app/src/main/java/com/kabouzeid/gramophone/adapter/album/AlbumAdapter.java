@@ -39,13 +39,13 @@ import java.util.List;
 public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder, Album> implements FastScrollRecyclerView.SectionedAdapter {
 
     protected final AppCompatActivity activity;
-    protected ArrayList<Album> dataSet;
+    protected List<Album> dataSet;
 
     protected int itemLayoutRes;
 
     protected boolean usePalette = false;
 
-    public AlbumAdapter(@NonNull AppCompatActivity activity, ArrayList<Album> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
+    public AlbumAdapter(@NonNull AppCompatActivity activity, List<Album> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         this.dataSet = dataSet;
@@ -60,12 +60,12 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
         notifyDataSetChanged();
     }
 
-    public void swapDataSet(ArrayList<Album> dataSet) {
+    public void swapDataSet(List<Album> dataSet) {
         this.dataSet = dataSet;
         notifyDataSetChanged();
     }
 
-    public ArrayList<Album> getDataSet() {
+    public List<Album> getDataSet() {
         return dataSet;
     }
 
@@ -174,13 +174,13 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     }
 
     @Override
-    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Album> selection) {
+    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull List<Album> selection) {
         SongsMenuHelper.handleMenuClick(activity, getSongList(selection), menuItem.getItemId());
     }
 
     @NonNull
-    private ArrayList<Song> getSongList(@NonNull List<Album> albums) {
-        final ArrayList<Song> songs = new ArrayList<>();
+    private List<Song> getSongList(@NonNull List<Album> albums) {
+        final List<Song> songs = new ArrayList<>();
         for (Album album : albums) {
             songs.addAll(album.songs);
         }
