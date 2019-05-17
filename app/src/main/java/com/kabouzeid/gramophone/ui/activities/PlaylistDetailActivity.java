@@ -2,16 +2,17 @@ package com.kabouzeid.gramophone.ui.activities;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.Loader;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.afollestad.materialcab.MaterialCab;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
@@ -267,7 +268,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
                 return ((AbsCustomPlaylist) playlist).getSongs(getContext());
             } else {
                 //noinspection unchecked
-                return (List<Song>) (List) PlaylistSongLoader.getPlaylistSongList(getContext(), playlist.id);
+                return (List) PlaylistSongLoader.getPlaylistSongList(getContext(), playlist.id);
             }
         }
     }
