@@ -216,6 +216,56 @@ public class PlaylistsUtil {
         }
         return false;
     }
+    public static int doPlaylistContains(@NonNull final Context context, final long playlistId, final int[] songIds) {
+        if (playlistId != -1) {
+            try {
+                java.util.Arrays.sort(songIds);
+
+                Cursor playlistSongs = context.getContentResolver().query(
+                        MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
+                        new String[]{MediaStore.Audio.Playlists.Members.AUDIO_ID}, null, new String[]{}, MediaStore.Audio.Playlists.Members.AUDIO_ID + " ASC");
+                int count = 0;
+                if (playlistSongs != null && playlistSongs.getCount() > 0) {
+                    playlistSongs.moveToNext(); //goes to first element
+
+                    int songIndex = 0;
+                    int playlistIndex = 0;
+                    while (true)
+                    {
+                        if(songIndex >= songIds.length){
+                            break;
+                        }
+                        int playlistSong = playlistSongs.getInt(0);
+                        if(songIds[songIndex] > playlistSong)
+                        {
+                            playlistIndex++;
+                            if(playlistIndex < playlistSongs.getCount())
+                            {
+                                playlistSongs.moveToNext();
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        else if (songIds[songIndex] < playlistSong)
+                        {
+                            songIndex++;
+                        }
+                        else if(songIds[songIndex] == playlistSong)
+                        {
+                            count++;
+                            songIndex++;
+                        }
+                    }
+                    playlistSongs.close();
+                }
+                return count;
+            } catch (SecurityException ignored) {
+            }
+        }
+        return 0;
+    }
 
     public static boolean moveItem(@NonNull final Context context, int playlistId, int from, int to) {
         return MediaStore.Audio.Playlists.Members.moveItem(context.getContentResolver(),

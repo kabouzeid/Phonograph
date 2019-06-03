@@ -64,11 +64,10 @@ public class AddToPlaylistDialog extends DialogFragment {
                 int playlistId = playlists.get(i).id;
                 areAllSongsInPlaylist[i] = true;
                 isAnySongInPlaylist[i] = false;
-                for(int j = 0; j < songs.size(); j++){
-                    Boolean isSongInPlaylist= PlaylistsUtil.doPlaylistContains(getActivity(), playlistId, songId[j]);
-                    isAnySongInPlaylist[i] = isAnySongInPlaylist[i] || isSongInPlaylist;
-                    areAllSongsInPlaylist[i] = areAllSongsInPlaylist[i] && isSongInPlaylist;
-                }
+
+                int songsInPlaylistCount = PlaylistsUtil.doPlaylistContains(getActivity(), playlistId, songId);
+                isAnySongInPlaylist[i] = songsInPlaylistCount > 0;
+                areAllSongsInPlaylist[i] = songsInPlaylistCount >= songId.length;
 
                 //TEMP
                 if (isAnySongInPlaylist[i]) {
