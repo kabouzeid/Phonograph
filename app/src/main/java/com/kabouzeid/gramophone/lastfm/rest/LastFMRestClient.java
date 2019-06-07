@@ -1,8 +1,8 @@
 package com.kabouzeid.gramophone.lastfm.rest;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.kabouzeid.gramophone.lastfm.rest.service.LastFMService;
 
@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class LastFMRestClient {
-    public static final String BASE_URL = "http://ws.audioscrobbler.com/2.0/";
+    public static final String BASE_URL = "https://ws.audioscrobbler.com/2.0/";
 
     private LastFMService apiService;
 

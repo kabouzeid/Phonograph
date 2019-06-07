@@ -18,18 +18,21 @@ package com.kabouzeid.gramophone.misc;
 
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.PagerAdapter;
+
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Implementation of {@link android.support.v4.view.PagerAdapter} that
+ * Implementation of {@link PagerAdapter} that
  * uses a {@link Fragment} to manage each page. This class also handles
  * saving and restoring of fragment's state.
  * <p/>
@@ -64,7 +67,7 @@ import java.util.ArrayList;
  * {@sample development/samples/Support13Demos/res/layout/fragment_pager_list.xml
  * complete}
  */
-public abstract class CustomFragmentStatePagerAdapter extends android.support.v4.view.PagerAdapter {
+public abstract class CustomFragmentStatePagerAdapter extends PagerAdapter {
 
     public static final String TAG = CustomFragmentStatePagerAdapter.class.getSimpleName();
     private static final boolean DEBUG = false;
@@ -72,8 +75,8 @@ public abstract class CustomFragmentStatePagerAdapter extends android.support.v4
     private final FragmentManager mFragmentManager;
     private FragmentTransaction mCurTransaction = null;
 
-    private ArrayList<Fragment.SavedState> mSavedState = new ArrayList<>();
-    private ArrayList<Fragment> mFragments = new ArrayList<>();
+    private List<Fragment.SavedState> mSavedState = new ArrayList<>();
+    private List<Fragment> mFragments = new ArrayList<>();
     private Fragment mCurrentPrimaryItem = null;
 
     public CustomFragmentStatePagerAdapter(FragmentManager fm) {

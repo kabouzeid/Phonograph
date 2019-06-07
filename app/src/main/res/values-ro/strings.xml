@@ -87,6 +87,7 @@
     <string name="delete_playlists_title">Ștergeți listele de redare</string>
     <string name="clear_playlist_title">Ştergeţi lista de redare</string>
     <string name="save_playlist_title">Salveaza ca fișier</string>
+    <string name="save_playlists_title">Salvează ca fișiere</string>
     <string name="add_playlist_title">"Adăugaţi la lista de redare"</string>
     <string name="action_shuffle_all">Amestecare tot</string>
     <string name="action_shuffle_album">Amestecare album</string>
@@ -194,14 +195,11 @@
     <string name="version">Versiune</string>
     <string name="author">Autor</string>
     <string name="write_an_email">Scrieţi un e-mail</string>
-    <string name="add_to_google_plus_circles">Adăugaţi în cercurile Google lus</string>
     <string name="follow_on_twitter">Urmăriţi pe Twitter</string>
     <string name="fork_on_github">Fork pe GitHub</string>
     <string name="visit_website">Vizitati site-ul web</string>
     <string name="report_bugs">Raportaţi probleme</string>
     <string name="report_bugs_summary">Raportați probleme sau solicitați noi funcții.</string>
-    <string name="join_community">Alăturați-vă comunității Google Plus</string>
-    <string name="join_community_summary">Dacă aveți nevoie de ajutor sau aveți întrebări, intraţi pe comunitatea Phonograph de pe Google Plus.</string>
     <string name="translate">Traducere</string>
     <string name="translate_summary">Ajutaţi la traducerea Phonograph în limba maternă.</string>
     <string name="rate_on_google_play">Evaluaţi</string>
@@ -224,8 +222,10 @@
     <string name="folders">Dosare</string>
     <string name="saved_playlist_to">Listă de redare salvată în %s.</string>
     <string name="failed_to_save_playlist">Salvarea listei de redare (%s) a eșuat.</string>
+    <string name="saved_x_playlists_to_x">Au fost salvate %1$d liste de redare în %2$s.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">Au fost salvate %1$d liste de redare în %2$s, salvarea %3$d eșuând.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> nu este listat(ă) în stocarea media.]]></string>
-    <string name="some_files_are_not_listed_in_the_media_store">Unele fișiere nu sunt listate in media</string>
+    <string name="some_files_are_not_listed_in_the_media_store">Unele fișiere nu sunt afișate în librăria media.</string>
     <string name="nothing_to_scan">Nimic de scanat.</string>
     <string name="scanned_files">Scanate %1$d din %2$d fişiere.</string>
     <string name="could_not_scan_files">Nu s-au putut scana %d fişiere.</string>

@@ -9,11 +9,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.navigation.NavigationView;
+import androidx.fragment.app.Fragment;
+import androidx.drawerlayout.widget.DrawerLayout;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
@@ -42,10 +43,13 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.activities.intro.AppIntroActivity;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.folders.FoldersFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.LibraryFragment;
+import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
+
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -217,7 +221,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
                 });
             }
             ((TextView) navigationDrawerHeader.findViewById(R.id.title)).setText(song.title);
-            ((TextView) navigationDrawerHeader.findViewById(R.id.text)).setText(song.artistName);
+            ((TextView) navigationDrawerHeader.findViewById(R.id.text)).setText(MusicUtil.getSongInfoString(song));
             SongGlideRequest.Builder.from(Glide.with(this), song)
                     .checkIgnoreMediaStore(this).build()
                     .into(((ImageView) navigationDrawerHeader.findViewById(R.id.image)));
@@ -274,7 +278,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
         boolean handled = false;
 
         if (intent.getAction() != null && intent.getAction().equals(MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH)) {
-            final ArrayList<Song> songs = SearchQueryHelper.getSongs(this, intent.getExtras());
+            final List<Song> songs = SearchQueryHelper.getSongs(this, intent.getExtras());
             if (MusicPlayerRemote.getShuffleMode() == MusicService.SHUFFLE_MODE_SHUFFLE) {
                 MusicPlayerRemote.openAndShuffleQueue(songs, true);
             } else {
@@ -290,7 +294,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             final int id = (int) parseIdFromIntent(intent, "playlistId", "playlist");
             if (id >= 0) {
                 int position = intent.getIntExtra("position", 0);
-                ArrayList<Song> songs = new ArrayList<>(PlaylistSongLoader.getPlaylistSongList(this, id));
+                List<Song> songs = new ArrayList<>(PlaylistSongLoader.getPlaylistSongList(this, id));
                 MusicPlayerRemote.openQueue(songs, position, true);
                 handled = true;
             }

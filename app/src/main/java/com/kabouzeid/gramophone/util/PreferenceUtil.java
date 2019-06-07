@@ -6,12 +6,13 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.SortOrder;
 import com.kabouzeid.gramophone.model.CategoryInfo;
@@ -21,6 +22,7 @@ import com.kabouzeid.gramophone.ui.fragments.player.NowPlayingScreen;
 import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public final class PreferenceUtil {
     public static final String GENERAL_THEME = "general_theme";
@@ -62,7 +64,6 @@ public final class PreferenceUtil {
     public static final String GAPLESS_PLAYBACK = "gapless_playback";
 
     public static final String LAST_ADDED_CUTOFF = "last_added_interval";
-    public static final String RECENTLY_PLAYED_CUTOFF = "recently_played_interval";
 
     public static final String ALBUM_ART_ON_LOCKSCREEN = "album_art_on_lockscreen";
     public static final String BLURRED_ALBUM_ART = "blurred_album_art";
@@ -284,21 +285,11 @@ public final class PreferenceUtil {
         return mPreferences.getString(GENRE_SORT_ORDER, SortOrder.GenreSortOrder.GENRE_A_Z);
     }
 
-    // The last added cutoff time is compared against the Android media store timestamps, which is seconds based.
-    public long getLastAddedCutoffTimeSecs() {
-        return getCutoffTimeMillis(LAST_ADDED_CUTOFF) / 1000;
-    }
-
-    // The recently played cutoff time is compared against the internal (private) database timestamps, which is milliseconds based.
-    public long getRecentlyPlayedCutoffTimeMillis() {
-        return getCutoffTimeMillis(RECENTLY_PLAYED_CUTOFF);
-    }
-
-    private long getCutoffTimeMillis(final String cutoff) {
+    public long getLastAddedCutoff() {
         final CalendarUtil calendarUtil = new CalendarUtil();
         long interval;
 
-        switch (mPreferences.getString(cutoff, "")) {
+        switch (mPreferences.getString(LAST_ADDED_CUTOFF, "")) {
             case "today":
                 interval = calendarUtil.getElapsedToday();
                 break;
@@ -325,38 +316,7 @@ public final class PreferenceUtil {
                 break;
         }
 
-        return (System.currentTimeMillis() - interval);
-    }
-
-    public String getLastAddedCutoffText(Context context) {
-        return getCutoffText(LAST_ADDED_CUTOFF, context);
-    }
-
-    public String getRecentlyPlayedCutoffText(Context context) {
-        return getCutoffText(RECENTLY_PLAYED_CUTOFF, context);
-    }
-
-    private String getCutoffText(final String cutoff, Context context) {
-        switch (mPreferences.getString(cutoff, "")) {
-            case "today":
-                return context.getString(R.string.today);
-
-            case "this_week":
-                return context.getString(R.string.this_week);
-
-             case "past_seven_days":
-                 return context.getString(R.string.past_seven_days);
-
-            case "past_three_months":
-                return context.getString(R.string.past_three_months);
-
-            case "this_year":
-                return context.getString(R.string.this_year);
-
-            case "this_month":
-            default:
-                return context.getString(R.string.this_month);
-        }
+        return (System.currentTimeMillis() - interval) / 1000;
     }
 
     public int getLastSleepTimerValue() {
@@ -539,9 +499,9 @@ public final class PreferenceUtil {
         return mPreferences.getBoolean(INITIALIZED_BLACKLIST, false);
     }
 
-    public void setLibraryCategoryInfos(ArrayList<CategoryInfo> categories) {
+    public void setLibraryCategoryInfos(List<CategoryInfo> categories) {
         Gson gson = new Gson();
-        Type collectionType = new TypeToken<ArrayList<CategoryInfo>>() {
+        Type collectionType = new TypeToken<List<CategoryInfo>>() {
         }.getType();
 
         final SharedPreferences.Editor editor = mPreferences.edit();
@@ -549,11 +509,11 @@ public final class PreferenceUtil {
         editor.apply();
     }
 
-    public ArrayList<CategoryInfo> getLibraryCategoryInfos() {
+    public List<CategoryInfo> getLibraryCategoryInfos() {
         String data = mPreferences.getString(LIBRARY_CATEGORIES, null);
         if (data != null) {
             Gson gson = new Gson();
-            Type collectionType = new TypeToken<ArrayList<CategoryInfo>>() {
+            Type collectionType = new TypeToken<List<CategoryInfo>>() {
             }.getType();
 
             try {
@@ -566,8 +526,8 @@ public final class PreferenceUtil {
         return getDefaultLibraryCategoryInfos();
     }
 
-    public ArrayList<CategoryInfo> getDefaultLibraryCategoryInfos() {
-        ArrayList<CategoryInfo> defaultCategoryInfos = new ArrayList<>(5);
+    public List<CategoryInfo> getDefaultLibraryCategoryInfos() {
+        List<CategoryInfo> defaultCategoryInfos = new ArrayList<>(5);
         defaultCategoryInfos.add(new CategoryInfo(CategoryInfo.Category.SONGS, true));
         defaultCategoryInfos.add(new CategoryInfo(CategoryInfo.Category.ALBUMS, true));
         defaultCategoryInfos.add(new CategoryInfo(CategoryInfo.Category.ARTISTS, true));

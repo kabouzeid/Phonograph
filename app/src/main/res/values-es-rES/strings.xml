@@ -76,7 +76,7 @@
     <string name="delete_x_playlists"><![CDATA[¿Borrar <b>%1$d</b> listas de reproducción?]]></string>
     <string name="delete_song_x"><![CDATA[¿Eliminar <b>%1$s</b>?]]></string>
     <string name="delete_x_songs"><![CDATA[¿Eliminar <b>%1$d</b> canciones?]]></string>
-    <string name="remove_song_x_from_playlist"><![CDATA[¿Eliminar la canción </b>%1$s<b> de la lista de reproducción?]]></string>
+    <string name="remove_song_x_from_playlist"><![CDATA[<b>]]></string>
     <string name="remove_x_songs_from_playlist"><![CDATA[¿Eliminar </b>%1$d<b> canciones de la lista de reproducción?]]></string>
     <string name="delete_song_title">Eliminar canción</string>
     <string name="delete_songs_title">Eliminar canciones</string>
@@ -87,7 +87,9 @@
     <string name="delete_playlists_title">Eliminar listas de reproducción</string>
     <string name="clear_playlist_title">Vaciar lista de reproducción</string>
     <string name="save_playlist_title">Guardar como archivo</string>
+    <string name="save_playlists_title">Español</string>
     <string name="add_playlist_title">"Añadir a lista de reproducción"</string>
+    <string name="select_all_title">Seleccionar todo</string>
     <string name="action_shuffle_all">Modo aleatorio</string>
     <string name="action_shuffle_album">Reproducción aleatoria del álbum</string>
     <string name="action_shuffle_artist">Reproducción aleatoria del artista</string>
@@ -104,6 +106,7 @@
     <string name="never">Nunca</string>
     <string name="today">Hoy</string>
     <string name="this_week">Esta semana</string>
+    <string name="past_seven_days">Últimos 7 días</string>
     <string name="this_month">Este mes</string>
     <string name="past_three_months">Últimos 3 meses</string>
     <string name="this_year">Este año</string>
@@ -130,6 +133,7 @@
     <string name="pref_title_last_added_interval">Intervalo de la última lista de reproducción</string>
     <string name="pref_title_synchronized_lyrics_show">Mostrar letras sincronizadas</string>
     <string name="pref_title_remember_last_tab">Recordar la última pestaña</string>
+    <string name="pref_title_remember_shuffle">Recordar aleatorio</string>
     <string name="no_equalizer">No se encontró ningún ecualizador</string>
     <string name="no_audio_ID">"Reproduce una canción primero, luego intentalo otra vez."</string>
     <string name="delete_action">Borrar</string>
@@ -164,6 +168,7 @@
     <string name="pref_summary_audio_ducking">Notificaciones, navegación etc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Actualmente sólo se admiten las letras sincronizadas en formato LRC. Tanto si están embebidas como si están en un archivo aparte.</string>
     <string name="pref_summary_remember_last_tab">Ir a la última pestaña abierta en el lanzamiento</string>
+    <string name="pref_summary_remember_shuffle">Modo aleatorio estará activado cuando se seleccione una nueva lista de canciones</string>
     <string name="could_not_download_album_cover">"No se puede descargar una car\u00e1tula de \u00e1lbum que coincida."</string>
     <string name="search_hint">Buscar en la biblioteca...</string>
     <string name="favorites">Favoritos</string>
@@ -194,14 +199,11 @@
     <string name="version">Versión</string>
     <string name="author">Autor</string>
     <string name="write_an_email">Escribir un email</string>
-    <string name="add_to_google_plus_circles">Añadir a círculos en Google Plus</string>
     <string name="follow_on_twitter">Seguir en Twitter</string>
     <string name="fork_on_github">Fork en GitHub</string>
     <string name="visit_website">Visitar sitio web</string>
     <string name="report_bugs">Reportar errores</string>
     <string name="report_bugs_summary">Reportar errores o sugerir nuevas características.</string>
-    <string name="join_community">Unirse a la comunidad de Google Plus</string>
-    <string name="join_community_summary">Si necesitas ayuda o tienes preguntas, la comunidad Phonograph en Google Plus es un buen lugar para ir.</string>
     <string name="translate">Traducir</string>
     <string name="translate_summary">Ayuda traduciendo Phonograph a tu idioma.</string>
     <string name="rate_on_google_play">Valorar</string>
@@ -224,8 +226,10 @@
     <string name="folders">Carpetas</string>
     <string name="saved_playlist_to">Lista de reproducción guardada en %s.</string>
     <string name="failed_to_save_playlist">No se pudo guardar la lista de reproducción (%s).</string>
+    <string name="saved_x_playlists_to_x">%1$d de %2$s listas de reproducción guardadas.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">Guardada %1$d de %2$s listas de reproducción, fallo al guardar la %3$d.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> no se encuentra listado en los medios almacenados]]></string>
-    <string name="some_files_are_not_listed_in_the_media_store">Algunos archivos no están listados en la tienda de medios.</string>
+    <string name="some_files_are_not_listed_in_the_media_store">Español</string>
     <string name="nothing_to_scan">Nada para analizar</string>
     <string name="scanned_files">%1$d de %2$d archivos analizados</string>
     <string name="could_not_scan_files">No se pudieron analizar los archivos %d</string>
@@ -259,7 +263,7 @@
     <string name="your_account_data_is_only_used_for_authentication">La información de tu cuenta se usa solamente para la autenticación</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Será redirigido a la página web del buscador de problemas.</string>
     <string name="app_shortcut_shuffle_all_short">Mezclar</string>
-    <string name="app_shortcut_top_tracks_short">Los mejores temas</string>
+    <string name="app_shortcut_top_tracks_short">Canciones más reproducidas</string>
     <string name="app_shortcut_last_added_short">Último agregado</string>
     <string name="playlist_is_empty">Lista de reproducción vacía</string>
     <string name="playing_notification_description">La notificación de reproducción muestra acciones para reproducir/pausar etc.</string>
@@ -296,4 +300,5 @@ El contenido de las carpetas de la lista negra está oculto en tu biblioteca"</s
     <string name="sort_order_artist">Artista</string>
     <string name="sort_order_album">Álbum</string>
     <string name="sort_order_year">Año</string>
+    <string name="finish_current_music_sleep_timer">Terminar la última canción</string>
 </resources>

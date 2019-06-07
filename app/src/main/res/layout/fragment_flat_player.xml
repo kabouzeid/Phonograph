@@ -62,7 +62,7 @@
                 android:layout_height="@dimen/toolbar_scrim_height"
                 android:background="@drawable/toolbar_gradient">
 
-                <android.support.v7.widget.Toolbar
+                <androidx.appcompat.widget.Toolbar
                     android:id="@+id/player_toolbar"
                     style="@style/Toolbar"
                     android:background="@android:color/transparent" />
@@ -123,7 +123,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         android:textColor="?android:textColorSecondary" />
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/player_recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

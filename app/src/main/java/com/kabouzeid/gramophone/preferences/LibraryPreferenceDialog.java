@@ -2,10 +2,10 @@ package com.kabouzeid.gramophone.preferences;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -15,6 +15,7 @@ import com.kabouzeid.gramophone.model.CategoryInfo;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class LibraryPreferenceDialog extends DialogFragment {
@@ -29,7 +30,7 @@ public class LibraryPreferenceDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.preference_dialog_library_categories, null);
 
-        ArrayList<CategoryInfo> categoryInfos;
+        List<CategoryInfo> categoryInfos;
         if (savedInstanceState != null) {
             categoryInfos = savedInstanceState.getParcelableArrayList(PreferenceUtil.LIBRARY_CATEGORIES);
         } else {
@@ -62,16 +63,16 @@ public class LibraryPreferenceDialog extends DialogFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(PreferenceUtil.LIBRARY_CATEGORIES, adapter.getCategoryInfos());
+        outState.putParcelableArrayList(PreferenceUtil.LIBRARY_CATEGORIES, new ArrayList<>(adapter.getCategoryInfos()));
     }
 
-    private void updateCategories(ArrayList<CategoryInfo> categories) {
+    private void updateCategories(List<CategoryInfo> categories) {
         if (getSelected(categories) == 0) return;
 
         PreferenceUtil.getInstance(getContext()).setLibraryCategoryInfos(categories);
     }
 
-    private int getSelected(ArrayList<CategoryInfo> categories) {
+    private int getSelected(List<CategoryInfo> categories) {
         int selected = 0;
         for (CategoryInfo categoryInfo : categories) {
             if (categoryInfo.visible)

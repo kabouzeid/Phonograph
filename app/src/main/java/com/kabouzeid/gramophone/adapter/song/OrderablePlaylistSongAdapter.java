@@ -1,9 +1,9 @@
 package com.kabouzeid.gramophone.adapter.song;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -29,8 +29,8 @@ public class OrderablePlaylistSongAdapter extends PlaylistSongAdapter implements
 
     private OnMoveItemListener onMoveItemListener;
 
-    public OrderablePlaylistSongAdapter(@NonNull AppCompatActivity activity, @NonNull ArrayList<PlaylistSong> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder, @Nullable OnMoveItemListener onMoveItemListener) {
-        super(activity, (ArrayList<Song>) (List) dataSet, itemLayoutRes, usePalette, cabHolder);
+    public OrderablePlaylistSongAdapter(@NonNull AppCompatActivity activity, @NonNull List<PlaylistSong> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder, @Nullable OnMoveItemListener onMoveItemListener) {
+        super(activity, (List<Song>) (List) dataSet, itemLayoutRes, usePalette, cabHolder);
         setMultiSelectMenuRes(R.menu.menu_playlists_songs_selection);
         this.onMoveItemListener = onMoveItemListener;
     }
@@ -44,14 +44,14 @@ public class OrderablePlaylistSongAdapter extends PlaylistSongAdapter implements
     public long getItemId(int position) {
         position--;
         if (position < 0) return -2;
-        return ((ArrayList<PlaylistSong>) (List) dataSet).get(position).idInPlayList; // important!
+        return ((List<PlaylistSong>) (List) dataSet).get(position).idInPlayList; // important!
     }
 
     @Override
-    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Song> selection) {
+    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull List<Song> selection) {
         switch (menuItem.getItemId()) {
             case R.id.action_remove_from_playlist:
-                RemoveFromPlaylistDialog.create((ArrayList<PlaylistSong>) (List) selection).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
+                RemoveFromPlaylistDialog.create((List<PlaylistSong>) (List) selection).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
                 return;
         }
         super.onMultipleItemAction(menuItem, selection);

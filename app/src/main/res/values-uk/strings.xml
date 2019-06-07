@@ -14,7 +14,7 @@
     <string name="action_remove_from_favorites">Видалити з улюблених</string>
     <string name="action_search">Пошук</string>
     <string name="action_play_next">Відтворити наступною</string>
-    <string name="action_play">Відтворити</string>
+    <string name="action_play">Грати</string>
     <string name="action_play_pause">Відтворити/Зупинити</string>
     <string name="action_previous">Попередня</string>
     <string name="action_next">Наступна</string>
@@ -194,14 +194,11 @@
     <string name="version">Версія</string>
     <string name="author">Автор</string>
     <string name="write_an_email">Написати листа</string>
-    <string name="add_to_google_plus_circles">Додати в кола Google Plus</string>
     <string name="follow_on_twitter">Слідкувати у Твіттері</string>
     <string name="fork_on_github">Форк на GitHub</string>
     <string name="visit_website">Відвідати веб-сайт</string>
     <string name="report_bugs">Повідомити про помилку</string>
     <string name="report_bugs_summary">Повідомити про помилку чи попросити нові функції.</string>
-    <string name="join_community">Приєднатися до спільноти Google Plus</string>
-    <string name="join_community_summary">Якщо вам потрібна допомога або ви маєте будь-які питання, то вам слід долучитися до спільноти Phonograph у Google Plus.</string>
     <string name="translate">Перекласти</string>
     <string name="translate_summary">Допоможіть перекласти Phonograph на свою рідну мову.</string>
     <string name="rate_on_google_play">Оцінити</string>

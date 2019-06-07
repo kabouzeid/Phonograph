@@ -6,8 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.graphics.drawable.IconCompat;
+import androidx.annotation.RequiresApi;
+import androidx.core.graphics.drawable.IconCompat;
 import android.util.TypedValue;
 
 import com.kabouzeid.appthemehelper.ThemeStore;

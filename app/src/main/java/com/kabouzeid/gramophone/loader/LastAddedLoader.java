@@ -3,22 +3,23 @@ package com.kabouzeid.gramophone.loader;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LastAddedLoader {
 
     @NonNull
-    public static ArrayList<Song> getLastAddedSongs(@NonNull Context context) {
+    public static List<Song> getLastAddedSongs(@NonNull Context context) {
         return SongLoader.getSongs(makeLastAddedCursor(context));
     }
 
     public static Cursor makeLastAddedCursor(@NonNull final Context context) {
-        long cutoff = PreferenceUtil.getInstance(context).getLastAddedCutoffTimeSecs();
+        long cutoff = PreferenceUtil.getInstance(context).getLastAddedCutoff();
 
         return SongLoader.makeSongCursor(
                 context,

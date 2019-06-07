@@ -8,8 +8,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
@@ -82,7 +82,7 @@ public class PlaylistsUtil {
         return id;
     }
 
-    public static void deletePlaylists(@NonNull final Context context, @NonNull final ArrayList<Playlist> playlists) {
+    public static void deletePlaylists(@NonNull final Context context, @NonNull final List<Playlist> playlists) {
         final StringBuilder selection = new StringBuilder();
         selection.append(MediaStore.Audio.Playlists._ID + " IN (");
         for (int i = 0; i < playlists.size(); i++) {

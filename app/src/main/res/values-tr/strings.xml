@@ -87,6 +87,7 @@
     <string name="delete_playlists_title">Çalma listelerini sil</string>
     <string name="clear_playlist_title">Çalma listesini temizle</string>
     <string name="save_playlist_title">Dosya olarak kaydet</string>
+    <string name="save_playlists_title">Dosya olarak kaydet</string>
     <string name="add_playlist_title">"Çalma listesine ekle"</string>
     <string name="action_shuffle_all">Tümünü karıştır</string>
     <string name="action_shuffle_album">Albümü karıştır</string>
@@ -194,14 +195,11 @@
     <string name="version">Sürüm</string>
     <string name="author">Yapımcı</string>
     <string name="write_an_email">Bir e-posta yazın</string>
-    <string name="add_to_google_plus_circles">Google+ çevrelerine ekle</string>
     <string name="follow_on_twitter">Twitter\'da takip et</string>
     <string name="fork_on_github">GitHub\'a bağlanın</string>
     <string name="visit_website">Web sitesini ziyaret edin</string>
     <string name="report_bugs">Hataları raporlayın</string>
     <string name="report_bugs_summary">Hataları raporlayın ya da yeni özellikler talep edin.</string>
-    <string name="join_community">Google+ grubuna katılın</string>
-    <string name="join_community_summary">Eğer yardıma ihtiyacınız varsa veya sorularınız varsa Google+ Phonograph topluluğu en doğru yer.</string>
     <string name="translate">Çeviri</string>
     <string name="translate_summary">Phonograph\'ı kendi dilinize çevirmek için yardımcı olun.</string>
     <string name="rate_on_google_play">Oy ver</string>
@@ -224,6 +222,8 @@
     <string name="folders">Klasörler</string>
     <string name="saved_playlist_to">Çalma listesi %s kaydedildi.</string>
     <string name="failed_to_save_playlist">(%s) çalma listesine kaydetme başarısız.</string>
+    <string name="saved_x_playlists_to_x">%1$d oynatma listesini %2$s konumuna kaydedildi.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">%1$d oynatma listesini %2$s konumuna kaydedildi, %3$d kaydedilemedi.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> medya deposu listesinde yok.]]></string>
     <string name="some_files_are_not_listed_in_the_media_store">Bazı dosyalar medya deposunda listelenmiyor.</string>
     <string name="nothing_to_scan">Taranacak bir şey yok</string>

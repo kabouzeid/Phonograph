@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -180,8 +180,8 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
     @NonNull
     @Override
     protected List<String> getSongPaths() {
-        ArrayList<Song> songs = AlbumLoader.getAlbum(this, getId()).songs;
-        ArrayList<String> paths = new ArrayList<>(songs.size());
+        List<Song> songs = AlbumLoader.getAlbum(this, getId()).songs;
+        List<String> paths = new ArrayList<>(songs.size());
         for (Song song : songs) {
             paths.add(song.data);
         }

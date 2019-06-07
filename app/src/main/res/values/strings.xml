@@ -130,7 +130,6 @@
     <string name="pref_title_ignore_media_store_artwork">Ignore Media Store covers</string>
     <string name="pref_title_gapless_playback">Gapless playback</string>
     <string name="pref_title_audio_ducking">Reduce volume on focus loss</string>
-    <string name="pref_title_recently_played_interval">Recently played playlist interval</string>
     <string name="pref_title_last_added_interval">Last added playlist interval</string>
     <string name="pref_title_synchronized_lyrics_show">Show synchronized lyrics</string>
     <string name="pref_title_remember_last_tab">Remember last tab</string>
@@ -174,9 +173,8 @@
     <string name="search_hint">Search your library…</string>
     <string name="favorites">Favorites</string>
     <string name="last_added">Last added</string>
-    <string name="history">History</string>
+    <string name="history">Recently played</string>
     <string name="my_top_tracks">My top tracks</string>
-    <string name="not_recently_played">Not recently played</string>
     <string name="remove_cover">Remove cover</string>
     <string name="download_from_last_fm">Download from Last.fm</string>
     <string name="pick_from_local_storage">Pick from local storage</string>
@@ -209,14 +207,11 @@
     <string name="version">Version</string>
     <string name="author">Author</string>
     <string name="write_an_email">Write an email</string>
-    <string name="add_to_google_plus_circles">Add to Google Plus circles</string>
     <string name="follow_on_twitter">Follow on Twitter</string>
     <string name="fork_on_github">Fork on GitHub</string>
     <string name="visit_website">Visit website</string>
     <string name="report_bugs">Report bugs</string>
     <string name="report_bugs_summary">Report bugs or request new features.</string>
-    <string name="join_community">Join the Google Plus community</string>
-    <string name="join_community_summary">If you need help or have questions, the Phonograph community on Google Plus is a good place to go.</string>
     <string name="translate">Translate</string>
     <string name="translate_summary">Help translating Phonograph to your native language.</string>
     <string name="rate_on_google_play">Rate</string>

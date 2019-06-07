@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">O que você quer compartilhar?</string>
-    <string name="currently_listening_to_x_by_x">Atualmente ouvindo %1$s por %2$s.</string>
+    <string name="currently_listening_to_x_by_x">Atualmente ouvindo {% 1 $ s} em {% 2 $ s}.</string>
     <string name="the_audio_file">O arquivo de áudio</string>
     <string name="x_has_been_set_as_ringtone">%1$s foi definido como seu toque de chamada.</string>
     <string name="action_set_as_ringtone">Definir como toque de chamada</string>
@@ -9,11 +9,11 @@
     <string name="action_settings">"Configurações"</string>
     <string name="action_grant">Confirmar</string>
     <string name="action_about">Sobre</string>
-    <string name="action_clear_playlist">Limpar playlist</string>
+    <string name="action_clear_playlist">Limpar lista de reprodução</string>
     <string name="action_add_to_favorites">Adicionar aos favoritos</string>
     <string name="action_remove_from_favorites">Remover dos favoritos</string>
     <string name="action_search">Pesquisar</string>
-    <string name="action_play_next">Reproduzir à seguir</string>
+    <string name="action_play_next">Reproduzir próxima</string>
     <string name="action_play">Reproduzir</string>
     <string name="action_play_pause">Reproduzir/Pausar</string>
     <string name="action_previous">Anterior</string>
@@ -27,7 +27,7 @@
     <string name="action_rename">Renomear</string>
     <string name="action_delete">Excluir</string>
     <string name="action_scan">Escanear</string>
-    <string name="action_set_as_start_directory">Definir como diretório inicial</string>
+    <string name="action_set_as_start_directory">Definir como tela inicial</string>
     <string name="albums">Álbuns</string>
     <string name="artists">Artistas</string>
     <string name="genres">Gêneros</string>
@@ -44,7 +44,7 @@
     <string name="genre">Gênero</string>
     <string name="album_artist">Artista do álbum</string>
     <string name="year">Ano</string>
-    <string name="track_hint">"Faixa (2 para à faixa 2 ou 3004 para a quarta faixa do CD3)"</string>
+    <string name="track_hint">"Música (2 para a música 2 ou 3004 para a música 4 do CD3)"</string>
     <string name="lyrics">Letra</string>
     <string name="album_or_artist_empty">O título ou artista está vazio.</string>
     <string name="saving_changes">Salvando alterações</string>
@@ -58,23 +58,23 @@
     <string name="label_sampling_rate">Taxa de amostragem</string>
     <string name="action_go_to_artist">Ir para o artista</string>
     <string name="action_go_to_album">Ir para o álbum</string>
-    <string name="label_playing_queue">Fila de Reprodução</string>
+    <string name="label_playing_queue">Fila de reprodução</string>
     <string name="no_results">Sem resultados</string>
     <string name="updating">Atualizando...</string>
     <string name="added_title_to_playing_queue">"Adicionado 1 título à lista de reprodução"</string>
-    <string name="added_x_titles_to_playing_queue">%1$d faixas adicionadas à fila de reprodução.</string>
+    <string name="added_x_titles_to_playing_queue">Adicionados {% 1 $ d} títulos á fila de reprodução</string>
     <string name="action_remove_from_playlist">Remover da playlist</string>
     <string name="action_grid_size">Número de colunas</string>
     <string name="action_grid_size_land">Número de colunas (horizontal)</string>
-    <string name="inserted_x_songs_into_playlist_x">Inserido %1$d músicas na playlist %2$s.</string>
-    <string name="created_playlist_x">A playlist %1$s foi criada</string>
-    <string name="deleted_x_songs">"%1$d músicas excluídas. "</string>
-    <string name="playlist_exists">Uma playlist de nome %1$s já existe.</string>
-    <string name="could_not_create_playlist">N\u00e3o foi poss\u00edvel criar playlist.</string>
+    <string name="inserted_x_songs_into_playlist_x">Inserido {%1$d} músicas na lista de reprodução {%2$s}.</string>
+    <string name="created_playlist_x">Lista de reprodução criada {% 1 $ s}.</string>
+    <string name="deleted_x_songs">Excluídas {%1$s} músicas.</string>
+    <string name="playlist_exists">A lista de reprodução %1$s já existe.</string>
+    <string name="could_not_create_playlist">N\u00e3o foi poss\u00edvel criar a lista de reprodu\u00e7\u00e3o.</string>
     <string name="delete_playlist_x"><![CDATA[ Deseja excluir a playlist <b>%1$s</b>? ]]></string>
-    <string name="clear_playlist_x"><![CDATA[Limpar a playlist <b>%1$s</b>? Isto n\u00e3o pode ser desfeito!]]></string>
-    <string name="delete_x_playlists"><![CDATA[Excluir <b>%1$d</b> playlists?]]></string>
-    <string name="delete_song_x"><![CDATA[Excluir a canção <b>%1$s</b>?]]></string>
+    <string name="clear_playlist_x"><![CDATA[Limpar a lista de reprodu\u00e7\u00e3o {<b>}{%1$s}{</b>}? Isso n\u00e3o pode ser desfeito!]]></string>
+    <string name="delete_x_playlists"><![CDATA[Excluir {<b>}{%1$d}{</b>} listas de reprodução?]]></string>
+    <string name="delete_song_x"><![CDATA[Excluir a música {<b>}{%1$s}{</b>}?]]></string>
     <string name="delete_x_songs"><![CDATA[Excluir <b>%1$d</b> faixas?]]></string>
     <string name="remove_song_x_from_playlist"><![CDATA[Remover a música <b>%1$s</b> da playlist?]]></string>
     <string name="remove_x_songs_from_playlist"><![CDATA[Remover <b>%1$d</b> músicas da playlist?]]></string>
@@ -87,7 +87,9 @@
     <string name="delete_playlists_title">Excluir playlists</string>
     <string name="clear_playlist_title">Limpar playlist</string>
     <string name="save_playlist_title">Salvar como arquivo</string>
+    <string name="save_playlists_title">Salvar como arquivos</string>
     <string name="add_playlist_title">"Adicionar à playlist"</string>
+    <string name="select_all_title">Selecionar tudo</string>
     <string name="action_shuffle_all">Misturar todas</string>
     <string name="action_shuffle_album">Misturar álbum</string>
     <string name="action_shuffle_artist">Misturar artista</string>
@@ -104,6 +106,7 @@
     <string name="never">Nunca</string>
     <string name="today">Hoje</string>
     <string name="this_week">Essa semana</string>
+    <string name="past_seven_days">Última semana</string>
     <string name="this_month">Esse mês</string>
     <string name="past_three_months">Últimos 3 meses</string>
     <string name="this_year">Esse ano</string>
@@ -130,6 +133,7 @@
     <string name="pref_title_last_added_interval">Intervalo de adição das playlists mais recentes</string>
     <string name="pref_title_synchronized_lyrics_show">Exibir letras sincronizadas</string>
     <string name="pref_title_remember_last_tab">Lembrar última aba</string>
+    <string name="pref_title_remember_shuffle">Memorizar aleatorização</string>
     <string name="no_equalizer">Nenhum equalizador encontrado.</string>
     <string name="no_audio_ID">"Sem identificação de áudio, reproduza algo e tente novamente."</string>
     <string name="delete_action">Excluir</string>
@@ -164,11 +168,12 @@
     <string name="pref_summary_audio_ducking">Notificações, navegação, etc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Atualmente damos suporte apenas a letras de música no formato LRC. Tanto as encorporadas quanto as anexadas por um arquivo separado.</string>
     <string name="pref_summary_remember_last_tab">Ir para a última aba aberta ao iniciar</string>
+    <string name="pref_summary_remember_shuffle">Modo aleatório continuará ativo quando uma nova lista de músicas for selecionada</string>
     <string name="could_not_download_album_cover">"N\u00e3o foi poss\u00edvel baixar uma capa do \u00e1lbum correspondente."</string>
     <string name="search_hint">Pesquisar na sua biblioteca...</string>
     <string name="favorites">Favoritos</string>
     <string name="last_added">Última Adição</string>
-    <string name="history">Histórico</string>
+    <string name="history">Reproduzidas recentemente</string>
     <string name="my_top_tracks">Minhas melhores faixas</string>
     <string name="remove_cover">Remover capa</string>
     <string name="download_from_last_fm">Baixar do Last.fm</string>
@@ -194,14 +199,11 @@
     <string name="version">Versão</string>
     <string name="author">Autor</string>
     <string name="write_an_email">Escreva um email</string>
-    <string name="add_to_google_plus_circles">Adicionar aos círculos do Google+</string>
     <string name="follow_on_twitter">Seguir no Twitter</string>
     <string name="fork_on_github">Fazer um Fork no GitHub</string>
     <string name="visit_website">Visitar site</string>
     <string name="report_bugs">Reportar bugs</string>
     <string name="report_bugs_summary">Reportar bugs ou pedir por novas funções.</string>
-    <string name="join_community">Entre na comunidade do Google+</string>
-    <string name="join_community_summary">Se você precisa de ajuda ou tem alguma dúvida, a comunidade do Phonograph no Google+ é um bom lugar pra ir.</string>
     <string name="translate">Traduzir</string>
     <string name="translate_summary">Ajude a traduzir o Phonograph para sua língua nativa.</string>
     <string name="rate_on_google_play">Nota</string>
@@ -224,6 +226,8 @@
     <string name="folders">Pastas</string>
     <string name="saved_playlist_to">Salvo à playlist %s.</string>
     <string name="failed_to_save_playlist">Erro ao salvar a playlist (%s).</string>
+    <string name="saved_x_playlists_to_x">Salvado % 1 $ d lista de reprodução para%2$s.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">Salvado %1$d listas de reprodução para %2$s, não foi possível salvar %3$d.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> não está listado no armazenamento de mídia.]]></string>
     <string name="some_files_are_not_listed_in_the_media_store">Alguns arquivos não estão listados no armazenamento de mídia.</string>
     <string name="nothing_to_scan">Nada para escanear.</string>
@@ -295,4 +299,5 @@
     <string name="sort_order_artist">Artista</string>
     <string name="sort_order_album">Álbum</string>
     <string name="sort_order_year">Ano</string>
+    <string name="finish_current_music_sleep_timer">Finalizar última música</string>
 </resources>

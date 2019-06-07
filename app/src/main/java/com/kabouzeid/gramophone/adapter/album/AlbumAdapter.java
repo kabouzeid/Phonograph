@@ -1,11 +1,11 @@
 package com.kabouzeid.gramophone.adapter.album;
 
 import android.graphics.drawable.Drawable;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.util.Pair;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +27,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
+
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
@@ -38,13 +39,13 @@ import java.util.List;
 public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder, Album> implements FastScrollRecyclerView.SectionedAdapter {
 
     protected final AppCompatActivity activity;
-    protected ArrayList<Album> dataSet;
+    protected List<Album> dataSet;
 
     protected int itemLayoutRes;
 
     protected boolean usePalette = false;
 
-    public AlbumAdapter(@NonNull AppCompatActivity activity, ArrayList<Album> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
+    public AlbumAdapter(@NonNull AppCompatActivity activity, List<Album> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         this.dataSet = dataSet;
@@ -59,12 +60,12 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
         notifyDataSetChanged();
     }
 
-    public void swapDataSet(ArrayList<Album> dataSet) {
+    public void swapDataSet(List<Album> dataSet) {
         this.dataSet = dataSet;
         notifyDataSetChanged();
     }
 
-    public ArrayList<Album> getDataSet() {
+    public List<Album> getDataSet() {
         return dataSet;
     }
 
@@ -84,7 +85,10 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     }
 
     protected String getAlbumText(Album album) {
-        return album.getArtistName();
+        return MusicUtil.buildInfoString(
+            album.getArtistName(),
+            MusicUtil.getSongCountString(activity, album.songs.size())
+        );
     }
 
     @Override
@@ -170,13 +174,13 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     }
 
     @Override
-    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Album> selection) {
+    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull List<Album> selection) {
         SongsMenuHelper.handleMenuClick(activity, getSongList(selection), menuItem.getItemId());
     }
 
     @NonNull
-    private ArrayList<Song> getSongList(@NonNull List<Album> albums) {
-        final ArrayList<Song> songs = new ArrayList<>();
+    private List<Song> getSongList(@NonNull List<Album> albums) {
+        final List<Song> songs = new ArrayList<>();
         for (Album album : albums) {
             songs.addAll(album.songs);
         }

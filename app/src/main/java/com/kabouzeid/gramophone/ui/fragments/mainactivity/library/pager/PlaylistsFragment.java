@@ -2,10 +2,11 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v7.widget.LinearLayoutManager;
+
+import androidx.annotation.NonNull;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PlaylistAdapter;
@@ -16,14 +17,14 @@ import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.smartplaylist.HistoryPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.LastAddedPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.MyTopTracksPlaylist;
-import com.kabouzeid.gramophone.model.smartplaylist.NotRecentlyPlayedPlaylist;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class PlaylistsFragment extends AbsLibraryPagerRecyclerViewFragment<PlaylistAdapter, LinearLayoutManager> implements LoaderManager.LoaderCallbacks<ArrayList<Playlist>> {
+public class PlaylistsFragment extends AbsLibraryPagerRecyclerViewFragment<PlaylistAdapter, LinearLayoutManager> implements LoaderManager.LoaderCallbacks<List<Playlist>> {
 
     private static final int LOADER_ID = LoaderIds.PLAYLISTS_FRAGMENT;
 
@@ -42,7 +43,7 @@ public class PlaylistsFragment extends AbsLibraryPagerRecyclerViewFragment<Playl
     @NonNull
     @Override
     protected PlaylistAdapter createAdapter() {
-        ArrayList<Playlist> dataSet = getAdapter() == null ? new ArrayList<>() : getAdapter().getDataSet();
+        List<Playlist> dataSet = getAdapter() == null ? new ArrayList<>() : getAdapter().getDataSet();
         return new PlaylistAdapter(getLibraryFragment().getMainActivity(), dataSet, R.layout.item_list_single_row, getLibraryFragment());
     }
 
@@ -57,31 +58,30 @@ public class PlaylistsFragment extends AbsLibraryPagerRecyclerViewFragment<Playl
     }
 
     @Override
-    public Loader<ArrayList<Playlist>> onCreateLoader(int id, Bundle args) {
+    public Loader<List<Playlist>> onCreateLoader(int id, Bundle args) {
         return new AsyncPlaylistLoader(getActivity());
     }
 
     @Override
-    public void onLoadFinished(Loader<ArrayList<Playlist>> loader, ArrayList<Playlist> data) {
+    public void onLoadFinished(Loader<List<Playlist>> loader, List<Playlist> data) {
         getAdapter().swapDataSet(data);
     }
 
     @Override
-    public void onLoaderReset(Loader<ArrayList<Playlist>> loader) {
+    public void onLoaderReset(Loader<List<Playlist>> loader) {
         getAdapter().swapDataSet(new ArrayList<>());
     }
 
-    private static class AsyncPlaylistLoader extends WrappedAsyncTaskLoader<ArrayList<Playlist>> {
+    private static class AsyncPlaylistLoader extends WrappedAsyncTaskLoader<List<Playlist>> {
         public AsyncPlaylistLoader(Context context) {
             super(context);
         }
 
-        private static ArrayList<Playlist> getAllPlaylists(Context context) {
-            ArrayList<Playlist> playlists = new ArrayList<>();
+        private static List<Playlist> getAllPlaylists(Context context) {
+            List<Playlist> playlists = new ArrayList<>();
 
             playlists.add(new LastAddedPlaylist(context));
             playlists.add(new HistoryPlaylist(context));
-            playlists.add(new NotRecentlyPlayedPlaylist(context));
             playlists.add(new MyTopTracksPlaylist(context));
 
             playlists.addAll(PlaylistLoader.getAllPlaylists(context));
@@ -90,7 +90,7 @@ public class PlaylistsFragment extends AbsLibraryPagerRecyclerViewFragment<Playl
         }
 
         @Override
-        public ArrayList<Playlist> loadInBackground() {
+        public List<Playlist> loadInBackground() {
             return getAllPlaylists(getContext());
         }
     }
