@@ -1,12 +1,8 @@
 package com.kabouzeid.gramophone.lyric;
 
+import android.text.TextUtils;
 import com.kabouzeid.gramophone.lyric.model.LyricInfo;
 import com.kabouzeid.gramophone.lyric.model.LyricResult;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.TextUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -14,13 +10,15 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public class ViewLyricsSearcher {
 
-    private static final String url = "http://search.crintsoft.com/searchlyrics.htm";
+    private static final String URL = "http://search.crintsoft.com/searchlyrics.htm";
 
     private static final String clientUserAgent = "MiniLyrics4Android";
 
@@ -55,32 +53,31 @@ public class ViewLyricsSearcher {
     @SuppressWarnings("resource")
     private static LyricResult searchQuery(final String searchQuery) throws Exception {
         // Create Client
-        final DefaultHttpClient client = new DefaultHttpClient();
-        final HttpPost request = new HttpPost(url);
+        final URL url = new URL(URL);
+        final HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        urlConnection.setRequestMethod("POST");
+        urlConnection.setRequestProperty("User-Agent", clientUserAgent);
+        final OutputStream outputStream = urlConnection.getOutputStream();
+        outputStream.write(assembleQuery(searchQuery.getBytes("UTF-8")));
 
-        // Define HEADER
-        request.setHeader("User-Agent", clientUserAgent);
-        client.getParams().setBooleanParameter("http.protocol.expect-continue", true);
+        String full;
+        try {
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            // Get the response
+            final BufferedReader rd = new BufferedReader
+                    (new InputStreamReader(in, "ISO_8859_1"));
 
-        // Define POST Entity as a magic encoded version of XMLQuery
-        request.setEntity(new ByteArrayEntity(assembleQuery(searchQuery.getBytes("UTF-8"))));
-
-
-        // Send Request
-        final HttpResponse response = client.execute(request);
-
-        // Get the response
-        final BufferedReader rd = new BufferedReader
-                (new InputStreamReader(response.getEntity().getContent(), "ISO_8859_1"));
-
-        // Get full result
-        final StringBuilder builder = new StringBuilder();
-        char[] buffer = new char[8192];
-        int read;
-        while ((read = rd.read(buffer, 0, buffer.length)) > 0) {
-            builder.append(buffer, 0, read);
+            // Get full result
+            final StringBuilder builder = new StringBuilder();
+            char[] buffer = new char[8192];
+            int read;
+            while ((read = rd.read(buffer, 0, buffer.length)) > 0) {
+                builder.append(buffer, 0, read);
+            }
+            full = builder.toString();
+        } finally {
+            urlConnection.disconnect();
         }
-        final String full = builder.toString();
 
         // Decrypt, parse, store, and return the result list
         return parseResultXML(decryptResultXML(full));

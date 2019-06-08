@@ -36,7 +36,6 @@ static def getProperty(@Nullable Properties properties, String name) {
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
-    useLibrary 'org.apache.http.legacy'
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
@@ -140,9 +139,6 @@ dependencies {
     implementation('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.11.0@aar') {
         transitive = true
     }
-    implementation 'org.apache.httpcomponents:httpcore:4.4.10'
-    implementation 'org.apache.httpcomponents:httpclient:4.5.6'
-    implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.google.code.gson:gson:2.8.5'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

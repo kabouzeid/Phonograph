@@ -4,10 +4,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v7.widget.GridLayoutManager;
+import androidx.annotation.NonNull;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.GridLayoutManager;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.song.ShuffleButtonSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.SongAdapter;
@@ -19,7 +19,7 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -151,9 +151,9 @@ public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFrag
         }
 
         @Override
-        public ArrayList<Song> loadInBackground() {
+        public List<Song> loadInBackground() {
 
-            final ArrayList<Song> allSongs = SongLoader.getAllSongs(getContext());
+            final List<Song> allSongs = SongLoader.getAllSongs(getContext());
             final ConnectivityManager connManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
             if (connManager != null && connManager.getActiveNetworkInfo() != null) {
@@ -170,7 +170,9 @@ public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFrag
 
         @Override
         public String doInBackground(Song... songs) {
-            Arrays.asList(songs).forEach(MusicUtil::getLyrics);
+            for (final Song song : songs) {
+                MusicUtil.getLyrics(song);
+            }
             return "";
         }
     }
