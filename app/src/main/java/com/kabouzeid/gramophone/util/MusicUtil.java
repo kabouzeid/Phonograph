@@ -7,12 +7,12 @@ import android.os.Environment;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
@@ -20,11 +20,7 @@ import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.lyric.ViewLyricsSearcher;
 import com.kabouzeid.gramophone.lyric.model.LyricInfo;
 import com.kabouzeid.gramophone.lyric.model.LyricResult;
-import com.kabouzeid.gramophone.model.Album;
-import com.kabouzeid.gramophone.model.Artist;
-import com.kabouzeid.gramophone.model.Genre;
-import com.kabouzeid.gramophone.model.Playlist;
-import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.model.*;
 import com.kabouzeid.gramophone.model.lyrics.AbsSynchronizedLyrics;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.tag.FieldKey;
@@ -356,7 +352,7 @@ public class MusicUtil {
     }
 
     @Nullable
-    public static String getLyrics(Song song) {
+    public static String getLyrics(final Song song, final boolean fetchFromWeb) {
         String lyrics = null;
 
         File file = new File(song.data);
@@ -406,7 +402,7 @@ public class MusicUtil {
         }
 
 
-        if (lyrics == null || lyrics.isEmpty()) {
+        if (lyrics == null || lyrics.isEmpty() && fetchFromWeb) {
             lyrics = searchAndSaveLyrics(song);
         }
         return lyrics;

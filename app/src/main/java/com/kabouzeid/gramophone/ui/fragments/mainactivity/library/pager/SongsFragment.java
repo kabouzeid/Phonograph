@@ -146,6 +146,7 @@ public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFrag
     }
 
     private static class AsyncSongLoader extends WrappedAsyncTaskLoader<List<Song>> {
+
         public AsyncSongLoader(Context context) {
             super(context);
         }
@@ -156,7 +157,7 @@ public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFrag
             final List<Song> allSongs = SongLoader.getAllSongs(getContext());
             final ConnectivityManager connManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-            if (connManager != null && connManager.getActiveNetworkInfo() != null) {
+            if (connManager != null && connManager.getActiveNetworkInfo() != null && PreferenceUtil.getInstance(getContext()).synchronizeAllLyrics()) {
                 LyricsAsyncTaskLoader task = new LyricsAsyncTaskLoader();
                 if (task.getStatus() != AsyncTask.Status.RUNNING) {
                     task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, allSongs.toArray(new Song[0]));
@@ -171,7 +172,7 @@ public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFrag
         @Override
         public String doInBackground(Song... songs) {
             for (final Song song : songs) {
-                MusicUtil.getLyrics(song);
+                MusicUtil.getLyrics(song, true);
             }
             return "";
         }

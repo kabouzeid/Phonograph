@@ -8,11 +8,9 @@ import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.SortOrder;
 import com.kabouzeid.gramophone.model.CategoryInfo;
@@ -82,6 +80,10 @@ public final class PreferenceUtil {
     public static final String START_DIRECTORY = "start_directory";
 
     public static final String SYNCHRONIZED_LYRICS_SHOW = "synchronized_lyrics_show";
+
+    public static final String FETCH_LYRICS = "fetch_lyrics";
+
+    public static final String SYNCHRONIZE_ALL_LYRICS = "synchronize_all_lyrics";
 
     public static final String INITIALIZED_BLACKLIST = "initialized_blacklist";
 
@@ -487,6 +489,14 @@ public final class PreferenceUtil {
 
     public final boolean synchronizedLyricsShow() {
         return mPreferences.getBoolean(SYNCHRONIZED_LYRICS_SHOW, true);
+    }
+
+    public final boolean fetchLyrics() {
+        return mPreferences.getBoolean(FETCH_LYRICS, false);
+    }
+
+    public final boolean synchronizeAllLyrics() {
+        return fetchLyrics() && mPreferences.getBoolean(SYNCHRONIZE_ALL_LYRICS, false);
     }
 
     public void setInitializedBlacklist() {

@@ -130,6 +130,8 @@
     <string name="pref_title_audio_ducking">Réduire le volume lorse que le focus est interrompu</string>
     <string name="pref_title_last_added_interval">Intervalle de la playlist \"Derniers ajouts\"</string>
     <string name="pref_title_synchronized_lyrics_show">Afficher les paroles synchronisées</string>
+    <string name="pref_title_fetch_lyrics">Récupération des parôles depuis internet</string>
+    <string name="pref_title_synchronize_all_lyrics">Synchronise les parôles depuis internet en tâche de fond</string>
     <string name="pref_title_remember_last_tab">Se souvenir de la dernière fenêtre</string>
     <string name="no_equalizer">Impossible de trouver d\'égalisateur.</string>
     <string name="no_audio_ID">"Faire jouer un titre d'abord, puis réessayer."</string>
@@ -164,6 +166,8 @@
     <string name="pref_summary_colored_app_shortcuts">Colore les raccourcis de l\'application selon la couleur primaire.</string>
     <string name="pref_summary_audio_ducking">Notifications, navigation, etc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Pour le moment seul les paroles synchronisées en format LRC sont supportées. Aussi bien en fichier intégré ou en fichier séparé.</string>
+    <string name="pref_summary_fetch_lyrics">Récupère les parôles depuis internet si elles n\'existent pas en local</string>
+    <string name="pref_summary_synchronize_all_lyrics">Récupère les parôles depuis internet en tâche de fond et les sauvegarde en local pour un usage hors ligne.</string>
     <string name="pref_summary_remember_last_tab">Aller à la dernière catégorie ouverte lors du lancement</string>
     <string name="could_not_download_album_cover">"Impossible de t\u00e9l\u00e9charger la pochette correspondant \u00e0 l'album."</string>
     <string name="search_hint">Recherche dans votre bibliothèque...</string>
