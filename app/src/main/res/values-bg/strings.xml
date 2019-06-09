@@ -119,14 +119,14 @@
     <string name="pref_header_images">Изображения</string>
     <string name="pref_header_lockscreen">Заключен екран</string>
     <string name="pref_header_playlists">Плейлисти</string>
-    <string name="pref_header_notification">Уведомления</string>
+    <string name="pref_header_notification">Известия</string>
     <string name="pref_title_navigation_bar">Цветна навигационна лента</string>
     <string name="pref_title_app_shortcuts">Цветни икони за преки пътища</string>
     <string name="pref_title_album_art_on_lockscreen">Показване на обложката на албума</string>
     <string name="pref_title_auto_download_metadata">Автоматично изтегляне на метаданни</string>
     <string name="pref_title_blurred_album_art">Размазване на обложката на албума</string>
     <string name="pref_title_colored_notification">Цветно известие</string>
-    <string name="pref_title_classic_notification">Класически дизайн за уведомление</string>
+    <string name="pref_title_classic_notification">Класически дизайн за известие</string>
     <string name="pref_title_ignore_media_store_artwork">Игнориране на вградените обложки</string>
     <string name="pref_title_gapless_playback">Непрекъснато звучене</string>
     <string name="pref_title_audio_ducking">Намалявай звукът при известия</string>
@@ -160,7 +160,7 @@
     <string name="pref_summary_album_art_on_lockscreen">Използва текущата обложката на албума при заключен екран.</string>
     <string name="pref_summary_blurred_album_art">Замъглява обложката на албума при заключен екран. Може да създаде проблеми с приложения и джаджи на трети страни.</string>
     <string name="pref_summary_classic_notification">Използване на класическия дизайн за известия.</string>
-    <string name="pref_summary_colored_notification">"Цветовете на уведомлението в обложката на албума са ярки цветове."</string>
+    <string name="pref_summary_colored_notification">"Цветовете на известието в обложката на албума са ярки цветове."</string>
     <string name="pref_summary_gapless_playback">"Може да създаде проблеми с възпроизвеждането при някои устройства."</string>
     <string name="pref_summary_ignore_media_store_artwork">Може да увеличи качеството на обложките на албуми, но също така и забавя времето за зареждане. Включете това, само ако имате проблеми с ниско качество на обложките.</string>
     <string name="pref_summary_colored_navigation_bar">Оцветява на лентата за навигация в основния цвят.</string>
