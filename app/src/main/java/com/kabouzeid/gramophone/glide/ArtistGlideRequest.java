@@ -3,24 +3,25 @@ package com.kabouzeid.gramophone.glide;
 import android.content.Context;
 import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
-
-import com.bumptech.glide.BitmapRequestBuilder;
-import com.bumptech.glide.DrawableRequestBuilder;
-import com.bumptech.glide.DrawableTypeRequest;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.*;
 import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.target.Target;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.glide.artistimage.AlbumCover;
 import com.kabouzeid.gramophone.glide.artistimage.ArtistImage;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
+import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
+import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ArtistSignatureUtil;
 import com.kabouzeid.gramophone.util.CustomArtistImageUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -122,7 +123,12 @@ public class ArtistGlideRequest {
     public static DrawableTypeRequest createBaseRequest(RequestManager requestManager, Artist artist, boolean noCustomImage, boolean forceDownload) {
         boolean hasCustomImage = CustomArtistImageUtil.getInstance(App.getInstance()).hasCustomArtistImage(artist);
         if (noCustomImage || !hasCustomImage) {
-            return requestManager.load(new ArtistImage(artist.getName(), forceDownload));
+            final List<AlbumCover> songs = new ArrayList<>();
+            for (final Album album : artist.albums) {
+                final Song song = album.safeGetFirstSong();
+                songs.add(new AlbumCover(album.getYear(), song.data));
+            }
+            return requestManager.load(new ArtistImage(artist.getName(), forceDownload, songs));
         } else {
             return requestManager.load(CustomArtistImageUtil.getFile(artist));
         }
