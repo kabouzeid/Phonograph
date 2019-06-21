@@ -308,4 +308,6 @@
     <string name="sort_order_album">Album</string>
     <string name="sort_order_year">Year</string>
     <string name="finish_current_music_sleep_timer">Finish last song</string>
+    <string name="dialog_ringtone_title">Set ringtone</string>
+    <string name="dialog_ringtone_message">Allow phonograph to modify audio settings</string>
 </resources>
