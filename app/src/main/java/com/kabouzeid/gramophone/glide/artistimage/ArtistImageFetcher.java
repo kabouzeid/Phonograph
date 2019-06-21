@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.glide.artistimage;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.media.MediaMetadataRetriever;
+import android.util.Log;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -18,6 +19,7 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.data.DataFetcher;
 import com.kabouzeid.gramophone.glide.audiocover.AudioFileCoverUtils;
 import com.kabouzeid.gramophone.util.ImageUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -28,20 +30,25 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
 
     private InputStream stream;
 
-    public ArtistImageFetcher(final ArtistImage model) {
+    private boolean ignoreMediaStore;
 
+    public ArtistImageFetcher(final ArtistImage model, boolean ignoreMediaStore) {
         this.model = model;
+        this.ignoreMediaStore = ignoreMediaStore;
     }
 
     @Override
     public String getId() {
-        // makes sure we never ever return null here
-        return String.valueOf(model.artistName);
+        Log.d("MOSAIC", "get id for" + model.artistName);
+        // never return NULL here!
+        // this id is used to determine whether the image is already cached
+        // we use the artist name as well as the album years + file paths
+        return model.toIdString() + "ignoremediastore:" + ignoreMediaStore;
     }
 
     @Override
     public InputStream loadData(Priority priority) throws Exception {
-
+        Log.d("MOSAIC", "load data for" + model.artistName);
         return stream = getMosaic(model.albumCovers);
     }
 
@@ -58,9 +65,11 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
 
         try {
             for (final AlbumCover cover : albumCovers) {
-
-                retriever.setDataSource(cover.getFilePath());
-                byte[] picture = retriever.getEmbeddedPicture();
+                byte[] picture = null;
+                if (!ignoreMediaStore) {
+                    retriever.setDataSource(cover.getFilePath());
+                    picture = retriever.getEmbeddedPicture();
+                }
                 final InputStream stream;
                 if (picture != null) {
                     stream = new ByteArrayInputStream(picture);
