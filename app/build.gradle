@@ -49,7 +49,7 @@ android {
     }
     signingConfigs {
         release {
-            Properties properties = getProperties('/Users/karim/Documents/PhonographRessources/privatekeys/keystore.properties')
+            Properties properties = getProperties('/Users/karim/Documents/Phonograph/privatekeys/keystore.properties')
             storeFile file(getProperty(properties, 'storeFile'))
             keyAlias getProperty(properties, 'keyAlias')
             storePassword getProperty(properties, 'storePassword')
