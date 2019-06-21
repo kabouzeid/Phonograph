@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -13,6 +14,8 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
+
+import java.io.InputStream;
 
 import com.kabouzeid.appthemehelper.util.TintHelper;
 
@@ -108,5 +111,11 @@ public class ImageUtil {
         Drawable drawable = a.getDrawable(0);
         a.recycle();
         return drawable;
+    }
+
+    public static Bitmap resize(InputStream stream, int scaledWidth, int scaledHeight) {
+        final Bitmap bitmap = BitmapFactory.decodeStream(stream);
+        return Bitmap.createScaledBitmap(bitmap, scaledWidth, scaledHeight, true);
+
     }
 }
