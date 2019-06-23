@@ -2,8 +2,8 @@ package com.kabouzeid.gramophone.dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import android.text.Html;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -12,6 +12,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid), Aidan Follestad (afollestad)
@@ -20,16 +21,16 @@ public class DeleteSongsDialog extends DialogFragment {
 
     @NonNull
     public static DeleteSongsDialog create(Song song) {
-        ArrayList<Song> list = new ArrayList<>();
+        List<Song> list = new ArrayList<>();
         list.add(song);
         return create(list);
     }
 
     @NonNull
-    public static DeleteSongsDialog create(ArrayList<Song> songs) {
+    public static DeleteSongsDialog create(List<Song> songs) {
         DeleteSongsDialog dialog = new DeleteSongsDialog();
         Bundle args = new Bundle();
-        args.putParcelableArrayList("songs", songs);
+        args.putParcelableArrayList("songs", new ArrayList<>(songs));
         dialog.setArguments(args);
         return dialog;
     }
@@ -38,7 +39,7 @@ public class DeleteSongsDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //noinspection unchecked
-        final ArrayList<Song> songs = getArguments().getParcelableArrayList("songs");
+        final List<Song> songs = getArguments().getParcelableArrayList("songs");
         int title;
         CharSequence content;
         if (songs.size() > 1) {

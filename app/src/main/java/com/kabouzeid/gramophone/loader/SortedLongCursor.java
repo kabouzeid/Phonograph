@@ -17,12 +17,13 @@ package com.kabouzeid.gramophone.loader;
 
 import android.database.AbstractCursor;
 import android.database.Cursor;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * This cursor basically wraps a song cursor and is given a list of the order of the ids of the
@@ -33,9 +34,9 @@ public class SortedLongCursor extends AbstractCursor {
     // cursor to wrap
     private final Cursor mCursor;
     // the map of external indices to internal indices
-    private ArrayList<Integer> mOrderedPositions;
+    private List<Integer> mOrderedPositions;
     // this contains the ids that weren't found in the underlying cursor
-    private ArrayList<Long> mMissingIds;
+    private List<Long> mMissingIds;
     // this contains the mapped cursor positions and afterwards the extra ids that weren't found
     private HashMap<Long, Integer> mMapCursorPositions;
 
@@ -58,8 +59,8 @@ public class SortedLongCursor extends AbstractCursor {
      * @return returns the ids that aren't found in the underlying cursor
      */
     @NonNull
-    private ArrayList<Long> buildCursorPositionMapping(@Nullable final long[] order, final String columnName) {
-        ArrayList<Long> missingIds = new ArrayList<>();
+    private List<Long> buildCursorPositionMapping(@Nullable final long[] order, final String columnName) {
+        List<Long> missingIds = new ArrayList<>();
 
         mOrderedPositions = new ArrayList<>(mCursor.getCount());
 
@@ -93,7 +94,7 @@ public class SortedLongCursor extends AbstractCursor {
     /**
      * @return the list of ids that weren't found in the underlying cursor
      */
-    public ArrayList<Long> getMissingIds() {
+    public List<Long> getMissingIds() {
         return mMissingIds;
     }
 

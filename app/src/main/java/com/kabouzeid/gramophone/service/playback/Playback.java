@@ -1,6 +1,6 @@
 package com.kabouzeid.gramophone.service.playback;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)

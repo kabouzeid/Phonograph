@@ -2,9 +2,9 @@ package com.kabouzeid.gramophone.dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import android.text.InputType;
 import android.widget.Toast;
 
@@ -14,6 +14,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid), Aidan Follestad (afollestad)
@@ -29,17 +30,17 @@ public class CreatePlaylistDialog extends DialogFragment {
 
     @NonNull
     public static CreatePlaylistDialog create(@Nullable Song song) {
-        ArrayList<Song> list = new ArrayList<>();
+        List<Song> list = new ArrayList<>();
         if (song != null)
             list.add(song);
         return create(list);
     }
 
     @NonNull
-    public static CreatePlaylistDialog create(ArrayList<Song> songs) {
+    public static CreatePlaylistDialog create(List<Song> songs) {
         CreatePlaylistDialog dialog = new CreatePlaylistDialog();
         Bundle args = new Bundle();
-        args.putParcelableArrayList(SONGS, songs);
+        args.putParcelableArrayList(SONGS, new ArrayList<>(songs));
         dialog.setArguments(args);
         return dialog;
     }
@@ -63,7 +64,7 @@ public class CreatePlaylistDialog extends DialogFragment {
                             final int playlistId = PlaylistsUtil.createPlaylist(getActivity(), name);
                             if (getActivity() != null) {
                                 //noinspection unchecked
-                                ArrayList<Song> songs = getArguments().getParcelableArrayList(SONGS);
+                                List<Song> songs = getArguments().getParcelableArrayList(SONGS);
                                 if (songs != null && !songs.isEmpty()) {
                                     PlaylistsUtil.addToPlaylist(getActivity(), songs, playlistId, true);
                                 }

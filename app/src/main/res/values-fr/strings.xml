@@ -20,7 +20,7 @@
     <string name="action_next">Suivant</string>
     <string name="action_add_to_playing_queue">Ajouter à la liste de lecture</string>
     <string name="action_remove_from_playing_queue">Retirer de la liste de lecture</string>
-    <string name="action_add_to_playlist">Ajouter à la liste de lecture...</string>
+    <string name="action_add_to_playlist">Ajouter à la playlist...</string>
     <string name="action_tag_editor">Éditeur d\'informations</string>
     <string name="action_delete_from_device">Supprimer de l\'appareil</string>
     <string name="action_details">Détails</string>
@@ -87,6 +87,7 @@
     <string name="delete_playlists_title">Supprimer les playlists</string>
     <string name="clear_playlist_title">Effacer la playlist</string>
     <string name="save_playlist_title">Sauvegarder en tant que fichier</string>
+    <string name="save_playlists_title">"Enregistrer le fichier "</string>
     <string name="add_playlist_title">"Ajouter à la playlist"</string>
     <string name="action_shuffle_all">Lecture aléatoire</string>
     <string name="action_shuffle_album">Lecture aléatoire</string>
@@ -121,7 +122,7 @@
     <string name="pref_title_app_shortcuts">Raccourcis de l\'application colorés</string>
     <string name="pref_title_album_art_on_lockscreen">Afficher la pochette d\'album</string>
     <string name="pref_title_auto_download_metadata">Télécharger automatiquement les métadonnées</string>
-    <string name="pref_title_blurred_album_art">Pochette d\'album floue</string>
+    <string name="pref_title_blurred_album_art">Flouter la pochette d\'album</string>
     <string name="pref_title_colored_notification">Notification colorée</string>
     <string name="pref_title_classic_notification">Style de notification classic</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorer le stockage des pochettes</string>
@@ -194,14 +195,11 @@
     <string name="version">Version</string>
     <string name="author">Auteur</string>
     <string name="write_an_email">Écrire un email</string>
-    <string name="add_to_google_plus_circles">Ajouter aux cercles Google+</string>
     <string name="follow_on_twitter">Suivre sur Twitter</string>
     <string name="fork_on_github">Afficher sur GitHub</string>
     <string name="visit_website">Visiter le site internet</string>
     <string name="report_bugs">Signaler des bugs</string>
     <string name="report_bugs_summary">Signalez des bugs ou demandez des nouvelles fonctionnalités.</string>
-    <string name="join_community">Rejoindre la communauté Google+</string>
-    <string name="join_community_summary">Si vous avez besoin d\'aide ou si vous avez des questions, la communauté Phonograph sur Google+ est un bon endroit où se rendre.</string>
     <string name="translate">Traduire</string>
     <string name="translate_summary">Aidez à traduire Phonograph dans votre langue maternelle.</string>
     <string name="rate_on_google_play">Évaluer</string>
@@ -224,8 +222,9 @@
     <string name="folders">Dossiers</string>
     <string name="saved_playlist_to">Liste de lecture sauvegardée dans %s.</string>
     <string name="failed_to_save_playlist">Impossible de sauvegarder la liste de lecture (%s).</string>
+    <string name="saved_x_playlists_to_x">Liste de lecture enregistrée %1$d à %2$s</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> n\'est pas dans le catalogue de médias.]]></string>
-    <string name="some_files_are_not_listed_in_the_media_store">Des fichiers ne sont pas listés dans les documents.</string>
+    <string name="some_files_are_not_listed_in_the_media_store">"Certains fichiers ne sont pas enregistrés dans le stockage média "</string>
     <string name="nothing_to_scan">Rien à analyser.</string>
     <string name="scanned_files">%1$d fichiers scannés sur %2$d.</string>
     <string name="could_not_scan_files">Impossible de scanner %d fichiers.</string>

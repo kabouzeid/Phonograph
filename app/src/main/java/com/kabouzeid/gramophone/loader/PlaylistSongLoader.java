@@ -4,17 +4,18 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.AudioColumns;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.kabouzeid.gramophone.model.PlaylistSong;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlaylistSongLoader {
 
     @NonNull
-    public static ArrayList<PlaylistSong> getPlaylistSongList(@NonNull final Context context, final int playlistId) {
-        ArrayList<PlaylistSong> songs = new ArrayList<>();
+    public static List<PlaylistSong> getPlaylistSongList(@NonNull final Context context, final int playlistId) {
+        List<PlaylistSong> songs = new ArrayList<>();
         Cursor cursor = makePlaylistSongCursor(context, playlistId);
 
         if (cursor != null && cursor.moveToFirst()) {

@@ -87,7 +87,9 @@
     <string name="delete_playlists_title">Wiedergabelisten löschen</string>
     <string name="clear_playlist_title">Wiedergabeliste leeren</string>
     <string name="save_playlist_title">Als Datei speichern</string>
+    <string name="save_playlists_title">Als Dateien speichern</string>
     <string name="add_playlist_title">"Zu Wiedergabeliste hinzufügen"</string>
+    <string name="select_all_title">Alles auswählen</string>
     <string name="action_shuffle_all">Zufällige Wiedergabe</string>
     <string name="action_shuffle_album">Album zufällig wiedergeben</string>
     <string name="action_shuffle_artist">Interpret zufällig wiedergeben</string>
@@ -104,6 +106,7 @@
     <string name="never">Niemals</string>
     <string name="today">Heute</string>
     <string name="this_week">Diese Woche</string>
+    <string name="past_seven_days">Letzte 7 Tage</string>
     <string name="this_month">Diesen Monat</string>
     <string name="past_three_months">Letzte 3 Monate</string>
     <string name="this_year">Dieses Jahr</string>
@@ -130,6 +133,7 @@
     <string name="pref_title_last_added_interval">Intervall der \"Zuletzt hinzugefügt\"-Wiedergabeliste</string>
     <string name="pref_title_synchronized_lyrics_show">Synchronisierten Songtext anzeigen</string>
     <string name="pref_title_remember_last_tab">Letzten Tab merken</string>
+    <string name="pref_title_remember_shuffle">Shuffle-Einstellung merken</string>
     <string name="no_equalizer">Kein Equalizer gefunden.</string>
     <string name="no_audio_ID">"Keine Audio ID, spiele etwas ab und versuche es erneut."</string>
     <string name="delete_action">Löschen</string>
@@ -164,6 +168,7 @@
     <string name="pref_summary_audio_ducking">Benachrichtigungen, Navigation etc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Aktuell werden nur synchronisierte Songtexte im LRC-Format unterstützt, entweder eingebettet oder als separate Datei.</string>
     <string name="pref_summary_remember_last_tab">Zuletzt geöffneten Tab beim Start anzeigen</string>
+    <string name="pref_summary_remember_shuffle">Shuffle bleibt aktiviert, wenn neue Songs ausgewählt werden</string>
     <string name="could_not_download_album_cover">"Es konnte kein passendes Album Cover heruntergeladen werden."</string>
     <string name="search_hint">Durchsuche deine Mediathek</string>
     <string name="favorites">Favoriten</string>
@@ -194,14 +199,11 @@
     <string name="version">Version</string>
     <string name="author">Autor</string>
     <string name="write_an_email">Eine E-Mail schreiben</string>
-    <string name="add_to_google_plus_circles">Zu Google Plus Kreisen hinzufügen</string>
     <string name="follow_on_twitter">Auf Twitter folgen</string>
     <string name="fork_on_github">Auf GitHub forken</string>
     <string name="visit_website">Website besuchen</string>
     <string name="report_bugs">Fehler melden</string>
     <string name="report_bugs_summary">Melde Fehler oder schlage neue Features vor.</string>
-    <string name="join_community">Google Plus Community beitreten</string>
-    <string name="join_community_summary">Wenn du Hilfe brauchst oder eine Frage hast, bist du bei der Phonograph Community an der richtigen Adresse.</string>
     <string name="translate">Übersetzen</string>
     <string name="translate_summary">Helfe dabei, Phonograph in deine Sprache zu übersetzen.</string>
     <string name="rate_on_google_play">Bewerten</string>
@@ -224,6 +226,8 @@
     <string name="folders">Ordner</string>
     <string name="saved_playlist_to">Playlist wurde in %s gespeichert.</string>
     <string name="failed_to_save_playlist">Speichern der Playlist fehlgeschlagen (%s).</string>
+    <string name="saved_x_playlists_to_x">%1$d Wiedergabelisten wurden in %2$s gespeichert.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">%1$d Wiedergabelisten wurden in %2$s gespeichert, %3$d konnten nicht gespeichert werden.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> ist nicht im Media Store gelistet.]]></string>
     <string name="some_files_are_not_listed_in_the_media_store">Einige Dateien sind nicht im Medienverzeichnis gelistet.</string>
     <string name="nothing_to_scan">Nichts zu scannen.</string>
@@ -295,4 +299,5 @@
     <string name="sort_order_artist">Interpret</string>
     <string name="sort_order_album">Album</string>
     <string name="sort_order_year">Jahr</string>
+    <string name="finish_current_music_sleep_timer">Letzten Song beenden</string>
 </resources>

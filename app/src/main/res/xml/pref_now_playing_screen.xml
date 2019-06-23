@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/pref_header_now_playing_screen">
 
         <com.kabouzeid.gramophone.preferences.NowPlayingScreenPreference
+            app:iconSpaceReserved="false"
             android:key="now_playing_screen_id"
             android:title="@string/pref_title_now_playing_screen_appearance" />
 
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            app:iconSpaceReserved="false"
             android:defaultValue="true"
             android:key="synchronized_lyrics_show"
             android:summary="@string/pref_summary_synchronized_lyrics_show"
@@ -15,4 +18,4 @@
 
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
-</android.support.v7.preference.PreferenceScreen>
+</androidx.preference.PreferenceScreen>

@@ -8,13 +8,13 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -46,6 +46,7 @@ import com.kabouzeid.gramophone.model.lyrics.Lyrics;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.fragments.player.AbsPlayerFragment;
 import com.kabouzeid.gramophone.ui.fragments.player.PlayerAlbumCoverFragment;
+import com.kabouzeid.gramophone.util.ImageUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
@@ -288,7 +289,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
                 if (activity != null) {
                     int res = isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_border_white_24dp;
                     int color = ToolbarContentTintHelper.toolbarContentColor(activity, Color.TRANSPARENT);
-                    Drawable drawable = Util.getTintedVectorDrawable(activity, res, color);
+                    Drawable drawable = ImageUtil.getTintedVectorDrawable(activity, res, color);
                     toolbar.getMenu().findItem(R.id.action_toggle_favorite)
                             .setIcon(drawable)
                             .setTitle(isFavorite ? getString(R.string.action_remove_from_favorites) : getString(R.string.action_add_to_favorites));
@@ -331,7 +332,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
                     if (toolbar != null && activity != null)
                         if (toolbar.getMenu().findItem(R.id.action_show_lyrics) == null) {
                             int color = ToolbarContentTintHelper.toolbarContentColor(activity, Color.TRANSPARENT);
-                            Drawable drawable = Util.getTintedVectorDrawable(activity, R.drawable.ic_comment_text_outline_white_24dp, color);
+                            Drawable drawable = ImageUtil.getTintedVectorDrawable(activity, R.drawable.ic_comment_text_outline_white_24dp, color);
                             toolbar.getMenu()
                                     .add(Menu.NONE, R.id.action_show_lyrics, Menu.NONE, R.string.action_show_lyrics)
                                     .setIcon(drawable)
@@ -547,7 +548,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         public void updateCurrentSong(Song song) {
             currentSong = song;
             currentSongViewHolder.title.setText(song.title);
-            currentSongViewHolder.text.setText(song.artistName);
+            currentSongViewHolder.text.setText(MusicUtil.getSongInfoString(song));
         }
 
         @Override
@@ -575,7 +576,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         @Override
         public void updateCurrentSong(Song song) {
             fragment.toolbar.setTitle(song.title);
-            fragment.toolbar.setSubtitle(song.artistName);
+            fragment.toolbar.setSubtitle(MusicUtil.getSongInfoString(song));
         }
 
         @Override

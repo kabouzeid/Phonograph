@@ -1,10 +1,10 @@
 package com.kabouzeid.gramophone.adapter.album;
 
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,13 +19,14 @@ import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.util.MusicUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class HorizontalAlbumAdapter extends AlbumAdapter {
 
-    public HorizontalAlbumAdapter(@NonNull AppCompatActivity activity, ArrayList<Album> dataSet, boolean usePalette, @Nullable CabHolder cabHolder) {
+    public HorizontalAlbumAdapter(@NonNull AppCompatActivity activity, List<Album> dataSet, boolean usePalette, @Nullable CabHolder cabHolder) {
         super(activity, dataSet, HorizontalAdapterHelper.LAYOUT_RES, usePalette, cabHolder);
     }
 

@@ -27,12 +27,13 @@ import android.os.PowerManager;
 import android.os.Process;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.Glide;
@@ -83,6 +84,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String ACTION_SKIP = PHONOGRAPH_PACKAGE_NAME + ".skip";
     public static final String ACTION_REWIND = PHONOGRAPH_PACKAGE_NAME + ".rewind";
     public static final String ACTION_QUIT = PHONOGRAPH_PACKAGE_NAME + ".quitservice";
+    public static final String ACTION_PENDING_QUIT = PHONOGRAPH_PACKAGE_NAME + ".pendingquitservice";
     public static final String INTENT_EXTRA_PLAYLIST = PHONOGRAPH_PACKAGE_NAME + "intentextra.playlist";
     public static final String INTENT_EXTRA_SHUFFLE_MODE = PHONOGRAPH_PACKAGE_NAME + ".intentextra.shufflemode";
 
@@ -125,14 +127,16 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     private final IBinder musicBind = new MusicBinder();
 
+    public boolean pendingQuit = false;
+
     private AppWidgetBig appWidgetBig = AppWidgetBig.getInstance();
     private AppWidgetClassic appWidgetClassic = AppWidgetClassic.getInstance();
     private AppWidgetSmall appWidgetSmall = AppWidgetSmall.getInstance();
     private AppWidgetCard appWidgetCard = AppWidgetCard.getInstance();
 
     private Playback playback;
-    private ArrayList<Song> playingQueue = new ArrayList<>();
-    private ArrayList<Song> originalPlayingQueue = new ArrayList<>();
+    private List<Song> playingQueue = new ArrayList<>();
+    private List<Song> originalPlayingQueue = new ArrayList<>();
     private int position = -1;
     private int nextPosition = -1;
     private int shuffleMode;
@@ -302,12 +306,12 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         Playlist playlist = intent.getParcelableExtra(INTENT_EXTRA_PLAYLIST);
                         int shuffleMode = intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, getShuffleMode());
                         if (playlist != null) {
-                            ArrayList<Song> playlistSongs;
+                            List<Song> playlistSongs;
                             if (playlist instanceof AbsCustomPlaylist) {
                                 playlistSongs = ((AbsCustomPlaylist) playlist).getSongs(getApplicationContext());
                             } else {
                                 //noinspection unchecked
-                                playlistSongs = (ArrayList<Song>) (List) PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id);
+                                playlistSongs = (List) PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id);
                             }
                             if (!playlistSongs.isEmpty()) {
                                 if (shuffleMode == SHUFFLE_MODE_SHUFFLE) {
@@ -335,7 +339,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         break;
                     case ACTION_STOP:
                     case ACTION_QUIT:
+                        pendingQuit = false;
                         quit();
+                        break;
+                    case ACTION_PENDING_QUIT:
+                        pendingQuit = true;
                         break;
                 }
             }
@@ -421,8 +429,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     private synchronized void restoreQueuesAndPositionIfNecessary() {
         if (!queuesRestored && playingQueue.isEmpty()) {
-            ArrayList<Song> restoredQueue = MusicPlaybackQueueStore.getInstance(this).getSavedPlayingQueue();
-            ArrayList<Song> restoredOriginalQueue = MusicPlaybackQueueStore.getInstance(this).getSavedOriginalPlayingQueue();
+            List<Song> restoredQueue = MusicPlaybackQueueStore.getInstance(this).getSavedPlayingQueue();
+            List<Song> restoredOriginalQueue = MusicPlaybackQueueStore.getInstance(this).getSavedOriginalPlayingQueue();
             int restoredPosition = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION, -1);
             int restoredPositionInTrack = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION_IN_TRACK, -1);
 
@@ -670,7 +678,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         return getPosition() == getPlayingQueue().size() - 1;
     }
 
-    public ArrayList<Song> getPlayingQueue() {
+    public List<Song> getPlayingQueue() {
         return playingQueue;
     }
 
@@ -693,7 +701,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
-    public void openQueue(@Nullable final ArrayList<Song> playingQueue, final int startPosition, final boolean startPlaying) {
+    public void openQueue(@Nullable final List<Song> playingQueue, final int startPosition, final boolean startPlaying) {
         if (playingQueue != null && !playingQueue.isEmpty() && startPosition >= 0 && startPosition < playingQueue.size()) {
             // it is important to copy the playing queue here first as we might add/remove songs later
             originalPlayingQueue = new ArrayList<>(playingQueue);
@@ -862,7 +870,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
-    public void playSongs(ArrayList<Song> songs, int shuffleMode) {
+    public void playSongs(List<Song> songs, int shuffleMode) {
         if (songs != null && !songs.isEmpty()) {
             if (shuffleMode == SHUFFLE_MODE_SHUFFLE) {
                 int startPosition = 0;
@@ -1193,9 +1201,16 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                     break;
 
                 case TRACK_ENDED:
-                    if (service.getRepeatMode() == REPEAT_MODE_NONE && service.isLastTrack()) {
+                    // if there is a timer finished, don't continue
+                    if (service.pendingQuit ||
+                            service.getRepeatMode() == REPEAT_MODE_NONE && service.isLastTrack()) {
                         service.notifyChange(PLAY_STATE_CHANGED);
                         service.seek(0);
+                        if (service.pendingQuit) {
+                            service.pendingQuit = false;
+                            service.quit();
+                            break;
+                        }
                     } else {
                         service.playNextSong(false);
                     }

@@ -2,16 +2,17 @@ package com.kabouzeid.gramophone.ui.activities;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.afollestad.materialcab.MaterialCab;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
@@ -32,7 +33,6 @@ import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.AbsCustomPlaylist;
 import com.kabouzeid.gramophone.model.Playlist;
-import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
@@ -46,7 +46,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity implements CabHolder, LoaderManager.LoaderCallbacks<ArrayList<Song>> {
+public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity implements CabHolder, LoaderManager.LoaderCallbacks<List<Song>> {
 
     private static final int LOADER_ID = LoaderIds.PLAYLIST_DETAIL_ACTIVITY;
 
@@ -238,23 +238,23 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     }
 
     @Override
-    public Loader<ArrayList<Song>> onCreateLoader(int id, Bundle args) {
+    public Loader<List<Song>> onCreateLoader(int id, Bundle args) {
         return new AsyncPlaylistSongLoader(this, playlist);
     }
 
     @Override
-    public void onLoadFinished(Loader<ArrayList<Song>> loader, ArrayList<Song> data) {
+    public void onLoadFinished(Loader<List<Song>> loader, List<Song> data) {
         if (adapter != null)
             adapter.swapDataSet(data);
     }
 
     @Override
-    public void onLoaderReset(Loader<ArrayList<Song>> loader) {
+    public void onLoaderReset(Loader<List<Song>> loader) {
         if (adapter != null)
             adapter.swapDataSet(new ArrayList<>());
     }
 
-    private static class AsyncPlaylistSongLoader extends WrappedAsyncTaskLoader<ArrayList<Song>> {
+    private static class AsyncPlaylistSongLoader extends WrappedAsyncTaskLoader<List<Song>> {
         private final Playlist playlist;
 
         public AsyncPlaylistSongLoader(Context context, Playlist playlist) {
@@ -263,12 +263,12 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         }
 
         @Override
-        public ArrayList<Song> loadInBackground() {
+        public List<Song> loadInBackground() {
             if (playlist instanceof AbsCustomPlaylist) {
                 return ((AbsCustomPlaylist) playlist).getSongs(getContext());
             } else {
                 //noinspection unchecked
-                return (ArrayList<Song>) (List) PlaylistSongLoader.getPlaylistSongList(getContext(), playlist.id);
+                return (List) PlaylistSongLoader.getPlaylistSongList(getContext(), playlist.id);
             }
         }
     }

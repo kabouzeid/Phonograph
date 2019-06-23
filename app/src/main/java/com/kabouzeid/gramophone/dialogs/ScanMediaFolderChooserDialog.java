@@ -9,10 +9,10 @@ import android.media.MediaScannerConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.DialogFragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.DialogFragment;
 import android.view.View;
 import android.widget.Toast;
 
@@ -116,7 +116,7 @@ public class ScanMediaFolderChooserDialog extends DialogFragment implements Mate
                             final Context applicationContext = getActivity().getApplicationContext();
                             final WeakReference<Activity> activityWeakReference = new WeakReference<>(getActivity());
                             dismiss();
-                            new FoldersFragment.ListPathsAsyncTask(getActivity(), paths -> scanPaths(activityWeakReference, applicationContext, paths)).execute(new FoldersFragment.ListPathsAsyncTask.LoadingInfo(parentFolder, FoldersFragment.AUDIO_FILE_FILTER));
+                            new FoldersFragment.ArrayListPathsAsyncTask(getActivity(), paths -> scanPaths(activityWeakReference, applicationContext, paths)).execute(new FoldersFragment.ArrayListPathsAsyncTask.LoadingInfo(parentFolder, FoldersFragment.AUDIO_FILE_FILTER));
                         })
                         .onNegative((materialDialog, dialogAction) -> dismiss())
                         .positiveText(R.string.action_scan_directory)

@@ -1,9 +1,8 @@
 package com.kabouzeid.gramophone.model;
 
-import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -20,11 +19,6 @@ public class Playlist implements Parcelable {
     public Playlist() {
         this.id = -1;
         this.name = "";
-    }
-
-    @NonNull
-    public String getInfoString(@NonNull Context context) {
-        return "";
     }
 
     @Override

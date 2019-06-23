@@ -2,10 +2,10 @@ package com.kabouzeid.gramophone.adapter;
 
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +20,7 @@ import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.glide.audiocover.AudioFileCover;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
-import com.kabouzeid.gramophone.util.Util;
+import com.kabouzeid.gramophone.util.ImageUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.io.File;
@@ -116,7 +116,7 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
             holder.image.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
             holder.image.setImageResource(R.drawable.ic_folder_white_24dp);
         } else {
-            Drawable error = Util.getTintedVectorDrawable(activity, R.drawable.ic_file_music_white_24dp, iconColor);
+            Drawable error = ImageUtil.getTintedVectorDrawable(activity, R.drawable.ic_file_music_white_24dp, iconColor);
             Glide.with(activity)
                     .load(new AudioFileCover(file.getPath()))
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -151,7 +151,7 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
     }
 
     @Override
-    protected void onMultipleItemAction(MenuItem menuItem, ArrayList<File> selection) {
+    protected void onMultipleItemAction(MenuItem menuItem, List<File> selection) {
         if (callbacks == null) return;
         callbacks.onMultipleItemAction(menuItem, selection);
     }
@@ -206,6 +206,6 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
 
         void onFileMenuClicked(File file, View view);
 
-        void onMultipleItemAction(MenuItem item, ArrayList<File> files);
+        void onMultipleItemAction(MenuItem item, List<File> files);
     }
 }

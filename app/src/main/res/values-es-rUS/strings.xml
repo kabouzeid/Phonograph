@@ -87,6 +87,7 @@
     <string name="delete_playlists_title">Eliminar listas de reproducción</string>
     <string name="clear_playlist_title">Limpiar lista de reproducción</string>
     <string name="save_playlist_title">Guardar como archivo</string>
+    <string name="save_playlists_title">Guardar como archivos</string>
     <string name="add_playlist_title">"Agregar a la lista de reproducción"</string>
     <string name="action_shuffle_all">Modo aleatorio</string>
     <string name="action_shuffle_album">Reproducción aleatoria del álbum</string>
@@ -194,14 +195,11 @@
     <string name="version">Versión</string>
     <string name="author">Autor</string>
     <string name="write_an_email">Escribir un email</string>
-    <string name="add_to_google_plus_circles">Añadir a círculos de Google+</string>
     <string name="follow_on_twitter">Seguir en Twitter</string>
     <string name="fork_on_github">Fork en GitHub</string>
     <string name="visit_website">Visitar sitio web</string>
     <string name="report_bugs">Reportar errores</string>
     <string name="report_bugs_summary">Reportar errores o sugerir nuevas características.</string>
-    <string name="join_community">Unirse a la comunidad de Google+</string>
-    <string name="join_community_summary">Si necesitas ayuda o tienes preguntas, la comunidad Phonograph en Google+ es un buen lugar para ir.</string>
     <string name="translate">Traducir</string>
     <string name="translate_summary">Ayuda traduciendo Phonograph a tu idioma.</string>
     <string name="rate_on_google_play">Calificar</string>
@@ -224,7 +222,9 @@
     <string name="folders">Carpetas</string>
     <string name="saved_playlist_to">Lista de reproducción guardada en %s.</string>
     <string name="failed_to_save_playlist">No se pudo guardar lista de reproducción (%s).</string>
+    <string name="saved_x_playlists_to_x">%1$d de %2$s listas de reproducción guardadas.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> no se encuentra listado en los medios almacenados.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Algunos archivos no se encuentran listados en los medios almacenados.</string>
     <string name="nothing_to_scan">Nada para escanear.</string>
     <string name="scanned_files">%1$d de %2$d archivos escaneados.</string>
     <string name="could_not_scan_files">No se pudieron escanear los archivos %d.</string>
@@ -273,6 +273,7 @@
     <string name="restore">Restaurar</string>
     <string name="no_purchase_found">No se encontró la compra.</string>
     <string name="eugene_cheung_summary">Por sus contribuciones al código fuente.</string>
+    <string name="adrian_summary">Por crear el diseño para la ventana del álbum.</string>
     <string name="add_action">Agregar</string>
     <string name="blacklist">Lista negra</string>
     <string name="remove_from_blacklist">Remover de Lista negra</string>
@@ -282,5 +283,15 @@
     <string name="pref_summary_blacklist">El contenido de las carpetas de Lista negra está oculto de tu librería.</string>
     <string name="reset_artist_image">Reiniciar imagen de Artista</string>
     <string name="set_artist_image">Establecer imagen de Artista</string>
+    <string name="library_categories">Categorías de la biblioteca</string>
+    <string name="pref_summary_library_categories">Configurar la vista y orden de las categorías de la biblioteca.</string>
     <string name="you_have_to_select_at_least_one_category">Tienes que seleccionar al menos una categoría.</string>
+    <string name="action_scan_directory">Escanear directorio</string>
+    <string name="scan_media">Escanear medios</string>
+    <string name="action_sort_order">Ordenar por</string>
+    <string name="sort_order_a_z">Ascendente</string>
+    <string name="sort_order_z_a">Descendente</string>
+    <string name="sort_order_artist">Artista</string>
+    <string name="sort_order_album">Álbum</string>
+    <string name="sort_order_year">Año</string>
 </resources>

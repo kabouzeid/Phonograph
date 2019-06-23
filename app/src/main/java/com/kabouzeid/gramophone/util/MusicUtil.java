@@ -11,9 +11,9 @@ import android.os.Environment;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.FileProvider;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -22,6 +22,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
+import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Genre;
 import com.kabouzeid.gramophone.model.Playlist;
@@ -69,60 +70,51 @@ public class MusicUtil {
         }
     }
 
-    public static void setRingtone(@NonNull final Context context, final int id) {
-        final ContentResolver resolver = context.getContentResolver();
-        final Uri uri = getSongFileUri(id);
-        try {
-            final ContentValues values = new ContentValues(2);
-            values.put(MediaStore.Audio.AudioColumns.IS_RINGTONE, "1");
-            values.put(MediaStore.Audio.AudioColumns.IS_ALARM, "1");
-            resolver.update(uri, values, null, null);
-        } catch (@NonNull final UnsupportedOperationException ignored) {
-            return;
-        }
 
-        try {
-            Cursor cursor = resolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                    new String[]{MediaStore.MediaColumns.TITLE},
-                    BaseColumns._ID + "=?",
-                    new String[]{String.valueOf(id)},
-                    null);
-            try {
-                if (cursor != null && cursor.getCount() == 1) {
-                    cursor.moveToFirst();
-                    Settings.System.putString(resolver, Settings.System.RINGTONE, uri.toString());
-                    final String message = context.getString(R.string.x_has_been_set_as_ringtone, cursor.getString(0));
-                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-                }
-            } finally {
-                if (cursor != null) {
-                    cursor.close();
-                }
-            }
-        } catch (SecurityException ignored) {
-        }
-    }
 
     @NonNull
     public static String getArtistInfoString(@NonNull final Context context, @NonNull final Artist artist) {
         int albumCount = artist.getAlbumCount();
         int songCount = artist.getSongCount();
-        String albumString = albumCount == 1 ? context.getResources().getString(R.string.album) : context.getResources().getString(R.string.albums);
-        String songString = songCount == 1 ? context.getResources().getString(R.string.song) : context.getResources().getString(R.string.songs);
-        return albumCount + " " + albumString + " • " + songCount + " " + songString;
+
+        return MusicUtil.buildInfoString(
+            MusicUtil.getAlbumCountString(context, albumCount),
+            MusicUtil.getSongCountString(context, songCount)
+        );
+    }
+
+    @NonNull
+    public static String getAlbumInfoString(@NonNull final Context context, @NonNull final Album album) {
+        int songCount = album.getSongCount();
+
+        return MusicUtil.buildInfoString(
+            album.getArtistName(),
+            MusicUtil.getSongCountString(context, songCount)
+        );
+    }
+
+    @NonNull
+    public static String getSongInfoString(@NonNull final Song song) {
+        return MusicUtil.buildInfoString(
+            song.artistName,
+            song.albumName
+        );
     }
 
     @NonNull
     public static String getGenreInfoString(@NonNull final Context context, @NonNull final Genre genre) {
         int songCount = genre.songCount;
-        String songString = songCount == 1 ? context.getResources().getString(R.string.song) : context.getResources().getString(R.string.songs);
-        return songCount + " " + songString;
+        return MusicUtil.getSongCountString(context, songCount);
     }
 
     @NonNull
     public static String getPlaylistInfoString(@NonNull final Context context, @NonNull List<Song> songs) {
         final long duration = getTotalDuration(context, songs);
-        return MusicUtil.getSongCountString(context, songs.size()) + " • " + MusicUtil.getReadableDurationString(duration);
+
+        return MusicUtil.buildInfoString(
+            MusicUtil.getSongCountString(context, songs.size()),
+            MusicUtil.getReadableDurationString(duration)
+        );
     }
 
     @NonNull
@@ -160,6 +152,28 @@ public class MusicUtil {
             minutes = minutes % 60;
             return String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, seconds);
         }
+    }
+
+    /** 
+     * Build a concatenated string from the provided arguments
+     * The intended purpose is to show extra annotations
+     * to a music library item.
+     * Ex: for a given album --> buildInfoString(album.artist, album.songCount)
+     */
+    @NonNull
+    public static String buildInfoString(@Nullable final String string1, @Nullable final String string2)
+    {
+        // Skip empty strings
+        if (TextUtils.isEmpty(string1)) {
+            //noinspection ConstantConditions
+            return TextUtils.isEmpty(string2) ? "" : string2;
+        }
+        if (TextUtils.isEmpty(string2)) {
+            //noinspection ConstantConditions
+            return TextUtils.isEmpty(string1) ? "" : string1;
+        }
+
+        return string1 + "  •  " + string2;
     }
 
     //iTunes uses for example 1002 for track 2 CD1 or 3011 for track 11 CD3.
@@ -330,7 +344,7 @@ public class MusicUtil {
                 String filename = Pattern.quote(FileUtil.stripExtension(file.getName()));
                 String songtitle = Pattern.quote(song.title);
 
-                final ArrayList<Pattern> patterns = new ArrayList<>();
+                final List<Pattern> patterns = new ArrayList<>();
                 patterns.add(Pattern.compile(String.format(format, filename), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
                 patterns.add(Pattern.compile(String.format(format, songtitle), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
 

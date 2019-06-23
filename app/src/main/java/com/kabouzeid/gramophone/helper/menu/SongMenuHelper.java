@@ -1,9 +1,9 @@
 package com.kabouzeid.gramophone.helper.menu;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
@@ -19,6 +19,7 @@ import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.RingtoneManager;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -29,7 +30,12 @@ public class SongMenuHelper {
     public static boolean handleMenuClick(@NonNull FragmentActivity activity, @NonNull Song song, int menuItemId) {
         switch (menuItemId) {
             case R.id.action_set_as_ringtone:
-                MusicUtil.setRingtone(activity, song.id);
+                if (RingtoneManager.requiresDialog(activity)) {
+                    RingtoneManager.showDialog(activity);
+                } else {
+                    RingtoneManager ringtoneManager = new RingtoneManager();
+                    ringtoneManager.setRingtone(activity, song.id);
+                }
                 return true;
             case R.id.action_share:
                 activity.startActivity(Intent.createChooser(MusicUtil.createShareSongFileIntent(song, activity), null));

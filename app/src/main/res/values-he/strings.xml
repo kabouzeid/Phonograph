@@ -87,6 +87,7 @@
     <string name="delete_playlists_title">מחיקת רשימות השמעה</string>
     <string name="clear_playlist_title">נקה רשימת השמעה</string>
     <string name="save_playlist_title">שמור כקובץ</string>
+    <string name="save_playlists_title">שמור כקבצים</string>
     <string name="add_playlist_title">"הוסף לרשימת ההשמעה"</string>
     <string name="action_shuffle_all">ערבב הכל</string>
     <string name="action_shuffle_album">ערבב אלבום</string>
@@ -194,14 +195,11 @@
     <string name="version">גרסה</string>
     <string name="author">מחבר</string>
     <string name="write_an_email">כתוב אימייל</string>
-    <string name="add_to_google_plus_circles">הוסף למעגלי Google+</string>
     <string name="follow_on_twitter">עקוב בטוויטר</string>
     <string name="fork_on_github">גירסה בGitHub</string>
     <string name="visit_website">ביקור באתר</string>
     <string name="report_bugs">דווח על באגים</string>
     <string name="report_bugs_summary">דווח על באגים או בקש פיצ\'רים חדשים.</string>
-    <string name="join_community">הצטרף לקהילת ה-Google+</string>
-    <string name="join_community_summary">אם אתה צריך עזרה או שיש לך שאלות, קהילת Phonograph ב-Google+ היא מקום טוב ללכת אליו.</string>
     <string name="translate">תרגם</string>
     <string name="translate_summary">עזור לתרגם את Phonograph לשפת האם שלך.</string>
     <string name="rate_on_google_play">דרג</string>
@@ -224,6 +222,8 @@
     <string name="folders">תיקיות</string>
     <string name="saved_playlist_to">רשימת ההשמעה נשמרה ל-%s.</string>
     <string name="failed_to_save_playlist">לא ניתן היה לשמור את רשימת ההשמעה (%s)</string>
+    <string name="saved_x_playlists_to_x">נשמרו %1$d רשימות השמעה ל-%2$s.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">נשמרו %1$d רשימות השמעה ל-%2$s. לא ניתן היה לשמור %3$d.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> לא רשום בחנות המדיה.]]></string>
     <string name="some_files_are_not_listed_in_the_media_store">קבצים מסוימים לא רשומים בחנות המדיה.</string>
     <string name="nothing_to_scan">אין כלום לסרוק.</string>

@@ -2,7 +2,7 @@ package com.kabouzeid.gramophone.model.smartplaylist;
 
 import android.content.Context;
 import android.os.Parcel;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.kabouzeid.gramophone.loader.TopAndRecentlyPlayedTracksLoader;
 import com.kabouzeid.gramophone.model.Song;
@@ -11,6 +11,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -23,17 +24,7 @@ public class HistoryPlaylist extends AbsSmartPlaylist {
 
     @NonNull
     @Override
-    public String getInfoString(@NonNull Context context) {
-        String baseInfo = super.getInfoString(context);
-        String cutoff = PreferenceUtil.getInstance(context).getRecentlyPlayedCutoffText(context);
-
-        if (baseInfo.isEmpty()) {return cutoff;}
-        return cutoff + INFO_STRING_SEPARATOR + baseInfo;
-    }
-
-    @NonNull
-    @Override
-    public ArrayList<Song> getSongs(@NonNull Context context) {
+    public List<Song> getSongs(@NonNull Context context) {
         return TopAndRecentlyPlayedTracksLoader.getRecentlyPlayedTracks(context);
     }
 

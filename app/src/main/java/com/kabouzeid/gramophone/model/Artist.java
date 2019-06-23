@@ -2,11 +2,12 @@ package com.kabouzeid.gramophone.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.kabouzeid.gramophone.util.MusicUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -14,9 +15,9 @@ import java.util.ArrayList;
 public class Artist implements Parcelable {
     public static final String UNKNOWN_ARTIST_DISPLAY_NAME = "Unknown Artist";
 
-    public final ArrayList<Album> albums;
+    public final List<Album> albums;
 
-    public Artist(ArrayList<Album> albums) {
+    public Artist(List<Album> albums) {
         this.albums = albums;
     }
 
@@ -48,8 +49,8 @@ public class Artist implements Parcelable {
         return albums.size();
     }
 
-    public ArrayList<Song> getSongs() {
-        ArrayList<Song> songs = new ArrayList<>();
+    public List<Song> getSongs() {
+        List<Song> songs = new ArrayList<>();
         for (Album album : albums) {
             songs.addAll(album.songs);
         }

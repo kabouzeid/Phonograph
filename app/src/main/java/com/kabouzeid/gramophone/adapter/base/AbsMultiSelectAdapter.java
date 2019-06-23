@@ -1,9 +1,9 @@
 package com.kabouzeid.gramophone.adapter.base;
 
 import android.content.Context;
-import android.support.annotation.MenuRes;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.MenuRes;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -12,6 +12,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -20,7 +21,7 @@ public abstract class AbsMultiSelectAdapter<VH extends RecyclerView.ViewHolder, 
     @Nullable
     private final CabHolder cabHolder;
     private MaterialCab cab;
-    private ArrayList<I> checked;
+    private List<I> checked;
     private int menuRes;
     private final Context context;
 
@@ -118,5 +119,5 @@ public abstract class AbsMultiSelectAdapter<VH extends RecyclerView.ViewHolder, 
     @Nullable
     protected abstract I getIdentifier(int position);
 
-    protected abstract void onMultipleItemAction(MenuItem menuItem, ArrayList<I> selection);
+    protected abstract void onMultipleItemAction(MenuItem menuItem, List<I> selection);
 }

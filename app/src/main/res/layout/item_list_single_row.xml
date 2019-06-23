@@ -54,35 +54,19 @@
 
         </FrameLayout>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingEnd="0dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="0dp"
-            android:paddingStart="16dp">
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-            <TextView
-                android:id="@+id/text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="?android:textColorSecondary" />
-
-        </LinearLayout>
+            android:fontFamily="sans-serif"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
         <com.kabouzeid.gramophone.views.IconImageView
             android:id="@+id/menu"

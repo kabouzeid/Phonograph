@@ -4,13 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.LayoutInflater;
@@ -20,6 +13,21 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import java.util.List;
+import java.util.Locale;
 
 import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -52,16 +60,6 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
-import com.kabouzeid.gramophone.util.Util;
-
-import java.util.ArrayList;
-import java.util.Locale;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Be careful when changing things in this Activity!
@@ -113,7 +111,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     private LastFMRestClient lastFMRestClient;
 
-    private boolean forceDownload;
     private final SimpleObservableScrollViewCallbacks observableScrollViewCallbacks = new SimpleObservableScrollViewCallbacks() {
         @Override
         public void onScrollChanged(int scrollY, boolean b, boolean b2) {
@@ -234,7 +231,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                             return;
                         }
 
-                        if (!Util.isAllowedToDownloadMetadata(ArtistDetailActivity.this)) {
+                        if (!PreferenceUtil.isAllowedToDownloadMetadata(ArtistDetailActivity.this)) {
                             if (biography != null) {
                                 biographyDialog.setContent(biography);
                             } else {
@@ -254,7 +251,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     private void loadArtistImage() {
         ArtistGlideRequest.Builder.from(Glide.with(this), artist)
-                .forceDownload(forceDownload)
                 .generatePalette(this).build()
                 .dontAnimate()
                 .into(new PhonographColoredTarget(artistImage) {
@@ -263,7 +259,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                         setColors(color);
                     }
                 });
-        forceDownload = false;
     }
 
     @Override
@@ -325,7 +320,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        final ArrayList<Song> songs = songAdapter.getDataSet();
+        final List<Song> songs = songAdapter.getDataSet();
         switch (id) {
             case R.id.action_sleep_timer:
                 new SleepTimerDialog().show(getSupportFragmentManager(), "SET_SLEEP_TIMER");
@@ -355,7 +350,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                             .positiveText(android.R.string.ok)
                             .build();
                 }
-                if (Util.isAllowedToDownloadMetadata(ArtistDetailActivity.this)) { // wiki should've been already downloaded
+                if (PreferenceUtil.isAllowedToDownloadMetadata(ArtistDetailActivity.this)) { // wiki should've been already downloaded
                     if (biography != null) {
                         biographyDialog.setContent(biography);
                         biographyDialog.show();
@@ -375,7 +370,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
             case R.id.action_reset_artist_image:
                 Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.updating), Toast.LENGTH_SHORT).show();
                 CustomArtistImageUtil.getInstance(ArtistDetailActivity.this).resetCustomArtistImage(artist);
-                forceDownload = true;
                 return true;
             case R.id.action_colored_footers:
                 item.setChecked(!item.isChecked());
@@ -437,7 +431,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         this.artist = artist;
         loadArtistImage();
 
-        if (Util.isAllowedToDownloadMetadata(this)) {
+        if (PreferenceUtil.isAllowedToDownloadMetadata(this)) {
             loadBiography();
         }
 
