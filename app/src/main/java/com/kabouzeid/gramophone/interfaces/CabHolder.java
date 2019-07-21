@@ -1,6 +1,6 @@
 package com.kabouzeid.gramophone.interfaces;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.afollestad.materialcab.MaterialCab;
 

@@ -2,10 +2,10 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.annotation.NonNull;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.GenreAdapter;
@@ -15,8 +15,9 @@ import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Genre;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class GenresFragment extends AbsLibraryPagerRecyclerViewFragment<GenreAdapter, LinearLayoutManager> implements LoaderManager.LoaderCallbacks<ArrayList<Genre>> {
+public class GenresFragment extends AbsLibraryPagerRecyclerViewFragment<GenreAdapter, LinearLayoutManager> implements LoaderManager.LoaderCallbacks<List<Genre>> {
 
     private static final int LOADER_ID = LoaderIds.GENRES_FRAGMENT;
 
@@ -35,7 +36,7 @@ public class GenresFragment extends AbsLibraryPagerRecyclerViewFragment<GenreAda
     @NonNull
     @Override
     protected GenreAdapter createAdapter() {
-        ArrayList<Genre> dataSet = getAdapter() == null ? new ArrayList<>() : getAdapter().getDataSet();
+        List<Genre> dataSet = getAdapter() == null ? new ArrayList<>() : getAdapter().getDataSet();
         return new GenreAdapter(getLibraryFragment().getMainActivity(), dataSet, R.layout.item_list_no_image);
     }
 
@@ -51,27 +52,27 @@ public class GenresFragment extends AbsLibraryPagerRecyclerViewFragment<GenreAda
 
     @Override
     @NonNull
-    public Loader<ArrayList<Genre>> onCreateLoader(int id, Bundle args) {
+    public Loader<List<Genre>> onCreateLoader(int id, Bundle args) {
         return new GenresFragment.AsyncGenreLoader(getActivity());
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader<ArrayList<Genre>> loader, ArrayList<Genre> data) {
+    public void onLoadFinished(@NonNull Loader<List<Genre>> loader, List<Genre> data) {
         getAdapter().swapDataSet(data);
     }
 
     @Override
-    public void onLoaderReset(@NonNull Loader<ArrayList<Genre>> loader) {
+    public void onLoaderReset(@NonNull Loader<List<Genre>> loader) {
         getAdapter().swapDataSet(new ArrayList<>());
     }
 
-    private static class AsyncGenreLoader extends WrappedAsyncTaskLoader<ArrayList<Genre>> {
+    private static class AsyncGenreLoader extends WrappedAsyncTaskLoader<List<Genre>> {
         public AsyncGenreLoader(Context context) {
             super(context);
         }
 
         @Override
-        public ArrayList<Genre> loadInBackground() {
+        public List<Genre> loadInBackground() {
             return GenreLoader.getAllGenres(getContext());
         }
     }

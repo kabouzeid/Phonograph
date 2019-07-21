@@ -1,11 +1,11 @@
 package com.kabouzeid.gramophone.adapter.artist;
 
 import android.graphics.drawable.Drawable;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.util.Pair;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,13 +38,13 @@ import java.util.List;
 public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolder, Artist> implements FastScrollRecyclerView.SectionedAdapter {
 
     protected final AppCompatActivity activity;
-    protected ArrayList<Artist> dataSet;
+    protected List<Artist> dataSet;
 
     protected int itemLayoutRes;
 
     protected boolean usePalette = false;
 
-    public ArtistAdapter(@NonNull AppCompatActivity activity, ArrayList<Artist> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
+    public ArtistAdapter(@NonNull AppCompatActivity activity, List<Artist> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         this.dataSet = dataSet;
@@ -53,12 +53,12 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
         setHasStableIds(true);
     }
 
-    public void swapDataSet(ArrayList<Artist> dataSet) {
+    public void swapDataSet(List<Artist> dataSet) {
         this.dataSet = dataSet;
         notifyDataSetChanged();
     }
 
-    public ArrayList<Artist> getDataSet() {
+    public List<Artist> getDataSet() {
         return dataSet;
     }
 
@@ -160,13 +160,13 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     }
 
     @Override
-    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Artist> selection) {
+    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull List<Artist> selection) {
         SongsMenuHelper.handleMenuClick(activity, getSongList(selection), menuItem.getItemId());
     }
 
     @NonNull
-    private ArrayList<Song> getSongList(@NonNull List<Artist> artists) {
-        final ArrayList<Song> songs = new ArrayList<>();
+    private List<Song> getSongList(@NonNull List<Artist> artists) {
+        final List<Song> songs = new ArrayList<>();
         for (Artist artist : artists) {
             songs.addAll(artist.getSongs()); // maybe async in future?
         }

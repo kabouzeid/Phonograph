@@ -1,10 +1,10 @@
 package com.kabouzeid.gramophone.adapter;
 
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +72,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             case ALBUM:
                 final Album album = (Album) dataSet.get(position);
                 holder.title.setText(album.getTitle());
-                holder.text.setText(album.getArtistName());
+                holder.text.setText(MusicUtil.getAlbumInfoString(activity, album));
                 SongGlideRequest.Builder.from(Glide.with(activity), album.safeGetFirstSong())
                         .checkIgnoreMediaStore(activity).build()
                         .into(holder.image);
@@ -87,7 +87,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             case SONG:
                 final Song song = (Song) dataSet.get(position);
                 holder.title.setText(song.title);
-                holder.text.setText(song.albumName);
+                holder.text.setText(MusicUtil.getSongInfoString(song));
                 break;
             default:
                 holder.title.setText(dataSet.get(position).toString());
@@ -164,7 +164,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                             ));
                     break;
                 case SONG:
-                    ArrayList<Song> playList = new ArrayList<>();
+                    List<Song> playList = new ArrayList<>();
                     playList.add((Song) item);
                     MusicPlayerRemote.openQueue(playList, 0, true);
                     break;

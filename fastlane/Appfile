@@ -1,2 +1,2 @@
-json_key_file("/Users/karim/Documents/PhonographRessources/privatekeys/fastlane-supply-key.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
-package_name("com.kabouzeid.gramophone") # e.g. com.krausefx.app
+json_key_file("/Users/karim/Documents/Phonograph/privatekeys/fastlane-supply-key.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+package_name("com.kabouzeid.gramophone")

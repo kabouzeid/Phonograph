@@ -8,7 +8,7 @@
 
     <include layout="@layout/status_bar" />
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
         android:background="@android:color/transparent" />

@@ -66,7 +66,7 @@
     <string name="action_remove_from_playlist">Odstranit z playlistu</string>
     <string name="action_grid_size">Velikost mřížky</string>
     <string name="action_grid_size_land">Velikost mřížky (na šiřku)</string>
-    <string name="inserted_x_songs_into_playlist_x">Vložit %1$d do playlistu %2$s.</string>
+    <string name="inserted_x_songs_into_playlist_x">Vloženo %1$d do playlistu %2$s.</string>
     <string name="created_playlist_x">Vytvořen playlist %1$s</string>
     <string name="deleted_x_songs">Odstraněno %1$d skladeb.</string>
     <string name="playlist_exists">Seznam skladeb %1$s již existuje.</string>
@@ -87,6 +87,7 @@
     <string name="delete_playlists_title">Vymazat playlisty</string>
     <string name="clear_playlist_title">Vyčistit playlist</string>
     <string name="save_playlist_title">Uložit jako soubor</string>
+    <string name="save_playlists_title">Uložit jako soubor</string>
     <string name="add_playlist_title">"Přidat do playlistu"</string>
     <string name="action_shuffle_all">Přehrát náhodně</string>
     <string name="action_shuffle_album">Přehrát album náhodně</string>
@@ -194,14 +195,11 @@
     <string name="version">Verze</string>
     <string name="author">Autor</string>
     <string name="write_an_email">Napsat e-mail</string>
-    <string name="add_to_google_plus_circles">Přidat do kruhů Google Plus</string>
     <string name="follow_on_twitter">Sledovat na Twitteru</string>
     <string name="fork_on_github">Fork na GitHubu</string>
     <string name="visit_website">Navštívit stránku</string>
     <string name="report_bugs">Ohlásit chybu</string>
     <string name="report_bugs_summary">"Nahlásit chyby nebo požádat o nové funkce. "</string>
-    <string name="join_community">Přidejte se ke komunitě Google Plus</string>
-    <string name="join_community_summary">Pokud potřebujete pomoc nebo máte otázky, komunita Phonographu na Google Plus je to správné místo.</string>
     <string name="translate">Překládejte</string>
     <string name="translate_summary">"Pomozte nám přeložit Phonograph do vašeho mateřského jazyka. "</string>
     <string name="rate_on_google_play">Ohodnotit</string>
@@ -224,8 +222,10 @@
     <string name="folders">"Složky "</string>
     <string name="saved_playlist_to">Uloženo do playlistu %s.</string>
     <string name="failed_to_save_playlist">Chyba v uložení playlistu (%s).</string>
+    <string name="saved_x_playlists_to_x">Uloženo %1$d playlistů do %2$s.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">Uloženo %1$d playlistů do %2$s, nepodařilo se uložit %3$d.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> není zobrazeno v seznamu souborů.]]></string>
-    <string name="some_files_are_not_listed_in_the_media_store">Některé soubory nejsou zobrazené v obchodě s médii.</string>
+    <string name="some_files_are_not_listed_in_the_media_store">Některé soubory nejsou zobrazeny v obchodě s médii.</string>
     <string name="nothing_to_scan">Nic ke skenování.</string>
     <string name="scanned_files">Naskenováno %1$d z %2$d souborů.</string>
     <string name="could_not_scan_files">Nelze skenovat %d souborů.</string>

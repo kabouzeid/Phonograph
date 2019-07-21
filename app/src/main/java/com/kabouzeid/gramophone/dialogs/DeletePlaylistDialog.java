@@ -2,8 +2,8 @@ package com.kabouzeid.gramophone.dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import android.text.Html;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -12,6 +12,7 @@ import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -20,16 +21,16 @@ public class DeletePlaylistDialog extends DialogFragment {
 
     @NonNull
     public static DeletePlaylistDialog create(Playlist playlist) {
-        ArrayList<Playlist> list = new ArrayList<>();
+        List<Playlist> list = new ArrayList<>();
         list.add(playlist);
         return create(list);
     }
 
     @NonNull
-    public static DeletePlaylistDialog create(ArrayList<Playlist> playlists) {
+    public static DeletePlaylistDialog create(List<Playlist> playlists) {
         DeletePlaylistDialog dialog = new DeletePlaylistDialog();
         Bundle args = new Bundle();
-        args.putParcelableArrayList("playlists", playlists);
+        args.putParcelableArrayList("playlists", new ArrayList<>(playlists));
         dialog.setArguments(args);
         return dialog;
     }
@@ -38,7 +39,7 @@ public class DeletePlaylistDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //noinspection unchecked
-        final ArrayList<Playlist> playlists = getArguments().getParcelableArrayList("playlists");
+        final List<Playlist> playlists = getArguments().getParcelableArrayList("playlists");
         int title;
         CharSequence content;
         //noinspection ConstantConditions

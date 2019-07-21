@@ -2,10 +2,10 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v7.widget.GridLayoutManager;
+import androidx.annotation.NonNull;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.album.AlbumAdapter;
@@ -16,11 +16,12 @@ import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridLayoutManager> implements LoaderManager.LoaderCallbacks<ArrayList<Album>> {
+public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridLayoutManager> implements LoaderManager.LoaderCallbacks<List<Album>> {
 
     private static final int LOADER_ID = LoaderIds.ALBUMS_FRAGMENT;
 
@@ -40,7 +41,7 @@ public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFra
     protected AlbumAdapter createAdapter() {
         int itemLayoutRes = getItemLayoutRes();
         notifyLayoutResChanged(itemLayoutRes);
-        ArrayList<Album> dataSet = getAdapter() == null ? new ArrayList<>() : getAdapter().getDataSet();
+        List<Album> dataSet = getAdapter() == null ? new ArrayList<>() : getAdapter().getDataSet();
         return new AlbumAdapter(
                 getLibraryFragment().getMainActivity(),
                 dataSet,
@@ -116,27 +117,27 @@ public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFra
     }
 
     @Override
-    public Loader<ArrayList<Album>> onCreateLoader(int id, Bundle args) {
+    public Loader<List<Album>> onCreateLoader(int id, Bundle args) {
         return new AsyncAlbumLoader(getActivity());
     }
 
     @Override
-    public void onLoadFinished(Loader<ArrayList<Album>> loader, ArrayList<Album> data) {
+    public void onLoadFinished(Loader<List<Album>> loader, List<Album> data) {
         getAdapter().swapDataSet(data);
     }
 
     @Override
-    public void onLoaderReset(Loader<ArrayList<Album>> loader) {
+    public void onLoaderReset(Loader<List<Album>> loader) {
         getAdapter().swapDataSet(new ArrayList<>());
     }
 
-    private static class AsyncAlbumLoader extends WrappedAsyncTaskLoader<ArrayList<Album>> {
+    private static class AsyncAlbumLoader extends WrappedAsyncTaskLoader<List<Album>> {
         public AsyncAlbumLoader(Context context) {
             super(context);
         }
 
         @Override
-        public ArrayList<Album> loadInBackground() {
+        public List<Album> loadInBackground() {
             return AlbumLoader.getAllAlbums(getContext());
         }
     }

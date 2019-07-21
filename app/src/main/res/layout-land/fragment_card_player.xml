@@ -15,7 +15,7 @@
 
         <include layout="@layout/status_bar" />
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/player_toolbar"
             style="@style/Toolbar"
             android:background="@android:color/transparent" />
@@ -75,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/playing_queue_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
                                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                                     android:textColor="?android:textColorSecondary" />
 
-                                <android.support.v7.widget.RecyclerView
+                                <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/player_recycler_view"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
 
                         </RelativeLayout>
 
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
                 </FrameLayout>
 

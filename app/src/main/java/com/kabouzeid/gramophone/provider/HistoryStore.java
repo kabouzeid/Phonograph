@@ -21,11 +21,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class HistoryStore extends SQLiteOpenHelper {
-    private static final int MAX_ITEMS_IN_DB = 5000;
+    private static final int MAX_ITEMS_IN_DB = 100;
 
     public static final String DATABASE_NAME = "history.db";
     private static final int VERSION = 1;
@@ -136,14 +136,10 @@ public class HistoryStore extends SQLiteOpenHelper {
         return containsId;
     }
 
-    public Cursor queryRecentIds(long cutoff) {
+    public Cursor queryRecentIds() {
         final SQLiteDatabase database = getReadableDatabase();
-
         return database.query(RecentStoreColumns.NAME,
-                new String[]{RecentStoreColumns.ID}, 
-                RecentStoreColumns.TIME_PLAYED + ">?",
-                new String[]{String.valueOf(cutoff)}, 
-                null, null,
+                new String[]{RecentStoreColumns.ID}, null, null, null, null,
                 RecentStoreColumns.TIME_PLAYED + " DESC");
     }
 
