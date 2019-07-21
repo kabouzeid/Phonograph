@@ -9,7 +9,7 @@ The purpose of this fork is to implement an easy to use and powerful way to mana
 - [x] See whether the selected song is already in a playlist
 - [x] See whether multiple songs are already in a playlist
 - [x] Do not add songs to playlist which would become duplicates
-- [ ] Material Design fo the checkmark
+- [ ] Material Design for the checkmark
 - [ ] Be able to remove a song which is already in a playlist
 - [ ] Option to remove duplicate songs from existing playlists
 - [ ] Sync playlists (with other devices, using textfiles in Google Drive)
@@ -21,10 +21,12 @@ In the playlist-menu checkmarks indicate whether a song / a number of songs are 
 The brackets around the checkmark show that only some of the songs are part of the playlist.
 
 This fork is only different from kabouzeid/master in these commits: 
-[8254527](https://github.com/Sogolumbo/Phonograph/commit/8254527339ba7e8acd5cc522b34e3ee724ba9b5a),
+
 [6bac337](https://github.com/Sogolumbo/Phonograph/commit/6bac3379636d97a68f50ebb1672654ef1aa310fb),
 [d91f11a](https://github.com/Sogolumbo/Phonograph/commit/d91f11ad068192806979da79a0d089835d574524),
-[e81f655](https://github.com/Sogolumbo/Phonograph/commit/e81f655c802bb2953d6e6d093cc3a1c774b897c4).
+[e81f655](https://github.com/Sogolumbo/Phonograph/commit/e81f655c802bb2953d6e6d093cc3a1c774b897c4),
+[8254527](https://github.com/Sogolumbo/Phonograph/commit/8254527339ba7e8acd5cc522b34e3ee724ba9b5a),
+[4512b43](https://github.com/Sogolumbo/Phonograph/commit/4512b43529231a57636b7d62fcbade9fb81329b9).
 
 ## Contributing
 I love any support, feedback or new ideas. So feel free to contribute in any possible way. I don't have any experience with android programming so I really need help D:
