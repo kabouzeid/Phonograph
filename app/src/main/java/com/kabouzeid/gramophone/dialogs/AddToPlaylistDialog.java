@@ -49,7 +49,6 @@ public class AddToPlaylistDialog extends DialogFragment {
         final ArrayList<Song> songs = getArguments().getParcelableArrayList("songs");
 
         int[] songIds = new int[songs.size()];
-        boolean[][] isSongInPlaylist = new boolean[playlists.size()][songs.size()];
         if(songs != null)
         {
 
@@ -60,9 +59,12 @@ public class AddToPlaylistDialog extends DialogFragment {
             for (int i = 0; i < playlists.size(); i++) {
                 int playlistId = playlists.get(i).id;
 
-                isSongInPlaylist [i] = PlaylistsUtil.doPlaylistContains(getActivity(), playlistId, songIds);
-                boolean isAnySongInPlaylist = PlaylistsUtil.playlistContainsAnySong(getActivity(), isSongInPlaylist[i]);
-                boolean areAllSongsInPlaylist = PlaylistsUtil.playlistContainsAllSongs(getActivity(), isSongInPlaylist[i]);
+                long startTime = System.currentTimeMillis();//TODO: remove stopwatch
+
+                boolean isAnySongInPlaylist = PlaylistsUtil.doPlaylistContainsAnySong(getActivity(), playlistId, songIds);
+                long stopTime1 = System.currentTimeMillis();//TODO: remove stopwatch
+                boolean areAllSongsInPlaylist = PlaylistsUtil.doPlaylistContainsAllSongs(getActivity(), playlistId, songIds);
+                long stopTime2 = System.currentTimeMillis();//TODO: remove stopwatch
 
                 //TODO: display checkboxes instead of checkmark
                 if (isAnySongInPlaylist) {
@@ -73,6 +75,15 @@ public class AddToPlaylistDialog extends DialogFragment {
                         playlistNames[i + 1] = playlists.get(i).name + " (\u2713)"; //Add checkmark in brackets
                     }
                 }
+
+                long stopTimeTotal = System.currentTimeMillis();//TODO: remove stopwatch
+                long Time1 = stopTime1 - startTime;
+                long Time2 = stopTime2 - stopTime1;
+                long Time3 = stopTimeTotal - stopTime2;
+                long TotalTime = stopTimeTotal - startTime;//TODO: remove stopwatch
+                long unecessary = 7;//TODO: remove stopwatch
+                unecessary++;
+                long c = unecessary;
             }
         }
 
@@ -87,7 +98,7 @@ public class AddToPlaylistDialog extends DialogFragment {
                         CreatePlaylistDialog.create(songs).show(getActivity().getSupportFragmentManager(), "ADD_TO_PLAYLIST");
                     } else {
                         materialDialog.dismiss();
-                        PlaylistsUtil.addToPlaylistWithoutDuplicates(getActivity(), songs, playlists.get(i - 1).id, isSongInPlaylist[i-1], true);
+                        PlaylistsUtil.addToPlaylistWithoutDuplicates(getActivity(), songs, songIds, playlists.get(i - 1).id, true);
                     }
                 })
                 .build();
