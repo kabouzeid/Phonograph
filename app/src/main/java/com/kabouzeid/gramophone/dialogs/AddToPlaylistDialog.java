@@ -58,12 +58,8 @@ public class AddToPlaylistDialog extends DialogFragment {
             for (int i = 0; i < playlists.size(); i++) {
                 int playlistId = playlists.get(i).id;
 
-                long startTime = System.currentTimeMillis();//TODO: remove stopwatch
-
                 boolean isAnySongInPlaylist = PlaylistsUtil.doPlaylistContainsAnySong(getActivity(), playlistId, songIds);
-                long stopTime1 = System.currentTimeMillis();//TODO: remove stopwatch
                 boolean areAllSongsInPlaylist = PlaylistsUtil.doPlaylistContainsAllSongs(getActivity(), playlistId, songIds);
-                long stopTime2 = System.currentTimeMillis();//TODO: remove stopwatch
 
                 //TODO: display checkboxes instead of checkmark
                 if (isAnySongInPlaylist) {
@@ -74,14 +70,6 @@ public class AddToPlaylistDialog extends DialogFragment {
                         playlistNames[i + 1] = playlists.get(i).name + " (\u2713)"; //Add checkmark in brackets
                     }
                 }
-
-                long stopTimeTotal = System.currentTimeMillis();//TODO: remove stopwatch
-                long Time1 = stopTime1 - startTime;
-                long Time2 = stopTime2 - stopTime1;
-                long Time3 = stopTimeTotal - stopTime2;
-                long TotalTime = stopTimeTotal - startTime;//TODO: remove stopwatch
-                int uselessAssignmentForDebugging = 7;//TODO: remove stopwatch
-                int c = uselessAssignmentForDebugging;//TODO: remove stopwatch
             }
         }
 
