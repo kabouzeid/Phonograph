@@ -30,6 +30,7 @@
     <string name="action_set_as_start_directory">Set as start directory</string>
     <string name="albums">Albums</string>
     <string name="artists">Artists</string>
+    <string name="genres">Genres</string>
     <string name="songs">Songs</string>
     <string name="playlists">Playlists</string>
     <string name="unplayable_file">Couldn\'t play this song.</string>
@@ -47,7 +48,6 @@
     <string name="lyrics">Lyrics</string>
     <string name="album_or_artist_empty">The title or artist is empty.</string>
     <string name="saving_changes">Saving changes</string>
-    <string name="saving_to_file">Saving to file...</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">File name</string>
     <string name="label_file_path">File path</string>
@@ -112,6 +112,7 @@
     <string name="pref_header_now_playing_screen">Now playing</string>
     <string name="pref_title_general_theme">General theme</string>
     <string name="pref_header_audio">Audio</string>
+    <string name="pref_header_library">Library</string>
     <string name="pref_header_images">Images</string>
     <string name="pref_header_lockscreen">Lockscreen</string>
     <string name="pref_header_playlists">Playlists</string>
@@ -128,6 +129,7 @@
     <string name="pref_title_audio_ducking">Reduce volume on focus loss</string>
     <string name="pref_title_last_added_interval">Last added playlist interval</string>
     <string name="pref_title_synchronized_lyrics_show">Show synchronised lyrics</string>
+    <string name="pref_title_remember_last_tab">Remember last tab</string>
     <string name="no_equalizer">No equaliser found.</string>
     <string name="no_audio_ID">"Play a song first, then try again."</string>
     <string name="delete_action">Delete</string>
@@ -135,6 +137,7 @@
     <string name="remove_action">Remove</string>
     <string name="rename_action">Rename</string>
     <string name="create_action">Create</string>
+    <string name="reset_action">Reset</string>
     <string name="x_selected">%1$d selected</string>
     <string name="primary_color">Primary colour</string>
     <string name="accent_color">Accent colour</string>
@@ -146,6 +149,7 @@
     <string name="no_albums">No albums</string>
     <string name="no_songs">No songs</string>
     <string name="no_artists">No artists</string>
+    <string name="no_genres">No genres</string>
     <string name="empty">Empty</string>
     <string name="playlist_name_empty">Playlist name</string>
     <string name="song">Song</string>
@@ -159,6 +163,7 @@
     <string name="pref_summary_colored_app_shortcuts">Colours the app shortcuts in the primary colour.</string>
     <string name="pref_summary_audio_ducking">Notifications, navigation etc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Currently only synchronised lyrics in LRC format are supported. Either embedded or as a separate file.</string>
+    <string name="pref_summary_remember_last_tab">Go to the last opened tab on launch</string>
     <string name="could_not_download_album_cover">"Couldn\u2019t download a matching album cover."</string>
     <string name="search_hint">Search your library…</string>
     <string name="favorites">Favourites</string>
@@ -189,14 +194,11 @@
     <string name="version">Version</string>
     <string name="author">Author</string>
     <string name="write_an_email">Write an email</string>
-    <string name="add_to_google_plus_circles">Add to Google Plus circles</string>
     <string name="follow_on_twitter">Follow on Twitter</string>
     <string name="fork_on_github">Fork on GitHub</string>
     <string name="visit_website">Visit website</string>
     <string name="report_bugs">Report bugs</string>
     <string name="report_bugs_summary">Report bugs or request new features.</string>
-    <string name="join_community">Join the Google Plus community</string>
-    <string name="join_community_summary">If you need help or have questions, the Phonograph community on Google Plus is a good place to go.</string>
     <string name="translate">Translate</string>
     <string name="translate_summary">Help translating Phonograph to your native language.</string>
     <string name="rate_on_google_play">Rate</string>
@@ -277,4 +279,7 @@
     <string name="pref_summary_blacklist">The content of blacklisted folders is hidden from your library.</string>
     <string name="reset_artist_image">Reset artist image</string>
     <string name="set_artist_image">Set artist image</string>
+    <string name="library_categories">Library categories</string>
+    <string name="pref_summary_library_categories">Configure visibility and order of library categories.</string>
+    <string name="you_have_to_select_at_least_one_category">You have to select at least one category.</string>
 </resources>

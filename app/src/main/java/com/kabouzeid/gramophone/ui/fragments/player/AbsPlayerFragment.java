@@ -2,8 +2,8 @@ package com.kabouzeid.gramophone.ui.fragments.player;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -23,7 +23,6 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 
 public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implements Toolbar.OnMenuItemClickListener, PaletteColorHolder {
-    public static final String TAG = AbsPlayerFragment.class.getSimpleName();
 
     private Callbacks callbacks;
     private static boolean isToolbarShown = true;
@@ -133,7 +132,12 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
     }
 
     protected String getUpNextAndQueueTime() {
-        return getResources().getString(R.string.up_next) + "  •  " + MusicUtil.getReadableDurationString(MusicPlayerRemote.getQueueDurationMillis(MusicPlayerRemote.getPosition()));
+        final long duration = MusicPlayerRemote.getQueueDurationMillis(MusicPlayerRemote.getPosition());
+
+        return MusicUtil.buildInfoString(
+            getResources().getString(R.string.up_next),
+            MusicUtil.getReadableDurationString(duration)
+        );
     }
 
     public abstract void onShow();

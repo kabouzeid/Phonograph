@@ -3,8 +3,8 @@ package com.kabouzeid.gramophone.util;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.webkit.MimeTypeMap;
 
 import com.kabouzeid.gramophone.loader.SongLoader;
@@ -32,7 +32,7 @@ public final class FileUtil {
     }
 
     @NonNull
-    public static ArrayList<Song> matchFilesWithMediaStore(@NonNull Context context, @Nullable List<File> files) {
+    public static List<Song> matchFilesWithMediaStore(@NonNull Context context, @Nullable List<File> files) {
         return SongLoader.getSongs(makeSongCursor(context, files));
     }
 
@@ -153,11 +153,8 @@ public final class FileUtil {
                 return false;
             }
             String fileTypeMainType = fileType.substring(0, fileTypeDelimiter);
-            if (fileTypeMainType.equals(mimeTypeMainType)) {
-                return true;
-            }
+            return fileTypeMainType.equals(mimeTypeMainType);
         }
-        return false;
     }
 
     public static String stripExtension(String str) {
@@ -192,6 +189,15 @@ public final class FileUtil {
         } catch (IOException e) {
             e.printStackTrace();
             return file.getAbsolutePath();
+        }
+    }
+
+    public static File safeGetCanonicalFile(File file) {
+        try {
+            return file.getCanonicalFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return file.getAbsoluteFile();
         }
     }
 }

@@ -2,17 +2,18 @@ package com.kabouzeid.gramophone.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class Album implements Parcelable {
-    public final ArrayList<Song> songs;
+    public final List<Song> songs;
 
-    public Album(ArrayList<Song> songs) {
+    public Album(List<Song> songs) {
         this.songs = songs;
     }
 

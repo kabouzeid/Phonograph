@@ -7,7 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -122,7 +122,12 @@ public class CustomArtistImageUtil {
     }
 
     private static String getFileName(Artist artist) {
-        return String.format(Locale.US, "#%d#%s.jpeg", artist.getId(), artist.getName());
+        String artistName = artist.getName();
+        if (artistName == null)
+            artistName = "";
+        // replace everything that is not a letter or a number with _
+        artistName = artistName.replaceAll("[^a-zA-Z0-9]", "_");
+        return String.format(Locale.US, "#%d#%s.jpeg", artist.getId(), artistName);
     }
 
     public static File getFile(Artist artist) {

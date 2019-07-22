@@ -48,7 +48,6 @@
     <string name="lyrics">Şarkı sözleri</string>
     <string name="album_or_artist_empty">Albüm başlığı veya albüm sanatçısı bilgisi yok.</string>
     <string name="saving_changes">Değişiklikler kaydediliyor</string>
-    <string name="saving_to_file">Dosyaya kaydediliyor...</string>
     <string name="label_details">Ayrıntılar</string>
     <string name="label_file_name">Dosya adı</string>
     <string name="label_file_path">Dosya yolu</string>
@@ -88,6 +87,7 @@
     <string name="delete_playlists_title">Çalma listelerini sil</string>
     <string name="clear_playlist_title">Çalma listesini temizle</string>
     <string name="save_playlist_title">Dosya olarak kaydet</string>
+    <string name="save_playlists_title">Dosya olarak kaydet</string>
     <string name="add_playlist_title">"Çalma listesine ekle"</string>
     <string name="action_shuffle_all">Tümünü karıştır</string>
     <string name="action_shuffle_album">Albümü karıştır</string>
@@ -125,7 +125,7 @@
     <string name="pref_title_blurred_album_art">Bulanık albüm kapağı</string>
     <string name="pref_title_colored_notification">Renkli bildirim</string>
     <string name="pref_title_classic_notification">Klasik bildirim tasarımı</string>
-    <string name="pref_title_ignore_media_store_artwork">Media Store albüm kapağını yoksay</string>
+    <string name="pref_title_ignore_media_store_artwork">Medya Deposu albüm kapağını yoksay</string>
     <string name="pref_title_gapless_playback">Aralıksız çalma</string>
     <string name="pref_title_audio_ducking">Odak kaybına neden olacak sesi azalt</string>
     <string name="pref_title_last_added_interval">Son eklenen çalma listesi süresi</string>
@@ -195,14 +195,11 @@
     <string name="version">Sürüm</string>
     <string name="author">Yapımcı</string>
     <string name="write_an_email">Bir e-posta yazın</string>
-    <string name="add_to_google_plus_circles">Google+ çevrelerine ekle</string>
     <string name="follow_on_twitter">Twitter\'da takip et</string>
     <string name="fork_on_github">GitHub\'a bağlanın</string>
     <string name="visit_website">Web sitesini ziyaret edin</string>
     <string name="report_bugs">Hataları raporlayın</string>
     <string name="report_bugs_summary">Hataları raporlayın ya da yeni özellikler talep edin.</string>
-    <string name="join_community">Google+ grubuna katılın</string>
-    <string name="join_community_summary">Eğer yardıma ihtiyacınız varsa veya sorularınız varsa Google+ Phonograph topluluğu en doğru yer.</string>
     <string name="translate">Çeviri</string>
     <string name="translate_summary">Phonograph\'ı kendi dilinize çevirmek için yardımcı olun.</string>
     <string name="rate_on_google_play">Oy ver</string>
@@ -225,7 +222,10 @@
     <string name="folders">Klasörler</string>
     <string name="saved_playlist_to">Çalma listesi %s kaydedildi.</string>
     <string name="failed_to_save_playlist">(%s) çalma listesine kaydetme başarısız.</string>
+    <string name="saved_x_playlists_to_x">%1$d oynatma listesini %2$s konumuna kaydedildi.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">%1$d oynatma listesini %2$s konumuna kaydedildi, %3$d kaydedilemedi.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> medya deposu listesinde yok.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Bazı dosyalar medya deposunda listelenmiyor.</string>
     <string name="nothing_to_scan">Taranacak bir şey yok</string>
     <string name="scanned_files">%1$d - %2$d dosya taranıyor.</string>
     <string name="could_not_scan_files">%d dosya taranamadı.</string>
@@ -274,6 +274,7 @@
     <string name="restore">Geri yükle</string>
     <string name="no_purchase_found">Satın alma bulunamadı.</string>
     <string name="eugene_cheung_summary">Kaynak koda yaptığı katkılardan dolayı.</string>
+    <string name="adrian_summary">Albüm sayfası tasarımı oluşturmak için.</string>
     <string name="add_action">Ekle</string>
     <string name="blacklist">Kara liste</string>
     <string name="remove_from_blacklist">Kara listeden kaldır</string>
@@ -286,4 +287,12 @@
     <string name="library_categories">Kitaplık kategorileri</string>
     <string name="pref_summary_library_categories">Kitaplık kategorilerinin görünürlüğünü ve sırasını yapılandırma.</string>
     <string name="you_have_to_select_at_least_one_category">En az bir kategori seçmeniz gerekiyor.</string>
+    <string name="action_scan_directory">Tarama dizini</string>
+    <string name="scan_media">Medyayı tara</string>
+    <string name="action_sort_order">Sıralama düzeni</string>
+    <string name="sort_order_a_z">Artan</string>
+    <string name="sort_order_z_a">Azalan</string>
+    <string name="sort_order_artist">Sanatçı</string>
+    <string name="sort_order_album">Albüm</string>
+    <string name="sort_order_year">Yıl</string>
 </resources>

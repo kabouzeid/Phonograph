@@ -8,12 +8,14 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.adapter.PlaylistAdapter;
 import com.kabouzeid.gramophone.helper.M3UWriter;
+import com.kabouzeid.gramophone.helper.menu.PlaylistMenuHelper;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
@@ -21,6 +23,7 @@ import com.kabouzeid.gramophone.model.Song;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static android.provider.MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
@@ -82,7 +85,7 @@ public class PlaylistsUtil {
         return id;
     }
 
-    public static void deletePlaylists(@NonNull final Context context, @NonNull final ArrayList<Playlist> playlists) {
+    public static void deletePlaylists(@NonNull final Context context, @NonNull final List<Playlist> playlists) {
         final StringBuilder selection = new StringBuilder();
         selection.append(MediaStore.Audio.Playlists._ID + " IN (");
         for (int i = 0; i < playlists.size(); i++) {
@@ -104,7 +107,6 @@ public class PlaylistsUtil {
         helperList.add(song);
         addToPlaylist(context, helperList, playlistId, showToastOnFinish);
     }
-
     public static void addToPlaylist(@NonNull final Context context, @NonNull final List<Song> songs, final int playlistId, final boolean showToastOnFinish) {
         final int size = songs.size();
         final ContentResolver resolver = context.getContentResolver();
@@ -138,6 +140,20 @@ public class PlaylistsUtil {
             }
         } catch (SecurityException ignored) {
         }
+    }
+
+    public static void addToPlaylistWithoutDuplicates(@NonNull final Context context, @NonNull final List<Song> songs, final int[] songIds, final int playlistId, final boolean showToastOnFinish){
+        boolean[] isSongInPlaylist = doPlaylistContains(context, playlistId, songIds);
+        addToPlaylistWithoutDuplicates(context, songs, playlistId, isSongInPlaylist, showToastOnFinish);
+    }
+    public static void addToPlaylistWithoutDuplicates(@NonNull final Context context, @NonNull final List<Song> songs, final int playlistId, final boolean[] isSongInPlaylist,final boolean showToastOnFinish){
+        ArrayList<Song> helperSongs = new ArrayList<Song>();
+        for(int i = 0; i < songs.size(); i++){
+            if(!isSongInPlaylist[i]){
+                helperSongs.add(songs.get(i));
+            }
+        }
+        addToPlaylist(context, helperSongs, playlistId, showToastOnFinish);
     }
 
     @NonNull
@@ -203,6 +219,254 @@ public class PlaylistsUtil {
             }
         }
         return false;
+    }
+    public static boolean[] doPlaylistContains(@NonNull final Context context, final long playlistId, final int[] songIds) {
+        if (playlistId != -1) {
+            final int[] songIdsOriginalOrder = songIds;
+            int[] songIdsSorted = songIds.clone();
+            java.util.Arrays.sort(songIdsSorted);
+
+            boolean[] PlaylistContainsSongSorted = new boolean[songIdsSorted.length];
+            boolean[] PlaylistContainsSongOriginalOrder;
+
+            try {
+                Cursor playlistSongs = context.getContentResolver().query(
+                        MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
+                        new String[]{MediaStore.Audio.Playlists.Members.AUDIO_ID}, null, new String[]{}, MediaStore.Audio.Playlists.Members.AUDIO_ID + " ASC");
+
+                if (playlistSongs != null && playlistSongs.getCount() > 0) {
+                    playlistSongs.moveToNext(); //goes to first element
+
+                    int songIndex = 0;
+                    int playlistIndex = 0;
+                    while (true)
+                    {
+                        if(songIndex >= songIdsSorted.length){
+                            break;
+                        }
+                        int playlistSong = playlistSongs.getInt(0);
+                        if(songIdsSorted[songIndex] > playlistSong)
+                        {
+                            playlistIndex++;
+                            if(playlistIndex < playlistSongs.getCount())
+                            {
+                                playlistSongs.moveToNext();
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        else if (songIdsSorted[songIndex] < playlistSong)
+                        {
+                            PlaylistContainsSongSorted[songIndex] = false;
+                            songIndex++;
+                        }
+                        else if(songIdsSorted[songIndex] == playlistSong)
+                        {
+                            PlaylistContainsSongSorted[songIndex] = true;
+                            songIndex++;
+                        }
+                    }
+                    playlistSongs.close();
+                }
+            } catch (SecurityException ignored) {
+            }
+            //long[] partTimes = new long[songIds.length];//TODO: remove stopwatch
+            //long startTime = System.currentTimeMillis();//TODO: remove stopwatch
+            //Revert the sorting to return the right results
+            PlaylistContainsSongOriginalOrder = PlaylistContainsSongSorted.clone();
+            for(int i = 0; i < songIdsSorted.length; i++){
+                //partTimes[i] = System.currentTimeMillis();//TODO: remove stopwatch
+                if(songIdsOriginalOrder[i] == songIdsSorted[i]){
+                    continue;
+                }
+                else{
+                    int indexOfSongInSortedArray = i;
+                    int compareValue;
+
+                    int max = songIds.length;
+                    int min = -1;
+                    while(max - min > 15){ //this is a random number which I hope will result in a good efficiency. Tests showed it should be below 100.
+                        compareValue = Integer.compare(songIdsOriginalOrder[i], songIdsSorted[indexOfSongInSortedArray]);
+                        if(compareValue > 0){
+                            min = indexOfSongInSortedArray;
+                        }
+                        else{
+                            max = indexOfSongInSortedArray;
+                        }
+                        indexOfSongInSortedArray = (min + max)/2;
+                    }
+                    indexOfSongInSortedArray = min + 1;
+                    while (songIdsOriginalOrder[i] != songIdsSorted[indexOfSongInSortedArray]){
+                        indexOfSongInSortedArray++;
+                    }
+                    PlaylistContainsSongOriginalOrder[i] = PlaylistContainsSongSorted[indexOfSongInSortedArray];
+                }
+            }
+            /*
+            long stopTimeTotal = System.currentTimeMillis();//TODO: remove stopwatch
+            long[] diffs = new long[songIds.length];//TODO: remove stopwatch
+            diffs[songIds.length-1] = stopTimeTotal - partTimes[songIds.length-1];
+            long min = diffs[songIds.length-1]; //TODO: remove stopwatch
+            long max = diffs[songIds.length-1]; //TODO: remove stopwatch
+            long sum = diffs[songIds.length-1]; //TODO: remove stopwatch
+            for (int i = 0; i < songIdsSorted.length - 1; i++) {
+                diffs[i] = partTimes[i+1] - partTimes[i];
+                sum += diffs[i];
+                min = Math.min(diffs[i], min);
+                max = Math.max(diffs[i], max);
+            }
+            float mean = (float)sum / partTimes.length;
+            long TotalTime = stopTimeTotal - startTime;//TODO: remove stopwatch
+            */
+            return PlaylistContainsSongOriginalOrder;
+        }
+        else{
+            throw new IllegalArgumentException("Must be a non-negative integer");
+        }
+    }
+    public static int doPlaylistContainsCount(@NonNull final Context context, final long playlistId, final int[] songIds) {
+        return playlistContainsCount(context, doPlaylistContains(context, playlistId, songIds));
+    }
+    public static int playlistContainsCount(@NonNull final Context context, boolean[] isSongInPlaylist) {
+        int count = 0;
+        for(boolean isThisSongInPlaylist : isSongInPlaylist){
+            if(isThisSongInPlaylist){
+                count++;
+            }
+        }
+        return count;
+    }
+    public static boolean doPlaylistContainsAnySong(@NonNull final Context context, final long playlistId, final int[] songIds) {
+        if (playlistId != -1) {
+            int[] songIdsSorted = songIds.clone();
+            java.util.Arrays.sort(songIdsSorted);
+
+            boolean result = false;
+
+            try {
+                Cursor playlistSongs = context.getContentResolver().query(
+                        MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
+                        new String[]{MediaStore.Audio.Playlists.Members.AUDIO_ID}, null, new String[]{}, MediaStore.Audio.Playlists.Members.AUDIO_ID + " ASC");
+
+                if (playlistSongs != null && playlistSongs.getCount() > 0) {
+                    playlistSongs.moveToNext(); //goes to first element
+
+                    int songIndex = 0;
+                    int playlistIndex = 0;
+                    while (true)
+                    {
+                        if(songIndex >= songIdsSorted.length){
+                            break;
+                        }
+                        int playlistSong = playlistSongs.getInt(0);
+                        if(songIdsSorted[songIndex] > playlistSong)
+                        {
+                            playlistIndex++;
+                            if(playlistIndex < playlistSongs.getCount())
+                            {
+                                playlistSongs.moveToNext();
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        else if (songIdsSorted[songIndex] < playlistSong)
+                        {
+                            songIndex++;
+                        }
+                        else if(songIdsSorted[songIndex] == playlistSong)
+                        {
+                            result = true;
+                            songIndex++;
+                            break;
+                        }
+                    }
+                    playlistSongs.close();
+                }
+            } catch (SecurityException ignored) {
+            }
+
+            return result;
+        }
+        else{
+            throw new IllegalArgumentException("Must be a non-negative integer");
+        }
+    }
+    public static boolean playlistContainsAnySong(@NonNull final Context context, boolean[] isSongInPlaylist) {
+        for(boolean isThisSongInPlaylist : isSongInPlaylist){
+            if(isThisSongInPlaylist){
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean doPlaylistContainsAllSongs(@NonNull final Context context, final long playlistId, final int[] songIds) {
+        if (playlistId != -1) {
+            int[] songIdsSorted = songIds.clone();
+            java.util.Arrays.sort(songIdsSorted);
+
+            boolean result = true;
+
+            try {
+                Cursor playlistSongs = context.getContentResolver().query(
+                        MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
+                        new String[]{MediaStore.Audio.Playlists.Members.AUDIO_ID}, null, new String[]{}, MediaStore.Audio.Playlists.Members.AUDIO_ID + " ASC");
+
+                if (playlistSongs != null && playlistSongs.getCount() > 0) {
+                    playlistSongs.moveToNext(); //goes to first element
+
+                    int songIndex = 0;
+                    int playlistIndex = 0;
+                    while (true)
+                    {
+                        if(songIndex >= songIdsSorted.length){
+                            break;
+                        }
+                        int playlistSong = playlistSongs.getInt(0);
+                        if(songIdsSorted[songIndex] > playlistSong)
+                        {
+                            playlistIndex++;
+                            if(playlistIndex < playlistSongs.getCount())
+                            {
+                                playlistSongs.moveToNext();
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        else if (songIdsSorted[songIndex] < playlistSong)
+                        {
+                            result = false;
+                            songIndex++;
+                            break;
+                        }
+                        else if(songIdsSorted[songIndex] == playlistSong)
+                        {
+                            songIndex++;
+                        }
+                    }
+                    playlistSongs.close();
+                }
+            } catch (SecurityException ignored) {
+            }
+
+            return result;
+        }
+        else{
+            throw new IllegalArgumentException("Must be a non-negative integer");
+        }
+    }
+    public static boolean playlistContainsAllSongs(@NonNull final Context context, boolean[] isSongInPlaylist) {
+        for(boolean isThisSongInPlaylist : isSongInPlaylist){
+            if(!isThisSongInPlaylist){
+                return false;
+            }
+        }
+        return true;
     }
 
     public static boolean moveItem(@NonNull final Context context, int playlistId, int from, int to) {

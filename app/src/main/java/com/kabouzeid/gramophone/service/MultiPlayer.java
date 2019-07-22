@@ -7,8 +7,8 @@ import android.media.MediaPlayer;
 import android.media.audiofx.AudioEffect;
 import android.net.Uri;
 import android.os.PowerManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -144,7 +144,7 @@ public class MultiPlayer implements Playback, MediaPlayer.OnErrorListener, Media
      * @param callbacks The callbacks to use
      */
     @Override
-    public void setCallbacks(final Playback.PlaybackCallbacks callbacks) {
+    public void setCallbacks(@Nullable Playback.PlaybackCallbacks callbacks) {
         this.callbacks = callbacks;
     }
 

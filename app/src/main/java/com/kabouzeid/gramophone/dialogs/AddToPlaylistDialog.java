@@ -2,9 +2,8 @@ package com.kabouzeid.gramophone.dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.view.View;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
@@ -24,16 +23,16 @@ public class AddToPlaylistDialog extends DialogFragment {
 
     @NonNull
     public static AddToPlaylistDialog create(Song song) {
-        ArrayList<Song> list = new ArrayList<>();
+        List<Song> list = new ArrayList<>();
         list.add(song);
         return create(list);
     }
 
     @NonNull
-    public static AddToPlaylistDialog create(ArrayList<Song> songs) {
+    public static AddToPlaylistDialog create(List<Song> songs) {
         AddToPlaylistDialog dialog = new AddToPlaylistDialog();
         Bundle args = new Bundle();
-        args.putParcelableArrayList("songs", songs);
+        args.putParcelableArrayList("songs", new ArrayList<>(songs));
         dialog.setArguments(args);
         return dialog;
     }
@@ -49,24 +48,41 @@ public class AddToPlaylistDialog extends DialogFragment {
         }
         final ArrayList<Song> songs = getArguments().getParcelableArrayList("songs");
 
-        if(songs != null && songs.size() == 1)
+        int[] songIds = new int[songs.size()];
+        if(songs != null)
         {
-            //TODO: display checkboxes instead of checkmark
-
-            long startTime = System.currentTimeMillis();//TEMP
-
-            Boolean[] songIsInPlaylist = new Boolean[playlists.size()];
-            for(int i = 0; i < playlists.size(); i++){
-                songIsInPlaylist[i] = PlaylistsUtil.doPlaylistContains(getActivity(), playlists.get(i).id, songs.get(0).id);
-
-                //TEMP
-                if(songIsInPlaylist[i]) {
-                    playlistNames[i + 1] = playlists.get(i).name + " \u2713";
-                }
+            for(int i = 0; i < songs.size(); i++){
+                songIds[i] = songs.get(i).id;
             }
 
-            long difference = System.currentTimeMillis() - startTime;
-            long endTime = difference + startTime;
+            for (int i = 0; i < playlists.size(); i++) {
+                int playlistId = playlists.get(i).id;
+
+                long startTime = System.currentTimeMillis();//TODO: remove stopwatch
+
+                boolean isAnySongInPlaylist = PlaylistsUtil.doPlaylistContainsAnySong(getActivity(), playlistId, songIds);
+                long stopTime1 = System.currentTimeMillis();//TODO: remove stopwatch
+                boolean areAllSongsInPlaylist = PlaylistsUtil.doPlaylistContainsAllSongs(getActivity(), playlistId, songIds);
+                long stopTime2 = System.currentTimeMillis();//TODO: remove stopwatch
+
+                //TODO: display checkboxes instead of checkmark
+                if (isAnySongInPlaylist) {
+                    if(areAllSongsInPlaylist){
+                        playlistNames[i + 1] = playlists.get(i).name + " \u2713"; //Add checkmark
+                    }
+                    else{
+                        playlistNames[i + 1] = playlists.get(i).name + " (\u2713)"; //Add checkmark in brackets
+                    }
+                }
+
+                long stopTimeTotal = System.currentTimeMillis();//TODO: remove stopwatch
+                long Time1 = stopTime1 - startTime;
+                long Time2 = stopTime2 - stopTime1;
+                long Time3 = stopTimeTotal - stopTime2;
+                long TotalTime = stopTimeTotal - startTime;//TODO: remove stopwatch
+                int uselessAssignmentForDebugging = 7;//TODO: remove stopwatch
+                int c = uselessAssignmentForDebugging;//TODO: remove stopwatch
+            }
         }
 
         return new MaterialDialog.Builder(getActivity())
@@ -80,7 +96,7 @@ public class AddToPlaylistDialog extends DialogFragment {
                         CreatePlaylistDialog.create(songs).show(getActivity().getSupportFragmentManager(), "ADD_TO_PLAYLIST");
                     } else {
                         materialDialog.dismiss();
-                        PlaylistsUtil.addToPlaylist(getActivity(), songs, playlists.get(i - 1).id, true);
+                        PlaylistsUtil.addToPlaylistWithoutDuplicates(getActivity(), songs, songIds, playlists.get(i - 1).id, true);
                     }
                 })
                 .build();

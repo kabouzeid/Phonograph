@@ -2,7 +2,7 @@ package com.kabouzeid.gramophone.model.smartplaylist;
 
 import android.content.Context;
 import android.os.Parcel;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.TopAndRecentlyPlayedTracksLoader;
@@ -10,6 +10,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -22,7 +23,7 @@ public class MyTopTracksPlaylist extends AbsSmartPlaylist {
 
     @NonNull
     @Override
-    public ArrayList<Song> getSongs(@NonNull Context context) {
+    public List<Song> getSongs(@NonNull Context context) {
         return TopAndRecentlyPlayedTracksLoader.getTopTracks(context);
     }
 
@@ -35,11 +36,6 @@ public class MyTopTracksPlaylist extends AbsSmartPlaylist {
     @Override
     public int describeContents() {
         return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
     }
 
     protected MyTopTracksPlaylist(Parcel in) {

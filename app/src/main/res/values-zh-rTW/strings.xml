@@ -49,7 +49,6 @@
     <string name="lyrics">歌詞</string>
     <string name="album_or_artist_empty">專輯名稱或演出者欄是空的</string>
     <string name="saving_changes">正在儲存變更…</string>
-    <string name="saving_to_file">正在儲存為檔案...</string>
     <string name="label_details">詳細資訊</string>
     <string name="label_file_name">檔案名稱</string>
     <string name="label_file_path">檔案路徑</string>
@@ -89,7 +88,9 @@
     <string name="delete_playlists_title">刪除多個播放清單</string>
     <string name="clear_playlist_title">清空播放清單</string>
     <string name="save_playlist_title">儲存為檔案</string>
+    <string name="save_playlists_title">儲存為檔案</string>
     <string name="add_playlist_title">"加入播放清單"</string>
+    <string name="select_all_title">全選</string>
     <string name="action_shuffle_all">隨機播放</string>
     <string name="action_shuffle_album">隨機播放專輯</string>
     <string name="action_shuffle_artist">歌手隨機播放</string>
@@ -106,6 +107,7 @@
     <string name="never">永不</string>
     <string name="today">今日</string>
     <string name="this_week">本周</string>
+    <string name="past_seven_days">過去7天</string>
     <string name="this_month">這個月</string>
     <string name="past_three_months">過去 3 個月</string>
     <string name="this_year">今年</string>
@@ -132,6 +134,7 @@
     <string name="pref_title_last_added_interval">最後新增列表的時間範圍</string>
     <string name="pref_title_synchronized_lyrics_show">同步顯示歌詞</string>
     <string name="pref_title_remember_last_tab">記住最後開啟的頁面</string>
+    <string name="pref_title_remember_shuffle">記住隨機播放</string>
     <string name="no_equalizer">找不到等化器</string>
     <string name="no_audio_ID">"請先播放一首歌後再重試一遍。"</string>
     <string name="delete_action">刪除</string>
@@ -166,11 +169,12 @@
     <string name="pref_summary_audio_ducking">通知鈴聲、導航語音等。</string>
     <string name="pref_summary_synchronized_lyrics_show">目前僅支援 LRC 格式歌詞。內嵌或外掛皆可。</string>
     <string name="pref_summary_remember_last_tab">開啟時顯示最後使用的頁面</string>
+    <string name="pref_summary_remember_shuffle">當選擇新歌曲列表時維持隨機播放模式</string>
     <string name="could_not_download_album_cover">"\u7121\u6cd5\u4e0b\u8f09\u5408\u9069\u7684\u5c08\u8f2f\u5c01\u9762\u3002"</string>
     <string name="search_hint">搜尋音樂庫…</string>
     <string name="favorites">最愛</string>
     <string name="last_added">最後新增</string>
-    <string name="history">記錄</string>
+    <string name="history">最近播放</string>
     <string name="my_top_tracks">我的最佳單曲</string>
     <string name="remove_cover">移除封面</string>
     <string name="download_from_last_fm">從 Last.fm 下載</string>
@@ -196,14 +200,11 @@
     <string name="version">版本</string>
     <string name="author">作者</string>
     <string name="write_an_email">寫 email 給我們</string>
-    <string name="add_to_google_plus_circles">加入 Google+ 社交圈</string>
     <string name="follow_on_twitter">在 Twitter 上追蹤我們</string>
     <string name="fork_on_github">造訪 GitHub</string>
     <string name="visit_website">造訪網站</string>
     <string name="report_bugs">回報程式錯誤</string>
     <string name="report_bugs_summary">建議新功能或回報問題</string>
-    <string name="join_community">加入 Google+ 社交圈</string>
-    <string name="join_community_summary">如果您需要幫助或遇到問題，Google+ 社交圈的 Phonograph 社群是個發問的好地方。</string>
     <string name="translate">翻譯</string>
     <string name="translate_summary">幫助我們將這款 App 翻譯成您的語言</string>
     <string name="rate_on_google_play">評分</string>
@@ -226,7 +227,10 @@
     <string name="folders">文件夾</string>
     <string name="saved_playlist_to">已儲存播放清單至%s</string>
     <string name="failed_to_save_playlist">無法儲存播放清單 \"%s\"</string>
+    <string name="saved_x_playlists_to_x">儲存播放清單 %1$d 至 %2$s</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">儲存播放清單 %1$d 至 %2$s ， %3$d 儲存失敗</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b>未被列在音樂庫裡。]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">部分檔案未被列在音樂庫中。</string>
     <string name="nothing_to_scan">沒有東西可掃描。</string>
     <string name="scanned_files">已掃描%2$d個檔案夾中的%1$d個。</string>
     <string name="could_not_scan_files">不能掃描%d。</string>
@@ -275,6 +279,7 @@
     <string name="restore">恢復</string>
     <string name="no_purchase_found">找不到購買紀錄</string>
     <string name="eugene_cheung_summary">原始碼貢獻者</string>
+    <string name="adrian_summary">創建專輯頁面</string>
     <string name="add_action">新增</string>
     <string name="blacklist">黑名單</string>
     <string name="remove_from_blacklist">從黑名單中移除</string>
@@ -287,4 +292,13 @@
     <string name="library_categories">音樂庫類別</string>
     <string name="pref_summary_library_categories">調整音樂庫類別的顯示與排序</string>
     <string name="you_have_to_select_at_least_one_category">你至少要選擇 1 個類別</string>
+    <string name="action_scan_directory">掃描檔案</string>
+    <string name="scan_media">掃描音樂</string>
+    <string name="action_sort_order">排列方式</string>
+    <string name="sort_order_a_z">升序排列</string>
+    <string name="sort_order_z_a">降序排列</string>
+    <string name="sort_order_artist">演出者</string>
+    <string name="sort_order_album">專輯</string>
+    <string name="sort_order_year">年份</string>
+    <string name="finish_current_music_sleep_timer">歌曲全數播放完畢</string>
 </resources>

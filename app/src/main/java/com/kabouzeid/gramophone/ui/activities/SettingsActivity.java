@@ -7,15 +7,15 @@ import android.content.pm.ResolveInfo;
 import android.media.audiofx.AudioEffect;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.preference.ListPreference;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceManager;
-import android.support.v7.preference.TwoStatePreference;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
+import androidx.preference.TwoStatePreference;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -45,7 +45,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SettingsActivity extends AbsBaseActivity implements ColorChooserDialog.ColorCallback {
-    public static final String TAG = SettingsActivity.class.getSimpleName();
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -54,7 +53,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
-        setDrawUnderStatusbar(true);
+        setDrawUnderStatusbar();
         ButterKnife.bind(this);
 
         setStatusbarColorAuto();
@@ -200,15 +199,13 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     return false;
                 }
 
-                int theme = PreferenceUtil.getThemeResFromPrefValue(themeName);
                 setSummary(generalTheme, o);
-                ThemeStore.editTheme(getActivity())
-                        .activityTheme(theme)
-                        .commit();
+
+                ThemeStore.markChanged(getActivity());
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
                     // Set the new theme so that updateAppShortcuts can pull it
-                    getActivity().setTheme(PreferenceUtil.getThemeResFromPrefValue((String) o));
+                    getActivity().setTheme(PreferenceUtil.getThemeResFromPrefValue(themeName));
                     new DynamicShortcutManager(getActivity()).updateDynamicShortcuts();
                 }
 

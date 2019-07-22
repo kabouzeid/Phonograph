@@ -12,16 +12,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class M3UWriter implements M3UConstants {
-    public static final String TAG = M3UWriter.class.getSimpleName();
 
     public static File write(Context context, File dir, Playlist playlist) throws IOException {
         if (!dir.exists()) //noinspection ResultOfMethodCallIgnored
             dir.mkdirs();
         File file = new File(dir, playlist.name.concat("." + EXTENSION));
 
-        ArrayList<? extends Song> songs;
+        List<? extends Song> songs;
         if (playlist instanceof AbsCustomPlaylist) {
             songs = ((AbsCustomPlaylist) playlist).getSongs(context);
         } else {

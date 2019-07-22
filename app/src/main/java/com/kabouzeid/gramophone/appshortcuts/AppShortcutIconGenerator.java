@@ -1,27 +1,26 @@
 package com.kabouzeid.gramophone.appshortcuts;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.graphics.drawable.IconCompat;
+import androidx.annotation.RequiresApi;
+import androidx.core.graphics.drawable.IconCompat;
 import android.util.TypedValue;
 
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.util.ImageUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
-import com.kabouzeid.gramophone.util.Util;
 
 /**
  * @author Adrian Campos
  */
 @RequiresApi(Build.VERSION_CODES.N_MR1)
 public final class AppShortcutIconGenerator {
+
     public static Icon generateThemedIcon(Context context, int iconId) {
         if (PreferenceUtil.getInstance(context).coloredAppShortcuts()) {
             return generateUserThemedIcon(context, iconId).toIcon();
@@ -52,26 +51,19 @@ public final class AppShortcutIconGenerator {
 
     private static IconCompat generateThemedIcon(Context context, int iconId, int foregroundColor, int backgroundColor) {
         // Get and tint foreground and background drawables
-        Drawable vectorDrawable = Util.getTintedVectorDrawable(context, iconId, foregroundColor);
-        Drawable backgroundDrawable = Util.getTintedVectorDrawable(context, R.drawable.ic_app_shortcut_background, backgroundColor);
+        Drawable vectorDrawable = ImageUtil.getTintedVectorDrawable(context, iconId, foregroundColor);
+        Drawable backgroundDrawable = ImageUtil.getTintedVectorDrawable(context, R.drawable.ic_app_shortcut_background, backgroundColor);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             AdaptiveIconDrawable adaptiveIconDrawable = new AdaptiveIconDrawable(backgroundDrawable, vectorDrawable);
-            return IconCompat.createWithAdaptiveBitmap(drawableToBitmap(adaptiveIconDrawable));
+            return IconCompat.createWithAdaptiveBitmap(ImageUtil.createBitmap(adaptiveIconDrawable));
         } else {
             // Squash the two drawables together
             LayerDrawable layerDrawable = new LayerDrawable(new Drawable[]{backgroundDrawable, vectorDrawable});
 
             // Return as an Icon
-            return IconCompat.createWithBitmap(drawableToBitmap(layerDrawable));
+            return IconCompat.createWithBitmap(ImageUtil.createBitmap(layerDrawable));
         }
     }
 
-    private static Bitmap drawableToBitmap(Drawable drawable) {
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-        return bitmap;
-    }
 }

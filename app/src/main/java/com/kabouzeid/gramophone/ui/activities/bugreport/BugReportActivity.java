@@ -5,19 +5,17 @@ import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringDef;
-import android.support.annotation.StringRes;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringDef;
+import androidx.annotation.StringRes;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -25,7 +23,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.TintHelper;
@@ -263,16 +260,10 @@ public class BugReportActivity extends AbsThemeActivity {
         String bugTitle = inputTitle.getText().toString();
         String bugDescription = inputDescription.getText().toString();
 
-        ExtraInfo extraInfo = new ExtraInfo();
-        onSaveExtraInfo(extraInfo);
-
-        Report report = new Report(bugTitle, bugDescription, deviceInfo, extraInfo);
+        Report report = new Report(bugTitle, bugDescription, deviceInfo, new ExtraInfo());
         GithubTarget target = new GithubTarget("kabouzeid", "Phonograph");
 
         ReportIssueAsyncTask.report(this, report, target, login);
-    }
-
-    protected void onSaveExtraInfo(ExtraInfo extraInfo) {
     }
 
     @Override

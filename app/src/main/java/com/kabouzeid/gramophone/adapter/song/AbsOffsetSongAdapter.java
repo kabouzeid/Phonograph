@@ -1,9 +1,9 @@
 package com.kabouzeid.gramophone.adapter.song;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +14,7 @@ import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Eugene Cheung (arkon)
@@ -23,11 +24,11 @@ public abstract class AbsOffsetSongAdapter extends SongAdapter {
     protected static final int OFFSET_ITEM = 0;
     protected static final int SONG = 1;
 
-    public AbsOffsetSongAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
+    public AbsOffsetSongAdapter(AppCompatActivity activity, List<Song> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
         super(activity, dataSet, itemLayoutRes, usePalette, cabHolder);
     }
 
-    public AbsOffsetSongAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder, boolean showSectionName) {
+    public AbsOffsetSongAdapter(AppCompatActivity activity, List<Song> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder, boolean showSectionName) {
         super(activity, dataSet, itemLayoutRes, usePalette, cabHolder, showSectionName);
     }
 
@@ -53,10 +54,11 @@ public abstract class AbsOffsetSongAdapter extends SongAdapter {
         return super.getItemId(position);
     }
 
+    @Nullable
     @Override
     protected Song getIdentifier(int position) {
         position--;
-        if (position < 0) return Song.EMPTY_SONG;
+        if (position < 0) return null;
         return super.getIdentifier(position);
     }
 
@@ -87,7 +89,8 @@ public abstract class AbsOffsetSongAdapter extends SongAdapter {
 
         @Override
         protected Song getSong() {
-            if (getItemViewType() == OFFSET_ITEM) return Song.EMPTY_SONG;
+            if (getItemViewType() == OFFSET_ITEM)
+                return Song.EMPTY_SONG; // could also return null, just to be safe return empty song
             return dataSet.get(getAdapterPosition() - 1);
         }
 

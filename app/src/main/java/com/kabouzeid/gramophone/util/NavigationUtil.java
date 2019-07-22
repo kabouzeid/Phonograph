@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.media.audiofx.AudioEffect;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
@@ -29,7 +29,11 @@ public class NavigationUtil {
         intent.putExtra(ArtistDetailActivity.EXTRA_ARTIST_ID, artistId);
 
         //noinspection unchecked
-        activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElements).toBundle());
+        if (sharedElements != null && sharedElements.length > 0) {
+            activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElements).toBundle());
+        } else {
+            activity.startActivity(intent);
+        }
     }
 
     public static void goToAlbum(@NonNull final Activity activity, final int albumId, @Nullable Pair... sharedElements) {
@@ -37,7 +41,11 @@ public class NavigationUtil {
         intent.putExtra(AlbumDetailActivity.EXTRA_ALBUM_ID, albumId);
 
         //noinspection unchecked
-        activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElements).toBundle());
+        if (sharedElements != null && sharedElements.length > 0) {
+            activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElements).toBundle());
+        } else {
+            activity.startActivity(intent);
+        }
     }
 
     public static void goToGenre(@NonNull final Activity activity, final Genre genre, @Nullable Pair... sharedElements) {

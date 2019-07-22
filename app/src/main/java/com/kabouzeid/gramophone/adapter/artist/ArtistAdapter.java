@@ -1,11 +1,11 @@
 package com.kabouzeid.gramophone.adapter.artist;
 
 import android.graphics.drawable.Drawable;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.util.Pair;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,12 +19,14 @@ import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.glide.ArtistGlideRequest;
 import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
+import com.kabouzeid.gramophone.helper.SortOrder;
 import com.kabouzeid.gramophone.helper.menu.SongsMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
@@ -36,13 +38,13 @@ import java.util.List;
 public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolder, Artist> implements FastScrollRecyclerView.SectionedAdapter {
 
     protected final AppCompatActivity activity;
-    protected ArrayList<Artist> dataSet;
+    protected List<Artist> dataSet;
 
     protected int itemLayoutRes;
 
     protected boolean usePalette = false;
 
-    public ArtistAdapter(@NonNull AppCompatActivity activity, ArrayList<Artist> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
+    public ArtistAdapter(@NonNull AppCompatActivity activity, List<Artist> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         this.dataSet = dataSet;
@@ -51,12 +53,12 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
         setHasStableIds(true);
     }
 
-    public void swapDataSet(ArrayList<Artist> dataSet) {
+    public void swapDataSet(List<Artist> dataSet) {
         this.dataSet = dataSet;
         notifyDataSetChanged();
     }
 
-    public ArrayList<Artist> getDataSet() {
+    public List<Artist> getDataSet() {
         return dataSet;
     }
 
@@ -71,7 +73,8 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(activity).inflate(itemLayoutRes, parent, false);
         return createViewHolder(view);
     }
@@ -157,13 +160,13 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     }
 
     @Override
-    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Artist> selection) {
+    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull List<Artist> selection) {
         SongsMenuHelper.handleMenuClick(activity, getSongList(selection), menuItem.getItemId());
     }
 
     @NonNull
-    private ArrayList<Song> getSongList(@NonNull List<Artist> artists) {
-        final ArrayList<Song> songs = new ArrayList<>();
+    private List<Song> getSongList(@NonNull List<Artist> artists) {
+        final List<Song> songs = new ArrayList<>();
         for (Artist artist : artists) {
             songs.addAll(artist.getSongs()); // maybe async in future?
         }
@@ -173,7 +176,15 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     @NonNull
     @Override
     public String getSectionName(int position) {
-        return MusicUtil.getSectionName(dataSet.get(position).getName());
+        @Nullable String sectionName = null;
+        switch (PreferenceUtil.getInstance(activity).getArtistSortOrder()) {
+            case SortOrder.ArtistSortOrder.ARTIST_A_Z:
+            case SortOrder.ArtistSortOrder.ARTIST_Z_A:
+                sectionName = dataSet.get(position).getName();
+                break;
+        }
+
+        return MusicUtil.getSectionName(sectionName);
     }
 
     public class ViewHolder extends MediaEntryViewHolder {

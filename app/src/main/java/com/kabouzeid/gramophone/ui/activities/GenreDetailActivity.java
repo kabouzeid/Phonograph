@@ -2,12 +2,12 @@ package com.kabouzeid.gramophone.ui.activities;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,13 +31,13 @@ import com.kabouzeid.gramophone.util.ViewUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GenreDetailActivity extends AbsSlidingMusicPanelActivity implements CabHolder, LoaderManager.LoaderCallbacks<ArrayList<Song>> {
+public class GenreDetailActivity extends AbsSlidingMusicPanelActivity implements CabHolder, LoaderManager.LoaderCallbacks<List<Song>> {
 
-    public static final String TAG = GenreDetailActivity.class.getSimpleName();
     private static final int LOADER_ID = LoaderIds.GENRE_DETAIL_ACTIVITY;
 
     public static final String EXTRA_GENRE = "extra_genre";
@@ -59,7 +59,7 @@ public class GenreDetailActivity extends AbsSlidingMusicPanelActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setDrawUnderStatusbar(true);
+        setDrawUnderStatusbar();
         ButterKnife.bind(this);
 
         setStatusbarColorAuto();
@@ -84,7 +84,7 @@ public class GenreDetailActivity extends AbsSlidingMusicPanelActivity implements
         ViewUtil.setUpFastScrollRecyclerViewColor(this, ((FastScrollRecyclerView) recyclerView), ThemeStore.accentColor(this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new SongAdapter(this, new ArrayList<Song>(), R.layout.item_list, false, this);
+        adapter = new SongAdapter(this, new ArrayList<>(), R.layout.item_list, false, this);
         recyclerView.setAdapter(adapter);
 
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -174,23 +174,24 @@ public class GenreDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     @Override
-    public Loader<ArrayList<Song>> onCreateLoader(int id, Bundle args) {
+    @NonNull
+    public Loader<List<Song>> onCreateLoader(int id, Bundle args) {
         return new GenreDetailActivity.AsyncGenreSongLoader(this, genre);
     }
 
     @Override
-    public void onLoadFinished(Loader<ArrayList<Song>> loader, ArrayList<Song> data) {
+    public void onLoadFinished(@NonNull Loader<List<Song>> loader, List<Song> data) {
         if (adapter != null)
             adapter.swapDataSet(data);
     }
 
     @Override
-    public void onLoaderReset(Loader<ArrayList<Song>> loader) {
+    public void onLoaderReset(@NonNull Loader<List<Song>> loader) {
         if (adapter != null)
-            adapter.swapDataSet(new ArrayList<Song>());
+            adapter.swapDataSet(new ArrayList<>());
     }
 
-    private static class AsyncGenreSongLoader extends WrappedAsyncTaskLoader<ArrayList<Song>> {
+    private static class AsyncGenreSongLoader extends WrappedAsyncTaskLoader<List<Song>> {
         private final Genre genre;
 
         public AsyncGenreSongLoader(Context context, Genre genre) {
@@ -199,7 +200,7 @@ public class GenreDetailActivity extends AbsSlidingMusicPanelActivity implements
         }
 
         @Override
-        public ArrayList<Song> loadInBackground() {
+        public List<Song> loadInBackground() {
             return GenreLoader.getSongs(getContext(), genre.id);
         }
     }
