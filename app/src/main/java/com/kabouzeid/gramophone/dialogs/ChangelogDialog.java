@@ -80,7 +80,6 @@ public class ChangelogDialog extends DialogFragment {
                             String.format("body { background-color: %s; color: %s; }", backgroundColor, contentColor))
                     .replace("{link-color}", colorToCSS(ThemeSingleton.get().positiveColor.getDefaultColor()))
                     .replace("{link-color-active}", colorToCSS(ColorUtil.lightenColor(ThemeSingleton.get().positiveColor.getDefaultColor())));
-            Log.d("CHANGELOG", changeLog);
             webView.loadData(changeLog, "text/html", "UTF-8");
         } catch (Throwable e) {
             webView.loadData("<h1>Unable to load</h1><p>" + e.getLocalizedMessage() + "</p>", "text/html", "UTF-8");
