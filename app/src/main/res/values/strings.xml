@@ -310,4 +310,10 @@
     <string name="finish_current_music_sleep_timer">Finish last song</string>
     <string name="dialog_ringtone_title">Set ringtone</string>
     <string name="dialog_ringtone_message">Allow phonograph to modify audio settings</string>
+    <string name="pref_title_playlists_maximum_history_size">Maximum history size</string>
+    <string name="pref_summary_playlists_maximum_history_size">The maximum number of songs to display in the "Recently Played" playlist</string>
+    <string name="history_size_25">25 songs</string>
+    <string name="history_size_50">50 songs</string>
+    <string name="history_size_100">100 songs</string>
+    <string name="history_size_350">350 songs</string>
 </resources>
