@@ -1129,6 +1129,13 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 initNotification();
                 updateNotification();
                 break;
+            case PreferenceUtil.MAX_HISTORY_SIZE:
+                int maxHistorySize = PreferenceUtil.getInstance(this).getMaxHistorySize();
+                if (maxHistorySize >= HistoryStore.CONST_MIN_HISTORY_SIZE &&
+                        maxHistorySize <= HistoryStore.CONST_MAX_HISTORY_SIZE) {
+                    HistoryStore.getInstance(this).refreshMaxHistorySize(maxHistorySize);
+                }
+                break;
         }
     }
 
