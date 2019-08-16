@@ -23,24 +23,38 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 public class HistoryStore extends SQLiteOpenHelper {
-    private static final int MAX_ITEMS_IN_DB = 100;
+    public static final int CONST_MAX_HISTORY_SIZE = 350;
+    public static final int CONST_MIN_HISTORY_SIZE = 25;
+    public static final int CONST_DEFAULT_HISTORY_SIZE = 100;
 
-    public static final String DATABASE_NAME = "history.db";
+    private static final String DATABASE_NAME = "history.db";
     private static final int VERSION = 1;
+
+    private int maxHistorySize;
+
     @Nullable
     private static HistoryStore sInstance = null;
 
     public HistoryStore(final Context context) {
         super(context, DATABASE_NAME, null, VERSION);
+        this.maxHistorySize = PreferenceUtil.getInstance(context).getMaxHistorySize();
     }
 
     @Override
     public void onCreate(@NonNull final SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + RecentStoreColumns.NAME + " ("
-                + RecentStoreColumns.ID + " LONG NOT NULL," + RecentStoreColumns.TIME_PLAYED
-                + " LONG NOT NULL);");
+        StringBuilder builder = new StringBuilder();
+        builder.append("CREATE TABLE IF NOT EXISTS ");
+        builder.append(RecentStoreColumns.NAME);
+        builder.append("(");
+        builder.append(RecentStoreColumns.ID);
+        builder.append(" LONG NOT NULL,");
+        builder.append(RecentStoreColumns.TIME_PLAYED);
+        builder.append(" LONG NOT NULL);");
+
+        db.execSQL(builder.toString());
     }
 
     @Override
@@ -70,7 +84,6 @@ public class HistoryStore extends SQLiteOpenHelper {
 
         final SQLiteDatabase database = getWritableDatabase();
         database.beginTransaction();
-
         try {
             // remove previous entries
             removeSongId(songId);
@@ -82,15 +95,15 @@ public class HistoryStore extends SQLiteOpenHelper {
             database.insert(RecentStoreColumns.NAME, null, values);
 
             // if our db is too large, delete the extra items
-            Cursor oldest = null;
+            Cursor cursor = null;
             try {
-                oldest = database.query(RecentStoreColumns.NAME,
+                cursor = database.query(RecentStoreColumns.NAME,
                         new String[]{RecentStoreColumns.TIME_PLAYED}, null, null, null, null,
                         RecentStoreColumns.TIME_PLAYED + " ASC");
 
-                if (oldest != null && oldest.getCount() > MAX_ITEMS_IN_DB) {
-                    oldest.moveToPosition(oldest.getCount() - MAX_ITEMS_IN_DB);
-                    long timeOfRecordToKeep = oldest.getLong(0);
+                if (cursor != null && cursor.getCount() > maxHistorySize) {
+                    cursor.moveToPosition(cursor.getCount() - maxHistorySize);
+                    long timeOfRecordToKeep = cursor.getLong(0);
 
                     database.delete(RecentStoreColumns.NAME,
                             RecentStoreColumns.TIME_PLAYED + " < ?",
@@ -98,8 +111,8 @@ public class HistoryStore extends SQLiteOpenHelper {
 
                 }
             } finally {
-                if (oldest != null) {
-                    oldest.close();
+                if (cursor != null) {
+                    cursor.close();
                 }
             }
         } finally {
@@ -110,10 +123,41 @@ public class HistoryStore extends SQLiteOpenHelper {
 
     public void removeSongId(final long songId) {
         final SQLiteDatabase database = getWritableDatabase();
-        database.delete(RecentStoreColumns.NAME, RecentStoreColumns.ID + " = ?", new String[]{
-                String.valueOf(songId)
-        });
+        database.delete(RecentStoreColumns.NAME,
+                RecentStoreColumns.ID + " = ?",
+                new String[]{String.valueOf(songId)});
+    }
 
+    public void refreshMaxHistorySize(int maxHistorySize) {
+        this.maxHistorySize = maxHistorySize;
+
+        final SQLiteDatabase database = getWritableDatabase();
+        Cursor cursor = null;
+        database.beginTransaction();
+        try {
+            cursor = database.query(RecentStoreColumns.NAME,
+                    new String[]{
+                            RecentStoreColumns.ID,
+                            RecentStoreColumns.TIME_PLAYED}, null, null, null, null,
+                    RecentStoreColumns.TIME_PLAYED + " DESC");
+
+            if (cursor != null && cursor.getCount() > maxHistorySize &&
+                    cursor.moveToPosition(maxHistorySize)) {
+                do {
+                    database.delete(RecentStoreColumns.NAME,
+                            RecentStoreColumns.ID + "=?",
+                            new String[] {
+                                    String.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow(RecentStoreColumns.ID)))
+                            });
+                } while (cursor.moveToNext());
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            database.setTransactionSuccessful();
+            database.endTransaction();
+        }
     }
 
     public void clear() {
