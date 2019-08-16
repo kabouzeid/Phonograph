@@ -8,14 +8,13 @@ import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.SortOrder;
 import com.kabouzeid.gramophone.model.CategoryInfo;
+import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.folders.FoldersFragment;
 import com.kabouzeid.gramophone.ui.fragments.player.NowPlayingScreen;
 
@@ -64,6 +63,7 @@ public final class PreferenceUtil {
     public static final String GAPLESS_PLAYBACK = "gapless_playback";
 
     public static final String LAST_ADDED_CUTOFF = "last_added_interval";
+    public static final String MAX_HISTORY_SIZE = "max_history_size";
 
     public static final String ALBUM_ART_ON_LOCKSCREEN = "album_art_on_lockscreen";
     public static final String BLURRED_ALBUM_ART = "blurred_album_art";
@@ -134,7 +134,7 @@ public final class PreferenceUtil {
     public void setGeneralTheme(String theme) {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putString(GENERAL_THEME, theme);
-        editor.commit();
+        editor.apply();
     }
 
     @StyleRes
@@ -317,6 +317,15 @@ public final class PreferenceUtil {
         }
 
         return (System.currentTimeMillis() - interval) / 1000;
+    }
+
+    public final int getMaxHistorySize() {
+        try {
+            String number = mPreferences.getString(MAX_HISTORY_SIZE, "");
+            return Integer.valueOf(number);
+        } catch (NumberFormatException e) {
+            return HistoryStore.CONST_DEFAULT_HISTORY_SIZE;
+        }
     }
 
     public int getLastSleepTimerValue() {
