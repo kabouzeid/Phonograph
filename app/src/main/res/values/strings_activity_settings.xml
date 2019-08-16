@@ -42,4 +42,17 @@
         <item>this_year</item>
     </string-array>
 
+    <string-array name="pref_playlists_max_history_size_entries">
+        <item>@string/history_size_25</item>
+        <item>@string/history_size_50</item>
+        <item>@string/history_size_100</item>
+        <item>@string/history_size_350</item>
+    </string-array>
+
+    <string-array name="pref_playlists_max_history_size_values">
+        <item>25</item>
+        <item>50</item>
+        <item>100</item>
+        <item>350</item>
+    </string-array>
 </resources>
