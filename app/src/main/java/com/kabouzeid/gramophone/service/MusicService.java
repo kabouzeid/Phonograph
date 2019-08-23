@@ -27,12 +27,13 @@ import android.os.PowerManager;
 import android.os.Process;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.Glide;
@@ -42,6 +43,8 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetBig;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetCard;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetClassic;
+import com.kabouzeid.gramophone.appwidgets.AppWidgetClassicBlack;
+import com.kabouzeid.gramophone.appwidgets.AppWidgetBlack;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetSmall;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
@@ -130,12 +133,14 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     private AppWidgetBig appWidgetBig = AppWidgetBig.getInstance();
     private AppWidgetClassic appWidgetClassic = AppWidgetClassic.getInstance();
+    private AppWidgetClassicBlack appWidgetClassicBlack = AppWidgetClassicBlack.getInstance();
+    private AppWidgetBlack appWidgetBlack = AppWidgetBlack.getInstance();
     private AppWidgetSmall appWidgetSmall = AppWidgetSmall.getInstance();
     private AppWidgetCard appWidgetCard = AppWidgetCard.getInstance();
 
     private Playback playback;
-    private ArrayList<Song> playingQueue = new ArrayList<>();
-    private ArrayList<Song> originalPlayingQueue = new ArrayList<>();
+    private List<Song> playingQueue = new ArrayList<>();
+    private List<Song> originalPlayingQueue = new ArrayList<>();
     private int position = -1;
     private int nextPosition = -1;
     private int shuffleMode;
@@ -275,8 +280,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             }
         });
 
-        mediaSession.setFlags(MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS
-                | MediaSession.FLAG_HANDLES_MEDIA_BUTTONS);
+        mediaSession.setFlags(MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS | MediaSession.FLAG_HANDLES_MEDIA_BUTTONS);
 
         mediaSession.setMediaButtonReceiver(mediaButtonReceiverPendingIntent);
     }
@@ -305,12 +309,12 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         Playlist playlist = intent.getParcelableExtra(INTENT_EXTRA_PLAYLIST);
                         int shuffleMode = intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, getShuffleMode());
                         if (playlist != null) {
-                            ArrayList<Song> playlistSongs;
+                            List<Song> playlistSongs;
                             if (playlist instanceof AbsCustomPlaylist) {
                                 playlistSongs = ((AbsCustomPlaylist) playlist).getSongs(getApplicationContext());
                             } else {
                                 //noinspection unchecked
-                                playlistSongs = (ArrayList<Song>) (List) PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id);
+                                playlistSongs = (List) PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id);
                             }
                             if (!playlistSongs.isEmpty()) {
                                 if (shuffleMode == SHUFFLE_MODE_SHUFFLE) {
@@ -428,8 +432,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     private synchronized void restoreQueuesAndPositionIfNecessary() {
         if (!queuesRestored && playingQueue.isEmpty()) {
-            ArrayList<Song> restoredQueue = MusicPlaybackQueueStore.getInstance(this).getSavedPlayingQueue();
-            ArrayList<Song> restoredOriginalQueue = MusicPlaybackQueueStore.getInstance(this).getSavedOriginalPlayingQueue();
+            List<Song> restoredQueue = MusicPlaybackQueueStore.getInstance(this).getSavedPlayingQueue();
+            List<Song> restoredOriginalQueue = MusicPlaybackQueueStore.getInstance(this).getSavedOriginalPlayingQueue();
             int restoredPosition = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION, -1);
             int restoredPositionInTrack = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION_IN_TRACK, -1);
 
@@ -677,7 +681,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         return getPosition() == getPlayingQueue().size() - 1;
     }
 
-    public ArrayList<Song> getPlayingQueue() {
+    public List<Song> getPlayingQueue() {
         return playingQueue;
     }
 
@@ -700,7 +704,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
-    public void openQueue(@Nullable final ArrayList<Song> playingQueue, final int startPosition, final boolean startPlaying) {
+    public void openQueue(@Nullable final List<Song> playingQueue, final int startPosition, final boolean startPlaying) {
         if (playingQueue != null && !playingQueue.isEmpty() && startPosition >= 0 && startPosition < playingQueue.size()) {
             // it is important to copy the playing queue here first as we might add/remove songs later
             originalPlayingQueue = new ArrayList<>(playingQueue);
@@ -869,7 +873,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
-    public void playSongs(ArrayList<Song> songs, int shuffleMode) {
+    public void playSongs(List<Song> songs, int shuffleMode) {
         if (songs != null && !songs.isEmpty()) {
             if (shuffleMode == SHUFFLE_MODE_SHUFFLE) {
                 int startPosition = 0;
@@ -1042,6 +1046,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         sendBroadcast(new Intent(what));
         appWidgetBig.notifyChange(this, what);
         appWidgetClassic.notifyChange(this, what);
+        appWidgetClassicBlack.notifyChange(this, what);
+        appWidgetBlack.notifyChange(this, what);
         appWidgetSmall.notifyChange(this, what);
         appWidgetCard.notifyChange(this, what);
     }
@@ -1290,6 +1296,14 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             switch (command) {
                 case AppWidgetClassic.NAME: {
                     appWidgetClassic.performUpdate(MusicService.this, ids);
+                    break;
+                }
+                case AppWidgetClassicBlack.NAME: {
+                    appWidgetClassicBlack.performUpdate(MusicService.this, ids);
+                    break;
+                }
+                case AppWidgetBlack.NAME: {
+                    appWidgetBlack.performUpdate(MusicService.this, ids);
                     break;
                 }
                 case AppWidgetSmall.NAME: {

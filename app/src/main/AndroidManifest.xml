@@ -179,6 +179,30 @@
                 android:resource="@xml/app_widget_classic_info" />
         </receiver>
         <receiver
+            android:name=".appwidgets.AppWidgetClassicBlack"
+            android:exported="false"
+            android:label="@string/app_widget_classic_black_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_classic_black_info" />
+        </receiver>
+        <receiver
+            android:name=".appwidgets.AppWidgetBlack"
+            android:exported="false"
+            android:label="@string/app_widget_black_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_black_info" />
+        </receiver>
+        <receiver
             android:name=".appwidgets.AppWidgetSmall"
             android:exported="false"
             android:label="@string/app_widget_small_name">
