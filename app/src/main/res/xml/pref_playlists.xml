@@ -16,8 +16,8 @@
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
     <com.afollestad.materialdialogs.prefs.MaterialListPreference
-            android:title="@string/pref_playlists_max_history_size"
-            android:summary="@string/pref_playlists_max_history_size_summary"
+            android:title="@string/pref_title_playlists_max_history_size"
+            android:summary="@string/pref_summary_playlists_max_history_size"
             android:entries="@array/pref_playlists_max_history_size_entries"
             android:entryValues="@array/pref_playlists_max_history_size_values"
             android:defaultValue="100"
