@@ -3,10 +3,6 @@ package com.kabouzeid.gramophone.glide;
 import android.content.Context;
 import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.DrawableTypeRequest;
@@ -28,13 +24,16 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ArtistSignatureUtil;
 import com.kabouzeid.gramophone.util.CustomArtistImageUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistGlideRequest {
 
     private static final DiskCacheStrategy DEFAULT_DISK_CACHE_STRATEGY = DiskCacheStrategy.ALL;
-    private static final int DEFAULT_ERROR_IMAGE = R.drawable.default_artist_image;
+    private static final int DEFAULT_ARTIST_IMAGE = R.drawable.default_artist_image;
     public static final int DEFAULT_ANIMATION = android.R.anim.fade_in;
 
     public static class Builder {
@@ -68,7 +67,8 @@ public class ArtistGlideRequest {
             //noinspection unchecked
             return createBaseRequest(requestManager, artist, noCustomImage)
                     .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
-                    .error(DEFAULT_ERROR_IMAGE)
+					.placeholder(DEFAULT_ARTIST_IMAGE)
+                    .error(DEFAULT_ARTIST_IMAGE)
                     .animate(DEFAULT_ANIMATION)
                     .priority(Priority.LOW)
                     .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
@@ -88,7 +88,8 @@ public class ArtistGlideRequest {
             return createBaseRequest(builder.requestManager, builder.artist, builder.noCustomImage)
                     .asBitmap()
                     .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
-                    .error(DEFAULT_ERROR_IMAGE)
+					.placeholder(DEFAULT_ARTIST_IMAGE)
+                    .error(DEFAULT_ARTIST_IMAGE)
                     .animate(DEFAULT_ANIMATION)
                     .priority(Priority.LOW)
                     .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
@@ -111,7 +112,8 @@ public class ArtistGlideRequest {
                     .asBitmap()
                     .transcode(new BitmapPaletteTranscoder(context), BitmapPaletteWrapper.class)
                     .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
-                    .error(DEFAULT_ERROR_IMAGE)
+					.placeholder(DEFAULT_ARTIST_IMAGE)
+                    .error(DEFAULT_ARTIST_IMAGE)
                     .animate(DEFAULT_ANIMATION)
                     .priority(Priority.LOW)
                     .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
@@ -124,8 +126,8 @@ public class ArtistGlideRequest {
         if (noCustomImage || !hasCustomImage) {
             final List<AlbumCover> songs = new ArrayList<>();
             for (final Album album : artist.albums) {
-                final Song song = album.safeGetFirstSong();
-                songs.add(new AlbumCover(album.getYear(), song.data));
+                Song song = album.safeGetFirstSong();
+                songs.add(new AlbumCover(album.getId(), album.getYear(), song.data));
             }
             return requestManager.load(new ArtistImage(artist.getName(), songs));
         } else {
@@ -133,7 +135,7 @@ public class ArtistGlideRequest {
         }
     }
 
-    private static Key createSignature(Artist artist) {
-        return ArtistSignatureUtil.getInstance(App.getInstance()).getArtistSignature(artist.getName());
+    public static Key createSignature(Artist artist) {
+        return ArtistSignatureUtil.getInstance(BoomingApplication.getApp()).getArtistSignature(artist.getName());
     }
 }
