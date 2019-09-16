@@ -38,7 +38,7 @@ public class AudioFileCoverFetcher implements DataFetcher<InputStream> {
             if (picture != null) {
                 stream = new ByteArrayInputStream(picture);
             } else {
-                stream = AudioFileCoverUtils.fallback(model.filePath);
+                stream = AudioFileCoverFallback.getFallback(model.filePath, true);
             }
         } finally {
             retriever.release();
