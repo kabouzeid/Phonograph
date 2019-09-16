@@ -1,12 +1,22 @@
 package com.kabouzeid.gramophone.glide.artistimage;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.media.MediaMetadataRetriever;
+import android.net.Uri;
+import android.os.ParcelFileDescriptor;
 import android.util.Log;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.data.DataFetcher;
+import com.kabouzeid.gramophone.glide.artistimage.AlbumCover;
+import com.kabouzeid.gramophone.glide.audiocover.AudioFileCoverFallback;
+import com.kabouzeid.gramophone.util.ImageUtil;
+import com.kabouzeid.gramophone.util.MusicUtil;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,35 +25,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.data.DataFetcher;
-import com.kabouzeid.gramophone.glide.audiocover.AudioFileCoverUtils;
-import com.kabouzeid.gramophone.util.ImageUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtil;
-
 /**
- * @author Karim Abou Zeid (kabouzeid)
+ * @author Karim Abou Zeid (kabouzeid), modified by Christians Martínez Alvarado (mardous)
  */
 public class ArtistImageFetcher implements DataFetcher<InputStream> {
 
+    private Context context;
     private final ArtistImage model;
 
     private InputStream stream;
 
-    private boolean ignoreMediaStore;
-
-    public ArtistImageFetcher(final ArtistImage model, boolean ignoreMediaStore) {
+    public ArtistImageFetcher(final Context context, final ArtistImage model) {
+        this.context = context;
         this.model = model;
-        this.ignoreMediaStore = ignoreMediaStore;
     }
 
     @Override
     public String getId() {
-        Log.d("MOSAIC", "get id for" + model.artistName);
+        Log.d("MOSAIC", "getFallback id for" + model.artistName);
         // never return NULL here!
         // this id is used to determine whether the image is already cached
         // we use the artist name as well as the album years + file paths
-        return model.toIdString() + "ignoremediastore:" + ignoreMediaStore;
+        return model.toIdString();
     }
 
     @Override
@@ -53,7 +56,6 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
     }
 
     private InputStream getMosaic(final List<AlbumCover> albumCovers) throws FileNotFoundException {
-
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
 
         int artistBitMapSize = 512;
@@ -64,17 +66,15 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
         List<InputStream> streams = new ArrayList<>();
 
         try {
+
             for (final AlbumCover cover : albumCovers) {
-                byte[] picture = null;
-                if (!ignoreMediaStore) {
-                    retriever.setDataSource(cover.getFilePath());
-                    picture = retriever.getEmbeddedPicture();
-                }
                 final InputStream stream;
-                if (picture != null) {
-                    stream = new ByteArrayInputStream(picture);
+                Uri uri = MusicUtil.getMediaStoreAlbumCoverUri(cover.getAlbumId());
+                ParcelFileDescriptor pfd = context.getContentResolver().openFileDescriptor(uri, "r");
+                if (pfd != null) {
+                    stream = new FileInputStream(pfd.getFileDescriptor());
                 } else {
-                    stream = AudioFileCoverUtils.fallback(cover.getFilePath());
+                    stream = AudioFileCoverFallback.getFolderFallback(cover.getFilePath());
                 }
 
                 if (stream != null) {
@@ -169,7 +169,6 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
     }
 
     @Override
-    public void cancel() {
-
-    }
+    public void cancel() {}
 }
+

@@ -8,11 +8,10 @@ import java.util.List;
 public class ArtistImage {
     public final String artistName;
 
-    // filePath to get the image of the artist
+    // filePath to getFallback the image of the artist
     public final List<AlbumCover> albumCovers;
 
     public ArtistImage(String artistName, final List<AlbumCover> albumCovers) {
-
         this.artistName = artistName;
         this.albumCovers = albumCovers;
     }
@@ -20,7 +19,7 @@ public class ArtistImage {
     public String toIdString() {
         StringBuilder id = new StringBuilder(artistName);
         for (AlbumCover albumCover: albumCovers) {
-            id.append(albumCover.getYear()).append(albumCover.getFilePath());
+            id.append(albumCover.getAlbumId()).append(albumCover.getYear()).append(albumCover.getFilePath());
         }
         return id.toString();
     }
