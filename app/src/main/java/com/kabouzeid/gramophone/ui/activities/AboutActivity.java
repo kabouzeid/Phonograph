@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -41,15 +43,14 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     private static String TRANSLATE = "https://phonograph.oneskyapp.com/collaboration/project?id=26521";
     private static String RATE_ON_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.kabouzeid.gramophone";
 
-    private static String AIDAN_FOLLESTAD_GOOGLE_PLUS = "https://google.com/+AidanFollestad";
     private static String AIDAN_FOLLESTAD_GITHUB = "https://github.com/afollestad";
 
-    private static String MICHAEL_COOK_GOOGLE_PLUS = "https://plus.google.com/102718493746376292361";
     private static String MICHAEL_COOK_WEBSITE = "https://cookicons.co/";
 
-    private static String MAARTEN_CORPEL_GOOGLE_PLUS = "https://google.com/+MaartenCorpel";
+    private static String MAARTEN_CORPEL_WEBSITE = "https://maartencorpel.com/";
+    private static String MAARTEN_CORPEL_TWITTER = "https://twitter.com/maartencorpel";
 
-    private static String ALEKSANDAR_TESIC_GOOGLE_PLUS = "https://google.com/+aleksandartešić";
+    private static String ALEKSANDAR_TESIC_TWITTER = "https://twitter.com/djsalezmaj";
 
     private static String EUGENE_CHEUNG_GITHUB = "https://github.com/arkon";
     private static String EUGENE_CHEUNG_WEBSITE = "https://echeung.me/";
@@ -83,18 +84,16 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     LinearLayout donate;
     @BindView(R.id.rate_on_google_play)
     LinearLayout rateOnGooglePlay;
-    @BindView(R.id.aidan_follestad_google_plus)
-    AppCompatButton aidanFollestadGooglePlus;
     @BindView(R.id.aidan_follestad_git_hub)
     AppCompatButton aidanFollestadGitHub;
-    @BindView(R.id.michael_cook_google_plus)
-    AppCompatButton michaelCookGooglePlus;
     @BindView(R.id.michael_cook_website)
     AppCompatButton michaelCookWebsite;
-    @BindView(R.id.maarten_corpel_google_plus)
-    AppCompatButton maartenCorpelGooglePlus;
-    @BindView(R.id.aleksandar_tesic_google_plus)
-    AppCompatButton aleksandarTesicGooglePlus;
+    @BindView(R.id.maarten_corpel_website)
+    AppCompatButton maartenCorpelWebsite;
+    @BindView(R.id.maarten_corpel_twitter)
+    AppCompatButton maartenCorpelTwitter;
+    @BindView(R.id.aleksandar_tesic_twitter)
+    AppCompatButton aleksandarTesicTwitter;
     @BindView(R.id.eugene_cheung_git_hub)
     AppCompatButton eugeneCheungGitHub;
     @BindView(R.id.eugene_cheung_website)
@@ -147,12 +146,11 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         translate.setOnClickListener(this);
         rateOnGooglePlay.setOnClickListener(this);
         donate.setOnClickListener(this);
-        aidanFollestadGooglePlus.setOnClickListener(this);
         aidanFollestadGitHub.setOnClickListener(this);
-        michaelCookGooglePlus.setOnClickListener(this);
         michaelCookWebsite.setOnClickListener(this);
-        maartenCorpelGooglePlus.setOnClickListener(this);
-        aleksandarTesicGooglePlus.setOnClickListener(this);
+        maartenCorpelWebsite.setOnClickListener(this);
+        maartenCorpelTwitter.setOnClickListener(this);
+        aleksandarTesicTwitter.setOnClickListener(this);
         eugeneCheungGitHub.setOnClickListener(this);
         eugeneCheungWebsite.setOnClickListener(this);
         adrianTwitter.setOnClickListener(this);
@@ -209,18 +207,16 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
             } else {
                 startActivity(new Intent(this, PurchaseActivity.class));
             }
-        } else if (v == aidanFollestadGooglePlus) {
-            openUrl(AIDAN_FOLLESTAD_GOOGLE_PLUS);
         } else if (v == aidanFollestadGitHub) {
             openUrl(AIDAN_FOLLESTAD_GITHUB);
-        } else if (v == michaelCookGooglePlus) {
-            openUrl(MICHAEL_COOK_GOOGLE_PLUS);
         } else if (v == michaelCookWebsite) {
             openUrl(MICHAEL_COOK_WEBSITE);
-        } else if (v == maartenCorpelGooglePlus) {
-            openUrl(MAARTEN_CORPEL_GOOGLE_PLUS);
-        } else if (v == aleksandarTesicGooglePlus) {
-            openUrl(ALEKSANDAR_TESIC_GOOGLE_PLUS);
+        } else if (v == maartenCorpelWebsite) {
+            openUrl(MAARTEN_CORPEL_WEBSITE);
+        } else if (v == maartenCorpelTwitter) {
+            openUrl(MAARTEN_CORPEL_TWITTER);
+        } else if (v == aleksandarTesicTwitter) {
+            openUrl(ALEKSANDAR_TESIC_TWITTER);
         } else if (v == eugeneCheungGitHub) {
             openUrl(EUGENE_CHEUNG_GITHUB);
         } else if (v == eugeneCheungWebsite) {
