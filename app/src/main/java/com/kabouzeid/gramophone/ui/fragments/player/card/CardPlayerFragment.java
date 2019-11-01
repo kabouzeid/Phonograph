@@ -418,9 +418,19 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     public void onPanelSlide(View view, float slide) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             float density = getResources().getDisplayMetrics().density;
-            playingQueueCard.setCardElevation((6 * slide + 2) * density);
-            playbackControlsFragment.playPauseFab.setElevation((2 * Math.max(0, (1 - (slide * 16))) + 2) * density);
+
+            float cardElevation = (6 * slide + 2) * density;
+            if (!isValidElevation(cardElevation)) return; // we have received some crash reports in setCardElevation()
+            playingQueueCard.setCardElevation(cardElevation);
+
+            float buttonElevation = (2 * Math.max(0, (1 - (slide * 16))) + 2) * density;
+            if (!isValidElevation(buttonElevation)) return;
+            playbackControlsFragment.playPauseFab.setElevation(buttonElevation);
         }
+    }
+
+    private boolean isValidElevation(float elevation) {
+        return elevation >= -Float.MAX_VALUE && elevation <= Float.MAX_VALUE;
     }
 
     @Override
