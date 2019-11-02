@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.appwidgets;
 
 import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +9,10 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.Nullable;
 import androidx.palette.graphics.Palette;
+
+import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -156,5 +160,49 @@ public class AppWidgetClassic extends BaseAppWidget {
         // Next track
         pendingIntent = buildPendingIntent(context, MusicService.ACTION_SKIP, serviceName);
         views.setOnClickPendingIntent(R.id.button_next, pendingIntent);
+    }
+
+    @Override
+    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget_classic);
+        resizeWidget(newOptions, views);
+        appWidgetManager.updateAppWidget(appWidgetId,views);
+    }
+
+    public void resizeWidget(final Bundle appWidgetOptions,final RemoteViews views){
+        int minWidth = appWidgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
+        int maxWidth = appWidgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
+
+        //Log.d("maxWidth", String.valueOf(maxWidth));
+        //Log.d("minWidth",String.valueOf(minWidth));
+        if (minWidth<250) {
+            views.setViewVisibility(R.id.image,View.GONE);
+        }
+        if (minWidth<200){
+            views.setTextViewTextSize(R.id.title, TypedValue.COMPLEX_UNIT_SP,13);
+            views.setTextViewTextSize(R.id.text, TypedValue.COMPLEX_UNIT_SP,11);
+        }
+        if (minWidth<100){
+            views.setViewVisibility(R.id.button_prev,View.GONE);
+            views.setViewVisibility(R.id.button_next,View.GONE);
+            views.setTextViewTextSize(R.id.title, TypedValue.COMPLEX_UNIT_SP,11);
+            views.setTextViewTextSize(R.id.text, TypedValue.COMPLEX_UNIT_SP,9);
+
+        }
+        if(minWidth>100){
+            views.setViewVisibility(R.id.button_prev,View.VISIBLE);
+            views.setViewVisibility(R.id.button_next,View.VISIBLE);
+        }
+        if (minWidth>200){
+            views.setTextViewTextSize(R.id.title, TypedValue.COMPLEX_UNIT_SP,16);
+            views.setTextViewTextSize(R.id.text, TypedValue.COMPLEX_UNIT_SP,12);
+        }
+        if (minWidth>250){
+            views.setImageViewResource(R.id.image, R.drawable.default_album_art);
+            views.setViewVisibility(R.id.image,View.VISIBLE);
+
+
+        }
+
     }
 }

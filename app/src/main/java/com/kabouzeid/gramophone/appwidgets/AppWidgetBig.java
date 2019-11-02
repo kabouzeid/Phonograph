@@ -8,6 +8,8 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.Nullable;
+
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -150,4 +152,5 @@ public class AppWidgetBig extends BaseAppWidget {
         pendingIntent = buildPendingIntent(context, MusicService.ACTION_SKIP, serviceName);
         views.setOnClickPendingIntent(R.id.button_next, pendingIntent);
     }
+    public void resizeWidget(final Bundle appWidgetOptions, final RemoteViews views){}
 }

@@ -5,6 +5,7 @@
                     android:minHeight="@dimen/app_widget_card_min_height"
                     android:minWidth="@dimen/app_widget_card_min_width"
                     android:resizeMode="horizontal|vertical"
+                    android:minResizeWidth="150dp"
                     android:updatePeriodMillis="0"
                     android:widgetCategory="keyguard|home_screen"
                     tools:ignore="UnusedAttribute"

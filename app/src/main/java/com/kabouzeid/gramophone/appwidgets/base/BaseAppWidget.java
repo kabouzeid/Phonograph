@@ -16,6 +16,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.widget.RemoteViews;
 
 import com.kabouzeid.gramophone.R;
@@ -55,6 +56,10 @@ public abstract class BaseAppWidget extends AppWidgetProvider {
     protected void pushUpdate(final Context context, final int[] appWidgetIds, final RemoteViews views) {
         final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         if (appWidgetIds != null) {
+            for (int appWidgetId : appWidgetIds) {
+                Bundle appWidgetOptions = appWidgetManager.getAppWidgetOptions(appWidgetId);
+                resizeWidget(appWidgetOptions, views);
+            }
             appWidgetManager.updateAppWidget(appWidgetIds, views);
         } else {
             appWidgetManager.updateAppWidget(new ComponentName(context, getClass()), views);
@@ -139,4 +144,6 @@ public abstract class BaseAppWidget extends AppWidgetProvider {
     protected String getSongArtistAndAlbum(final Song song) {
         return MusicUtil.getSongInfoString(song);
     }
+
+    abstract public void resizeWidget(final Bundle appWidgetOptions,final RemoteViews views);
 }
