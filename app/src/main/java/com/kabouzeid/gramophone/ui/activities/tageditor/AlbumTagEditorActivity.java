@@ -47,6 +47,8 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     @BindView(R.id.title)
     EditText albumTitle;
+    @BindView(R.id.artist)
+    EditText artist;
     @BindView(R.id.album_artist)
     EditText albumArtist;
     @BindView(R.id.genre)
@@ -71,6 +73,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
     private void setUpViews() {
         fillViewsWithFileTags();
         albumTitle.addTextChangedListener(this);
+        artist.addTextChangedListener(this);
         albumArtist.addTextChangedListener(this);
         genre.addTextChangedListener(this);
         year.addTextChangedListener(this);
@@ -79,6 +82,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     private void fillViewsWithFileTags() {
         albumTitle.setText(getAlbumTitle());
+        artist.setText(getArtistName());
         albumArtist.setText(getAlbumArtistName());
         genre.setText(getGenreName());
         year.setText(getSongYear());
@@ -164,7 +168,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         Map<FieldKey, String> fieldKeyValueMap = new EnumMap<>(FieldKey.class);
         fieldKeyValueMap.put(FieldKey.ALBUM, albumTitle.getText().toString());
         //android seems not to recognize album_artist field so we additionally write the normal artist field
-        fieldKeyValueMap.put(FieldKey.ARTIST, albumArtist.getText().toString());
+        fieldKeyValueMap.put(FieldKey.ARTIST, artist.getText().toString());
         fieldKeyValueMap.put(FieldKey.ALBUM_ARTIST, albumArtist.getText().toString());
         fieldKeyValueMap.put(FieldKey.GENRE, genre.getText().toString());
         fieldKeyValueMap.put(FieldKey.YEAR, year.getText().toString());
