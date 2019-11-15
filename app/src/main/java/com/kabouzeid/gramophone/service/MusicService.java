@@ -561,7 +561,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 new PlaybackStateCompat.Builder()
                         .setActions(MEDIA_SESSION_ACTIONS)
                         .setState(isPlaying() ? PlaybackStateCompat.STATE_PLAYING : PlaybackStateCompat.STATE_PAUSED,
-                                getPosition(), 1)
+                                getSongProgressMillis(), 1)
                         .build());
     }
 
@@ -1346,6 +1346,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
 
         public void notifySeek() {
+            updateMediaSessionMetaData();
+            updateMediaSessionPlaybackState();
             mHandler.removeCallbacks(this);
             mHandler.postDelayed(this, THROTTLE);
         }
