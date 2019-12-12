@@ -108,6 +108,24 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:id="@+id/album_artist"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center_vertical"
+                        android:hint="@string/album_artist"
+                        android:inputType="text|textCapWords"
+                        android:singleLine="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
                         android:id="@+id/genre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

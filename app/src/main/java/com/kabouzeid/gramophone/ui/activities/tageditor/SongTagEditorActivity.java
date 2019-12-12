@@ -29,6 +29,8 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
     EditText albumTitle;
     @BindView(R.id.artist)
     EditText artist;
+    @BindView(R.id.album_artist)
+    EditText albumArtist;
     @BindView(R.id.genre)
     EditText genre;
     @BindView(R.id.year)
@@ -55,6 +57,7 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
         songTitle.addTextChangedListener(this);
         albumTitle.addTextChangedListener(this);
         artist.addTextChangedListener(this);
+        albumArtist.addTextChangedListener(this);
         genre.addTextChangedListener(this);
         year.addTextChangedListener(this);
         trackNumber.addTextChangedListener(this);
@@ -65,6 +68,7 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
         songTitle.setText(getSongTitle());
         albumTitle.setText(getAlbumTitle());
         artist.setText(getArtistName());
+        albumArtist.setText(getAlbumArtistName());
         genre.setText(getGenreName());
         year.setText(getSongYear());
         trackNumber.setText(getTrackNumber());
@@ -97,6 +101,7 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
         fieldKeyValueMap.put(FieldKey.TITLE, songTitle.getText().toString());
         fieldKeyValueMap.put(FieldKey.ALBUM, albumTitle.getText().toString());
         fieldKeyValueMap.put(FieldKey.ARTIST, artist.getText().toString());
+        fieldKeyValueMap.put(FieldKey.ALBUM_ARTIST, albumArtist.getText().toString());
         fieldKeyValueMap.put(FieldKey.GENRE, genre.getText().toString());
         fieldKeyValueMap.put(FieldKey.YEAR, year.getText().toString());
         fieldKeyValueMap.put(FieldKey.TRACK, trackNumber.getText().toString());
