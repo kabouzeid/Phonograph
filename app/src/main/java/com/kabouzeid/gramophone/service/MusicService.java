@@ -1190,9 +1190,14 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                     break;
 
                 case TRACK_WENT_TO_NEXT:
-                    if (service.getRepeatMode() == REPEAT_MODE_NONE && service.isLastTrack()) {
+                    if (service.pendingQuit || service.getRepeatMode() == REPEAT_MODE_NONE && service.isLastTrack()) {
                         service.pause();
                         service.seek(0);
+                        if (service.pendingQuit) {
+                            service.pendingQuit = false;
+                            service.quit();
+                            break;
+                        }
                     } else {
                         service.position = service.nextPosition;
                         service.prepareNextImpl();
