@@ -334,14 +334,6 @@
                 android:padding="8dp">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/adrian_website"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/website"
-                    android:textColor="#4183c4" />
-
-                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/adrian_twitter"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"

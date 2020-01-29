@@ -37,7 +37,7 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
 
     private static String GITHUB = "https://github.com/kabouzeid/Phonograph";
 
-    private static String TWITTER = "https://twitter.com/karimjabouzeid";
+    private static String TWITTER = "https://twitter.com/swiftkarim";
     private static String WEBSITE = "https://kabouzeid.com/";
 
     private static String TRANSLATE = "https://phonograph.oneskyapp.com/collaboration/project?id=26521";
@@ -56,7 +56,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     private static String EUGENE_CHEUNG_WEBSITE = "https://echeung.me/";
 
     private static String ADRIAN_TWITTER = "https://twitter.com/froschgames";
-    private static String ADRIAN_WEBSITE = "https://froschgames.com/";
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -100,8 +99,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     AppCompatButton eugeneCheungWebsite;
     @BindView(R.id.adrian_twitter)
     AppCompatButton adrianTwitter;
-    @BindView(R.id.adrian_website)
-    AppCompatButton adrianWebsite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,7 +151,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         eugeneCheungGitHub.setOnClickListener(this);
         eugeneCheungWebsite.setOnClickListener(this);
         adrianTwitter.setOnClickListener(this);
-        adrianWebsite.setOnClickListener(this);
     }
 
     @Override
@@ -223,8 +219,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
             openUrl(EUGENE_CHEUNG_WEBSITE);
         } else if (v == adrianTwitter) {
             openUrl(ADRIAN_TWITTER);
-        } else if (v == adrianWebsite) {
-            openUrl(ADRIAN_WEBSITE);
         }
     }
 
