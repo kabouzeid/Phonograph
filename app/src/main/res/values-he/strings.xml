@@ -89,6 +89,7 @@
     <string name="save_playlist_title">שמור כקובץ</string>
     <string name="save_playlists_title">שמור כקבצים</string>
     <string name="add_playlist_title">"הוסף לרשימת ההשמעה"</string>
+    <string name="select_all_title">בחר הכל</string>
     <string name="action_shuffle_all">ערבב הכל</string>
     <string name="action_shuffle_album">ערבב אלבום</string>
     <string name="action_shuffle_artist">ערבב אמן</string>
@@ -105,6 +106,7 @@
     <string name="never">אף פעם</string>
     <string name="today">היום</string>
     <string name="this_week">השבוע</string>
+    <string name="past_seven_days">7 הימים האחרונים</string>
     <string name="this_month">החודש</string>
     <string name="past_three_months">שלשה חודשים האחרונים</string>
     <string name="this_year">השנה</string>
@@ -131,6 +133,7 @@
     <string name="pref_title_last_added_interval">הפסקת רשימת השמעה אחרונה שהוספה</string>
     <string name="pref_title_synchronized_lyrics_show">הראה מילות שיר מסוכרנות</string>
     <string name="pref_title_remember_last_tab">זכור את הכרטיסיה האחרונה</string>
+    <string name="pref_title_remember_shuffle">זכור ערבוב</string>
     <string name="no_equalizer">אקוולייזר לא נמצא</string>
     <string name="no_audio_ID">"נגן/י שיר ואז נסה/י שנית."</string>
     <string name="delete_action">מחיקה</string>
@@ -165,11 +168,12 @@
     <string name="pref_summary_audio_ducking">התראות, ניווט וכו\'</string>
     <string name="pref_summary_synchronized_lyrics_show">כרגע מסכרן מילות שירים רק בפורמט LRC.  מילות שרים מוטבעות או בקובץ נפרד.</string>
     <string name="pref_summary_remember_last_tab">עבור לכרטיסייה האחרונה שהייתה פתוחה בהפעלה</string>
+    <string name="pref_summary_remember_shuffle">מצב ערבוב יישאר פעיל בבחירת רשימה חדשה של שירים</string>
     <string name="could_not_download_album_cover">"\u05dc\u05d0 \u05e0\u05d9\u05ea\u05df \u05dc\u05d4\u05d5\u05e8\u05d9\u05d3 \u05ea\u05de\u05d5\u05e0\u05ea \u05d0\u05dc\u05d1\u05d5\u05dd \u05de\u05ea\u05d0\u05d9\u05de\u05d4."</string>
     <string name="search_hint">חפש בספרייה שלך...</string>
     <string name="favorites">מועדפים</string>
     <string name="last_added">נוספו לאחרונה</string>
-    <string name="history">היסטוריה</string>
+    <string name="history">הושמע לאחרונה</string>
     <string name="my_top_tracks">השירים המובילים שלי</string>
     <string name="remove_cover">הסרת עטיפה</string>
     <string name="download_from_last_fm">הורדה מ-Last.fm</string>
@@ -295,4 +299,5 @@
     <string name="sort_order_artist">אמן</string>
     <string name="sort_order_album">אלבום</string>
     <string name="sort_order_year">שנה</string>
+    <string name="finish_current_music_sleep_timer">סיים את השיר האחרון</string>
 </resources>

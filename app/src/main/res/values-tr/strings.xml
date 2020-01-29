@@ -89,6 +89,7 @@
     <string name="save_playlist_title">Dosya olarak kaydet</string>
     <string name="save_playlists_title">Dosya olarak kaydet</string>
     <string name="add_playlist_title">"Çalma listesine ekle"</string>
+    <string name="select_all_title">Tümünü seç</string>
     <string name="action_shuffle_all">Tümünü karıştır</string>
     <string name="action_shuffle_album">Albümü karıştır</string>
     <string name="action_shuffle_artist">Sanatçıyı karıştır</string>
@@ -105,6 +106,7 @@
     <string name="never">Asla</string>
     <string name="today">Bugün</string>
     <string name="this_week">Bu hafta</string>
+    <string name="past_seven_days">Son 7 gün</string>
     <string name="this_month">Bu ay</string>
     <string name="past_three_months">Son 3 ay</string>
     <string name="this_year">Bu yıl</string>
@@ -131,6 +133,7 @@
     <string name="pref_title_last_added_interval">Son eklenen çalma listesi süresi</string>
     <string name="pref_title_synchronized_lyrics_show">Senkronize şarkı sözlerini göster</string>
     <string name="pref_title_remember_last_tab">Son sekmeyi hatırla</string>
+    <string name="pref_title_remember_shuffle">Karıştırmayı hatırla</string>
     <string name="no_equalizer">Ekolayzer bulunamadı.</string>
     <string name="no_audio_ID">"ilk şarkıyı çalın, daha sonra tekrar deneyin."</string>
     <string name="delete_action">Sil</string>
@@ -165,11 +168,12 @@
     <string name="pref_summary_audio_ducking">Bildirimler, gezinme vb.</string>
     <string name="pref_summary_synchronized_lyrics_show">Şu anda yalnızca LRC formatında senkronize edilmiş sözler desteklenmektedir. Gömülü veya ayrı bir dosya olarak.</string>
     <string name="pref_summary_remember_last_tab">Başlatıldığında son açılan sekmeye git</string>
+    <string name="pref_summary_remember_shuffle">Yeni bir şarkı listesi seçerken Karışık mod açık kalır</string>
     <string name="could_not_download_album_cover">"E\u015fle\u015fen bir alb\u00fcm kapa\u011f\u0131 indirilemedi."</string>
     <string name="search_hint">Kitaplığınız taranıyor...</string>
     <string name="favorites">Favoriler</string>
     <string name="last_added">Son eklenen</string>
-    <string name="history">Geçmiş</string>
+    <string name="history">Son çalınanlar</string>
     <string name="my_top_tracks">En iyi parçalarım</string>
     <string name="remove_cover">Albüm kapağını kaldır</string>
     <string name="download_from_last_fm">Last.fm den İndir</string>
@@ -295,4 +299,5 @@
     <string name="sort_order_artist">Sanatçı</string>
     <string name="sort_order_album">Albüm</string>
     <string name="sort_order_year">Yıl</string>
+    <string name="finish_current_music_sleep_timer">Son şarkıyı bitir</string>
 </resources>

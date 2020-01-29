@@ -4,7 +4,7 @@
     <string name="currently_listening_to_x_by_x">Nyní hraje %1$s od %2$s.</string>
     <string name="the_audio_file">Zvukový soubor</string>
     <string name="x_has_been_set_as_ringtone">Nastavit %1$s jako vyzváněcí tón.</string>
-    <string name="action_set_as_ringtone">Nastavit jako Vyzváněcí tón</string>
+    <string name="action_set_as_ringtone">Nastavit jako vyzváněcí tón</string>
     <string name="action_share">Sdílet</string>
     <string name="action_settings">"Nastavení"</string>
     <string name="action_grant">"Příspěvek "</string>
@@ -89,7 +89,8 @@
     <string name="save_playlist_title">Uložit jako soubor</string>
     <string name="save_playlists_title">Uložit jako soubor</string>
     <string name="add_playlist_title">"Přidat do playlistu"</string>
-    <string name="action_shuffle_all">Přehrát náhodně</string>
+    <string name="select_all_title">Vybrat vše</string>
+    <string name="action_shuffle_all">Přehrát vše náhodně</string>
     <string name="action_shuffle_album">Přehrát album náhodně</string>
     <string name="action_shuffle_artist">Přehrát skladby interpreta náhodně</string>
     <string name="action_shuffle_playlist">Přehrát playlist náhodně</string>
@@ -105,6 +106,7 @@
     <string name="never">Nikdy</string>
     <string name="today">Dnes</string>
     <string name="this_week">Tento týden</string>
+    <string name="past_seven_days">Posledních 7 dní</string>
     <string name="this_month">Tento měsíc</string>
     <string name="past_three_months">Poslední 3 měsíce</string>
     <string name="this_year">Tento rok</string>
@@ -131,6 +133,7 @@
     <string name="pref_title_last_added_interval">Poslední přidaný interval playlistu</string>
     <string name="pref_title_synchronized_lyrics_show">Zobrazit synchronizovaný text</string>
     <string name="pref_title_remember_last_tab">Pamatovat poslední kartu</string>
+    <string name="pref_title_remember_shuffle">Pamatovat náhodné přehrávání</string>
     <string name="no_equalizer">"Nenalezen žádný ekvalizér. "</string>
     <string name="no_audio_ID">"Nejdříve přehrajte píseň, poté zkuste znovu. "</string>
     <string name="delete_action">Smazat</string>
@@ -165,11 +168,12 @@
     <string name="pref_summary_audio_ducking">Oznámení, navigace atd.</string>
     <string name="pref_summary_synchronized_lyrics_show">V současné době jsou podporovány pouze synchronizované texty ve formátu LRC. Buď vestavěný nebo jako samostatný soubor.</string>
     <string name="pref_summary_remember_last_tab">Přejděte na poslední otevřenou kartu při spuštění</string>
+    <string name="pref_summary_remember_shuffle">Při výběru nového seznamu skladeb zůstane režim náhodného přehrávání zapnutý</string>
     <string name="could_not_download_album_cover">"Nelze st\u00e1hnout odpov\u00eddaj\u00edc\u00ed obal alba."</string>
     <string name="search_hint">Vyhledat zvukové soubory...</string>
     <string name="favorites">Oblíbené</string>
     <string name="last_added">Naposledy přidáno</string>
-    <string name="history">Historie</string>
+    <string name="history">Nedávno přehrané</string>
     <string name="my_top_tracks">"Moje nejposlouchanější skladby "</string>
     <string name="remove_cover">Odstranit obal</string>
     <string name="download_from_last_fm">Stáhnout z Last.fm</string>
@@ -258,7 +262,7 @@
     <string name="copied_device_info_to_clipboard">Informace o zařízení zkopírovány do schránky.</string>
     <string name="your_account_data_is_only_used_for_authentication">Vaše údaje k účtu jsou použity pouze k ověření.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Budete přesměrováni na webovou stránku pro zadání problému.</string>
-    <string name="app_shortcut_shuffle_all_short">Náhodně</string>
+    <string name="app_shortcut_shuffle_all_short">Náhodné přehrávání</string>
     <string name="app_shortcut_top_tracks_short">Nejposlouchanější skladby</string>
     <string name="app_shortcut_last_added_short">Naposledy přidáno</string>
     <string name="playlist_is_empty">Playlist je prázdný</string>
@@ -287,7 +291,7 @@
     <string name="library_categories">Kategorie knihovny</string>
     <string name="pref_summary_library_categories">Nastavit viditelnost a pořadí kategorií knihoven.</string>
     <string name="you_have_to_select_at_least_one_category">Musíte zvolit alespoň jednu kategorii.</string>
-    <string name="action_scan_directory">Skemování adresáře</string>
+    <string name="action_scan_directory">Skenování adresáře</string>
     <string name="scan_media">Skenování médií</string>
     <string name="action_sort_order">Seřazení</string>
     <string name="sort_order_a_z">Vzestupně</string>
@@ -295,4 +299,5 @@
     <string name="sort_order_artist">Interpret</string>
     <string name="sort_order_album">Album</string>
     <string name="sort_order_year">Rok</string>
+    <string name="finish_current_music_sleep_timer">Dokončit poslední skladbu</string>
 </resources>

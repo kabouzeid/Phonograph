@@ -200,7 +200,7 @@
     <string name="author">Автор</string>
     <string name="write_an_email">Написать на электронную почту</string>
     <string name="follow_on_twitter">Следить в Twitter</string>
-    <string name="fork_on_github">Ветвление на GitHub</string>
+    <string name="fork_on_github">Перейти на GitHub</string>
     <string name="visit_website">Посетить сайт</string>
     <string name="report_bugs">Отправить отчёт об ошибке</string>
     <string name="report_bugs_summary">Сообщить об ошибках или предложить новые функции.</string>
@@ -274,8 +274,8 @@
     <string name="folder_view_is_a_pro_feature">Просмотр по папкам это функция Phonograph Pro.</string>
     <string name="restoring_purchase">Восстановление покупки...</string>
     <string name="could_not_restore_purchase">Невозможно восстановить покупку.</string>
-    <string name="purchase">Покупка</string>
-    <string name="restore">Восстановление</string>
+    <string name="purchase">Купить</string>
+    <string name="restore">Восстановить</string>
     <string name="no_purchase_found">Покупка не найдена.</string>
     <string name="eugene_cheung_summary">За его вклад в исходный код.</string>
     <string name="adrian_summary">За создание дизайна показа альбомов.</string>

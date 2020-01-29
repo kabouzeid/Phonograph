@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="what_do_you_want_to_share">Bạn muốn chia sẻ điều gì?</string>
+    <string name="what_do_you_want_to_share">Bạn muốn chia sẻ gì?</string>
     <string name="currently_listening_to_x_by_x">Đang nghe ca khúc %1$s bởi %2$s.</string>
     <string name="the_audio_file">Tập tin âm thanh</string>
     <string name="x_has_been_set_as_ringtone">Cài %1$s làm nhạc chuông.</string>

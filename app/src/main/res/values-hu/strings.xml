@@ -169,7 +169,7 @@
     <string name="search_hint">Keresés a könyvtárban...</string>
     <string name="favorites">Kedvencek</string>
     <string name="last_added">Legfrissebb dalok</string>
-    <string name="history">Előzmények</string>
+    <string name="history">Nemrég lejátszott</string>
     <string name="my_top_tracks">Toplista</string>
     <string name="remove_cover">Borító eltávolítása</string>
     <string name="download_from_last_fm">Letöltés a Last.fm-ről</string>
