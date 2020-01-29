@@ -209,10 +209,19 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         mediaStoreObserver = new MediaStoreObserver(playerHandler);
         throttledSeekHandler = new ThrottledSeekHandler(playerHandler);
-        getContentResolver().registerContentObserver(
-                MediaStore.Audio.Media.INTERNAL_CONTENT_URI, true, mediaStoreObserver);
-        getContentResolver().registerContentObserver(
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, true, mediaStoreObserver);
+
+        getContentResolver().registerContentObserver(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, true, mediaStoreObserver);
+        getContentResolver().registerContentObserver(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, true, mediaStoreObserver);
+        getContentResolver().registerContentObserver(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI, true, mediaStoreObserver);
+        getContentResolver().registerContentObserver(MediaStore.Audio.Genres.EXTERNAL_CONTENT_URI, true, mediaStoreObserver);
+        getContentResolver().registerContentObserver(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI, true, mediaStoreObserver);
+
+        getContentResolver().registerContentObserver(MediaStore.Audio.Media.INTERNAL_CONTENT_URI, true, mediaStoreObserver);
+        getContentResolver().registerContentObserver(MediaStore.Audio.Albums.INTERNAL_CONTENT_URI, true, mediaStoreObserver);
+        getContentResolver().registerContentObserver(MediaStore.Audio.Artists.INTERNAL_CONTENT_URI, true, mediaStoreObserver);
+        getContentResolver().registerContentObserver(MediaStore.Audio.Genres.INTERNAL_CONTENT_URI, true, mediaStoreObserver);
+        getContentResolver().registerContentObserver(MediaStore.Audio.Playlists.INTERNAL_CONTENT_URI, true, mediaStoreObserver);
+
 
         PreferenceUtil.getInstance(this).registerOnSharedPreferenceChangedListener(this);
 
