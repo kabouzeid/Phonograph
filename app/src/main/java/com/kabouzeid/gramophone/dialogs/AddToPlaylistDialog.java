@@ -10,6 +10,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
 
 import java.util.ArrayList;
@@ -45,19 +46,45 @@ public class AddToPlaylistDialog extends DialogFragment {
         for (int i = 1; i < playlistNames.length; i++) {
             playlistNames[i] = playlists.get(i - 1).name;
         }
+        final ArrayList<Song> songs = getArguments().getParcelableArrayList("songs");
+
+        int[] songIds = new int[songs.size()];
+        if(songs != null)
+        {
+            for(int i = 0; i < songs.size(); i++){
+                songIds[i] = songs.get(i).id;
+            }
+
+            for (int i = 0; i < playlists.size(); i++) {
+                int playlistId = playlists.get(i).id;
+
+                boolean isAnySongInPlaylist = PlaylistsUtil.doPlaylistContainsAnySong(getActivity(), playlistId, songIds);
+                boolean areAllSongsInPlaylist = PlaylistsUtil.doPlaylistContainsAllSongs(getActivity(), playlistId, songIds);
+
+                //TODO: display checkboxes instead of checkmark
+                if (isAnySongInPlaylist) {
+                    if(areAllSongsInPlaylist){
+                        playlistNames[i + 1] = playlists.get(i).name + " \u2713"; //Add checkmark
+                    }
+                    else{
+                        playlistNames[i + 1] = playlists.get(i).name + " (\u2713)"; //Add checkmark in brackets
+                    }
+                }
+            }
+        }
+
         return new MaterialDialog.Builder(getActivity())
                 .title(R.string.add_playlist_title)
                 .items(playlistNames)
                 .itemsCallback((materialDialog, view, i, charSequence) -> {
                     //noinspection unchecked
-                    final List<Song> songs = getArguments().getParcelableArrayList("songs");
                     if (songs == null) return;
                     if (i == 0) {
                         materialDialog.dismiss();
                         CreatePlaylistDialog.create(songs).show(getActivity().getSupportFragmentManager(), "ADD_TO_PLAYLIST");
                     } else {
                         materialDialog.dismiss();
-                        PlaylistsUtil.addToPlaylist(getActivity(), songs, playlists.get(i - 1).id, true);
+                        PlaylistsUtil.addToPlaylistWithoutDuplicates(getActivity(), songs, songIds, playlists.get(i - 1).id, true);
                     }
                 })
                 .build();
