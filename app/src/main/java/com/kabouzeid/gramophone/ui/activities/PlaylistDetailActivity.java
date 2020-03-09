@@ -25,6 +25,7 @@ import com.kabouzeid.gramophone.adapter.song.OrderablePlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.PlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.SongAdapter;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.SortOrder;
 import com.kabouzeid.gramophone.helper.menu.PlaylistMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.LoaderIds;
@@ -155,7 +156,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
                 onBackPressed();
                 return true;
         }
-        return PlaylistMenuHelper.handleMenuClick(this, playlist, item);
+        return PlaylistMenuHelper.handleMenuClick(this, playlist, item, adapter);
     }
 
     @NonNull
@@ -254,6 +255,10 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
             adapter.swapDataSet(new ArrayList<>());
     }
 
+    public SongAdapter getSongAdapter() {
+        return this.adapter;
+    }
+
     private static class AsyncPlaylistSongLoader extends WrappedAsyncTaskLoader<List<Song>> {
         private final Playlist playlist;
 
@@ -268,7 +273,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
                 return ((AbsCustomPlaylist) playlist).getSongs(getContext());
             } else {
                 //noinspection unchecked
-                return (List) PlaylistSongLoader.getPlaylistSongList(getContext(), playlist.id);
+                return (List) PlaylistSongLoader.getPlaylistSongList(getContext(), playlist.id, null);
             }
         }
     }

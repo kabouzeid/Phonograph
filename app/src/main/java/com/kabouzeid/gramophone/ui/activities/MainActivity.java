@@ -296,7 +296,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             final int id = (int) parseIdFromIntent(intent, "playlistId", "playlist");
             if (id >= 0) {
                 int position = intent.getIntExtra("position", 0);
-                List<Song> songs = new ArrayList<>(PlaylistSongLoader.getPlaylistSongList(this, id));
+                List<Song> songs = new ArrayList<>(PlaylistSongLoader.getPlaylistSongList(this, id, null));
                 MusicPlayerRemote.openQueue(songs, position, true);
                 handled = true;
             }

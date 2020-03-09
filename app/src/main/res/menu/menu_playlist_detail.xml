@@ -35,5 +35,27 @@
         android:id="@+id/action_save_playlist"
         android:title="@string/save_playlist_title"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sort_order"
+        android:title="@string/action_sort_order"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/action_playlist_sort_order_asc"
+                android:title="@string/sort_order_a_z"/>
+            <item
+                android:id="@+id/action_playlist_sort_order_desc"
+                android:title="@string/sort_order_z_a"/>
+            <item
+                android:id="@+id/action_playlist_sort_order_artist"
+                android:title="@string/sort_order_artist"/>
+            <item
+                android:id="@+id/action_playlist_sort_order_year"
+                android:title="@string/sort_order_year"/>
+            <item
+                android:id="@+id/action_playlist_sort_order_album"
+                android:title="@string/sort_order_album"/>
+        </menu>
+    </item>
 
 </menu>

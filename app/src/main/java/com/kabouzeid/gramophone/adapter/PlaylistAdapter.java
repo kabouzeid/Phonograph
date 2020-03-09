@@ -155,7 +155,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                 break;
             case R.id.action_save_playlist:
                 if (selection.size() == 1) {
-                    PlaylistMenuHelper.handleMenuClick(activity, selection.get(0), menuItem);
+                    PlaylistMenuHelper.handleMenuClick(activity, selection.get(0), menuItem, null);
                 } else {
                     new SavePlaylistsAsyncTask(activity).execute(selection);
                 }
@@ -210,7 +210,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
             if (playlist instanceof AbsCustomPlaylist) {
                 songs.addAll(((AbsCustomPlaylist) playlist).getSongs(activity));
             } else {
-                songs.addAll(PlaylistSongLoader.getPlaylistSongList(activity, playlist.id));
+                songs.addAll(PlaylistSongLoader.getPlaylistSongList(activity, playlist.id, null));
             }
         }
         return songs;
@@ -253,7 +253,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                             }
                         }
                         return PlaylistMenuHelper.handleMenuClick(
-                                activity, dataSet.get(getAdapterPosition()), item);
+                                activity, dataSet.get(getAdapterPosition()), item, null);
                     });
                     popupMenu.show();
                 });

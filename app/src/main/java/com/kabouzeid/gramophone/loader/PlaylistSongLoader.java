@@ -6,6 +6,7 @@ import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.AudioColumns;
 import androidx.annotation.NonNull;
 
+import com.kabouzeid.gramophone.helper.SortOrder;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 
 import java.util.ArrayList;
@@ -14,9 +15,10 @@ import java.util.List;
 public class PlaylistSongLoader {
 
     @NonNull
-    public static List<PlaylistSong> getPlaylistSongList(@NonNull final Context context, final int playlistId) {
+    public static List<PlaylistSong> getPlaylistSongList(@NonNull final Context context, final int playlistId, String sortOrder) {
+        if (sortOrder == null) sortOrder = SortOrder.SongSortOrder.SONG_A_Z;
         List<PlaylistSong> songs = new ArrayList<>();
-        Cursor cursor = makePlaylistSongCursor(context, playlistId);
+        Cursor cursor = makePlaylistSongCursor(context, playlistId, sortOrder);
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -47,7 +49,7 @@ public class PlaylistSongLoader {
         return new PlaylistSong(id, title, trackNumber, year, duration, data, dateModified, albumId, albumName, artistId, artistName, playlistId, idInPlaylist);
     }
 
-    public static Cursor makePlaylistSongCursor(@NonNull final Context context, final int playlistId) {
+    public static Cursor makePlaylistSongCursor(@NonNull final Context context, final int playlistId, String sortOrder) {
         try {
             return context.getContentResolver().query(
                     MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
@@ -65,7 +67,7 @@ public class PlaylistSongLoader {
                             AudioColumns.ARTIST,// 10
                             MediaStore.Audio.Playlists.Members._ID // 11
                     }, SongLoader.BASE_SELECTION, null,
-                    MediaStore.Audio.Playlists.Members.DEFAULT_SORT_ORDER);
+                    sortOrder);
         } catch (SecurityException e) {
             return null;
         }
