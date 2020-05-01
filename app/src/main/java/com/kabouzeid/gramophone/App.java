@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
-import android.os.Handler;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;

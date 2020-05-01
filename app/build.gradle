@@ -122,7 +122,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.google.code.gson:gson:2.8.6'
 
-    implementation 'com.anjlab.android.iab.v3:library:1.0.44'
+    implementation 'com.anjlab.android.iab.v3:library:1.0.45'
     implementation 'de.psdev.licensesdialog:licensesdialog:2.1.0'
 
     implementation 'com.github.bumptech.glide:glide:3.8.0'
