@@ -35,7 +35,7 @@ static def getProperty(@Nullable Properties properties, String name) {
 
 android {
     compileSdkVersion 29
-    buildToolsVersion '29.0.2'
+    buildToolsVersion '29.0.3'
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 29
@@ -88,23 +88,19 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core:1.1.0'
-    implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.core:core:1.2.0'
+    implementation 'androidx.fragment:fragment:1.2.4'
     implementation 'androidx.legacy:legacy-support-core-ui:1.0.0'
     implementation 'androidx.media:media:1.1.0'
-    implementation 'androidx.fragment:fragment:1.1.0'
-    implementation 'androidx.legacy:legacy-support-v13:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation 'androidx.gridlayout:gridlayout:1.0.0'
-    implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.palette:palette:1.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.percentlayout:percentlayout:1.0.0'
-    implementation 'androidx.preference:preference:1.1.0'
-    implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
 
     implementation 'com.github.kabouzeid:app-theme-helper:1.3.10'
     implementation 'com.github.kabouzeid:RecyclerView-FastScroll:1.0.16-kmod'
@@ -114,21 +110,21 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
     implementation 'com.afollestad:material-cab:0.1.12'
     implementation 'com.github.ksoichiro:android-observablescrollview:1.6.0'
-    implementation 'com.heinrichreimersoftware:material-intro:1.6'
+    implementation 'com.heinrichreimersoftware:material-intro:2.0.0'
     implementation 'me.zhanghai.android.materialprogressbar:library:1.4.2'
     implementation('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.11.0@aar') {
         transitive = true
     }
 
-    implementation 'com.jakewharton:butterknife:10.2.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     implementation 'com.anjlab.android.iab.v3:library:1.0.44'
-    implementation 'de.psdev.licensesdialog:licensesdialog:2.0.0'
+    implementation 'de.psdev.licensesdialog:licensesdialog:2.1.0'
 
     implementation 'com.github.bumptech.glide:glide:3.8.0'
     implementation 'com.github.bumptech.glide:okhttp3-integration:1.5.0'
