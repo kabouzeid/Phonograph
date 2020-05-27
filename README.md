@@ -26,7 +26,8 @@ This fork is only different from kabouzeid/master in these commits:
 [d91f11a](https://github.com/Sogolumbo/Phonograph/commit/d91f11ad068192806979da79a0d089835d574524),
 [e81f655](https://github.com/Sogolumbo/Phonograph/commit/e81f655c802bb2953d6e6d093cc3a1c774b897c4),
 [8254527](https://github.com/Sogolumbo/Phonograph/commit/8254527339ba7e8acd5cc522b34e3ee724ba9b5a),
-[4512b43](https://github.com/Sogolumbo/Phonograph/commit/4512b43529231a57636b7d62fcbade9fb81329b9).
+[4512b43](https://github.com/Sogolumbo/Phonograph/commit/4512b43529231a57636b7d62fcbade9fb81329b9),
+[c477a6d](https://github.com/Sogolumbo/Phonograph/commit/c477a6db7713f73f4252040eb4990b3ff97d9595).
 
 ## Contributing
 I love any support, feedback or new ideas. So feel free to contribute in any possible way. I don't have any experience with android programming so I really need help D:
