@@ -423,7 +423,7 @@ public class PlaylistsUtil {
                     while (true)
                     {
                         if(songIndex >= songIdsSorted.length){
-                            break;
+                            break; //all songs were in the playlist
                         }
                         int playlistSong = playlistSongs.getInt(0);
                         if(songIdsSorted[songIndex] > playlistSong)
@@ -435,14 +435,15 @@ public class PlaylistsUtil {
                             }
                             else
                             {
-                                break;
+                                result = false;
+                                break; //there are songs missing, but the playlist has no songs left.
                             }
                         }
                         else if (songIdsSorted[songIndex] < playlistSong)
                         {
                             result = false;
                             songIndex++;
-                            break;
+                            break; //at least one song was not in the playlist
                         }
                         else if(songIdsSorted[songIndex] == playlistSong)
                         {
