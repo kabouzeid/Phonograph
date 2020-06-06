@@ -249,11 +249,11 @@
     <string name="bug_report_failed">Не вдалося надіслати звіт</string>
     <string name="bug_report_failed_wrong_credentials">Неправильне ім’я користувача або пароль</string>
     <string name="bug_report_failed_invalid_token">Недійсний токен доступу. Зв’яжіться з розробником додатка.</string>
-    <string name="remove_from_blacklist">Видалити з чорного списку</string>
-    <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Вилучити <b>%1$s</b> з чорного списку?]]></string>
-    <string name="clear_blacklist">Очистити чорний список</string>
-    <string name="do_you_want_to_clear_the_blacklist">Дійсно очистити чорний список?</string>
-    <string name="pref_summary_blacklist">Вміст тек чорного списку приховано з вашої бібліотеки.</string>
+    <string name="remove_from_blocklist">Видалити з чорного списку</string>
+    <string name="do_you_want_to_remove_from_the_blocklist"><![CDATA[Вилучити <b>%1$s</b> з чорного списку?]]></string>
+    <string name="clear_blocklist">Очистити чорний список</string>
+    <string name="do_you_want_to_clear_the_blocklist">Дійсно очистити чорний список?</string>
+    <string name="pref_summary_blocklist">Вміст тек чорного списку приховано з вашої бібліотеки.</string>
     <string name="reset_artist_image">Скинути зображення виконавця</string>
     <string name="set_artist_image">Встановити зображення виконавця</string>
     <string name="library_categories">Категорії бібліотеки</string>

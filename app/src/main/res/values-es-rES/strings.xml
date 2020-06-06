@@ -280,12 +280,12 @@
     <string name="eugene_cheung_summary">Por sus contribuciones al código fuente</string>
     <string name="adrian_summary">Para crear el diseño de la página del álbum.</string>
     <string name="add_action">Añadir</string>
-    <string name="blacklist">Lista Negra</string>
-    <string name="remove_from_blacklist">Remover de la lista negra</string>
-    <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[¿Quieres remover <b>%1$s</b> de la lista negra?]]></string>
-    <string name="clear_blacklist">Vaciar lista negra</string>
-    <string name="do_you_want_to_clear_the_blacklist">¿Quieres eliminar la lista negra?</string>
-    <string name="pref_summary_blacklist">"
+    <string name="blocklist">Lista Negra</string>
+    <string name="remove_from_blocklist">Remover de la lista negra</string>
+    <string name="do_you_want_to_remove_from_the_blocklist"><![CDATA[¿Quieres remover <b>%1$s</b> de la lista negra?]]></string>
+    <string name="clear_blocklist">Vaciar lista negra</string>
+    <string name="do_you_want_to_clear_the_blocklist">¿Quieres eliminar la lista negra?</string>
+    <string name="pref_summary_blocklist">"
 El contenido de las carpetas de la lista negra está oculto en tu biblioteca"</string>
     <string name="reset_artist_image">Resetear la imagen del artista</string>
     <string name="set_artist_image">Establecer la imagen del artista</string>

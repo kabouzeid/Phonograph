@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.provider.BlacklistStore;
+import com.kabouzeid.gramophone.provider.BlocklistStore;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
@@ -110,11 +110,11 @@ public class SongLoader {
             selection = BASE_SELECTION;
         }
 
-        // Blacklist
-        List<String> paths = BlacklistStore.getInstance(context).getPaths();
+        // Blocklist
+        List<String> paths = BlocklistStore.getInstance(context).getPaths();
         if (!paths.isEmpty()) {
-            selection = generateBlacklistSelection(selection, paths.size());
-            selectionValues = addBlacklistSelectionValues(selectionValues, paths);
+            selection = generateBlocklistSelection(selection, paths.size());
+            selectionValues = addBlocklistSelectionValues(selectionValues, paths);
         }
 
         try {
@@ -125,7 +125,7 @@ public class SongLoader {
         }
     }
 
-    private static String generateBlacklistSelection(String selection, int pathCount) {
+    private static String generateBlocklistSelection(String selection, int pathCount) {
         String newSelection = selection != null && !selection.trim().equals("") ? selection + " AND " : "";
         newSelection += AudioColumns.DATA + " NOT LIKE ?";
         for (int i = 0; i < pathCount - 1; i++) {
@@ -134,7 +134,7 @@ public class SongLoader {
         return newSelection;
     }
 
-    private static String[] addBlacklistSelectionValues(String[] selectionValues, List<String> paths) {
+    private static String[] addBlocklistSelectionValues(String[] selectionValues, List<String> paths) {
         if (selectionValues == null) selectionValues = new String[0];
         String[] newSelectionValues = new String[selectionValues.length + paths.size()];
         System.arraycopy(selectionValues, 0, newSelectionValues, 0, selectionValues.length);

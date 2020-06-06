@@ -264,10 +264,10 @@
     <string name="no_purchase_found">Không tìm thấy hàng mua.</string>
     <string name="eugene_cheung_summary">Đối với đóng góp cho mã nguồn.</string>
     <string name="add_action">Thêm</string>
-    <string name="blacklist">Danh sách đen</string>
-    <string name="remove_from_blacklist">Xóa khỏi danh sách đen</string>
-    <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Bạn có muốn xóa <b>%1$s</b> từ danh sách đen?]]></string>
-    <string name="clear_blacklist">Xóa danh sách đen</string>
-    <string name="do_you_want_to_clear_the_blacklist">Bạn muốn xóa danh sách đen không?</string>
-    <string name="pref_summary_blacklist">Nội dung của các thư mục chọn vào danh sách đen được ẩn trong thư viện của bạn.</string>
+    <string name="blocklist">Danh sách đen</string>
+    <string name="remove_from_blocklist">Xóa khỏi danh sách đen</string>
+    <string name="do_you_want_to_remove_from_the_blocklist"><![CDATA[Bạn có muốn xóa <b>%1$s</b> từ danh sách đen?]]></string>
+    <string name="clear_blocklist">Xóa danh sách đen</string>
+    <string name="do_you_want_to_clear_the_blocklist">Bạn muốn xóa danh sách đen không?</string>
+    <string name="pref_summary_blocklist">Nội dung của các thư mục chọn vào danh sách đen được ẩn trong thư viện của bạn.</string>
 </resources>
