@@ -17,46 +17,46 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlacklistStore extends SQLiteOpenHelper {
-    private static BlacklistStore sInstance = null;
-    public static final String DATABASE_NAME = "blacklist.db";
+public class BlocklistStore extends SQLiteOpenHelper {
+    private static BlocklistStore sInstance = null;
+    public static final String DATABASE_NAME = "blocklist.db";
     private static final int VERSION = 1;
     private Context context;
 
-    public BlacklistStore(final Context context) {
+    public BlocklistStore(final Context context) {
         super(context, DATABASE_NAME, null, VERSION);
         this.context = context;
     }
 
     @Override
     public void onCreate(@NonNull final SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + BlacklistStoreColumns.NAME + " ("
-                + BlacklistStoreColumns.PATH + " STRING NOT NULL);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + BlocklistStoreColumns.NAME + " ("
+                + BlocklistStoreColumns.PATH + " STRING NOT NULL);");
     }
 
     @Override
     public void onUpgrade(@NonNull final SQLiteDatabase db, final int oldVersion, final int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + BlacklistStoreColumns.NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + BlocklistStoreColumns.NAME);
         onCreate(db);
     }
 
     @Override
     public void onDowngrade(@NonNull SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + BlacklistStoreColumns.NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + BlocklistStoreColumns.NAME);
         onCreate(db);
     }
 
     @NonNull
-    public static synchronized BlacklistStore getInstance(@NonNull final Context context) {
+    public static synchronized BlocklistStore getInstance(@NonNull final Context context) {
         if (sInstance == null) {
-            sInstance = new BlacklistStore(context.getApplicationContext());
-            if (!PreferenceUtil.getInstance(context).initializedBlacklist()) {
-                // blacklisted by default
+            sInstance = new BlocklistStore(context.getApplicationContext());
+            if (!PreferenceUtil.getInstance(context).initializedBlocklist()) {
+                // blocklisted by default
                 sInstance.addPathImpl(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS));
                 sInstance.addPathImpl(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_NOTIFICATIONS));
                 sInstance.addPathImpl(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES));
 
-                PreferenceUtil.getInstance(context).setInitializedBlacklist();
+                PreferenceUtil.getInstance(context).setInitializedBlocklist();
             }
         }
         return sInstance;
@@ -79,8 +79,8 @@ public class BlacklistStore extends SQLiteOpenHelper {
         try {
             // add the entry
             final ContentValues values = new ContentValues(1);
-            values.put(BlacklistStoreColumns.PATH, path);
-            database.insert(BlacklistStoreColumns.NAME, null, values);
+            values.put(BlocklistStoreColumns.PATH, path);
+            database.insert(BlocklistStoreColumns.NAME, null, values);
 
             database.setTransactionSuccessful();
         } finally {
@@ -95,9 +95,9 @@ public class BlacklistStore extends SQLiteOpenHelper {
         String path = FileUtil.safeGetCanonicalPath(file);
 
         final SQLiteDatabase database = getReadableDatabase();
-        Cursor cursor = database.query(BlacklistStoreColumns.NAME,
-                new String[]{BlacklistStoreColumns.PATH},
-                BlacklistStoreColumns.PATH + "=?",
+        Cursor cursor = database.query(BlocklistStoreColumns.NAME,
+                new String[]{BlocklistStoreColumns.PATH},
+                BlocklistStoreColumns.PATH + "=?",
                 new String[]{path},
                 null, null, null, null);
 
@@ -112,8 +112,8 @@ public class BlacklistStore extends SQLiteOpenHelper {
         final SQLiteDatabase database = getWritableDatabase();
         String path = FileUtil.safeGetCanonicalPath(file);
 
-        database.delete(BlacklistStoreColumns.NAME,
-                BlacklistStoreColumns.PATH + "=?",
+        database.delete(BlocklistStoreColumns.NAME,
+                BlocklistStoreColumns.PATH + "=?",
                 new String[]{path});
 
         notifyMediaStoreChanged();
@@ -121,7 +121,7 @@ public class BlacklistStore extends SQLiteOpenHelper {
 
     public void clear() {
         final SQLiteDatabase database = getWritableDatabase();
-        database.delete(BlacklistStoreColumns.NAME, null, null);
+        database.delete(BlocklistStoreColumns.NAME, null, null);
 
         notifyMediaStoreChanged();
     }
@@ -132,8 +132,8 @@ public class BlacklistStore extends SQLiteOpenHelper {
 
     @NonNull
     public List<String> getPaths() {
-        Cursor cursor = getReadableDatabase().query(BlacklistStoreColumns.NAME,
-                new String[]{BlacklistStoreColumns.PATH},
+        Cursor cursor = getReadableDatabase().query(BlocklistStoreColumns.NAME,
+                new String[]{BlocklistStoreColumns.PATH},
                 null, null, null, null, null);
 
         List<String> paths = new ArrayList<>();
@@ -148,8 +148,8 @@ public class BlacklistStore extends SQLiteOpenHelper {
         return paths;
     }
 
-    public interface BlacklistStoreColumns {
-        String NAME = "blacklist";
+    public interface BlocklistStoreColumns {
+        String NAME = "blocklist";
 
         String PATH = "path";
     }

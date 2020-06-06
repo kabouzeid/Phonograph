@@ -1,13 +1,13 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/blacklist">
+    <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/blocklist">
 
-        <com.kabouzeid.gramophone.preferences.BlacklistPreference
+        <com.kabouzeid.gramophone.preferences.BlocklistPreference
             app:iconSpaceReserved="false"
-            android:key="blacklist"
-            android:summary="@string/pref_summary_blacklist"
-            android:title="@string/blacklist" />
+            android:key="blocklist"
+            android:summary="@string/pref_summary_blocklist"
+            android:title="@string/blocklist" />
 
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 

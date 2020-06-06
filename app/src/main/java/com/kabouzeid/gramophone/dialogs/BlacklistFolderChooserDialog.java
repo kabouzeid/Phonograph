@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * @author Aidan Follestad (afollestad), modified by Karim Abou Zeid
  */
-public class BlacklistFolderChooserDialog extends DialogFragment implements MaterialDialog.ListCallback {
+public class BlocklistFolderChooserDialog extends DialogFragment implements MaterialDialog.ListCallback {
 
     private File parentFolder;
     private File[] parentContents;
@@ -65,8 +65,8 @@ public class BlacklistFolderChooserDialog extends DialogFragment implements Mate
         return null;
     }
 
-    public static BlacklistFolderChooserDialog create() {
-        return new BlacklistFolderChooserDialog();
+    public static BlocklistFolderChooserDialog create() {
+        return new BlocklistFolderChooserDialog();
     }
 
     @NonNull
@@ -99,7 +99,7 @@ public class BlacklistFolderChooserDialog extends DialogFragment implements Mate
                         .autoDismiss(false)
                         .onPositive((dialog, which) -> {
                             dismiss();
-                            callback.onFolderSelection(BlacklistFolderChooserDialog.this, parentFolder);
+                            callback.onFolderSelection(BlocklistFolderChooserDialog.this, parentFolder);
                         })
                         .onNegative((materialDialog, dialogAction) -> dismiss())
                         .positiveText(R.string.add_action)
@@ -147,7 +147,7 @@ public class BlacklistFolderChooserDialog extends DialogFragment implements Mate
     }
 
     public interface FolderCallback {
-        void onFolderSelection(@NonNull BlacklistFolderChooserDialog dialog, @NonNull File folder);
+        void onFolderSelection(@NonNull BlocklistFolderChooserDialog dialog, @NonNull File folder);
     }
 
     private static class FolderSorter implements Comparator<File> {

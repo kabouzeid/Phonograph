@@ -83,7 +83,7 @@ public final class PreferenceUtil {
 
     public static final String SYNCHRONIZED_LYRICS_SHOW = "synchronized_lyrics_show";
 
-    public static final String INITIALIZED_BLACKLIST = "initialized_blacklist";
+    public static final String INITIALIZED_BLACKLIST = "initialized_blocklist";
 
     public static final String LIBRARY_CATEGORIES = "library_categories";
 
@@ -489,13 +489,13 @@ public final class PreferenceUtil {
         return mPreferences.getBoolean(SYNCHRONIZED_LYRICS_SHOW, true);
     }
 
-    public void setInitializedBlacklist() {
+    public void setInitializedBlocklist() {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putBoolean(INITIALIZED_BLACKLIST, true);
         editor.apply();
     }
 
-    public final boolean initializedBlacklist() {
+    public final boolean initializedBlocklist() {
         return mPreferences.getBoolean(INITIALIZED_BLACKLIST, false);
     }
 
