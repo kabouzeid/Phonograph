@@ -66,7 +66,7 @@
     <string name="action_remove_from_playlist">Remove from playlist</string>
     <string name="action_grid_size">Grid size</string>
     <string name="action_grid_size_land">Grid size (land)</string>
-    <string name="inserted_x_songs_into_playlist_x">Inserted %1$d songs into the playlist %2$s.</string>
+    <string name="inserted_x_songs_into_playlist_x">Inserted %1$d songs into the playlist %2$s, %3$d of selected songs existed in this playlist.</string>
     <string name="created_playlist_x">Created playlist %1$s.</string>
     <string name="deleted_x_songs">Deleted %1$d songs.</string>
     <string name="playlist_exists">Playlist %1$s already exists.</string>
