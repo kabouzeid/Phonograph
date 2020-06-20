@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.util;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
@@ -56,6 +57,12 @@ public class PlaylistsUtil {
                 if (cursor == null || cursor.getCount() < 1) {
                     final ContentValues values = new ContentValues(1);
                     values.put(MediaStore.Audio.PlaylistsColumns.NAME, name);
+                    if(name.equals(context.getString(R.string.favorites))) {
+                        SharedPreferences sharedPreferences = context.getSharedPreferences("Shared", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("FAV", context.getString(R.string.favorites));
+                        editor.apply();
+                    }
                     final Uri uri = context.getContentResolver().insert(
                             EXTERNAL_CONTENT_URI,
                             values);
