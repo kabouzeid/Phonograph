@@ -93,7 +93,6 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
 
                 @Override
                 public boolean onSingleTapConfirmed(MotionEvent e) {
-//                    todo
                     if (MusicPlayerRemote.isPlaying()) {
                         MusicPlayerRemote.pauseSong();
                     } else {
