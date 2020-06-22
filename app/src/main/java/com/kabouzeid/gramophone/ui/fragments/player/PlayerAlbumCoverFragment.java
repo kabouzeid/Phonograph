@@ -2,8 +2,11 @@ package com.kabouzeid.gramophone.ui.fragments.player;
 
 import android.animation.Animator;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
+
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,6 +17,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.AlbumCoverPagerAdapter;
@@ -57,6 +61,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     private Lyrics lyrics;
     private MusicProgressViewUpdateHelper progressViewUpdateHelper;
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_player_album_cover, container, false);
@@ -66,12 +71,35 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        Log.d("test18", "onViewCreated: player album");
         super.onViewCreated(view, savedInstanceState);
         viewPager.addOnPageChangeListener(this);
         viewPager.setOnTouchListener(new View.OnTouchListener() {
             GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
                 @Override
+                public boolean onDoubleTap(MotionEvent e) {
+                    int futurePosition = MusicPlayerRemote.getSongProgressMillis() + 10000;
+                    if (futurePosition <= MusicPlayerRemote.getSongDurationMillis()) {
+                        MusicPlayerRemote.seekTo(futurePosition);
+                        onUpdateProgressViews(MusicPlayerRemote.getSongProgressMillis(), MusicPlayerRemote.getSongDurationMillis());
+                    }
+                    return super.onDoubleTap(e);
+                }
+
+                @Override
+                public boolean onDoubleTapEvent(MotionEvent e) {
+                    return super.onDoubleTapEvent(e);
+                }
+
+                @Override
                 public boolean onSingleTapConfirmed(MotionEvent e) {
+//                    todo
+                    if (MusicPlayerRemote.isPlaying()) {
+                        MusicPlayerRemote.pauseSong();
+                    } else {
+                        MusicPlayerRemote.resumePlaying();
+                    }
+
                     if (callbacks != null) {
                         callbacks.onToolbarToggled();
                         return true;
@@ -130,6 +158,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
             MusicPlayerRemote.playSongAt(position);
         }
     }
+
 
     private AlbumCoverPagerAdapter.AlbumCoverFragment.ColorReceiver colorReceiver = new AlbumCoverPagerAdapter.AlbumCoverFragment.ColorReceiver() {
         @Override
@@ -220,14 +249,18 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
 
     @Override
     public void onUpdateProgressViews(int progress, int total) {
-        if (!isLyricsLayoutBound()) return;
+        if (!isLyricsLayoutBound()) {
+            return;
+        }
 
         if (!isLyricsLayoutVisible()) {
             hideLyricsLayout();
             return;
         }
 
-        if (!(lyrics instanceof AbsSynchronizedLyrics)) return;
+        if (!(lyrics instanceof AbsSynchronizedLyrics)) {
+            return;
+        }
         AbsSynchronizedLyrics synchronizedLyrics = (AbsSynchronizedLyrics) lyrics;
 
         lyricsLayout.setVisibility(View.VISIBLE);
@@ -237,6 +270,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
         String line = synchronizedLyrics.getLine(progress);
 
         if (!oldLine.equals(line) || oldLine.isEmpty()) {
+
             lyricsLine1.setText(oldLine);
             lyricsLine2.setText(line);
 
