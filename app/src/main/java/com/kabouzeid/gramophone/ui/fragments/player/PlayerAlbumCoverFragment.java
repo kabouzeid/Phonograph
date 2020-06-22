@@ -91,6 +91,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
                     return super.onDoubleTapEvent(e);
                 }
 
+
                 @Override
                 public boolean onSingleTapConfirmed(MotionEvent e) {
                     if (MusicPlayerRemote.isPlaying()) {
