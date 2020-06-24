@@ -34,9 +34,20 @@
         android:title="@string/action_details"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_set_as_ringtone"
-        android:title="@string/action_set_as_ringtone"
-        app:showAsAction="never" />
+        android:id="@+id/action_set_as"
+        android:title="@string/action_set_as"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/action_set_as_ringtone"
+                android:title="@string/action_set_as_ringtone"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_set_as_alarm"
+                android:title="@string/action_set_as_alarm"
+                app:showAsAction="never" />
+        </menu>
+    </item>
     <item
         android:id="@+id/action_delete_from_device"
         android:title="@string/action_delete_from_device"
