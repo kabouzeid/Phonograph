@@ -80,7 +80,7 @@ public class PlayingNotificationImpl24 extends PlayingNotification {
                                 retrievePlaybackAction(ACTION_SKIP));
                         NotificationCompat.Builder builder = new NotificationCompat.Builder(service, NOTIFICATION_CHANNEL_ID)
                                 .setSmallIcon(R.drawable.ic_notification)
-                                .setSubText(song.albumName)
+                                .setSubText(String.format("%02d:%02d", service.getSongProgressMillis()/60000, (service.getSongProgressMillis() % 60000)/1000))
                                 .setLargeIcon(bitmap)
                                 .setContentIntent(clickIntent)
                                 .setDeleteIntent(deleteIntent)

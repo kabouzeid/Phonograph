@@ -59,7 +59,7 @@ public class PlayingNotificationImpl extends PlayingNotification {
             notificationLayoutBig.setViewVisibility(R.id.media_titles, View.VISIBLE);
             notificationLayoutBig.setTextViewText(R.id.title, song.title);
             notificationLayoutBig.setTextViewText(R.id.text, song.artistName);
-            notificationLayoutBig.setTextViewText(R.id.text2, song.albumName);
+            notificationLayoutBig.setTextViewText(R.id.text2, String.format("%02d:%02d", service.getSongProgressMillis()/60000, (service.getSongProgressMillis() % 60000)/1000));
         }
 
         linkButtons(notificationLayout, notificationLayoutBig);

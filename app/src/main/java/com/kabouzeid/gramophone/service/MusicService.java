@@ -18,6 +18,7 @@ import android.media.audiofx.AudioEffect;
 import android.media.session.MediaSession;
 import android.os.Binder;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -124,6 +125,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final int REPEAT_MODE_THIS = 2;
 
     public static final int SAVE_QUEUES = 0;
+    public static final int REFRESH_INTERVAL_TIME = 20000;
 
     private final IBinder musicBind = new MusicBinder();
 
@@ -134,6 +136,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private AppWidgetSmall appWidgetSmall = AppWidgetSmall.getInstance();
     private AppWidgetCard appWidgetCard = AppWidgetCard.getInstance();
 
+    private CountDownTimer notificationRefreshTimer;
     private Playback playback;
     private List<Song> playingQueue = new ArrayList<>();
     private List<Song> originalPlayingQueue = new ArrayList<>();
@@ -229,6 +232,19 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         mediaSession.setActive(true);
 
+        notificationRefreshTimer = new CountDownTimer(REFRESH_INTERVAL_TIME, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                updateNotification();
+            }
+
+            @Override
+            public void onFinish() {
+                updateNotification();
+                notificationRefreshTimer.start();
+            }
+        };
+
         sendBroadcast(new Intent("com.kabouzeid.gramophone.PHONOGRAPH_MUSIC_SERVICE_CREATED"));
     }
 
@@ -251,6 +267,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         mediaSession.setCallback(new MediaSessionCompat.Callback() {
             @Override
             public void onPlay() {
+                notificationRefreshTimer.start();
                 play();
             }
 
@@ -375,6 +392,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         PreferenceUtil.getInstance(this).unregisterOnSharedPreferenceChangedListener(this);
         wakeLock.release();
 
+        notificationRefreshTimer.cancel();
         sendBroadcast(new Intent("com.kabouzeid.gramophone.PHONOGRAPH_MUSIC_SERVICE_DESTROYED"));
     }
 
@@ -847,12 +865,14 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         if (playback.isPlaying()) {
             playback.pause();
             notifyChange(PLAY_STATE_CHANGED);
+            notificationRefreshTimer.cancel();
         }
     }
 
     public void play() {
         synchronized (this) {
             if (requestFocus()) {
+                notificationRefreshTimer.start();
                 if (!playback.isPlaying()) {
                     if (!playback.isInitialized()) {
                         playSongAt(getPosition());
