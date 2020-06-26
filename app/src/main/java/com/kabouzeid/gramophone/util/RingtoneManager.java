@@ -108,4 +108,38 @@ public class RingtoneManager {
         } catch (SecurityException ignored) {
         }
     }
+
+    public void setNotifSound(@NonNull final Context context, final int id) {
+        final ContentResolver   resolver = context.getContentResolver();
+        final Uri uri = MusicUtil.getSongFileUri(id);
+        try {
+            final ContentValues values = new ContentValues(2);
+            values.put(MediaStore.Audio.AudioColumns.IS_ALARM, "1");
+            resolver.update(uri, values, null, null);
+        } catch (@NonNull final UnsupportedOperationException ignored) {
+            return;
+        }
+
+        try {
+            Cursor cursor = resolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                    new String[]{MediaStore.MediaColumns.TITLE},
+                    BaseColumns._ID + "=?",
+                    new String[]{String.valueOf(id)},
+                    null);
+            try {
+                if (cursor != null && cursor.getCount() == 1) {
+                    cursor.moveToFirst();
+                    android.media.RingtoneManager.setActualDefaultRingtoneUri(context, android.media.RingtoneManager.TYPE_NOTIFICATION, uri);
+                    Settings.System.putString(resolver, Settings.System.NOTIFICATION_SOUND, uri.toString());
+                    final String message = context.getString(R.string.x_has_been_set_as_notif, cursor.getString(0));
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                }
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
+            }
+        } catch (SecurityException ignored) {
+        }
+    }
 }
