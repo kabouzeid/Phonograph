@@ -64,9 +64,7 @@ public class PurchaseActivity extends AbsBaseActivity implements BillingProcesso
             }
         });
 
-        purchaseButton.setOnClickListener(v -> {
-            billingProcessor.purchase(PurchaseActivity.this, App.PRO_VERSION_PRODUCT_ID);
-        });
+        purchaseButton.setOnClickListener(v -> billingProcessor.purchase(PurchaseActivity.this, App.PRO_VERSION_PRODUCT_ID));
 
         billingProcessor = new BillingProcessor(this, App.GOOGLE_PLAY_LICENSE_KEY, this);
     }
