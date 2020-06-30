@@ -226,7 +226,7 @@
     <string name="folders">Pastas</string>
     <string name="saved_playlist_to">Lista de reprodução salva em %s.</string>
     <string name="failed_to_save_playlist">Falha ao salvar a lista de reprodução (%s).</string>
-    <string name="saved_x_playlists_to_x">Salvado % 1 $ d lista de reprodução para%2$s.</string>
+    <string name="saved_x_playlists_to_x">Salvado %1$d lista de reprodução para %2$s.</string>
     <string name="saved_x_playlists_to_x_failed_to_save_x">Salvado %1$d listas de reprodução para %2$s, não foi possível salvar %3$d.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> não está listado na loja de mídia.]]></string>
     <string name="some_files_are_not_listed_in_the_media_store">Alguns arquivos não estão listados na loja de mídia.</string>
