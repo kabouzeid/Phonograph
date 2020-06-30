@@ -32,7 +32,7 @@ platform :android do
   lane :deploy_staged do
     gradle(task: "clean assembleRelease")
     mapping_path = File.absolute_path "../app/build/outputs/mapping/release/mapping.txt"
-    upload_to_play_store(track: 'rollout', rollout: '0.1', mapping: mapping_path)
+    upload_to_play_store(rollout: '0.1', mapping: mapping_path)
   end
 
   desc "Deploy a new version to the Google Play"
