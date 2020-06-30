@@ -140,7 +140,7 @@
     <string name="rename_action">Перейменувати</string>
     <string name="create_action">Створити</string>
     <string name="reset_action">Скинути</string>
-    <string name="x_selected">Вибрано {%1$d}</string>
+    <string name="x_selected">Вибрано %1$d</string>
     <string name="primary_color">Основний колір</string>
     <string name="accent_color">Колір підкреслення</string>
     <string name="primary_color_desc">Основний колір теми, стандартно синій.</string>

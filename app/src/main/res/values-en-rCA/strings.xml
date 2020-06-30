@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">What do you want to share?</string>
-    <string name="currently_listening_to_x_by_x">Currently listening to {%1$s} by {%2$s}.</string>
+    <string name="currently_listening_to_x_by_x">Currently listening to %1$s by %2$s.</string>
     <string name="the_audio_file">The audio file</string>
-    <string name="x_has_been_set_as_ringtone">Set {%1$s} as your ringtone.</string>
+    <string name="x_has_been_set_as_ringtone">Set %1$s as your ringtone.</string>
     <string name="action_set_as_ringtone">Set as ringtone</string>
     <string name="action_share">Share</string>
     <string name="action_settings">"Settings"</string>
@@ -172,7 +172,7 @@
     <string name="action_set">Set</string>
     <string name="cancel_current_timer">Cancel current timer</string>
     <string name="sleep_timer_canceled">Sleep timer canceled.</string>
-    <string name="sleep_timer_set">Sleep timer set for {%d} minutes from now.</string>
+    <string name="sleep_timer_set">Sleep timer set for %d minutes from now.</string>
     <string name="action_new_playlist">New playlist…</string>
     <string name="new_playlist_title">New playlist</string>
     <string name="colored_footers">Colored footers</string>

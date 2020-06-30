@@ -66,7 +66,7 @@
     <string name="action_remove_from_playlist">Eliminar de la lista de reproducción</string>
     <string name="action_grid_size">Tamaño de la cuadrícula</string>
     <string name="action_grid_size_land">Tamaño de la cuadrícula (horizontal)</string>
-    <string name="inserted_x_songs_into_playlist_x">Se añadieron {%1$d} canciones a la lista de reproducción {%2$s}.</string>
+    <string name="inserted_x_songs_into_playlist_x">Se añadieron %1$d canciones a la lista de reproducción %2$s.</string>
     <string name="created_playlist_x">Lista de reproducción \'%1$s\' creada.</string>
     <string name="deleted_x_songs">Se eliminaron %1$d canciones.</string>
     <string name="playlist_exists">Lista de reproducción %1$s ya existe.</string>
