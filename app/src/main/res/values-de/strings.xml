@@ -300,4 +300,6 @@
     <string name="sort_order_album">Album</string>
     <string name="sort_order_year">Jahr</string>
     <string name="finish_current_music_sleep_timer">Letzten Song beenden</string>
+    <string name="dialog_ringtone_title">Klingelton einstellen</string>
+    <string name="dialog_ringtone_message">Phonograph erlauben, die Audioeinstellungen zu verändern</string>
 </resources>

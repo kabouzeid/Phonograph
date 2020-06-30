@@ -301,4 +301,6 @@
     <string name="sort_order_album">Album</string>
     <string name="sort_order_year">Anno</string>
     <string name="finish_current_music_sleep_timer">Termina l\'ultimo brano</string>
+    <string name="dialog_ringtone_title">Imposta suoneria</string>
+    <string name="dialog_ringtone_message">Consenti a Phonograph di modificare le impostazioni audio</string>
 </resources>

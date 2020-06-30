@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">您想分享哪些内容？</string>
-    <string name="currently_listening_to_x_by_x">当前正在播放 %2$s 的 %1$s 。</string>
+    <string name="currently_listening_to_x_by_x">当前正在播放 %2$s 的 %1$s。</string>
     <string name="the_audio_file">音频文件</string>
     <string name="x_has_been_set_as_ringtone">%1$s 已设为您的铃声。</string>
     <string name="action_set_as_ringtone">设为铃声</string>
@@ -37,7 +37,7 @@
     <string name="biography_unavailable">\u627e\u4e0d\u5230\u8be5\u827a\u672f\u5bb6\u7684\u4e2a\u4eba\u4fe1\u606f\u3002</string>
     <string name="wiki_unavailable">\u627e\u4e0d\u5230\u6b64\u4e13\u8f91\u7684\u767e\u79d1\u6570\u636e\u3002</string>
     <string name="biography">歌手简介</string>
-    <string name="wiki">百科</string>
+    <string name="wiki">维基</string>
     <string name="audio_focus_denied">无法获取音频焦点。</string>
     <string name="album">专辑</string>
     <string name="artist">艺术家</string>
@@ -165,7 +165,7 @@
     <string name="pref_summary_ignore_media_store_artwork">可以提高专辑封面图片的质量但加载时间也会更长。仅当遇到专辑封面像素过低时建议开启。</string>
     <string name="pref_summary_colored_navigation_bar">用主色调着色导航栏。</string>
     <string name="pref_summary_colored_app_shortcuts">用主色调着色应用快捷方式。</string>
-    <string name="pref_summary_audio_ducking">通知、导航等</string>
+    <string name="pref_summary_audio_ducking">通知、导航等。</string>
     <string name="pref_summary_synchronized_lyrics_show">当前仅支持 LRC 格式同步歌词。内嵌或外置均可。</string>
     <string name="pref_summary_remember_last_tab">启动时跳转到最后打开页面</string>
     <string name="pref_summary_remember_shuffle">随机播放模式将在您选择新的播放列表时保持开启</string>
@@ -173,7 +173,7 @@
     <string name="search_hint">正在扫描</string>
     <string name="favorites">收藏夹</string>
     <string name="last_added">最近添加</string>
-    <string name="history">播放历史</string>
+    <string name="history">最近播放</string>
     <string name="my_top_tracks">最喜爱的歌曲</string>
     <string name="remove_cover">移除专辑封面</string>
     <string name="download_from_last_fm">从 Last.fm 上下载</string>
@@ -207,7 +207,7 @@
     <string name="translate">翻译</string>
     <string name="translate_summary">帮助翻译 Phonograph 。</string>
     <string name="rate_on_google_play">评分</string>
-    <string name="rate_on_google_play_summary">如果喜欢 Phonograph 请在 Play Store 中留下您的好评。</string>
+    <string name="rate_on_google_play_summary">如果喜欢 Phonograph 请在 Google Play 中留下您的好评。</string>
     <string name="donate">捐赠</string>
     <string name="donate_summary">如果您喜欢我的作品，也可以在这里来选择捐赠我。</string>
     <string name="aidan_follestad_summary">主题引擎以及其他一些优秀功能。</string>
@@ -278,26 +278,28 @@
     <string name="restore">恢复</string>
     <string name="no_purchase_found">未找到购买记录</string>
     <string name="eugene_cheung_summary">因他对源代码的贡献。</string>
-    <string name="adrian_summary">以新增专辑封面设计。</string>
+    <string name="adrian_summary">因为他完成了专辑页面的设计。</string>
     <string name="add_action">添加</string>
     <string name="blacklist">黑名单</string>
     <string name="remove_from_blacklist">从黑名单中移除</string>
-    <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[您想从黑名单中移除 <b>%1$s</b> ？]]></string>
-    <string name="clear_blacklist">清除黑名单</string>
+    <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[您想从黑名单中移除 <b>%1$s</b> 吗？]]></string>
+    <string name="clear_blacklist">清空黑名单</string>
     <string name="do_you_want_to_clear_the_blacklist">您想清除黑名单？</string>
-    <string name="pref_summary_blacklist">黑名单中文件夹将在媒体库中隐藏。</string>
+    <string name="pref_summary_blacklist">黑名单文件夹中的内容将从您的媒体库中隐藏。</string>
     <string name="reset_artist_image">重置艺术家图片</string>
     <string name="set_artist_image">设置艺术家图片</string>
     <string name="library_categories">媒体库类别</string>
-    <string name="pref_summary_library_categories">配置媒体库类别可见性和顺序。</string>
+    <string name="pref_summary_library_categories">配置媒体库类别的可见性和顺序。</string>
     <string name="you_have_to_select_at_least_one_category">您必需选择至少一个类别。</string>
-    <string name="action_scan_directory">扫描音乐</string>
-    <string name="scan_media">扫描音乐</string>
+    <string name="action_scan_directory">扫描目录</string>
+    <string name="scan_media">扫描媒体</string>
     <string name="action_sort_order">排序方式</string>
-    <string name="sort_order_a_z">按首字符（正序）</string>
-    <string name="sort_order_z_a">按首字符（倒序）</string>
+    <string name="sort_order_a_z">升序</string>
+    <string name="sort_order_z_a">降序</string>
     <string name="sort_order_artist">艺术家</string>
     <string name="sort_order_album">专辑</string>
     <string name="sort_order_year">年份</string>
     <string name="finish_current_music_sleep_timer">播完最后一首</string>
+    <string name="dialog_ringtone_title">设置为铃声</string>
+    <string name="dialog_ringtone_message">允许 Phonograph 调整音频设定</string>
 </resources>

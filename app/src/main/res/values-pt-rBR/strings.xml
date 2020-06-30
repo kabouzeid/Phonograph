@@ -35,9 +35,9 @@
     <string name="playlists">Listas de Reprodução</string>
     <string name="unplayable_file">N\u00e3o foi poss\u00edvel reproduzir esta m\u00fasica.</string>
     <string name="biography_unavailable">N\u00e3o conseguimos encontrar a biografia deste artista.</string>
-    <string name="wiki_unavailable">N\u00e3o foi poss\u00edvel encontrar o registro online deste \u00e1lbum.</string>
+    <string name="wiki_unavailable">N\u00e3o foi poss\u00edvel encontrar um resultado da Wikip\u00e9dia para este \u00e1lbum.</string>
     <string name="biography">Biografia</string>
-    <string name="wiki">Wiki</string>
+    <string name="wiki">Wikipédia</string>
     <string name="audio_focus_denied">Foco do áudio negado.</string>
     <string name="album">Álbum</string>
     <string name="artist">Artista</string>
@@ -172,7 +172,7 @@
     <string name="could_not_download_album_cover">"N\u00e3o foi poss\u00edvel baixar a capa do \u00e1lbum correspondente."</string>
     <string name="search_hint">Pesquisar na sua biblioteca...</string>
     <string name="favorites">Favoritos</string>
-    <string name="last_added">Última Adição</string>
+    <string name="last_added">Adicionada recentemente</string>
     <string name="history">Reproduzidas recentemente</string>
     <string name="my_top_tracks">Minhas principais músicas</string>
     <string name="remove_cover">Remover capa</string>
@@ -300,4 +300,6 @@
     <string name="sort_order_album">Álbum</string>
     <string name="sort_order_year">Ano</string>
     <string name="finish_current_music_sleep_timer">Finalizar última música</string>
+    <string name="dialog_ringtone_title">Definir toque</string>
+    <string name="dialog_ringtone_message">Permitir que o Phonograph modifique as configurações de áudio</string>
 </resources>

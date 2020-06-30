@@ -300,4 +300,6 @@
     <string name="sort_order_album">Альбом</string>
     <string name="sort_order_year">Год</string>
     <string name="finish_current_music_sleep_timer">Последняя песня завершилась</string>
+    <string name="dialog_ringtone_title">Установить рингтон</string>
+    <string name="dialog_ringtone_message">Разрешить приложению изменять настройки аудио</string>
 </resources>

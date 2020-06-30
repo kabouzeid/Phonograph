@@ -30,6 +30,7 @@
     <string name="action_set_as_start_directory">Đặt làm thư mục bắt đầu</string>
     <string name="albums">Album</string>
     <string name="artists">Nghệ sĩ</string>
+    <string name="genres">Thể loại</string>
     <string name="songs">Bài hát</string>
     <string name="playlists">Danh sách nhạc</string>
     <string name="unplayable_file">Kh\u00f4ng th\u1ec3 ph\u00e1t b\u00e0i h\u00e1t n\u00e0y.</string>
@@ -68,6 +69,7 @@
     <string name="inserted_x_songs_into_playlist_x">Đã thêm %1$d baifhats vào danh sách nhạc %2$s</string>
     <string name="created_playlist_x">Đã tạo danh sách nhạc %1$s.</string>
     <string name="deleted_x_songs">Đã xóa bài hát %1$d</string>
+    <string name="playlist_exists">Danh sách %1$s đã tồn tại.</string>
     <string name="could_not_create_playlist">Kh\u00f4ng th\u1ec3 t\u1ea1o danh s\u00e1ch nh\u1ea1c.</string>
     <string name="delete_playlist_x"><![CDATA[Xóa danh sách nhạc <b>%1$s</b>?]]></string>
     <string name="clear_playlist_x"><![CDATA[D\u1ecdn danh s\u00e1ch nh\u1ea1c <b>%1$s</b>? \u0110i\u1ec1u n\u00e0y kh\u00f4ng th\u1ec3 kh\u00f4i ph\u1ee5c!]]></string>
@@ -85,7 +87,9 @@
     <string name="delete_playlists_title">Xóa các danh sách nhạc</string>
     <string name="clear_playlist_title">Dọn danh sách nhạc</string>
     <string name="save_playlist_title">Lưu thành tập tin</string>
+    <string name="save_playlists_title">Lưu thành mục</string>
     <string name="add_playlist_title">"Thêm vào danh sách nhạc"</string>
+    <string name="select_all_title">Chọn tất cả</string>
     <string name="action_shuffle_all">Trộn tất cả</string>
     <string name="action_shuffle_album">Trộn album</string>
     <string name="action_shuffle_artist">Trộn nghệ sĩ</string>
@@ -102,6 +106,7 @@
     <string name="never">Không bao giờ</string>
     <string name="today">Hôm nay</string>
     <string name="this_week">Tuần này</string>
+    <string name="past_seven_days">7 ngày qua</string>
     <string name="this_month">Tháng này</string>
     <string name="past_three_months">3 tháng qua</string>
     <string name="this_year">Năm nay</string>
@@ -110,6 +115,7 @@
     <string name="pref_header_now_playing_screen">Đang phát</string>
     <string name="pref_title_general_theme">Chủ đề chung</string>
     <string name="pref_header_audio">Âm thanh</string>
+    <string name="pref_header_library">Thư viện</string>
     <string name="pref_header_images">Hình ảnh</string>
     <string name="pref_header_lockscreen">Màn hình khóa</string>
     <string name="pref_header_playlists">Danh sách nhạc</string>
@@ -126,6 +132,8 @@
     <string name="pref_title_audio_ducking">Giảm âm lượng khi mất tập trung</string>
     <string name="pref_title_last_added_interval">Thời gian danh sách nhạc được thêm vào sau cùng</string>
     <string name="pref_title_synchronized_lyrics_show">Hiển thị lời bài hát được đồng bộ</string>
+    <string name="pref_title_remember_last_tab">Nhớ thẻ cuối cùng</string>
+    <string name="pref_title_remember_shuffle">Nhớ phát ngẫu nhiên</string>
     <string name="no_equalizer">Không có bộ lọc âm thanh nào.</string>
     <string name="no_audio_ID">"Phát một bài hát đầu tiên, sau đó thử lại."</string>
     <string name="delete_action">Xóa</string>
@@ -133,6 +141,7 @@
     <string name="remove_action">Di chuyển</string>
     <string name="rename_action">Đổi tên</string>
     <string name="create_action">Tạo</string>
+    <string name="reset_action">Cài lại</string>
     <string name="x_selected">Đã chọn %1$d</string>
     <string name="primary_color">Màu chính</string>
     <string name="accent_color">Màu phụ</string>
@@ -144,6 +153,7 @@
     <string name="no_albums">Không có album</string>
     <string name="no_songs">Không có bài hát</string>
     <string name="no_artists">Không có nghệ sĩ</string>
+    <string name="no_genres">Không có thể loại</string>
     <string name="empty">Trống</string>
     <string name="playlist_name_empty">Tên danh sách nhạc</string>
     <string name="song">Bài hát</string>
@@ -157,11 +167,13 @@
     <string name="pref_summary_colored_app_shortcuts">Màu sắc chủ đạo của biểu tượng ứng dụng.</string>
     <string name="pref_summary_audio_ducking">Thông báo, điều hướng, vv.</string>
     <string name="pref_summary_synchronized_lyrics_show">Hiện tại chỉ được đồng bộ lời bài hát ở định dạng LRC. Nhúng hoặc là một tập tin riêng biệt.</string>
+    <string name="pref_summary_remember_last_tab">Mở thẻ đã phát cuối cùng khi mở ứng dụng</string>
+    <string name="pref_summary_remember_shuffle">Giữ chế độ phát ngẫu nhiên khi chọn một danh sách mới</string>
     <string name="could_not_download_album_cover">"Kh\u00f4ng th\u1ec3 t\u1ea3i v\u1ec1 b\u00eca album ph\u00f9 h\u1ee3p."</string>
     <string name="search_hint">Tìm kiếm thư viện của bạn...</string>
     <string name="favorites">Yêu thích</string>
     <string name="last_added">Được thêm sau cùng</string>
-    <string name="history">Lịch sử</string>
+    <string name="history">Phát gần đây</string>
     <string name="my_top_tracks">Bài hát hàng đầu</string>
     <string name="remove_cover">Di chuyển bìa</string>
     <string name="download_from_last_fm">Tải về từ Last.fm</string>
@@ -214,7 +226,10 @@
     <string name="folders">Thư mục</string>
     <string name="saved_playlist_to">Đã lưu danh sách nhạc đến %s.</string>
     <string name="failed_to_save_playlist">Không thể lưu danh sách nhạc (%s).</string>
+    <string name="saved_x_playlists_to_x">Đã lưu danh sách %1$d thành %2$s.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">Đã lưu danh sách %1$d thành %2$s, lỗi khi lưu %3$d.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> không được liệt kê trong cửa hàng đa phương tiện.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Vài mục không được liệt kê trong kho bài hát.</string>
     <string name="nothing_to_scan">Không có gì để quét.</string>
     <string name="scanned_files">Đã quét %1$d của %2$d tập tin.</string>
     <string name="could_not_scan_files">Không thể quét %d tập tin.</string>
@@ -249,7 +264,7 @@
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Bạn sẽ được đưa đến trang web theo dõi vấn đề.</string>
     <string name="app_shortcut_shuffle_all_short">Xáo trộn</string>
     <string name="app_shortcut_top_tracks_short">Bài hát hàng đầu</string>
-    <string name="app_shortcut_last_added_short">@string/last_added</string>
+    <string name="app_shortcut_last_added_short">Thêm gần đây nhất</string>
     <string name="playlist_is_empty">Danh sách nhạc trống</string>
     <string name="playing_notification_description">Thông báo đang phát cung cấp các hành động để phát / tạm dừng vv.</string>
     <string name="playing_notification_name">Thông báo đang phát</string>
@@ -263,6 +278,7 @@
     <string name="restore">Khôi phục</string>
     <string name="no_purchase_found">Không tìm thấy hàng mua.</string>
     <string name="eugene_cheung_summary">Đối với đóng góp cho mã nguồn.</string>
+    <string name="adrian_summary">Tạo thiết kế cho trang album.</string>
     <string name="add_action">Thêm</string>
     <string name="blacklist">Danh sách đen</string>
     <string name="remove_from_blacklist">Xóa khỏi danh sách đen</string>
@@ -270,4 +286,20 @@
     <string name="clear_blacklist">Xóa danh sách đen</string>
     <string name="do_you_want_to_clear_the_blacklist">Bạn muốn xóa danh sách đen không?</string>
     <string name="pref_summary_blacklist">Nội dung của các thư mục chọn vào danh sách đen được ẩn trong thư viện của bạn.</string>
+    <string name="reset_artist_image">Cài lại hình nghệ sĩ</string>
+    <string name="set_artist_image">Đặt hình nghệ sĩ</string>
+    <string name="library_categories">Danh mục thư viện</string>
+    <string name="pref_summary_library_categories">Cấu hình khả năng hiển thị và thứ tự của các danh mục thư viện.</string>
+    <string name="you_have_to_select_at_least_one_category">Bạn phải chọn ít nhất một danh mục.</string>
+    <string name="action_scan_directory">Quét thư mục</string>
+    <string name="scan_media">Quét tìm nhạc</string>
+    <string name="action_sort_order">Thứ tự sắp xếp</string>
+    <string name="sort_order_a_z">Tăng dần</string>
+    <string name="sort_order_z_a">Giảm dần</string>
+    <string name="sort_order_artist">Nghệ sĩ</string>
+    <string name="sort_order_album">Album</string>
+    <string name="sort_order_year">Năm</string>
+    <string name="finish_current_music_sleep_timer">Phát hết bài cuối</string>
+    <string name="dialog_ringtone_title">Cài nhạc chuông</string>
+    <string name="dialog_ringtone_message">Cho phép Phonograph thay đổi cài đặt âm thanh</string>
 </resources>

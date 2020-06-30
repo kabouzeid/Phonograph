@@ -300,4 +300,6 @@
     <string name="sort_order_album">الألبوم</string>
     <string name="sort_order_year">السنة</string>
     <string name="finish_current_music_sleep_timer">إكمال آخر أغنية</string>
+    <string name="dialog_ringtone_title">تعيين كنغمة الرنين</string>
+    <string name="dialog_ringtone_message">السماح لـphonograph بتعديل إعدادات الصوت</string>
 </resources>

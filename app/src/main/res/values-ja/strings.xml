@@ -132,8 +132,8 @@
     <string name="pref_title_audio_ducking">音声フォーカス喪失時に音量を下げる</string>
     <string name="pref_title_last_added_interval">最近追加された曲に含まれる期間</string>
     <string name="pref_title_synchronized_lyrics_show">同期された歌詞を表示</string>
-    <string name="pref_title_remember_last_tab">最後のタブの記憶</string>
-    <string name="pref_title_remember_shuffle">シャッフルの記憶</string>
+    <string name="pref_title_remember_last_tab">最後のタブを記憶</string>
+    <string name="pref_title_remember_shuffle">シャッフルを記憶</string>
     <string name="no_equalizer">イコライザーがインストールされていません</string>
     <string name="no_audio_ID">"何か曲を再生してもう一度お試しください"</string>
     <string name="delete_action">削除</string>
@@ -142,7 +142,7 @@
     <string name="rename_action">名前を変更</string>
     <string name="create_action">作成</string>
     <string name="reset_action">リセット</string>
-    <string name="x_selected">%1$dつ選択中</string>
+    <string name="x_selected">%1$d項目を選択中</string>
     <string name="primary_color">メインカラー</string>
     <string name="accent_color">アクセントカラー</string>
     <string name="primary_color_desc">ツールバーなどの色を設定します。(デフォルトではインディゴ)</string>
@@ -268,8 +268,8 @@
     <string name="playlist_is_empty">プレイリストは空です</string>
     <string name="playing_notification_description">再生の通知は再生/一時停止などを提供します。</string>
     <string name="playing_notification_name">再生中の通知</string>
-    <string name="only_the_first_5_colors_available">無料版では5色のみ利用可能です。</string>
-    <string name="black_theme_is_a_pro_feature">黒テーマはPhonograph Proの機能です。</string>
+    <string name="only_the_first_5_colors_available">無料版では最初の5色のみが利用可能です。</string>
+    <string name="black_theme_is_a_pro_feature">ブラックテーマはPhonograph Proの機能です。</string>
     <string name="sleep_timer_is_a_pro_feature">スリープタイマーはPhonograph Proの機能です。</string>
     <string name="folder_view_is_a_pro_feature">フォルダビューはPhonograph Proの機能です。</string>
     <string name="restoring_purchase">購入を復元中…</string>
@@ -299,5 +299,7 @@
     <string name="sort_order_artist">アーティスト</string>
     <string name="sort_order_album">アルバム</string>
     <string name="sort_order_year">年</string>
-    <string name="finish_current_music_sleep_timer">最後の曲を終了</string>
+    <string name="finish_current_music_sleep_timer">最後の曲を終える</string>
+    <string name="dialog_ringtone_title">着信音の設定</string>
+    <string name="dialog_ringtone_message">Phonographによるオーディオ設定の変更を許可する</string>
 </resources>
