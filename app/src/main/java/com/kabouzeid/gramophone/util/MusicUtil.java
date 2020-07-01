@@ -5,15 +5,18 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.provider.Settings;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -71,15 +74,14 @@ public class MusicUtil {
     }
 
 
-
     @NonNull
     public static String getArtistInfoString(@NonNull final Context context, @NonNull final Artist artist) {
         int albumCount = artist.getAlbumCount();
         int songCount = artist.getSongCount();
 
         return MusicUtil.buildInfoString(
-            MusicUtil.getAlbumCountString(context, albumCount),
-            MusicUtil.getSongCountString(context, songCount)
+                MusicUtil.getAlbumCountString(context, albumCount),
+                MusicUtil.getSongCountString(context, songCount)
         );
     }
 
@@ -88,16 +90,16 @@ public class MusicUtil {
         int songCount = album.getSongCount();
 
         return MusicUtil.buildInfoString(
-            album.getArtistName(),
-            MusicUtil.getSongCountString(context, songCount)
+                album.getArtistName(),
+                MusicUtil.getSongCountString(context, songCount)
         );
     }
 
     @NonNull
     public static String getSongInfoString(@NonNull final Song song) {
         return MusicUtil.buildInfoString(
-            song.artistName,
-            song.albumName
+                song.artistName,
+                song.albumName
         );
     }
 
@@ -112,8 +114,8 @@ public class MusicUtil {
         final long duration = getTotalDuration(context, songs);
 
         return MusicUtil.buildInfoString(
-            MusicUtil.getSongCountString(context, songs.size()),
-            MusicUtil.getReadableDurationString(duration)
+                MusicUtil.getSongCountString(context, songs.size()),
+                MusicUtil.getReadableDurationString(duration)
         );
     }
 
@@ -154,15 +156,14 @@ public class MusicUtil {
         }
     }
 
-    /** 
+    /**
      * Build a concatenated string from the provided arguments
      * The intended purpose is to show extra annotations
      * to a music library item.
      * Ex: for a given album --> buildInfoString(album.artist, album.songCount)
      */
     @NonNull
-    public static String buildInfoString(@Nullable final String string1, @Nullable final String string2)
-    {
+    public static String buildInfoString(@Nullable final String string1, @Nullable final String string2) {
         // Skip empty strings
         if (TextUtils.isEmpty(string1)) {
             //noinspection ConstantConditions
@@ -264,7 +265,7 @@ public class MusicUtil {
                         final File f = new File(name);
                         if (f.delete()) {
                             // Step 3: Remove selected track from the database
-                            context.getContentResolver().delete(ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id),null, null);
+                            context.getContentResolver().delete(ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id), null, null);
                             deletedCount++;
                         } else {
                             // I'm not sure if we'd ever get here (deletion would
@@ -287,14 +288,54 @@ public class MusicUtil {
     }
 
     public static boolean isFavoritePlaylist(@NonNull final Context context, @NonNull final Playlist playlist) {
-        return playlist.name != null && playlist.name.equals(context.getString(R.string.favorites));
+        SharedPreferences sharedPreferences = context.getSharedPreferences("Shared", Context.MODE_PRIVATE);
+        String previous = sharedPreferences.getString("FAV", "");
+        boolean isFavorite = playlist.name != null && playlist.name.equals(previous);
+        if (isFavorite && !playlist.name.equals(context.getString(R.string.favorites))) {
+            PlaylistsUtil.renamePlaylist(context, playlist.id, context.getString(R.string
+                    .favorites));
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("FAV", context.getString(R.string.favorites));
+            editor.apply();
+        }
+        return isFavorite;
     }
 
     public static Playlist getFavoritesPlaylist(@NonNull final Context context) {
-        return PlaylistLoader.getPlaylist(context, context.getString(R.string.favorites));
+        SharedPreferences sharedPreferences = context.getSharedPreferences("Shared", Context.MODE_PRIVATE);
+        String previous = sharedPreferences.getString("FAV", "");
+        List<Playlist> playlists = PlaylistLoader.getAllPlaylists(context);
+        for (Playlist playlist : playlists) {
+            if (playlist.name.equals(previous)) {
+                if (!playlist.name.equals(context.getString(R.string.favorites))) {
+                    PlaylistsUtil.renamePlaylist(context, playlist.id, context.getString(R.string
+                            .favorites));
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("FAV", context.getString(R.string.favorites));
+                    editor.apply();
+                }
+                break;
+            }
+        }
+        return PlaylistLoader.getPlaylist(context, previous);
     }
 
     private static Playlist getOrCreateFavoritesPlaylist(@NonNull final Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("Shared", Context.MODE_PRIVATE);
+        String previous = sharedPreferences.getString("FAV", "");
+        List<Playlist> playlists = PlaylistLoader.getAllPlaylists(context);
+        for (Playlist playlist : playlists) {
+            if (playlist.name.equals(previous)) {
+                if (!playlist.name.equals(context.getString(R.string.favorites))) {
+                    PlaylistsUtil.renamePlaylist(context, playlist.id, context.getString(R.string
+                            .favorites));
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("FAV", context.getString(R.string.favorites));
+                    editor.apply();
+                }
+                return playlist;
+            }
+        }
         return PlaylistLoader.getPlaylist(context, PlaylistsUtil.createPlaylist(context, context.getString(R.string.favorites)));
     }
 
