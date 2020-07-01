@@ -8,12 +8,15 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.M3UWriter;
+import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
@@ -111,7 +114,21 @@ public class PlaylistsUtil {
         final Uri uri = MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId);
         Cursor cursor = null;
         int base = 0;
-
+        List<PlaylistSong> previousSong = PlaylistSongLoader.getPlaylistSongList(context, playlistId);
+        List<Song> newSongs = new ArrayList<>();
+        for (Song song : songs) {
+            boolean flag = false;
+            for (Song previous : previousSong) {
+                if (song.id == previous.id) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) {
+                newSongs.add(song);
+            }
+        }
+        final int newSize = newSongs.size();
         try {
             try {
                 cursor = resolver.query(uri, projection, null, null, null);
@@ -126,12 +143,11 @@ public class PlaylistsUtil {
             }
 
             int numInserted = 0;
-            for (int offSet = 0; offSet < size; offSet += 1000)
-                numInserted += resolver.bulkInsert(uri, makeInsertItems(songs, offSet, 1000, base));
-
+            for (int offSet = 0; offSet < newSize; offSet += 1000)
+                numInserted += resolver.bulkInsert(uri, makeInsertItems(newSongs, offSet, 1000, base));
             if (showToastOnFinish) {
                 Toast.makeText(context, context.getResources().getString(
-                        R.string.inserted_x_songs_into_playlist_x, numInserted, getNameForPlaylist(context, playlistId)), Toast.LENGTH_SHORT).show();
+                        R.string.inserted_x_songs_into_playlist_x, numInserted, getNameForPlaylist(context, playlistId), size - numInserted), Toast.LENGTH_SHORT).show();
             }
         } catch (SecurityException ignored) {
         }
