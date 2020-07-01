@@ -37,6 +37,22 @@ public class SongMenuHelper {
                     ringtoneManager.setRingtone(activity, song.id);
                 }
                 return true;
+            case R.id.action_set_as_alarm:
+                if (RingtoneManager.requiresDialog(activity)) {
+                    RingtoneManager.showDialog(activity);
+                } else {
+                    RingtoneManager ringtoneManager = new RingtoneManager();
+                    ringtoneManager.setAlarm(activity, song.id);
+                }
+                return true;
+            case R.id.action_set_as_notification:
+                if (RingtoneManager.requiresDialog(activity)) {
+                    RingtoneManager.showDialog(activity);
+                } else {
+                    RingtoneManager ringtoneManager = new RingtoneManager();
+                    ringtoneManager.setNotifSound(activity, song.id);
+                }
+                return true;
             case R.id.action_share:
                 activity.startActivity(Intent.createChooser(MusicUtil.createShareSongFileIntent(song, activity), null));
                 return true;

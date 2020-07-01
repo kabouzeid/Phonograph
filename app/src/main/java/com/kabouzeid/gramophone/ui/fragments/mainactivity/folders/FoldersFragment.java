@@ -411,6 +411,8 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                     case R.id.action_tag_editor:
                     case R.id.action_details:
                     case R.id.action_set_as_ringtone:
+                    case R.id.action_set_as_alarm:
+                    case R.id.action_set_as_notification:
                     case R.id.action_delete_from_device:
                         new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
                             if (!songs.isEmpty()) {

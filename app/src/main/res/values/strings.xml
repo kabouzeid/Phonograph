@@ -4,7 +4,12 @@
     <string name="currently_listening_to_x_by_x">Currently listening to %1$s by %2$s.</string>
     <string name="the_audio_file">The audio file</string>
     <string name="x_has_been_set_as_ringtone">Set %1$s as your ringtone.</string>
+    <string name="x_has_been_set_as_alarm">Set %1$s as your default alarm.</string>
+    <string name="x_has_been_set_as_notif">Set %1$s as your default notification sound.</string>
+    <string name="action_set_as">Set as…</string>
     <string name="action_set_as_ringtone">Set as ringtone</string>
+    <string name="action_set_as_alarm">Set as alarm ringtone</string>
+    <string name="action_set_as_notif">Set as default notification sound</string>
     <string name="action_share">Share</string>
     <string name="action_settings">"Settings"</string>
     <string name="action_grant">Grant</string>
