@@ -12,9 +12,10 @@
         <item name="rectSelector">@drawable/rect_selector_dark</item>
         <item name="rectSelectorStrong">@drawable/rect_selector_strong_dark</item>
 
-        <item name="cardBackgroundColor">@color/md_grey_800</item>
+        <item name="android:colorBackground">@color/md_grey_900</item>
+        <item name="cardBackgroundColor">@color/md_grey_850</item>
 
-        <item name="defaultFooterColor">@color/md_grey_900</item>
+        <item name="defaultFooterColor">@color/md_grey_800</item>
 
         <item name="dividerColor">@color/md_divider_white</item>
         <item name="iconColor">@color/ate_secondary_text_dark</item>
