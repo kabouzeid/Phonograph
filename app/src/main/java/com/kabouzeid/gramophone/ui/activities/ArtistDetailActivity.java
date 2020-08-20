@@ -141,7 +141,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         setUpToolbar();
         setUpViews();
 
-        getSupportLoaderManager().initLoader(LOADER_ID, getIntent().getExtras(), this);
+        LoaderManager.getInstance(this).initLoader(LOADER_ID, getIntent().getExtras(), this);
     }
 
     @Override
@@ -202,7 +202,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     private void reload() {
-        getSupportLoaderManager().restartLoader(LOADER_ID, getIntent().getExtras(), this);
+        LoaderManager.getInstance(this).restartLoader(LOADER_ID, getIntent().getExtras(), this);
     }
 
     private void loadBiography() {

@@ -33,7 +33,7 @@ public class MusicLibraryPagerAdapter extends FragmentPagerAdapter {
     private final Context mContext;
 
     public MusicLibraryPagerAdapter(@NonNull final Context context, final FragmentManager fragmentManager) {
-        super(fragmentManager);
+        super(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mContext = context;
         setCategoryInfos(PreferenceUtil.getInstance(context).getLibraryCategoryInfos());
     }

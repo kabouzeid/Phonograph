@@ -126,7 +126,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         setUpToolBar();
         setUpViews();
 
-        getSupportLoaderManager().initLoader(LOADER_ID, getIntent().getExtras(), this);
+        LoaderManager.getInstance(this).initLoader(LOADER_ID, getIntent().getExtras(), this);
     }
 
     @Override
@@ -237,7 +237,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     private void reload() {
-        getSupportLoaderManager().restartLoader(LOADER_ID, getIntent().getExtras(), this);
+        LoaderManager.getInstance(this).restartLoader(LOADER_ID, getIntent().getExtras(), this);
     }
 
     @Override

@@ -83,7 +83,7 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
             query = savedInstanceState.getString(QUERY);
         }
 
-        getSupportLoaderManager().initLoader(LOADER_ID, null, this);
+        LoaderManager.getInstance(this).initLoader(LOADER_ID, null, this);
     }
 
     @Override
@@ -138,13 +138,13 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
 
     private void search(@NonNull String query) {
         this.query = query;
-        getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
+        LoaderManager.getInstance(this).restartLoader(LOADER_ID, null, this);
     }
 
     @Override
     public void onMediaStoreChanged() {
         super.onMediaStoreChanged();
-        getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
+        LoaderManager.getInstance(this).restartLoader(LOADER_ID, null, this);
     }
 
     @Override
