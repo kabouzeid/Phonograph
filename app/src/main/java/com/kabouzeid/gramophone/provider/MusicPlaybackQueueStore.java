@@ -28,7 +28,6 @@ import androidx.annotation.Nullable;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

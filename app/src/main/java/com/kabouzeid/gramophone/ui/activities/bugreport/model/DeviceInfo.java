@@ -24,7 +24,6 @@ public class DeviceInfo {
     private final String product = Build.PRODUCT;
     private final String hardware = Build.HARDWARE;
     @SuppressLint("NewApi")
-    @SuppressWarnings("deprecation")
     private final String[] abis = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ?
             Build.SUPPORTED_ABIS : new String[]{Build.CPU_ABI, Build.CPU_ABI2};
     @SuppressLint("NewApi")

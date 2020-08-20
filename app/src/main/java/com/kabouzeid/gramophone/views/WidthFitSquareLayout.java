@@ -32,7 +32,6 @@ public class WidthFitSquareLayout extends FrameLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        //noinspection SuspiciousNameCombination
         super.onMeasure(widthMeasureSpec, forceSquare ? widthMeasureSpec : heightMeasureSpec);
     }
 

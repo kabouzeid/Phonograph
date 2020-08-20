@@ -18,6 +18,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.widget.RemoteViews;
 
+import androidx.core.content.res.ResourcesCompat;
+
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
@@ -126,10 +128,10 @@ public abstract class BaseAppWidget extends AppWidgetProvider {
 
     abstract public void performUpdate(final MusicService service, final int[] appWidgetIds);
 
-    protected Drawable getAlbumArtDrawable(final Resources resources, final Bitmap bitmap) {
+    protected Drawable getAlbumArtDrawable(final Resources resources, final Bitmap bitmap, final Resources.Theme theme) {
         Drawable image;
         if (bitmap == null) {
-            image = resources.getDrawable(R.drawable.default_album_art);
+            image = ResourcesCompat.getDrawable(resources, R.drawable.default_album_art, theme);
         } else {
             image = new BitmapDrawable(resources, bitmap);
         }

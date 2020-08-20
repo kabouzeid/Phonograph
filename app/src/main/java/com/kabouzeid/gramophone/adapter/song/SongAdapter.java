@@ -31,7 +31,6 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -246,13 +245,12 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
 
         protected boolean onSongMenuItemClick(MenuItem item) {
             if (image != null && image.getVisibility() == View.VISIBLE) {
-                switch (item.getItemId()) {
-                    case R.id.action_go_to_album:
-                        Pair[] albumPairs = new Pair[]{
-                                Pair.create(image, activity.getResources().getString(R.string.transition_album_art))
-                        };
-                        NavigationUtil.goToAlbum(activity, getSong().albumId, albumPairs);
-                        return true;
+                if (item.getItemId() == R.id.action_go_to_album) {
+                    Pair[] albumPairs = new Pair[]{
+                            Pair.create(image, activity.getResources().getString(R.string.transition_album_art))
+                    };
+                    NavigationUtil.goToAlbum(activity, getSong().albumId, albumPairs);
+                    return true;
                 }
             }
             return false;

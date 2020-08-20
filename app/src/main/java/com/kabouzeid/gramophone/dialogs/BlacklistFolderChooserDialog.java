@@ -60,7 +60,7 @@ public class BlacklistFolderChooserDialog extends DialogFragment implements Mate
                 }
             }
             Collections.sort(results, new FolderSorter());
-            return results.toArray(new File[results.size()]);
+            return results.toArray(new File[0]);
         }
         return null;
     }

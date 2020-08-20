@@ -9,7 +9,6 @@ import com.kabouzeid.gramophone.loader.TopAndRecentlyPlayedTracksLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

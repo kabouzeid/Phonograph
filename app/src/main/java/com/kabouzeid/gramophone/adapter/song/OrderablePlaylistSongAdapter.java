@@ -18,7 +18,6 @@ import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ViewUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,10 +48,9 @@ public class OrderablePlaylistSongAdapter extends PlaylistSongAdapter implements
 
     @Override
     protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull List<Song> selection) {
-        switch (menuItem.getItemId()) {
-            case R.id.action_remove_from_playlist:
-                RemoveFromPlaylistDialog.create((List<PlaylistSong>) (List) selection).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
-                return;
+        if (menuItem.getItemId() == R.id.action_remove_from_playlist) {
+            RemoveFromPlaylistDialog.create((List<PlaylistSong>) (List) selection).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
+            return;
         }
         super.onMultipleItemAction(menuItem, selection);
     }
@@ -116,10 +114,9 @@ public class OrderablePlaylistSongAdapter extends PlaylistSongAdapter implements
 
         @Override
         protected boolean onSongMenuItemClick(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.action_remove_from_playlist:
-                    RemoveFromPlaylistDialog.create((PlaylistSong) getSong()).show(activity.getSupportFragmentManager(), "REMOVE_FROM_PLAYLIST");
-                    return true;
+            if (item.getItemId() == R.id.action_remove_from_playlist) {
+                RemoveFromPlaylistDialog.create((PlaylistSong) getSong()).show(activity.getSupportFragmentManager(), "REMOVE_FROM_PLAYLIST");
+                return true;
             }
             return super.onSongMenuItemClick(item);
         }

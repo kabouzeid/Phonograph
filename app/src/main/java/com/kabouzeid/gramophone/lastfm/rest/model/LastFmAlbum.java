@@ -38,7 +38,7 @@ public class LastFmAlbum {
             this.wiki = wiki;
         }
 
-        public class Wiki {
+        public static class Wiki {
             @Expose
             private String content;
 

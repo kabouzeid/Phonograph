@@ -13,7 +13,6 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

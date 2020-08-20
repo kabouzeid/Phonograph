@@ -15,7 +15,6 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -15,7 +15,6 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.audiofx.AudioEffect;
-import android.media.session.MediaSession;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
@@ -145,7 +144,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private boolean pausedByTransientLossOfFocus;
     private PlayingNotification playingNotification;
     private AudioManager audioManager;
-    @SuppressWarnings("deprecation")
     private MediaSessionCompat mediaSession;
     private PowerManager.WakeLock wakeLock;
     private PlaybackHandler playerHandler;
@@ -285,8 +283,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             }
         });
 
-        mediaSession.setFlags(MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS
-                | MediaSession.FLAG_HANDLES_MEDIA_BUTTONS);
+        mediaSession.setFlags(MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS
+                | MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS);
 
         mediaSession.setMediaButtonReceiver(mediaButtonReceiverPendingIntent);
     }
@@ -324,10 +322,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                             }
                             if (!playlistSongs.isEmpty()) {
                                 if (shuffleMode == SHUFFLE_MODE_SHUFFLE) {
-                                    int startPosition = 0;
-                                    if (!playlistSongs.isEmpty()) {
-                                        startPosition = new Random().nextInt(playlistSongs.size());
-                                    }
+                                    int startPosition = new Random().nextInt(playlistSongs.size());
                                     openQueue(playlistSongs, startPosition, true);
                                     setShuffleMode(shuffleMode);
                                 } else {
@@ -395,10 +390,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         @Override
         public void handleMessage(@NonNull Message msg) {
             final MusicService service = mService.get();
-            switch (msg.what) {
-                case SAVE_QUEUES:
-                    service.saveQueuesImpl();
-                    break;
+            if (msg.what == SAVE_QUEUES) {
+                service.saveQueuesImpl();
             }
         }
     }
@@ -882,10 +875,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public void playSongs(List<Song> songs, int shuffleMode) {
         if (songs != null && !songs.isEmpty()) {
             if (shuffleMode == SHUFFLE_MODE_SHUFFLE) {
-                int startPosition = 0;
-                if (!songs.isEmpty()) {
-                    startPosition = new Random().nextInt(songs.size());
-                }
+                int startPosition = new Random().nextInt(songs.size());
                 openQueue(songs, startPosition, false);
                 setShuffleMode(shuffleMode);
             } else {

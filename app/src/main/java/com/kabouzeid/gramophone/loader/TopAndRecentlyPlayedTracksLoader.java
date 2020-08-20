@@ -19,7 +19,6 @@ package com.kabouzeid.gramophone.loader;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.BaseColumns;
-import android.provider.MediaStore;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -27,7 +26,6 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TopAndRecentlyPlayedTracksLoader {
@@ -78,30 +76,20 @@ public class TopAndRecentlyPlayedTracksLoader {
     @Nullable
     private static SortedLongCursor makeRecentTracksCursorImpl(@NonNull final Context context) {
         // first get the top results ids from the internal database
-        Cursor songs = HistoryStore.getInstance(context).queryRecentIds();
 
-        try {
+        try (Cursor songs = HistoryStore.getInstance(context).queryRecentIds()) {
             return makeSortedCursor(context, songs,
                     songs.getColumnIndex(HistoryStore.RecentStoreColumns.ID));
-        } finally {
-            if (songs != null) {
-                songs.close();
-            }
         }
     }
 
     @Nullable
     private static SortedLongCursor makeTopTracksCursorImpl(@NonNull final Context context) {
         // first get the top results ids from the internal database
-        Cursor songs = SongPlayCountStore.getInstance(context).getTopPlayedResults(NUMBER_OF_TOP_TRACKS);
 
-        try {
+        try (Cursor songs = SongPlayCountStore.getInstance(context).getTopPlayedResults(NUMBER_OF_TOP_TRACKS)) {
             return makeSortedCursor(context, songs,
                     songs.getColumnIndex(SongPlayCountStore.SongPlayCountColumns.ID));
-        } finally {
-            if (songs != null) {
-                songs.close();
-            }
         }
     }
 
@@ -125,7 +113,7 @@ public class TopAndRecentlyPlayedTracksLoader {
 
                 id = cursor.getLong(idColumn);
                 order[cursor.getPosition()] = id;
-                selection.append(String.valueOf(id));
+                selection.append(id);
             }
 
             selection.append(")");

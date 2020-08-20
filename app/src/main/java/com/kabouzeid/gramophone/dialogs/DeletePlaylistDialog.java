@@ -38,7 +38,6 @@ public class DeletePlaylistDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        //noinspection unchecked
         final List<Playlist> playlists = getArguments().getParcelableArrayList("playlists");
         int title;
         CharSequence content;

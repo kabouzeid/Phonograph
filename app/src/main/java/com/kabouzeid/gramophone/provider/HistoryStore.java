@@ -82,11 +82,9 @@ public class HistoryStore extends SQLiteOpenHelper {
             database.insert(RecentStoreColumns.NAME, null, values);
 
             // if our db is too large, delete the extra items
-            Cursor oldest = null;
-            try {
-                oldest = database.query(RecentStoreColumns.NAME,
-                        new String[]{RecentStoreColumns.TIME_PLAYED}, null, null, null, null,
-                        RecentStoreColumns.TIME_PLAYED + " ASC");
+            try (Cursor oldest = database.query(RecentStoreColumns.NAME,
+                    new String[]{RecentStoreColumns.TIME_PLAYED}, null, null, null, null,
+                    RecentStoreColumns.TIME_PLAYED + " ASC")) {
 
                 if (oldest != null && oldest.getCount() > MAX_ITEMS_IN_DB) {
                     oldest.moveToPosition(oldest.getCount() - MAX_ITEMS_IN_DB);
@@ -96,10 +94,6 @@ public class HistoryStore extends SQLiteOpenHelper {
                             RecentStoreColumns.TIME_PLAYED + " < ?",
                             new String[]{String.valueOf(timeOfRecordToKeep)});
 
-                }
-            } finally {
-                if (oldest != null) {
-                    oldest.close();
                 }
             }
         } finally {

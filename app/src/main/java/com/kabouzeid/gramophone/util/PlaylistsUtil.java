@@ -169,13 +169,14 @@ public class PlaylistsUtil {
         final int playlistId = songs.get(0).playlistId;
         Uri uri = MediaStore.Audio.Playlists.Members.getContentUri(
                 "external", playlistId);
-        String selectionArgs[] = new String[songs.size()];
+        String[] selectionArgs = new String[songs.size()];
         for (int i = 0; i < selectionArgs.length; i++) {
             selectionArgs[i] = String.valueOf(songs.get(i).idInPlayList);
         }
-        String selection = MediaStore.Audio.Playlists.Members._ID + " in (";
         //noinspection unused
-        for (String selectionArg : selectionArgs) selection += "?, ";
+        StringBuilder selectionBuilder = new StringBuilder(MediaStore.Audio.Playlists.Members._ID + " in (");
+        for (String ignored : selectionArgs) selectionBuilder.append("?, ");
+        String selection = selectionBuilder.toString();
         selection = selection.substring(0, selection.length() - 2) + ")";
 
         try {

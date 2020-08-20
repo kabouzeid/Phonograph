@@ -2,9 +2,9 @@ package com.kabouzeid.gramophone.model;
 
 import android.content.Context;
 import android.os.Parcel;
+
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

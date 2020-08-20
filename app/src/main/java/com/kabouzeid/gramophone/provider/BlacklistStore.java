@@ -31,7 +31,7 @@ public class BlacklistStore extends SQLiteOpenHelper {
     @Override
     public void onCreate(@NonNull final SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + BlacklistStoreColumns.NAME + " ("
-                + BlacklistStoreColumns.PATH + " STRING NOT NULL);");
+                + BlacklistStoreColumns.PATH + " TEXT NOT NULL);");
     }
 
     @Override

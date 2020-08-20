@@ -118,7 +118,7 @@ public class AppWidgetClassic extends BaseAppWidget {
                                 appWidgetView.setImageViewBitmap(R.id.button_next, ImageUtil.createBitmap(ImageUtil.getTintedVectorDrawable(service, R.drawable.ic_skip_next_white_24dp, color)));
                                 appWidgetView.setImageViewBitmap(R.id.button_prev, ImageUtil.createBitmap(ImageUtil.getTintedVectorDrawable(service, R.drawable.ic_skip_previous_white_24dp, color)));
 
-                                final Drawable image = getAlbumArtDrawable(service.getResources(), bitmap);
+                                final Drawable image = getAlbumArtDrawable(service.getResources(), bitmap, service.getTheme());
                                 final Bitmap roundedBitmap = createRoundedBitmap(image, imageSize, imageSize, cardRadius, 0, cardRadius, 0);
                                 appWidgetView.setImageViewBitmap(R.id.image, roundedBitmap);
 
