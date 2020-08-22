@@ -452,6 +452,9 @@ public class PlaylistsUtil {
                     }
                     playlistSongs.close();
                 }
+                else {
+                    result = false;
+                }
             } catch (SecurityException ignored) {
             }
 
