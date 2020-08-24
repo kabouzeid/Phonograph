@@ -12,6 +12,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.BlacklistStore;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +58,10 @@ public class SongLoader {
         List<Song> songs = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                songs.add(getSongFromCursorImpl(cursor));
+                Song song = getSongFromCursorImpl(cursor);
+                if (song != Song.EMPTY_SONG) {
+                    songs.add(song);
+                }
             } while (cursor.moveToNext());
         }
 
@@ -82,12 +86,17 @@ public class SongLoader {
 
     @NonNull
     private static Song getSongFromCursorImpl(@NonNull Cursor cursor) {
+        final String data = cursor.getString(5);
+
+        if (!new File(data).exists()) {
+            return Song.EMPTY_SONG;
+        }
+
         final int id = cursor.getInt(0);
         final String title = cursor.getString(1);
         final int trackNumber = cursor.getInt(2);
         final int year = cursor.getInt(3);
         final long duration = cursor.getLong(4);
-        final String data = cursor.getString(5);
         final long dateModified = cursor.getLong(6);
         final int albumId = cursor.getInt(7);
         final String albumName = cursor.getString(8);
