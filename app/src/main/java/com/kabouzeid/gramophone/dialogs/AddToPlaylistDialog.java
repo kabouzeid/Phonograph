@@ -112,7 +112,7 @@ public class AddToPlaylistDialog extends DialogFragment {
                         return true;
                     }
                 })
-                .positiveText(R.string.action_apply)
+                .positiveText(R.string.action_ok)
                 .neutralText(R.string.action_new_playlist)
                 .onNeutral( new MaterialDialog.SingleButtonCallback(){
                     @Override
