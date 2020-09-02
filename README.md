@@ -9,8 +9,8 @@ The purpose of this fork is to implement an easy to use and powerful way to mana
 - [x] See whether the selected song is already in a playlist
 - [x] See whether multiple songs are already in a playlist
 - [x] Do not add songs to playlist which would become duplicates
-- [ ] Material Design for the checkmark
-- [ ] Remove a song from a playlist without having to manually search in the playlist
+- [x] Material Design for the checkmark
+- [x] Remove a song from a playlist without having to manually search in the playlist
 - [ ] Option to remove duplicate songs from existing playlists
 - [ ] Sync playlists (with other devices, using textfiles export and imports)
 
