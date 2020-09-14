@@ -20,7 +20,7 @@ The purpose of this fork is to implement an easy to use and powerful way to mana
 In the playlist-menu checkmarks indicate whether a song / a number of songs are already in a list.
 The brackets around the checkmark show that only some of the songs are part of the playlist.
 
-This fork is only different from kabouzeid/master in these commits: 
+This fork is different from kabouzeid/master in these and more commits: 
 
 [6bac337](https://github.com/Sogolumbo/Phonograph/commit/6bac3379636d97a68f50ebb1672654ef1aa310fb),
 [d91f11a](https://github.com/Sogolumbo/Phonograph/commit/d91f11ad068192806979da79a0d089835d574524),
