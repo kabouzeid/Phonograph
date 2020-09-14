@@ -28,6 +28,7 @@
     <string name="action_delete">Löschen</string>
     <string name="action_scan">Scannen</string>
     <string name="action_set_as_start_directory">Als Start-Verzeichnis festlegen</string>
+    <string name="action_ok">Ok</string>
     <string name="albums">Alben</string>
     <string name="artists">Interpreten</string>
     <string name="genres">Genres</string>

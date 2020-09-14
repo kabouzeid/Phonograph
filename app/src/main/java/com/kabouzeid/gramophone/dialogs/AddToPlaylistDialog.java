@@ -1,10 +1,12 @@
 package com.kabouzeid.gramophone.dialogs;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
@@ -41,14 +43,18 @@ public class AddToPlaylistDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final List<Playlist> playlists = PlaylistLoader.getAllPlaylists(getActivity());
-        CharSequence[] playlistNames = new CharSequence[playlists.size() + 1];
-        playlistNames[0] = getActivity().getResources().getString(R.string.action_new_playlist);
-        for (int i = 1; i < playlistNames.length; i++) {
-            playlistNames[i] = playlists.get(i - 1).name;
+        CharSequence[] playlistNames = new CharSequence[playlists.size()];
+        for (int i = 0; i < playlistNames.length; i++) {
+            playlistNames[i] = playlists.get(i).name;
         }
         final ArrayList<Song> songs = getArguments().getParcelableArrayList("songs");
 
         int[] songIds = new int[songs.size()];
+
+        boolean isAnySongInPlaylist[] = new boolean[playlists.size()];
+        boolean areAllSongsInPlaylist[] = new boolean[playlists.size()];
+        List<Integer> checkedPlaylists = new ArrayList<Integer>();
+
         if(songs != null)
         {
             for(int i = 0; i < songs.size(); i++){
@@ -58,35 +64,63 @@ public class AddToPlaylistDialog extends DialogFragment {
             for (int i = 0; i < playlists.size(); i++) {
                 int playlistId = playlists.get(i).id;
 
-                boolean isAnySongInPlaylist = PlaylistsUtil.doPlaylistContainsAnySong(getActivity(), playlistId, songIds);
-                boolean areAllSongsInPlaylist = PlaylistsUtil.doPlaylistContainsAllSongs(getActivity(), playlistId, songIds);
+                isAnySongInPlaylist[i] = PlaylistsUtil.doPlaylistContainsAnySong(getActivity(), playlistId, songIds);
+                areAllSongsInPlaylist[i] = PlaylistsUtil.doPlaylistContainsAllSongs(getActivity(), playlistId, songIds);
 
                 //TODO: display checkboxes instead of checkmark
-                if (isAnySongInPlaylist) {
-                    if(areAllSongsInPlaylist){
-                        playlistNames[i + 1] = playlists.get(i).name + " \u2713"; //Add checkmark
+                if (isAnySongInPlaylist[i]) {
+                    if(areAllSongsInPlaylist[i]){
+                        playlistNames[i] = playlists.get(i).name + " \u2713"; //Add checkmark
                     }
                     else{
-                        playlistNames[i + 1] = playlists.get(i).name + " (\u2713)"; //Add checkmark in brackets
+                        playlistNames[i] = playlists.get(i).name + " (\u2713)"; //Add checkmark in brackets
                     }
+                }
+
+                if (areAllSongsInPlaylist[i]){
+                    checkedPlaylists.add(i);
                 }
             }
         }
 
+        Integer[] temp = checkedPlaylists.toArray(new Integer[0]); //TODO
+
+
+
         return new MaterialDialog.Builder(getActivity())
                 .title(R.string.add_playlist_title)
                 .items(playlistNames)
-                .itemsCallback((materialDialog, view, i, charSequence) -> {
-                    //noinspection unchecked
-                    if (songs == null) return;
-                    if (i == 0) {
-                        materialDialog.dismiss();
+                .itemsCallbackMultiChoice(temp, new MaterialDialog.ListCallbackMultiChoice() { //TODO
+                    @Override
+                    public boolean onSelection(MaterialDialog materialDialog, Integer[] which, CharSequence[] charSequence) {
+                        boolean[] checked = new boolean[playlistNames.length];
+                        for (int i: which){
+                            checked[i] = true;
+                        }
+                        for (int i = 0; i < playlists.size(); i++){
+                            if (checked[i] ^ areAllSongsInPlaylist[i]){
+                                if(checked[i]){
+                                    PlaylistsUtil.addToPlaylistWithoutDuplicates(getActivity(), songs, songIds, playlists.get(i).id, true);
+                                }
+                                else{
+                                    for(Song song : songs){
+                                        PlaylistsUtil.removeFromPlaylist(getActivity(), song, playlists.get(i).id);
+                                    }
+                                }
+                            }
+                        }
+                        return true;
+                    }
+                })
+                .positiveText(R.string.action_ok)
+                .neutralText(R.string.action_new_playlist)
+                .onNeutral( new MaterialDialog.SingleButtonCallback(){
+                    @Override
+                    public void onClick(MaterialDialog dialog, DialogAction action){
                         CreatePlaylistDialog.create(songs).show(getActivity().getSupportFragmentManager(), "ADD_TO_PLAYLIST");
-                    } else {
-                        materialDialog.dismiss();
-                        PlaylistsUtil.addToPlaylistWithoutDuplicates(getActivity(), songs, songIds, playlists.get(i - 1).id, true);
                     }
                 })
                 .build();
+
     }
 }

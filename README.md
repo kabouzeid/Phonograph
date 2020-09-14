@@ -9,18 +9,16 @@ The purpose of this fork is to implement an easy to use and powerful way to mana
 - [x] See whether the selected song is already in a playlist
 - [x] See whether multiple songs are already in a playlist
 - [x] Do not add songs to playlist which would become duplicates
-- [ ] Material Design for the checkmark
-- [ ] Remove a song from a playlist without having to manually search in the playlist
+- [x] Material Design for the checkmark
+- [x] Remove a song from a playlist without having to manually search in the playlist
 - [ ] Option to remove duplicate songs from existing playlists
 - [ ] Sync playlists (with other devices, using textfiles export and imports)
 
+In the playlist-menu checkboxes indicate whether a song / a number of songs are already in a list.
+If multiple songs were selected and only some of them are in the playlist the checkbox will not be checked. Instead a checkmark in brackets will be shown at the end of the playlist name.
+This is not a good design but very functional. The plan is to implement a third state of the checkbox which will replace this behaviour.
 
-![image](https://user-images.githubusercontent.com/33571916/52509049-01e1c300-2bf7-11e9-979a-8cf872436ec2.png)
-
-In the playlist-menu checkmarks indicate whether a song / a number of songs are already in a list.
-The brackets around the checkmark show that only some of the songs are part of the playlist.
-
-This fork is only different from kabouzeid/master in these commits: 
+This fork is different from kabouzeid/master in these and more commits: 
 
 [6bac337](https://github.com/Sogolumbo/Phonograph/commit/6bac3379636d97a68f50ebb1672654ef1aa310fb),
 [d91f11a](https://github.com/Sogolumbo/Phonograph/commit/d91f11ad068192806979da79a0d089835d574524),
