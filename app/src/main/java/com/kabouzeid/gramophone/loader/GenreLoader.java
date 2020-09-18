@@ -21,7 +21,7 @@ public class GenreLoader {
     }
 
     @NonNull
-    public static List<Song> getSongs(@NonNull final Context context, final int genreId) {
+    public static List<Song> getSongs(@NonNull final Context context, final long genreId) {
         return SongLoader.getSongs(makeGenreSongCursor(context, genreId));
     }
 
@@ -52,14 +52,14 @@ public class GenreLoader {
 
     @NonNull
     private static Genre getGenreFromCursor(@NonNull final Context context, @NonNull final Cursor cursor) {
-        final int id = cursor.getInt(0);
+        final long id = cursor.getLong(0);
         final String name = cursor.getString(1);
         final int songs = getSongs(context, id).size();
         return new Genre(id, name, songs);
     }
 
     @Nullable
-    private static Cursor makeGenreSongCursor(@NonNull final Context context, int genreId) {
+    private static Cursor makeGenreSongCursor(@NonNull final Context context, long genreId) {
         try {
             return context.getContentResolver().query(
                     Genres.Members.getContentUri("external", genreId),
