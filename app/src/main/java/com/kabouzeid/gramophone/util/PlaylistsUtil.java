@@ -42,8 +42,8 @@ public class PlaylistsUtil {
                 new String[]{name});
     }
 
-    public static int createPlaylist(@NonNull final Context context, @Nullable final String name) {
-        int id = -1;
+    public static long createPlaylist(@NonNull final Context context, @Nullable final String name) {
+        long id = -1;
         if (name != null && name.length() > 0) {
             try {
                 Cursor cursor = context.getContentResolver().query(EXTERNAL_CONTENT_URI,
@@ -59,12 +59,12 @@ public class PlaylistsUtil {
                     if (uri != null) {
                         Toast.makeText(context, context.getResources().getString(
                                 R.string.created_playlist_x, name), Toast.LENGTH_SHORT).show();
-                        id = Integer.parseInt(uri.getLastPathSegment());
+                        id = Long.parseLong(uri.getLastPathSegment());
                     }
                 } else {
                     // Playlist exists
                     if (cursor.moveToFirst()) {
-                        id = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Playlists._ID));
+                        id = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Playlists._ID));
                     }
                 }
                 if (cursor != null) {
@@ -96,13 +96,13 @@ public class PlaylistsUtil {
         }
     }
 
-    public static void addToPlaylist(@NonNull final Context context, final Song song, final int playlistId, final boolean showToastOnFinish) {
+    public static void addToPlaylist(@NonNull final Context context, final Song song, final long playlistId, final boolean showToastOnFinish) {
         List<Song> helperList = new ArrayList<>();
         helperList.add(song);
         addToPlaylist(context, helperList, playlistId, showToastOnFinish);
     }
 
-    public static void addToPlaylist(@NonNull final Context context, @NonNull final List<Song> songs, final int playlistId, final boolean showToastOnFinish) {
+    public static void addToPlaylist(@NonNull final Context context, @NonNull final List<Song> songs, final long playlistId, final boolean showToastOnFinish) {
         final int size = songs.size();
         final ContentResolver resolver = context.getContentResolver();
         final String[] projection = new String[]{
@@ -153,7 +153,7 @@ public class PlaylistsUtil {
         return contentValues;
     }
 
-    public static void removeFromPlaylist(@NonNull final Context context, @NonNull final Song song, int playlistId) {
+    public static void removeFromPlaylist(@NonNull final Context context, @NonNull final Song song, long playlistId) {
         Uri uri = MediaStore.Audio.Playlists.Members.getContentUri(
                 "external", playlistId);
         String selection = MediaStore.Audio.Playlists.Members.AUDIO_ID + " =?";
@@ -166,7 +166,7 @@ public class PlaylistsUtil {
     }
 
     public static void removeFromPlaylist(@NonNull final Context context, @NonNull final List<PlaylistSong> songs) {
-        final int playlistId = songs.get(0).playlistId;
+        final long playlistId = songs.get(0).playlistId;
         Uri uri = MediaStore.Audio.Playlists.Members.getContentUri(
                 "external", playlistId);
         String selectionArgs[] = new String[songs.size()];
@@ -202,7 +202,7 @@ public class PlaylistsUtil {
         return false;
     }
 
-    public static boolean moveItem(@NonNull final Context context, int playlistId, int from, int to) {
+    public static boolean moveItem(@NonNull final Context context, long playlistId, int from, int to) {
         return MediaStore.Audio.Playlists.Members.moveItem(context.getContentResolver(),
                 playlistId, from, to);
     }

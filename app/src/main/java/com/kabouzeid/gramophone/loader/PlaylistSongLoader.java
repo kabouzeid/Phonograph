@@ -31,18 +31,18 @@ public class PlaylistSongLoader {
 
     @NonNull
     private static PlaylistSong getPlaylistSongFromCursorImpl(@NonNull Cursor cursor, int playlistId) {
-        final int id = cursor.getInt(0);
+        final long id = cursor.getLong(0);
         final String title = cursor.getString(1);
         final int trackNumber = cursor.getInt(2);
         final int year = cursor.getInt(3);
         final long duration = cursor.getLong(4);
         final String data = cursor.getString(5);
         final int dateModified = cursor.getInt(6);
-        final int albumId = cursor.getInt(7);
+        final long albumId = cursor.getLong(7);
         final String albumName = cursor.getString(8);
-        final int artistId = cursor.getInt(9);
+        final long artistId = cursor.getLong(9);
         final String artistName = cursor.getString(10);
-        final int idInPlaylist = cursor.getInt(11);
+        final long idInPlaylist = cursor.getLong(11);
 
         return new PlaylistSong(id, title, trackNumber, year, duration, data, dateModified, albumId, albumName, artistId, artistName, playlistId, idInPlaylist);
     }

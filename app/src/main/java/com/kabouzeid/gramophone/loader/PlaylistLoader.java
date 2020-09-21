@@ -21,7 +21,7 @@ public class PlaylistLoader {
     }
 
     @NonNull
-    public static Playlist getPlaylist(@NonNull final Context context, final int playlistId) {
+    public static Playlist getPlaylist(@NonNull final Context context, final long playlistId) {
         return getPlaylist(makePlaylistCursor(
                 context,
                 BaseColumns._ID + "=?",
