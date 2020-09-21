@@ -14,7 +14,7 @@ import java.util.List;
 public class PlaylistSongLoader {
 
     @NonNull
-    public static List<PlaylistSong> getPlaylistSongList(@NonNull final Context context, final int playlistId) {
+    public static List<PlaylistSong> getPlaylistSongList(@NonNull final Context context, final long playlistId) {
         List<PlaylistSong> songs = new ArrayList<>();
         Cursor cursor = makePlaylistSongCursor(context, playlistId);
 
@@ -30,7 +30,7 @@ public class PlaylistSongLoader {
     }
 
     @NonNull
-    private static PlaylistSong getPlaylistSongFromCursorImpl(@NonNull Cursor cursor, int playlistId) {
+    private static PlaylistSong getPlaylistSongFromCursorImpl(@NonNull Cursor cursor, long playlistId) {
         final long id = cursor.getLong(0);
         final String title = cursor.getString(1);
         final int trackNumber = cursor.getInt(2);
@@ -47,7 +47,7 @@ public class PlaylistSongLoader {
         return new PlaylistSong(id, title, trackNumber, year, duration, data, dateModified, albumId, albumName, artistId, artistName, playlistId, idInPlaylist);
     }
 
-    public static Cursor makePlaylistSongCursor(@NonNull final Context context, final int playlistId) {
+    public static Cursor makePlaylistSongCursor(@NonNull final Context context, final long playlistId) {
         try {
             return context.getContentResolver().query(
                     MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),

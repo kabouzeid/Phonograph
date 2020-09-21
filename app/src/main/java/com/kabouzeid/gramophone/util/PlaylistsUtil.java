@@ -30,7 +30,7 @@ import static android.provider.MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
  */
 public class PlaylistsUtil {
 
-    public static boolean doesPlaylistExist(@NonNull final Context context, final int playlistId) {
+    public static boolean doesPlaylistExist(@NonNull final Context context, final long playlistId) {
         return playlistId != -1 && doesPlaylistExist(context,
                 MediaStore.Audio.Playlists._ID + "=?",
                 new String[]{String.valueOf(playlistId)});
