@@ -42,7 +42,7 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "music_playback_state.db";
     public static final String PLAYING_QUEUE_TABLE_NAME = "playing_queue";
     public static final String ORIGINAL_PLAYING_QUEUE_TABLE_NAME = "original_playing_queue";
-    private static final int VERSION = 3;
+    private static final int VERSION = 4;
 
     /**
      * Constructor of <code>MusicPlaybackState</code>
