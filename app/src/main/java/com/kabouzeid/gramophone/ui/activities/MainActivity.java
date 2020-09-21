@@ -293,7 +293,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             MusicPlayerRemote.playFromUri(uri);
             handled = true;
         } else if (MediaStore.Audio.Playlists.CONTENT_TYPE.equals(mimeType)) {
-            final int id = (int) parseIdFromIntent(intent, "playlistId", "playlist");
+            final long id = parseIdFromIntent(intent, "playlistId", "playlist");
             if (id >= 0) {
                 int position = intent.getIntExtra("position", 0);
                 List<Song> songs = new ArrayList<>(PlaylistSongLoader.getPlaylistSongList(this, id));
@@ -301,14 +301,14 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
                 handled = true;
             }
         } else if (MediaStore.Audio.Albums.CONTENT_TYPE.equals(mimeType)) {
-            final int id = (int) parseIdFromIntent(intent, "albumId", "album");
+            final long id = parseIdFromIntent(intent, "albumId", "album");
             if (id >= 0) {
                 int position = intent.getIntExtra("position", 0);
                 MusicPlayerRemote.openQueue(AlbumLoader.getAlbum(this, id).songs, position, true);
                 handled = true;
             }
         } else if (MediaStore.Audio.Artists.CONTENT_TYPE.equals(mimeType)) {
-            final int id = (int) parseIdFromIntent(intent, "artistId", "artist");
+            final long id = parseIdFromIntent(intent, "artistId", "artist");
             if (id >= 0) {
                 int position = intent.getIntExtra("position", 0);
                 MusicPlayerRemote.openQueue(ArtistLoader.getArtist(this, id).getSongs(), position, true);
