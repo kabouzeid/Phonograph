@@ -44,7 +44,7 @@ public class ArtistLoader {
     }
 
     @NonNull
-    public static Artist getArtist(@NonNull final Context context, int artistId) {
+    public static Artist getArtist(@NonNull final Context context, long artistId) {
         List<Song> songs = SongLoader.getSongs(SongLoader.makeSongCursor(
                 context,
                 AudioColumns.ARTIST_ID + "=?",
@@ -65,7 +65,7 @@ public class ArtistLoader {
         return artists;
     }
 
-    private static Artist getOrCreateArtist(List<Artist> artists, int artistId) {
+    private static Artist getOrCreateArtist(List<Artist> artists, long artistId) {
         for (Artist artist : artists) {
             if (!artist.albums.isEmpty() && !artist.albums.get(0).songs.isEmpty() && artist.albums.get(0).songs.get(0).artistId == artistId) {
                 return artist;

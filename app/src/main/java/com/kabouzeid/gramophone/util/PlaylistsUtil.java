@@ -184,7 +184,7 @@ public class PlaylistsUtil {
         }
     }
 
-    public static boolean doPlaylistContains(@NonNull final Context context, final long playlistId, final int songId) {
+    public static boolean doPlaylistContains(@NonNull final Context context, final long playlistId, final long songId) {
         if (playlistId != -1) {
             try {
                 Cursor c = context.getContentResolver().query(

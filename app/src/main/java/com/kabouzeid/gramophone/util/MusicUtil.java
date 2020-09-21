@@ -44,13 +44,13 @@ import java.util.regex.Pattern;
  */
 public class MusicUtil {
 
-    public static Uri getMediaStoreAlbumCoverUri(int albumId) {
+    public static Uri getMediaStoreAlbumCoverUri(long albumId) {
         final Uri sArtworkUri = Uri.parse("content://media/external/audio/albumart");
 
         return ContentUris.withAppendedId(sArtworkUri, albumId);
     }
 
-    public static Uri getSongFileUri(int songId) {
+    public static Uri getSongFileUri(long songId) {
         return ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, songId);
     }
 

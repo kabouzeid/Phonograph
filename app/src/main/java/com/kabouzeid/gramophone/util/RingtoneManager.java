@@ -41,7 +41,7 @@ public class RingtoneManager {
                 .show();
     }
 
-    public   void setRingtone(@NonNull final Context context, final int id) {
+    public   void setRingtone(@NonNull final Context context, final long id) {
         final ContentResolver resolver = context.getContentResolver();
         final Uri uri = MusicUtil.getSongFileUri(id);
         try {

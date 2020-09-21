@@ -4,11 +4,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Genre implements Parcelable {
-    public final int id;
+    public final long id;
     public final String name;
     public final int songCount;
 
-    public Genre(final int id, final String name, final int songCount) {
+    public Genre(final long id, final String name, final int songCount) {
         this.id = id;
         this.name = name;
         this.songCount = songCount;
@@ -28,10 +28,10 @@ public class Genre implements Parcelable {
 
     @Override
     public int hashCode() {
-        int result = id;
+        long result = id;
         result = 31 * result + name.hashCode();
         result = 31 * result + songCount;
-        return result;
+        return (int)result;
     }
 
     @Override
@@ -50,13 +50,13 @@ public class Genre implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
+        dest.writeLong(this.id);
         dest.writeString(this.name);
         dest.writeInt(this.songCount);
     }
 
     protected Genre(Parcel in) {
-        this.id = in.readInt();
+        this.id = in.readLong();
         this.name = in.readString();
         this.songCount = in.readInt();
     }

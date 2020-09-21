@@ -430,7 +430,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
     @Override
     public Loader<Album> onCreateLoader(int id, Bundle args) {
-        return new AsyncAlbumLoader(this, args.getInt(EXTRA_ALBUM_ID));
+        return new AsyncAlbumLoader(this, args.getLong(EXTRA_ALBUM_ID));
     }
 
     @Override
@@ -445,9 +445,9 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     private static class AsyncAlbumLoader extends WrappedAsyncTaskLoader<Album> {
-        private final int albumId;
+        private final long albumId;
 
-        public AsyncAlbumLoader(Context context, int albumId) {
+        public AsyncAlbumLoader(Context context, long albumId) {
             super(context);
             this.albumId = albumId;
         }
