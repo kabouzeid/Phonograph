@@ -35,7 +35,7 @@ public class SongPlayCountStore extends SQLiteOpenHelper {
     private static SongPlayCountStore sInstance = null;
 
     public static final String DATABASE_NAME = "song_play_count.db";
-    private static final int VERSION = 2;
+    private static final int VERSION = 3;
 
     // interpolator curve applied for measuring the curve
     @NonNull
@@ -83,7 +83,7 @@ public class SongPlayCountStore extends SQLiteOpenHelper {
         builder.append(SongPlayCountColumns.NAME);
         builder.append("(");
         builder.append(SongPlayCountColumns.ID);
-        builder.append(" INT UNIQUE,");
+        builder.append(" LONG UNIQUE,");
 
         for (int i = 0; i < NUM_WEEKS; i++) {
             builder.append(getColumnNameForWeek(i));
