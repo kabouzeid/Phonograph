@@ -230,6 +230,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         mediaSession.setActive(true);
 
         sendBroadcast(new Intent("com.kabouzeid.gramophone.PHONOGRAPH_MUSIC_SERVICE_CREATED"));
+
+        mediaStoreObserver.onChange(true);
     }
 
     private AudioManager getAudioManager() {
@@ -1347,6 +1349,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             // actually call refresh when the delayed callback fires
             // do not send a sticky broadcast here
             handleAndSendChangeInternal(MEDIA_STORE_CHANGED);
+            onChange(true);
         }
     }
 

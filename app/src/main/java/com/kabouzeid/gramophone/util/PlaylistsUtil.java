@@ -17,7 +17,6 @@ import com.kabouzeid.gramophone.helper.M3UWriter;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.service.MusicService;
 
 import java.io.File;
 import java.io.IOException;
@@ -71,7 +70,6 @@ public class PlaylistsUtil {
                 if (cursor != null) {
                     cursor.close();
                 }
-                context.getContentResolver().notifyChange(EXTERNAL_CONTENT_URI, null);
             } catch (SecurityException ignored) {
             }
         }
@@ -94,7 +92,6 @@ public class PlaylistsUtil {
         selection.append(")");
         try {
             context.getContentResolver().delete(EXTERNAL_CONTENT_URI, selection.toString(), null);
-            context.getContentResolver().notifyChange(EXTERNAL_CONTENT_URI, null);
         } catch (SecurityException ignored) {
         }
     }
@@ -136,7 +133,6 @@ public class PlaylistsUtil {
                 Toast.makeText(context, context.getResources().getString(
                         R.string.inserted_x_songs_into_playlist_x, numInserted, getNameForPlaylist(context, playlistId)), Toast.LENGTH_SHORT).show();
             }
-            context.getContentResolver().notifyChange(uri, null);
         } catch (SecurityException ignored) {
         }
     }
@@ -165,7 +161,6 @@ public class PlaylistsUtil {
 
         try {
             context.getContentResolver().delete(uri, selection, selectionArgs);
-            context.getContentResolver().notifyChange(uri, null);
         } catch (SecurityException ignored) {
         }
     }
@@ -185,7 +180,6 @@ public class PlaylistsUtil {
 
         try {
             context.getContentResolver().delete(uri, selection, selectionArgs);
-            context.getContentResolver().notifyChange(uri, null);
         } catch (SecurityException ignored) {
         }
     }
@@ -209,10 +203,8 @@ public class PlaylistsUtil {
     }
 
     public static boolean moveItem(@NonNull final Context context, long playlistId, int from, int to) {
-        boolean ret = MediaStore.Audio.Playlists.Members.moveItem(context.getContentResolver(),
+        return MediaStore.Audio.Playlists.Members.moveItem(context.getContentResolver(),
                 playlistId, from, to);
-        context.getContentResolver().notifyChange(EXTERNAL_CONTENT_URI, null);
-        return ret;
     }
 
     public static void renamePlaylist(@NonNull final Context context, final long id, final String newName) {
@@ -223,7 +215,6 @@ public class PlaylistsUtil {
                     contentValues,
                     MediaStore.Audio.Playlists._ID + "=?",
                     new String[]{String.valueOf(id)});
-            context.getContentResolver().notifyChange(EXTERNAL_CONTENT_URI, null);
         } catch (SecurityException ignored) {
         }
     }
