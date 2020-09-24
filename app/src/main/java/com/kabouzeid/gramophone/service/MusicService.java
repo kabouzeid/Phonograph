@@ -16,7 +16,6 @@ import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.audiofx.AudioEffect;
 import android.media.session.MediaSession;
-import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
@@ -223,6 +222,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         getContentResolver().registerContentObserver(MediaStore.Audio.Genres.INTERNAL_CONTENT_URI, true, mediaStoreObserver);
         getContentResolver().registerContentObserver(MediaStore.Audio.Playlists.INTERNAL_CONTENT_URI, true, mediaStoreObserver);
 
+
         PreferenceUtil.getInstance(this).registerOnSharedPreferenceChangedListener(this);
 
         restoreState();
@@ -230,8 +230,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         mediaSession.setActive(true);
 
         sendBroadcast(new Intent("com.kabouzeid.gramophone.PHONOGRAPH_MUSIC_SERVICE_CREATED"));
-
-        mediaStoreObserver.onChange(true);
     }
 
     private AudioManager getAudioManager() {
@@ -1349,7 +1347,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             // actually call refresh when the delayed callback fires
             // do not send a sticky broadcast here
             handleAndSendChangeInternal(MEDIA_STORE_CHANGED);
-            onChange(true);
         }
     }
 
