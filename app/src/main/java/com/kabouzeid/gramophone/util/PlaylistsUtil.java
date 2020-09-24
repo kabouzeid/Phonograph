@@ -1,15 +1,16 @@
 package com.kabouzeid.gramophone.util;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
-import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
@@ -57,6 +58,8 @@ public class PlaylistsUtil {
                             EXTERNAL_CONTENT_URI,
                             values);
                     if (uri != null) {
+                        // Necessary because somehow the MediaStoreObserver doesn't work for playlists
+                        context.getContentResolver().notifyChange(uri, null);
                         Toast.makeText(context, context.getResources().getString(
                                 R.string.created_playlist_x, name), Toast.LENGTH_SHORT).show();
                         id = Long.parseLong(uri.getLastPathSegment());
@@ -92,6 +95,8 @@ public class PlaylistsUtil {
         selection.append(")");
         try {
             context.getContentResolver().delete(EXTERNAL_CONTENT_URI, selection.toString(), null);
+            // Necessary because somehow the MediaStoreObserver doesn't work for playlists
+            context.getContentResolver().notifyChange(EXTERNAL_CONTENT_URI, null);
         } catch (SecurityException ignored) {
         }
     }
@@ -129,6 +134,9 @@ public class PlaylistsUtil {
             for (int offSet = 0; offSet < size; offSet += 1000)
                 numInserted += resolver.bulkInsert(uri, makeInsertItems(songs, offSet, 1000, base));
 
+            // Necessary because somehow the MediaStoreObserver doesn't work for playlists
+            context.getContentResolver().notifyChange(uri, null);
+
             if (showToastOnFinish) {
                 Toast.makeText(context, context.getResources().getString(
                         R.string.inserted_x_songs_into_playlist_x, numInserted, getNameForPlaylist(context, playlistId)), Toast.LENGTH_SHORT).show();
@@ -161,14 +169,15 @@ public class PlaylistsUtil {
 
         try {
             context.getContentResolver().delete(uri, selection, selectionArgs);
+            // Necessary because somehow the MediaStoreObserver doesn't work for playlists
+            context.getContentResolver().notifyChange(uri, null);
         } catch (SecurityException ignored) {
         }
     }
 
     public static void removeFromPlaylist(@NonNull final Context context, @NonNull final List<PlaylistSong> songs) {
         final long playlistId = songs.get(0).playlistId;
-        Uri uri = MediaStore.Audio.Playlists.Members.getContentUri(
-                "external", playlistId);
+        Uri uri = MediaStore.Audio.Playlists.Members.getContentUri(MediaStore.VOLUME_EXTERNAL, playlistId);
         String selectionArgs[] = new String[songs.size()];
         for (int i = 0; i < selectionArgs.length; i++) {
             selectionArgs[i] = String.valueOf(songs.get(i).idInPlayList);
@@ -180,16 +189,21 @@ public class PlaylistsUtil {
 
         try {
             context.getContentResolver().delete(uri, selection, selectionArgs);
+            // Necessary because somehow the MediaStoreObserver is not notified when adding a playlist
+            context.getContentResolver().notifyChange(uri, null);
         } catch (SecurityException ignored) {
         }
     }
 
-    public static boolean doPlaylistContains(@NonNull final Context context, final long playlistId, final long songId) {
+    public static boolean doesPlaylistContain(@NonNull final Context context, final long playlistId, final long songId) {
         if (playlistId != -1) {
             try {
                 Cursor c = context.getContentResolver().query(
-                        MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
-                        new String[]{MediaStore.Audio.Playlists.Members.AUDIO_ID}, MediaStore.Audio.Playlists.Members.AUDIO_ID + "=?", new String[]{String.valueOf(songId)}, null);
+                        MediaStore.Audio.Playlists.Members.getContentUri(MediaStore.VOLUME_EXTERNAL, playlistId),
+                        new String[]{MediaStore.Audio.Playlists.Members.AUDIO_ID},
+                        MediaStore.Audio.Playlists.Members.AUDIO_ID + "=?",
+                        new String[]{String.valueOf(songId)}, null
+                );
                 int count = 0;
                 if (c != null) {
                     count = c.getCount();
@@ -203,28 +217,39 @@ public class PlaylistsUtil {
     }
 
     public static boolean moveItem(@NonNull final Context context, long playlistId, int from, int to) {
-        return MediaStore.Audio.Playlists.Members.moveItem(context.getContentResolver(),
+        boolean res = MediaStore.Audio.Playlists.Members.moveItem(context.getContentResolver(),
                 playlistId, from, to);
+        // Necessary because somehow the MediaStoreObserver doesn't work for playlists
+        // NOTE: actually for now lets disable this because it messes with the animation (tested on Android 11)
+//        context.getContentResolver().notifyChange(ContentUris.withAppendedId(EXTERNAL_CONTENT_URI, playlistId), null);
+        return res;
     }
 
     public static void renamePlaylist(@NonNull final Context context, final long id, final String newName) {
+        Uri playlistUri = ContentUris.withAppendedId(EXTERNAL_CONTENT_URI, id);
         ContentValues contentValues = new ContentValues();
         contentValues.put(MediaStore.Audio.PlaylistsColumns.NAME, newName);
         try {
-            context.getContentResolver().update(EXTERNAL_CONTENT_URI,
+            context.getContentResolver().update(
+                    playlistUri,
                     contentValues,
-                    MediaStore.Audio.Playlists._ID + "=?",
-                    new String[]{String.valueOf(id)});
+                    null,
+                    null
+            );
+
+            // Necessary because somehow the MediaStoreObserver doesn't work for playlists
+            context.getContentResolver().notifyChange(playlistUri, null);
         } catch (SecurityException ignored) {
         }
     }
 
     public static String getNameForPlaylist(@NonNull final Context context, final long id) {
         try {
-            Cursor cursor = context.getContentResolver().query(EXTERNAL_CONTENT_URI,
+            Cursor cursor = context.getContentResolver().query(
+                    ContentUris.withAppendedId(EXTERNAL_CONTENT_URI, id),
                     new String[]{MediaStore.Audio.PlaylistsColumns.NAME},
-                    BaseColumns._ID + "=?",
-                    new String[]{String.valueOf(id)},
+                    null,
+                    null,
                     null);
             if (cursor != null) {
                 try {
