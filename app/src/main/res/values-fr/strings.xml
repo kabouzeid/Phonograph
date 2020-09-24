@@ -162,12 +162,12 @@
     <string name="pref_summary_classic_notification">"Utiliser le style de notification classique. "</string>
     <string name="pref_summary_colored_notification">"La notification est color\u00e9e en fonction de la pochette de l'album."</string>
     <string name="pref_summary_gapless_playback">"Peut causer des problèmes de lecture sur certains appareils."</string>
-    <string name="pref_summary_ignore_media_store_artwork">Peut améliorer la qualité des pochettes d\'albums mais aussi ralentir le de chargement des images. Activez cette option uniquement si vous avez des problèmes de basse résolution des pochettes.</string>
+    <string name="pref_summary_ignore_media_store_artwork">Peut augmenter la qualité des pochettes d\'albums mais aussi ralentir le temps de chargement des images. Activez cette option uniquement si vous avez des problèmes de basse résolution des pochettes.</string>
     <string name="pref_summary_colored_navigation_bar">Colore la barre de navigation en fonction de la couleur principale.</string>
     <string name="pref_summary_colored_app_shortcuts">"Colore les raccourcis de l'application selon la couleur principale. "</string>
     <string name="pref_summary_audio_ducking">Notifications, navigation, etc.</string>
     <string name="pref_summary_synchronized_lyrics_show">"Pour le moment, seules les paroles synchronisées en format LRC sont supportées, qu'elles soient intégrées ou dans un fichier séparé. "</string>
-    <string name="pref_summary_remember_last_tab">Au démarrage, aller au dernier onglet ouvert</string>
+    <string name="pref_summary_remember_last_tab">Au démarrage, aller au dernier onglet ouvert.</string>
     <string name="pref_summary_remember_shuffle">Le mode aléatoire restera activé lors de la sélection d\'une nouvelle liste de lecture</string>
     <string name="could_not_download_album_cover">"Impossible de t\u00e9l\u00e9charger la pochette correspondant \u00e0 l'album."</string>
     <string name="search_hint">Recherche dans votre bibliothèque...</string>
@@ -188,7 +188,7 @@
     <string name="new_playlist_title">Nouvelle playlist</string>
     <string name="colored_footers">Bas des albums colorés</string>
     <string name="special_thanks_to">Un grand merci à</string>
-    <string name="changelog">Historique des msies à jour</string>
+    <string name="changelog">Historique des mises à jour</string>
     <string name="licenses">Licences</string>
     <string name="permissions_denied">Permissions refusées.</string>
     <string name="permission_external_storage_denied">Accès au stockage externe refusé.</string>
