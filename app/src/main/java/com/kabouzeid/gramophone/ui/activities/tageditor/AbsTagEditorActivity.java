@@ -75,7 +75,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     ImageView image;
     @BindView(R.id.header)
     LinearLayout header;
-    private int id;
+    private long id;
     private int headerVariableSpace;
     private int paletteColorPrimary;
     private boolean isInNoImageMode;
@@ -186,7 +186,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     private void getIntentExtras() {
         Bundle intentExtras = getIntent().getExtras();
         if (intentExtras != null) {
-            id = intentExtras.getInt(EXTRA_ID);
+            id = intentExtras.getLong(EXTRA_ID);
         }
     }
 
@@ -394,16 +394,16 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     }
 
     public static class ArtworkInfo {
-        public final int albumId;
+        public final long albumId;
         public final Bitmap artwork;
 
-        public ArtworkInfo(int albumId, Bitmap artwork) {
+        public ArtworkInfo(long albumId, Bitmap artwork) {
             this.albumId = albumId;
             this.artwork = artwork;
         }
     }
 
-    protected int getId() {
+    protected long getId() {
         return id;
     }
 

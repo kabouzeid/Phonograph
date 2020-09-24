@@ -47,7 +47,7 @@ public class SongLoader {
     }
 
     @NonNull
-    public static Song getSong(@NonNull final Context context, final int queryId) {
+    public static Song getSong(@NonNull final Context context, final long queryId) {
         Cursor cursor = makeSongCursor(context, AudioColumns._ID + "=?", new String[]{String.valueOf(queryId)});
         return getSong(cursor);
     }

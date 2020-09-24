@@ -70,7 +70,7 @@ public class PlaylistLoader {
 
     @NonNull
     private static Playlist getPlaylistFromCursorImpl(@NonNull final Cursor cursor) {
-        final int id = cursor.getInt(0);
+        final long id = cursor.getLong(0);
         final String name = cursor.getString(1);
         return new Playlist(id, name);
     }
