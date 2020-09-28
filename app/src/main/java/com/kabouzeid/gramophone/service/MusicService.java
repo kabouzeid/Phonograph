@@ -43,6 +43,8 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetBig;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetCard;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetClassic;
+import com.kabouzeid.gramophone.appwidgets.AppWidgetClassicBlack;
+import com.kabouzeid.gramophone.appwidgets.AppWidgetBlack;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetSmall;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
@@ -131,6 +133,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     private AppWidgetBig appWidgetBig = AppWidgetBig.getInstance();
     private AppWidgetClassic appWidgetClassic = AppWidgetClassic.getInstance();
+    private AppWidgetClassicBlack appWidgetClassicBlack = AppWidgetClassicBlack.getInstance();
+    private AppWidgetBlack appWidgetBlack = AppWidgetBlack.getInstance();
     private AppWidgetSmall appWidgetSmall = AppWidgetSmall.getInstance();
     private AppWidgetCard appWidgetCard = AppWidgetCard.getInstance();
 
@@ -285,8 +289,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             }
         });
 
-        mediaSession.setFlags(MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS
-                | MediaSession.FLAG_HANDLES_MEDIA_BUTTONS);
+        mediaSession.setFlags(MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS | MediaSession.FLAG_HANDLES_MEDIA_BUTTONS);
 
         mediaSession.setMediaButtonReceiver(mediaButtonReceiverPendingIntent);
     }
@@ -1052,6 +1055,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         sendBroadcast(new Intent(what));
         appWidgetBig.notifyChange(this, what);
         appWidgetClassic.notifyChange(this, what);
+        appWidgetClassicBlack.notifyChange(this, what);
+        appWidgetBlack.notifyChange(this, what);
         appWidgetSmall.notifyChange(this, what);
         appWidgetCard.notifyChange(this, what);
     }
@@ -1305,6 +1310,14 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             switch (command) {
                 case AppWidgetClassic.NAME: {
                     appWidgetClassic.performUpdate(MusicService.this, ids);
+                    break;
+                }
+                case AppWidgetClassicBlack.NAME: {
+                    appWidgetClassicBlack.performUpdate(MusicService.this, ids);
+                    break;
+                }
+                case AppWidgetBlack.NAME: {
+                    appWidgetBlack.performUpdate(MusicService.this, ids);
                     break;
                 }
                 case AppWidgetSmall.NAME: {

@@ -245,6 +245,8 @@
     <string name="new_start_directory">%s is the new start directory.</string>
     <string name="app_widget_big_name">Phonograph - Big</string>
     <string name="app_widget_classic_name">Phonograph - Classic</string>
+    <string name="app_widget_classic_black_name">Phonograph - Classic Black</string>
+    <string name="app_widget_black_name">Phonograph - Black</string>
     <string name="app_widget_small_name">Phonograph - Small</string>
     <string name="app_widget_card_name">Phonograph - Card</string>
     <string name="report_an_issue">Report an issue</string>
