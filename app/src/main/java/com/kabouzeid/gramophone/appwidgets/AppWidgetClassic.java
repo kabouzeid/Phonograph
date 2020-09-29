@@ -25,6 +25,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.ImageUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 public class AppWidgetClassic extends BaseAppWidget {
     public static final String NAME = "app_widget_classic";
@@ -63,6 +64,13 @@ public class AppWidgetClassic extends BaseAppWidget {
      */
     public void performUpdate(final MusicService service, final int[] appWidgetIds) {
         final RemoteViews appWidgetView = new RemoteViews(service.getPackageName(), R.layout.app_widget_classic);
+
+        int currentTheme = PreferenceUtil.getInstance(service.getApplicationContext()).getGeneralTheme();
+        if(currentTheme == R.style.Theme_Phonograph || currentTheme == R.style.Theme_Phonograph_Black){
+            appWidgetView.setInt(R.id.content, "setBackgroundResource", R.drawable.card_dark);
+            appWidgetView.setTextColor(R.id.title, service.getResources().getColor(R.color.ate_primary_text_dark));
+            appWidgetView.setTextColor(R.id.text, service.getResources().getColor(R.color.ate_primary_text_dark));
+        }
 
         final boolean isPlaying = service.isPlaying();
         final Song song = service.getCurrentSong();
