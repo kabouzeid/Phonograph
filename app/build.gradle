@@ -61,7 +61,6 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
         }
         debug {
             applicationIdSuffix '.debug'
@@ -80,6 +79,21 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    flavorDimensions "version"
+    productFlavors {
+        productFlavors {
+            play {
+                dimension "version"
+                signingConfig signingConfigs.release
+            }
+            fdroid {
+                dimension "version"
+                // applicationIdSuffix ".fdroid"
+                versionNameSuffix ' (F-Droid)'
+
+            }
+        }
     }
 }
 
