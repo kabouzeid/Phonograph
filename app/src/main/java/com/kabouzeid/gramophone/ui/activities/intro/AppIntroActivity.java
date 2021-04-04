@@ -16,6 +16,7 @@ public class AppIntroActivity extends IntroActivity {
         super.onCreate(savedInstanceState);
 
         setButtonCtaVisible(true);
+        setButtonCtaLabel(R.string.get_started);
         setButtonNextVisible(false);
         setButtonBackVisible(false);
 
