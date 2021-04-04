@@ -310,4 +310,5 @@
     <string name="finish_current_music_sleep_timer">Finish last song</string>
     <string name="dialog_ringtone_title">Set ringtone</string>
     <string name="dialog_ringtone_message">Allow phonograph to modify audio settings</string>
+    <string name="get_started">GET STARTED</string>
 </resources>
