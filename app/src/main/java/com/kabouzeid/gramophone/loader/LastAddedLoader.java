@@ -12,10 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LastAddedLoader {
+    public static final int LIMIT_OF_LAST_ADDED_TRACKS = 20;
 
     @NonNull
     public static List<Song> getLastAddedSongs(@NonNull Context context) {
-        return SongLoader.getSongs(makeLastAddedCursor(context));
+        List<Song> songs = SongLoader.getSongs(makeLastAddedCursor(context));
+        return songs.subList(0, Math.min(songs.size(), LIMIT_OF_LAST_ADDED_TRACKS));
     }
 
     public static Cursor makeLastAddedCursor(@NonNull final Context context) {
