@@ -217,6 +217,6 @@
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Vai ser reencaminhado para o site do rastreador de problemas.</string>
     <string name="last_added_items_show_limit">Limite para mostrar itens de última adicionadas</string>
     <string name="enable">habilitar</string>
-    <string name="last_added_items_show_limit_summery">verão</string>
-    <string name="invalid_last_added_limit">erro</string>
+    <string name="last_added_items_show_limit_summery">Últimas Adicionadas lista irá mostrar canções limitado apenas</string>
+    <string name="invalid_last_added_limit">Por favor, coloque um numero</string>
 </resources>

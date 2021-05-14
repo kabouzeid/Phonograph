@@ -232,6 +232,6 @@
     <string name="playlist_is_empty">Плейлистът е празен</string>
     <string name="last_added_items_show_limit">Ограничение за показване на последно добавени елементи</string>
     <string name="enable">активиране</string>
-    <string name="last_added_items_show_limit_summery">летен</string>
-    <string name="invalid_last_added_limit">грешка</string>
+    <string name="last_added_items_show_limit_summery">Последно добавени плейлист ще показва само ограничени песни</string>
+    <string name="invalid_last_added_limit">Моля въведете номер</string>
 </resources>

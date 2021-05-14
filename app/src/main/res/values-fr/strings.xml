@@ -304,6 +304,6 @@
     <string name="dialog_ringtone_message">Autoriser Phonograph à modifier les paramètres audio</string>
     <string name="last_added_items_show_limit">Limite d\'affichage des derniers éléments ajoutés</string>
     <string name="enable">activer</string>
-    <string name="last_added_items_show_limit_summery">d\'été</string>
-    <string name="invalid_last_added_limit">Erreur</string>
+    <string name="last_added_items_show_limit_summery">playlist Dernières ajoutées affichera des chansons seulement limitées</string>
+    <string name="invalid_last_added_limit">S\'il vous plaît entrer un numéro</string>
 </resources>

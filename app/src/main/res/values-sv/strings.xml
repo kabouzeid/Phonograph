@@ -89,6 +89,6 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="new_playlist_title">Ny spellista</string>
     <string name="last_added_items_show_limit">Gräns för visning av senast tillagda objekt</string>
     <string name="enable">Gör det möjligt</string>
-    <string name="last_added_items_show_limit_summery">sommarlik</string>
-    <string name="invalid_last_added_limit">fel</string>
+    <string name="last_added_items_show_limit_summery">Senast inlagd spellista kommer att visa endast begränsade låtar</string>
+    <string name="invalid_last_added_limit">ange ett nummer</string>
 </resources>

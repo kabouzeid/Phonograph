@@ -304,6 +304,6 @@
     <string name="dialog_ringtone_message">Phonograph\'ın ses ayarlarını değiştirmesine izin ver</string>
     <string name="last_added_items_show_limit">Son eklenen öğeleri gösterme sınırı</string>
     <string name="enable">etkinleştirme</string>
-    <string name="last_added_items_show_limit_summery">yazlık</string>
-    <string name="invalid_last_added_limit">hata</string>
+    <string name="last_added_items_show_limit_summery">Son Eklenen çalma listesi sadece sınırlı şarkıyı gösterir</string>
+    <string name="invalid_last_added_limit">Lütfen bir numara giriniz</string>
 </resources>

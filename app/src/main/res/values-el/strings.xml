@@ -252,6 +252,6 @@
     <string name="playlist_is_empty">Η Λίστα αναπαραγωγής είναι κενή</string>
     <string name="last_added_items_show_limit">Όριο για την εμφάνιση των στοιχείων που προστέθηκαν τελευταία</string>
     <string name="enable">επιτρέπω</string>
-    <string name="last_added_items_show_limit_summery">καλοκαιρινός</string>
-    <string name="invalid_last_added_limit">λάθος</string>
+    <string name="last_added_items_show_limit_summery">Πρόσφατες playlist θα δείξει μόνο περιορισμένη τραγούδια</string>
+    <string name="invalid_last_added_limit">Παρακαλώ εισάγετε έναν αριθμό</string>
 </resources>

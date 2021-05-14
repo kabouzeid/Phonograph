@@ -304,6 +304,6 @@
     <string name="dialog_ringtone_message">Phonographによるオーディオ設定の変更を許可する</string>
     <string name="last_added_items_show_limit">最後に追加されたアイテムを表示するための制限</string>
     <string name="enable">有効にする</string>
-    <string name="last_added_items_show_limit_summery">夏らしいです</string>
-    <string name="invalid_last_added_limit">エラー</string>
+    <string name="last_added_items_show_limit_summery">最後に追加されたプレイリストは、限られた曲が表示されます</string>
+    <string name="invalid_last_added_limit">番号を入力してください。</string>
 </resources>

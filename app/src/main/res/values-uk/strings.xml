@@ -284,6 +284,6 @@
     <string name="sort_order_year">Рік</string>
     <string name="last_added_items_show_limit">Обмеження для показу останніх доданих елементів</string>
     <string name="enable">увімкнути</string>
-    <string name="last_added_items_show_limit_summery">річний</string>
-    <string name="invalid_last_added_limit">помилка</string>
+    <string name="last_added_items_show_limit_summery">плейлист Останні додані будуть показувати тільки обмежені пісні</string>
+    <string name="invalid_last_added_limit">Будь ласка, введіть номер</string>
 </resources>

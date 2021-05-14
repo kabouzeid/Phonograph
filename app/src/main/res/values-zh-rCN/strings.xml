@@ -304,6 +304,6 @@
     <string name="dialog_ringtone_message">允许 Phonograph 调整音频设定</string>
     <string name="enable">使能夠</string>
     <string name="last_added_items_show_limit">顯示最後添加的項的限制</string>
-    <string name="last_added_items_show_limit_summery">夏日</string>
-    <string name="invalid_last_added_limit">错误</string>
+    <string name="last_added_items_show_limit_summery">最后追加的播放列表会显示只有有限的歌曲</string>
+    <string name="invalid_last_added_limit">请输入号码</string>
 </resources>
