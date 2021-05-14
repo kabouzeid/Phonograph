@@ -311,4 +311,7 @@
     <string name="dialog_ringtone_title">Set ringtone</string>
     <string name="dialog_ringtone_message">Allow phonograph to modify audio settings</string>
     <string name="last_added_items_show_limit">Last added items show limit</string>
+    <string name="last_added_items_show_limit_summery">Summery</string>
+    <string name="enable">Enable</string>
+    <string name="invalid_last_added_limit">Error</string>
 </resources>
