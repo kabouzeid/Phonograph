@@ -13,6 +13,11 @@
             android:positiveButtonText="@null"
             android:title="@string/pref_title_last_added_interval" />
 
+        <com.kabouzeid.gramophone.preferences.LastAddedLimitPreference
+            app:iconSpaceReserved="false"
+            android:title="@string/last_added_items_show_limit"
+            android:summary="@string/last_added_items_show_limit_summery" />
+
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
 </androidx.preference.PreferenceScreen>
