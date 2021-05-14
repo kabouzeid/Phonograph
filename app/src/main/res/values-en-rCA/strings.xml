@@ -273,4 +273,8 @@
     <string name="pref_summary_blacklist">The content of blacklisted folders is hidden from your library</string>
     <string name="reset_artist_image">Reset artist image</string>
     <string name="set_artist_image">Set artist image</string>
+    <string name="last_added_items_show_limit">Limit for showing last added items</string>
+    <string name="enable">Enable</string>
+    <string name="last_added_items_show_limit_summery">summery</string>
+    <string name="invalid_last_added_limit">error</string>
 </resources>

@@ -302,4 +302,8 @@
     <string name="finish_current_music_sleep_timer">Son şarkıyı bitir</string>
     <string name="dialog_ringtone_title">Zil sesi olarak ayarla</string>
     <string name="dialog_ringtone_message">Phonograph\'ın ses ayarlarını değiştirmesine izin ver</string>
+    <string name="last_added_items_show_limit">Son eklenen öğeleri gösterme sınırı</string>
+    <string name="enable">etkinleştirme</string>
+    <string name="last_added_items_show_limit_summery">yazlık</string>
+    <string name="invalid_last_added_limit">hata</string>
 </resources>

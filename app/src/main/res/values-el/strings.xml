@@ -250,4 +250,8 @@
     <string name="app_shortcut_top_tracks_short">Κορυφαία Κομμάτια</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">Η Λίστα αναπαραγωγής είναι κενή</string>
+    <string name="last_added_items_show_limit">Όριο για την εμφάνιση των στοιχείων που προστέθηκαν τελευταία</string>
+    <string name="enable">επιτρέπω</string>
+    <string name="last_added_items_show_limit_summery">καλοκαιρινός</string>
+    <string name="invalid_last_added_limit">λάθος</string>
 </resources>

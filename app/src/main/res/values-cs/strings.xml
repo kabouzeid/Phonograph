@@ -302,4 +302,8 @@
     <string name="finish_current_music_sleep_timer">Dokončit poslední skladbu</string>
     <string name="dialog_ringtone_title">Nastavit vyzváněcí tón</string>
     <string name="dialog_ringtone_message">Povolit aplikaci Phonograph měnit nastavení zvuku</string>
+    <string name="last_added_items_show_limit">Limit pro zobrazení naposledy přidaných položek</string>
+    <string name="enable">umožnit</string>
+    <string name="last_added_items_show_limit_summery">letní</string>
+    <string name="invalid_last_added_limit">chyba</string>
 </resources>

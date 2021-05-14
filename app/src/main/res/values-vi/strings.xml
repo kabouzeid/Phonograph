@@ -302,4 +302,8 @@
     <string name="finish_current_music_sleep_timer">Phát hết bài cuối</string>
     <string name="dialog_ringtone_title">Cài nhạc chuông</string>
     <string name="dialog_ringtone_message">Cho phép Phonograph thay đổi cài đặt âm thanh</string>
+    <string name="last_added_items_show_limit">Giới hạn hiển thị các mục được thêm vào lần cuối</string>
+    <string name="enable">kích hoạt</string>
+    <string name="last_added_items_show_limit_summery">thuộc về mùa hạ</string>
+    <string name="invalid_last_added_limit">lỗi</string>
 </resources>

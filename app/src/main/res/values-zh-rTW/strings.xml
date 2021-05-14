@@ -303,4 +303,8 @@
     <string name="finish_current_music_sleep_timer">歌曲全數播放完畢</string>
     <string name="dialog_ringtone_title">設定鈴聲</string>
     <string name="dialog_ringtone_message">允許 Phonograph 修改音訊設定</string>
+    <string name="enable">使能够</string>
+    <string name="last_added_items_show_limit">显示最后添加的项的限制</string>
+    <string name="last_added_items_show_limit_summery">夏日</string>
+    <string name="invalid_last_added_limit">错误</string>
 </resources>

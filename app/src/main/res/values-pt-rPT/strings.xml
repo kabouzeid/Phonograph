@@ -215,4 +215,8 @@
     <string name="bug_report_failed_unknown">Ocorreu um erro inesperado. Por favor contacte o desenvolvedor da aplicação.</string>
     <string name="your_account_data_is_only_used_for_authentication">A sua informação da conta é apenas usada para a autenticação.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Vai ser reencaminhado para o site do rastreador de problemas.</string>
+    <string name="last_added_items_show_limit">Limite para mostrar itens de última adicionadas</string>
+    <string name="enable">habilitar</string>
+    <string name="last_added_items_show_limit_summery">verão</string>
+    <string name="invalid_last_added_limit">erro</string>
 </resources>

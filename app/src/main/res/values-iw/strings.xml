@@ -300,4 +300,8 @@
     <string name="sort_order_album">אלבום</string>
     <string name="sort_order_year">שנה</string>
     <string name="finish_current_music_sleep_timer">סיים את השיר האחרון</string>
+    <string name="last_added_items_show_limit">מגבלה להצגת פריטים שנוספו לאחרונה</string>
+    <string name="enable">לְאַפשֵׁר</string>
+    <string name="last_added_items_show_limit_summery">קֵיצִי</string>
+    <string name="invalid_last_added_limit">שְׁגִיאָה</string>
 </resources>

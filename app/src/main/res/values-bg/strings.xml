@@ -230,4 +230,8 @@
     <string name="app_shortcut_top_tracks_short">Най - често слушани</string>
     <string name="app_shortcut_last_added_short">Последно_добавени</string>
     <string name="playlist_is_empty">Плейлистът е празен</string>
+    <string name="last_added_items_show_limit">Ограничение за показване на последно добавени елементи</string>
+    <string name="enable">активиране</string>
+    <string name="last_added_items_show_limit_summery">летен</string>
+    <string name="invalid_last_added_limit">грешка</string>
 </resources>
