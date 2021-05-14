@@ -87,6 +87,9 @@ public final class PreferenceUtil {
 
     public static final String LIBRARY_CATEGORIES = "library_categories";
 
+    public static final String LAST_ADDED_ITEMS_LIMIT = "last_added_show_limit";
+    public static final String LAST_ADDED_ITEMS_LIMIT_ENABLE = "last_added_show_limit_enable";
+
     private static final String REMEMBER_SHUFFLE = "remember_shuffle";
 
     private static PreferenceUtil sInstance;
@@ -534,5 +537,21 @@ public final class PreferenceUtil {
         defaultCategoryInfos.add(new CategoryInfo(CategoryInfo.Category.GENRES, true));
         defaultCategoryInfos.add(new CategoryInfo(CategoryInfo.Category.PLAYLISTS, true));
         return defaultCategoryInfos;
+    }
+
+    public boolean isLastAddedItemShowLimitEnable() {
+        return mPreferences.getBoolean(LAST_ADDED_ITEMS_LIMIT_ENABLE, false);
+    }
+
+    public void setLastAddedItemShowLimitEnable(boolean enable) {
+        mPreferences.edit().putBoolean(LAST_ADDED_ITEMS_LIMIT_ENABLE, enable).apply();
+    }
+
+    public int getLastAddedItemShowLimit() {
+        return mPreferences.getInt(LAST_ADDED_ITEMS_LIMIT, 100);
+    }
+
+    public void setLastAddedItemShowLimit(int limit) {
+        mPreferences.edit().putInt(LAST_ADDED_ITEMS_LIMIT, limit).apply();
     }
 }
