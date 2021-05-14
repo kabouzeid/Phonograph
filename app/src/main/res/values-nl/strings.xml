@@ -295,4 +295,8 @@
     <string name="sort_order_artist">Artiest</string>
     <string name="sort_order_album">Album</string>
     <string name="sort_order_year">Jaar</string>
+    <string name="last_added_items_show_limit">Limiet voor het tonen van laatst toegevoegde items</string>
+    <string name="enable">inschakelen</string>
+    <string name="last_added_items_show_limit_summery">Laatst toegevoegd afspeellijst wordt slechts in beperkte mate voorkomt blijkt</string>
+    <string name="invalid_last_added_limit">Voer alstublieft een nummer in</string>
 </resources>

@@ -300,4 +300,8 @@
     <string name="sort_order_album">Album</string>
     <string name="sort_order_year">Godina</string>
     <string name="finish_current_music_sleep_timer">Završi zadnju pjesmu</string>
+    <string name="last_added_items_show_limit">Ograničenje za prikaz posljednjih dodanih stavki</string>
+    <string name="enable">omogućiti</string>
+    <string name="last_added_items_show_limit_summery">Zadnje dodano popis će se prikazati samo ograničene pjesme</string>
+    <string name="invalid_last_added_limit">Unesite broj</string>
 </resources>

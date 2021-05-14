@@ -295,4 +295,8 @@
     <string name="sort_order_artist">Előadó</string>
     <string name="sort_order_album">Album</string>
     <string name="sort_order_year">Év</string>
+    <string name="last_added_items_show_limit">Korlát a legutóbb hozzáadott elemek megjelenítésére</string>
+    <string name="enable">engedélyezze</string>
+    <string name="last_added_items_show_limit_summery">Utoljára feltöltött lejátszási lista megmutatja csak korlátozott dalok</string>
+    <string name="invalid_last_added_limit">Kérjük, adjon meg egy számot</string>
 </resources>

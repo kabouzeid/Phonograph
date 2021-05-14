@@ -3,19 +3,26 @@ package com.kabouzeid.gramophone.loader;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LastAddedLoader {
 
     @NonNull
     public static List<Song> getLastAddedSongs(@NonNull Context context) {
-        return SongLoader.getSongs(makeLastAddedCursor(context));
+        List<Song> songs = SongLoader.getSongs(makeLastAddedCursor(context));
+
+        if (PreferenceUtil.getInstance(context).isLastAddedItemShowLimitEnable()) {
+            int limit = PreferenceUtil.getInstance(context).getLastAddedItemShowLimit();
+            return songs.subList(0, Math.min(songs.size(), limit));
+        } else {
+            return songs;
+        }
     }
 
     public static Cursor makeLastAddedCursor(@NonNull final Context context) {

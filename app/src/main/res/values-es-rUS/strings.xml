@@ -294,4 +294,8 @@
     <string name="sort_order_artist">Artista</string>
     <string name="sort_order_album">Álbum</string>
     <string name="sort_order_year">Año</string>
+    <string name="last_added_items_show_limit">Límite para mostrar los últimos elementos agregados</string>
+    <string name="enable">permitir</string>
+    <string name="last_added_items_show_limit_summery">Última Agregado lista de reproducción mostrará canciones limitados</string>
+    <string name="invalid_last_added_limit">Por favor, introduzca un número</string>
 </resources>

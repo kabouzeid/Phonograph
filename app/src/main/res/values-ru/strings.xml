@@ -302,4 +302,8 @@
     <string name="finish_current_music_sleep_timer">Последняя песня завершилась</string>
     <string name="dialog_ringtone_title">Установить рингтон</string>
     <string name="dialog_ringtone_message">Разрешить приложению изменять настройки аудио</string>
+    <string name="last_added_items_show_limit">Лимит для показа последних добавленных элементов</string>
+    <string name="enable">включить</string>
+    <string name="last_added_items_show_limit_summery">плейлист Последние добавленные будут показывать только ограниченные песни</string>
+    <string name="invalid_last_added_limit">Пожалуйста, введите номер</string>
 </resources>

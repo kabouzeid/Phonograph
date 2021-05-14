@@ -303,4 +303,8 @@
     <string name="finish_current_music_sleep_timer">Termina l\'ultimo brano</string>
     <string name="dialog_ringtone_title">Imposta suoneria</string>
     <string name="dialog_ringtone_message">Consenti a Phonograph di modificare le impostazioni audio</string>
+    <string name="last_added_items_show_limit">Limite per la visualizzazione degli ultimi elementi aggiunti</string>
+    <string name="enable">abilitare</string>
+    <string name="last_added_items_show_limit_summery">Ultime aggiunte playlist mostrerà canzoni limitate</string>
+    <string name="invalid_last_added_limit">Per favore inserisci un numero</string>
 </resources>

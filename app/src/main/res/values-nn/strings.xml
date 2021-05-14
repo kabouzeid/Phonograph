@@ -79,4 +79,8 @@
     <string name="song">Song</string>
     <string name="search_hint">Søk i biblioteket...</string>
     <string name="new_playlist_title">Ny speleliste</string>
+    <string name="last_added_items_show_limit">Grense for visning av sist tilføyde elementer</string>
+    <string name="enable">muliggjøre</string>
+    <string name="last_added_items_show_limit_summery">Sist lagt til spilleliste viser bare begrensede sanger</string>
+    <string name="invalid_last_added_limit">Vennligst skriv inn et nummer</string>
 </resources>

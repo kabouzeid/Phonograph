@@ -302,4 +302,8 @@
     <string name="finish_current_music_sleep_timer">Finalizar última música</string>
     <string name="dialog_ringtone_title">Definir toque</string>
     <string name="dialog_ringtone_message">Permitir que o Phonograph modifique as configurações de áudio</string>
+    <string name="last_added_items_show_limit">Limite para mostrar itens de última adicionadas</string>
+    <string name="enable">habilitar</string>
+    <string name="last_added_items_show_limit_summery">Últimas Adicionadas lista irá mostrar canções limitado apenas</string>
+    <string name="invalid_last_added_limit">Por favor, coloque um numero</string>
 </resources>

@@ -297,4 +297,8 @@
     <string name="sort_order_artist">아티스트</string>
     <string name="sort_order_album">앨범</string>
     <string name="sort_order_year">연도</string>
+    <string name="last_added_items_show_limit">마지막으로 추가 된 항목 표시 제한</string>
+    <string name="enable">활성화</string>
+    <string name="last_added_items_show_limit_summery">마지막으로 추가 된 재생 목록에만 제한 노래를 표시합니다</string>
+    <string name="invalid_last_added_limit">숫자를 입력하세요</string>
 </resources>

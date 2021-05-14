@@ -302,4 +302,8 @@
     <string name="finish_current_music_sleep_timer">إكمال آخر أغنية</string>
     <string name="dialog_ringtone_title">تعيين كنغمة الرنين</string>
     <string name="dialog_ringtone_message">السماح لـphonograph بتعديل إعدادات الصوت</string>
+    <string name="last_added_items_show_limit">الحد لعرض العناصر المضافة الأخيرة</string>
+    <string name="enable">ممكن</string>
+    <string name="last_added_items_show_limit_summery">واضاف التشغيل آخر تظهر الأغاني تقتصر فقط</string>
+    <string name="invalid_last_added_limit">الرجاء إدخال رقم</string>
 </resources>

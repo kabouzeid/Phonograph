@@ -87,4 +87,8 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="pref_summary_colored_navigation_bar">I vilken vy navigeringslisten skall vara färgad</string>
     <string name="search_hint">Sök i ditt bibliotek ...</string>
     <string name="new_playlist_title">Ny spellista</string>
+    <string name="last_added_items_show_limit">Gräns för visning av senast tillagda objekt</string>
+    <string name="enable">Gör det möjligt</string>
+    <string name="last_added_items_show_limit_summery">Senast inlagd spellista kommer att visa endast begränsade låtar</string>
+    <string name="invalid_last_added_limit">ange ett nummer</string>
 </resources>

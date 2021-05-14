@@ -295,4 +295,8 @@
     <string name="sort_order_artist">Artysta</string>
     <string name="sort_order_album">Album</string>
     <string name="sort_order_year">Rok</string>
+    <string name="last_added_items_show_limit">Limit wyświetlania ostatnio dodanych elementów</string>
+    <string name="enable">włączyć</string>
+    <string name="last_added_items_show_limit_summery">Ostatnio dodane playlist pokaże tylko ograniczone piosenki</string>
+    <string name="invalid_last_added_limit">Proszę wpisać numer</string>
 </resources>
