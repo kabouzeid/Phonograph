@@ -45,5 +45,14 @@ public class AppIntroActivity extends IntroActivity {
                 .backgroundDark(R.color.md_indigo_600)
                 .layout(R.layout.fragment_simple_slide_large_image)
                 .build());
+        addSlide(new SimpleSlide.Builder()
+                .title("Importing Music")
+                .description("Easily import music from your phone's file system by selecting scan media from the left side menu.")
+                .image(R.drawable.tutorial_queue_media_scan)
+                .background(R.color.md_blue_grey_100)
+                .backgroundDark(R.color.md_blue_grey_200)
+                .layout(R.layout.fragment_simple_slide_large_image)
+                .build());
+
     }
 }
