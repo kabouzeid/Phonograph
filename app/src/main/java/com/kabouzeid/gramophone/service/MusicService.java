@@ -675,7 +675,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 break;
             default:
             case REPEAT_MODE_NONE:
-                if (isLastTrack()) {
+                if (force) {
+                    if (isLastTrack()) {
+                        position = 0;
+                    }
+                } else {
                     position -= 1;
                 }
                 break;
