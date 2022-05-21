@@ -62,13 +62,7 @@ public class CreatePlaylistDialog extends DialogFragment {
                     if (!name.isEmpty()) {
                         if (!PlaylistsUtil.doesPlaylistExist(getActivity(), name)) {
                             final long playlistId = PlaylistsUtil.createPlaylist(getActivity(), name);
-                            if (getActivity() != null) {
-                                //noinspection unchecked
-                                List<Song> songs = getArguments().getParcelableArrayList(SONGS);
-                                if (songs != null && !songs.isEmpty()) {
-                                    PlaylistsUtil.addToPlaylist(getActivity(), songs, playlistId, true);
-                                }
-                            }
+                            addSongsToPlayList(playlistId);
                         } else {
                             Toast.makeText(getActivity(), getActivity().getResources().getString(
                                     R.string.playlist_exists, name), Toast.LENGTH_SHORT).show();
@@ -76,5 +70,15 @@ public class CreatePlaylistDialog extends DialogFragment {
                     }
                 })
                 .build();
+    }
+
+    private void addSongsToPlayList(long playlistId) {
+        if (getActivity() != null) {
+            //noinspection unchecked
+            List<Song> songs = getArguments().getParcelableArrayList(SONGS);
+            if (songs != null && !songs.isEmpty()) {
+                PlaylistsUtil.addToPlaylist(getActivity(), songs, playlistId, true);
+            }
+        }
     }
 }
