@@ -71,34 +71,13 @@ public class SleepTimerDialog extends DialogFragment {
 
                     PreferenceUtil.getInstance(getActivity()).setSleepTimerFinishMusic(shouldFinishLastSong.isChecked());
 
-                    final int minutes = seekArcProgress;
-
-                    PendingIntent pi = makeTimerPendingIntent(PendingIntent.FLAG_CANCEL_CURRENT);
-
-                    final long nextSleepTimerElapsedTime = SystemClock.elapsedRealtime() + minutes * 60 * 1000;
-                    PreferenceUtil.getInstance(getActivity()).setNextSleepTimerElapsedRealtime(nextSleepTimerElapsedTime);
-                    AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-                    am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextSleepTimerElapsedTime, pi);
-
-                    Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_set, minutes), Toast.LENGTH_SHORT).show();
+                    setSleepTimer();
                 })
                 .onNeutral((dialog, which) -> {
                     if (getActivity() == null) {
                         return;
                     }
-                    final PendingIntent previous = makeTimerPendingIntent(PendingIntent.FLAG_NO_CREATE);
-                    if (previous != null) {
-                        AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-                        am.cancel(previous);
-                        previous.cancel();
-                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_canceled), Toast.LENGTH_SHORT).show();
-                    }
-
-                    MusicService musicService = MusicPlayerRemote.musicService;
-                    if (musicService != null && musicService.pendingQuit) {
-                        musicService.pendingQuit = false;
-                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_canceled), Toast.LENGTH_SHORT).show();
-                    }
+                    cancelSleepTimer();
                 })
                 .showListener(dialog -> {
                     if (makeTimerPendingIntent(PendingIntent.FLAG_NO_CREATE) != null) {
@@ -157,6 +136,35 @@ public class SleepTimerDialog extends DialogFragment {
         });
 
         return materialDialog;
+    }
+
+    private void cancelSleepTimer() {
+        final PendingIntent previous = makeTimerPendingIntent(PendingIntent.FLAG_NO_CREATE);
+        if (previous != null) {
+            AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+            am.cancel(previous);
+            previous.cancel();
+            Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_canceled), Toast.LENGTH_SHORT).show();
+        }
+
+        MusicService musicService = MusicPlayerRemote.musicService;
+        if (musicService != null && musicService.pendingQuit) {
+            musicService.pendingQuit = false;
+            Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_canceled), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void setSleepTimer() {
+        final int minutes = seekArcProgress;
+
+        PendingIntent pi = makeTimerPendingIntent(PendingIntent.FLAG_CANCEL_CURRENT);
+
+        final long nextSleepTimerElapsedTime = SystemClock.elapsedRealtime() + minutes * 60 * 1000;
+        PreferenceUtil.getInstance(getActivity()).setNextSleepTimerElapsedRealtime(nextSleepTimerElapsedTime);
+        AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextSleepTimerElapsedTime, pi);
+
+        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_set, minutes), Toast.LENGTH_SHORT).show();
     }
 
     private void updateTimeDisplayTime() {
