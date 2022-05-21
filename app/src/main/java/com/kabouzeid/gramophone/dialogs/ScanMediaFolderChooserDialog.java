@@ -53,10 +53,8 @@ public class ScanMediaFolderChooserDialog extends ChooserDialog implements Mater
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                && ActivityCompat.checkSelfPermission(
-                getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (isSDKAboveAndroidMarshmallow
+                && isNotGrantedPermissionToReadExternalStorage) {
             return new MaterialDialog.Builder(getActivity())
                     .title(R.string.md_error_label)
                     .content(R.string.md_storage_perm_error)

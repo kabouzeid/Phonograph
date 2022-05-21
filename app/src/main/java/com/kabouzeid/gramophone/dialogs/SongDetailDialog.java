@@ -75,6 +75,45 @@ public class SongDetailDialog extends DialogFragment {
         final TextView bitRate = dialogView.findViewById(R.id.bitrate);
         final TextView samplingRate = dialogView.findViewById(R.id.sampling_rate);
 
+        initDialogView(context, fileName, filePath, fileSize, fileFormat, trackLength, bitRate, samplingRate);
+
+        if (song != null) {
+            final File songFile = new File(song.data);
+            if (songFile.exists()) {
+                setDialogViewBySongFile(context, song, fileName, filePath, fileSize, fileFormat, trackLength, bitRate, samplingRate, songFile);
+            } else {
+                // fallback
+                setDialogViewBySong(context, song, fileName, trackLength);
+            }
+        }
+        return dialog;
+    }
+
+    private void setDialogViewBySong(Activity context, Song song, TextView fileName, TextView trackLength) {
+        fileName.setText(makeTextWithTitle(context, R.string.label_file_name, song.title));
+        trackLength.setText(makeTextWithTitle(context, R.string.label_track_length, MusicUtil.getReadableDurationString(song.duration)));
+    }
+
+    private void setDialogViewBySongFile(Activity context, Song song, TextView fileName, TextView filePath, TextView fileSize, TextView fileFormat, TextView trackLength, TextView bitRate, TextView samplingRate, File songFile) {
+        fileName.setText(makeTextWithTitle(context, R.string.label_file_name, songFile.getName()));
+        filePath.setText(makeTextWithTitle(context, R.string.label_file_path, songFile.getAbsolutePath()));
+        fileSize.setText(makeTextWithTitle(context, R.string.label_file_size, getFileSizeString(songFile.length())));
+        try {
+            AudioFile audioFile = AudioFileIO.read(songFile);
+            AudioHeader audioHeader = audioFile.getAudioHeader();
+
+            fileFormat.setText(makeTextWithTitle(context, R.string.label_file_format, audioHeader.getFormat()));
+            trackLength.setText(makeTextWithTitle(context, R.string.label_track_length, MusicUtil.getReadableDurationString(audioHeader.getTrackLength() * 1000)));
+            bitRate.setText(makeTextWithTitle(context, R.string.label_bit_rate, audioHeader.getBitRate() + " kb/s"));
+            samplingRate.setText(makeTextWithTitle(context, R.string.label_sampling_rate, audioHeader.getSampleRate() + " Hz"));
+        } catch (@NonNull CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e) {
+            Log.e(TAG, "error while reading the song file", e);
+            // fallback
+            trackLength.setText(makeTextWithTitle(context, R.string.label_track_length, MusicUtil.getReadableDurationString(song.duration)));
+        }
+    }
+
+    private void initDialogView(Activity context, TextView fileName, TextView filePath, TextView fileSize, TextView fileFormat, TextView trackLength, TextView bitRate, TextView samplingRate) {
         fileName.setText(makeTextWithTitle(context, R.string.label_file_name, "-"));
         filePath.setText(makeTextWithTitle(context, R.string.label_file_path, "-"));
         fileSize.setText(makeTextWithTitle(context, R.string.label_file_size, "-"));
@@ -82,33 +121,5 @@ public class SongDetailDialog extends DialogFragment {
         trackLength.setText(makeTextWithTitle(context, R.string.label_track_length, "-"));
         bitRate.setText(makeTextWithTitle(context, R.string.label_bit_rate, "-"));
         samplingRate.setText(makeTextWithTitle(context, R.string.label_sampling_rate, "-"));
-
-        if (song != null) {
-            final File songFile = new File(song.data);
-            if (songFile.exists()) {
-                fileName.setText(makeTextWithTitle(context, R.string.label_file_name, songFile.getName()));
-                filePath.setText(makeTextWithTitle(context, R.string.label_file_path, songFile.getAbsolutePath()));
-                fileSize.setText(makeTextWithTitle(context, R.string.label_file_size, getFileSizeString(songFile.length())));
-                try {
-                    AudioFile audioFile = AudioFileIO.read(songFile);
-                    AudioHeader audioHeader = audioFile.getAudioHeader();
-
-                    fileFormat.setText(makeTextWithTitle(context, R.string.label_file_format, audioHeader.getFormat()));
-                    trackLength.setText(makeTextWithTitle(context, R.string.label_track_length, MusicUtil.getReadableDurationString(audioHeader.getTrackLength() * 1000)));
-                    bitRate.setText(makeTextWithTitle(context, R.string.label_bit_rate, audioHeader.getBitRate() + " kb/s"));
-                    samplingRate.setText(makeTextWithTitle(context, R.string.label_sampling_rate, audioHeader.getSampleRate() + " Hz"));
-                } catch (@NonNull CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e) {
-                    Log.e(TAG, "error while reading the song file", e);
-                    // fallback
-                    trackLength.setText(makeTextWithTitle(context, R.string.label_track_length, MusicUtil.getReadableDurationString(song.duration)));
-                }
-            } else {
-                // fallback
-                fileName.setText(makeTextWithTitle(context, R.string.label_file_name, song.title));
-                trackLength.setText(makeTextWithTitle(context, R.string.label_track_length, MusicUtil.getReadableDurationString(song.duration)));
-            }
-        }
-
-        return dialog;
     }
 }
