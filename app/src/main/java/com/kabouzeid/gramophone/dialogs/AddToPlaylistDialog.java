@@ -40,11 +40,8 @@ public class AddToPlaylistDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final List<Playlist> playlists = PlaylistLoader.getAllPlaylists(getActivity());
-        CharSequence[] playlistNames = new CharSequence[playlists.size() + 1];
-        playlistNames[0] = getActivity().getResources().getString(R.string.action_new_playlist);
-        for (int i = 1; i < playlistNames.length; i++) {
-            playlistNames[i] = playlists.get(i - 1).name;
-        }
+        CharSequence[] playlistNames = getPlaylistNames(playlists);
+
         return new MaterialDialog.Builder(getActivity())
                 .title(R.string.add_playlist_title)
                 .items(playlistNames)
@@ -61,5 +58,14 @@ public class AddToPlaylistDialog extends DialogFragment {
                     }
                 })
                 .build();
+    }
+
+    private CharSequence[] getPlaylistNames(List<Playlist> playlists){
+        CharSequence[] playlistNames = new CharSequence[playlists.size() + 1];
+        playlistNames[0] = getActivity().getResources().getString(R.string.action_new_playlist);
+        for (int i = 1; i < playlistNames.length; i++) {
+            playlistNames[i] = playlists.get(i - 1).name;
+        }
+        return playlistNames;
     }
 }
