@@ -33,6 +33,11 @@ public class BlacklistFolderChooserDialog extends DialogFragment implements Mate
 
     String initialPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
+    private final boolean isSDKAboveAndroidMarshmallow = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+    private final boolean isNotGrantedPermissionToReadExternalStorage = ActivityCompat.checkSelfPermission(
+            getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED;
+
     private String[] getContentsArray() {
         if (parentContents == null) {
             if (canGoUp) {
@@ -72,10 +77,8 @@ public class BlacklistFolderChooserDialog extends DialogFragment implements Mate
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                && ActivityCompat.checkSelfPermission(
-                getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (isSDKAboveAndroidMarshmallow
+                && isNotGrantedPermissionToReadExternalStorage) {
             return new MaterialDialog.Builder(getActivity())
                     .title(R.string.md_error_label)
                     .content(R.string.md_storage_perm_error)
