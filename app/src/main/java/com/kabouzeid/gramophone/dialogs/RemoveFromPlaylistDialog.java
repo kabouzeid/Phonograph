@@ -42,11 +42,10 @@ public class RemoveFromPlaylistDialog extends DialogFragment {
         final List<PlaylistSong> songs = getArguments().getParcelableArrayList("songs");
         int title;
         CharSequence content;
+        title = R.string.remove_songs_from_playlist_title;
         if (songs.size() > 1) {
-            title = R.string.remove_songs_from_playlist_title;
             content = Html.fromHtml(getString(R.string.remove_x_songs_from_playlist, songs.size()));
         } else {
-            title = R.string.remove_song_from_playlist_title;
             content = Html.fromHtml(getString(R.string.remove_song_x_from_playlist, songs.get(0).title));
         }
         return new MaterialDialog.Builder(getActivity())
