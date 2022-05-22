@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,11 +62,6 @@ public class ChangelogDialog extends DialogFragment {
                 })
                 .build();
 
-        loadWebView(customView);
-        return dialog;
-    }
-
-    private void loadWebView(View customView) {
         final WebView webView = customView.findViewById(R.id.web_view);
         try {
             // Load from phonograph-changelog.html in the assets folder
@@ -88,6 +84,7 @@ public class ChangelogDialog extends DialogFragment {
         } catch (Throwable e) {
             webView.loadData("<h1>Unable to load</h1><p>" + e.getLocalizedMessage() + "</p>", "text/html", "UTF-8");
         }
+        return dialog;
     }
     public static void setChangelogRead(@NonNull Context context) {
         try {

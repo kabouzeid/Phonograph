@@ -23,10 +23,47 @@ import java.util.List;
 /**
  * @author Aidan Follestad (afollestad), modified by Karim Abou Zeid
  */
-public class BlacklistFolderChooserDialog extends ChooserDialog implements MaterialDialog.ListCallback {
+public class BlacklistFolderChooserDialog extends DialogFragment implements MaterialDialog.ListCallback {
+
+    private File parentFolder;
+    private File[] parentContents;
+    private boolean canGoUp = false;
 
     private FolderCallback callback;
 
+    String initialPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+
+    private String[] getContentsArray() {
+        if (parentContents == null) {
+            if (canGoUp) {
+                return new String[]{".."};
+            }
+            return new String[]{};
+        }
+        String[] results = new String[parentContents.length + (canGoUp ? 1 : 0)];
+        if (canGoUp) {
+            results[0] = "..";
+        }
+        for (int i = 0; i < parentContents.length; i++) {
+            results[canGoUp ? i + 1 : i] = parentContents[i].getName();
+        }
+        return results;
+    }
+
+    private File[] listFiles() {
+        File[] contents = parentFolder.listFiles();
+        List<File> results = new ArrayList<>();
+        if (contents != null) {
+            for (File fi : contents) {
+                if (fi.isDirectory()) {
+                    results.add(fi);
+                }
+            }
+            Collections.sort(results, new FolderSorter());
+            return results.toArray(new File[results.size()]);
+        }
+        return null;
+    }
 
     public static BlacklistFolderChooserDialog create() {
         return new BlacklistFolderChooserDialog();
@@ -35,8 +72,10 @@ public class BlacklistFolderChooserDialog extends ChooserDialog implements Mater
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if (isSDKAboveAndroidMarshmallow
-                && isNotGrantedPermissionToReadExternalStorage) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && ActivityCompat.checkSelfPermission(
+                getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
             return new MaterialDialog.Builder(getActivity())
                     .title(R.string.md_error_label)
                     .content(R.string.md_storage_perm_error)
@@ -49,20 +88,18 @@ public class BlacklistFolderChooserDialog extends ChooserDialog implements Mater
         if (!savedInstanceState.containsKey("current_path")) {
             savedInstanceState.putString("current_path", initialPath);
         }
-
-        setParentFolder(new File(savedInstanceState.getString("current_path", File.pathSeparator)));
-
+        parentFolder = new File(savedInstanceState.getString("current_path", File.pathSeparator));
         checkIfCanGoUp();
-        setParentContents(listFiles());
+        parentContents = listFiles();
         MaterialDialog.Builder builder =
                 new MaterialDialog.Builder(getActivity())
-                        .title(getParentFolder().getAbsolutePath())
+                        .title(parentFolder.getAbsolutePath())
                         .items((CharSequence[]) getContentsArray())
                         .itemsCallback(this)
                         .autoDismiss(false)
                         .onPositive((dialog, which) -> {
                             dismiss();
-                            callback.onFolderSelection(BlacklistFolderChooserDialog.this, getParentFolder());
+                            callback.onFolderSelection(BlacklistFolderChooserDialog.this, parentFolder);
                         })
                         .onNegative((materialDialog, dialogAction) -> dismiss())
                         .positiveText(R.string.add_action)
@@ -73,21 +110,37 @@ public class BlacklistFolderChooserDialog extends ChooserDialog implements Mater
     @Override
     public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence s) {
         if (canGoUp && i == 0) {
-            setParentFolder(getParentFolder().getParentFile());
-            if (getParentFolder().getAbsolutePath().equals("/storage/emulated")) {
-                setParentFolder(getParentFolder().getParentFile());
+            parentFolder = parentFolder.getParentFile();
+            if (parentFolder.getAbsolutePath().equals("/storage/emulated")) {
+                parentFolder = parentFolder.getParentFile();
             }
             checkIfCanGoUp();
         } else {
-            setParentFolder(getParentContents()[canGoUp ? i - 1 : i]);
+            parentFolder = parentContents[canGoUp ? i - 1 : i];
             canGoUp = true;
-            if (getParentFolder().getAbsolutePath().equals("/storage/emulated")) {
-                setParentFolder(Environment.getExternalStorageDirectory());
+            if (parentFolder.getAbsolutePath().equals("/storage/emulated")) {
+                parentFolder = Environment.getExternalStorageDirectory();
             }
         }
         reload();
     }
 
+    private void checkIfCanGoUp() {
+        canGoUp = parentFolder.getParent() != null;
+    }
+
+    private void reload() {
+        parentContents = listFiles();
+        MaterialDialog dialog = (MaterialDialog) getDialog();
+        dialog.setTitle(parentFolder.getAbsolutePath());
+        dialog.setItems((CharSequence[]) getContentsArray());
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("current_path", parentFolder.getAbsolutePath());
+    }
 
     public void setCallback(FolderCallback callback) {
         this.callback = callback;
@@ -97,5 +150,11 @@ public class BlacklistFolderChooserDialog extends ChooserDialog implements Mater
         void onFolderSelection(@NonNull BlacklistFolderChooserDialog dialog, @NonNull File folder);
     }
 
+    private static class FolderSorter implements Comparator<File> {
 
+        @Override
+        public int compare(File lhs, File rhs) {
+            return lhs.getName().compareTo(rhs.getName());
+        }
+    }
 }

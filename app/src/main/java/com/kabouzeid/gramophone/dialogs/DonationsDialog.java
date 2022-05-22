@@ -50,8 +50,6 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
 
     private AsyncTask skuDetailsLoadAsyncTask;
 
-    public SkuDetails LoadSkuDetails;
-
     public static DonationsDialog create() {
         return new DonationsDialog();
     }
@@ -86,13 +84,13 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
 
     @Override
     public void onProductPurchased(@NonNull String productId, TransactionDetails details) {
-        LoadSkuDetails.loadSkuDetails();
+        loadSkuDetails();
         Toast.makeText(getContext(), R.string.thank_you, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onPurchaseHistoryRestored() {
-        LoadSkuDetails.loadSkuDetails();
+        loadSkuDetails();
     }
 
     @Override
@@ -102,7 +100,7 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
 
     @Override
     public void onBillingInitialized() {
-        LoadSkuDetails.loadSkuDetails();
+        loadSkuDetails();
     }
 
     @Override
