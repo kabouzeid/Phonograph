@@ -50,6 +50,8 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
 
     private AsyncTask skuDetailsLoadAsyncTask;
 
+    public SkuDetails LoadSkuDetails;
+
     public static DonationsDialog create() {
         return new DonationsDialog();
     }
@@ -84,13 +86,13 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
 
     @Override
     public void onProductPurchased(@NonNull String productId, TransactionDetails details) {
-        loadSkuDetails();
+        LoadSkuDetails.loadSkuDetails();
         Toast.makeText(getContext(), R.string.thank_you, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onPurchaseHistoryRestored() {
-        loadSkuDetails();
+        LoadSkuDetails.loadSkuDetails();
     }
 
     @Override
@@ -100,7 +102,7 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
 
     @Override
     public void onBillingInitialized() {
-        loadSkuDetails();
+        LoadSkuDetails.loadSkuDetails();
     }
 
     @Override
@@ -190,26 +192,26 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
             }
 
             SkuDetails skuDetails = getItem(position);
-            DonationsDialogViewHolder donationsDialogViewHolder = new DonationsDialogViewHolder(convertView);
+            ViewHolder viewHolder = new ViewHolder(convertView);
 
-            donationsDialogViewHolder.title.setText(skuDetails.title.replace("(Phonograph Music Player)", "").trim());
-            donationsDialogViewHolder.text.setText(skuDetails.description);
-            donationsDialogViewHolder.price.setText(skuDetails.priceText);
+            viewHolder.title.setText(skuDetails.title.replace("(Phonograph Music Player)", "").trim());
+            viewHolder.text.setText(skuDetails.description);
+            viewHolder.price.setText(skuDetails.priceText);
 
             final boolean purchased = donationsDialog.billingProcessor.isPurchased(skuDetails.productId);
             int titleTextColor = purchased ? ATHUtil.resolveColor(getContext(), android.R.attr.textColorHint) : ThemeStore.textColorPrimary(getContext());
             int contentTextColor = purchased ? titleTextColor : ThemeStore.textColorSecondary(getContext());
 
             //noinspection ResourceAsColor
-            donationsDialogViewHolder.title.setTextColor(titleTextColor);
+            viewHolder.title.setTextColor(titleTextColor);
             //noinspection ResourceAsColor
-            donationsDialogViewHolder.text.setTextColor(contentTextColor);
+            viewHolder.text.setTextColor(contentTextColor);
             //noinspection ResourceAsColor
-            donationsDialogViewHolder.price.setTextColor(titleTextColor);
+            viewHolder.price.setTextColor(titleTextColor);
 
-            strikeThrough(donationsDialogViewHolder.title, purchased);
-            strikeThrough(donationsDialogViewHolder.text, purchased);
-            strikeThrough(donationsDialogViewHolder.price, purchased);
+            strikeThrough(viewHolder.title, purchased);
+            strikeThrough(viewHolder.text, purchased);
+            strikeThrough(viewHolder.price, purchased);
 
             convertView.setOnTouchListener((v, event) -> purchased);
 
@@ -222,7 +224,7 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
             textView.setPaintFlags(strikeThrough ? textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG : textView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
-        static class DonationsDialogViewHolder {
+        static class ViewHolder {
             @BindView(R.id.title)
             TextView title;
             @BindView(R.id.text)
@@ -230,7 +232,7 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
             @BindView(R.id.price)
             TextView price;
 
-            public DonationsDialogViewHolder(View view) {
+            public ViewHolder(View view) {
                 ButterKnife.bind(this, view);
             }
         }
