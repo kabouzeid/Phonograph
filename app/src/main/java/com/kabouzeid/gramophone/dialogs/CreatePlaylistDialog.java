@@ -22,7 +22,6 @@ import java.util.List;
 public class CreatePlaylistDialog extends DialogFragment {
 
     private static final String SONGS = "songs";
-    private String name;
 
     @NonNull
     public static CreatePlaylistDialog create() {
@@ -61,25 +60,25 @@ public class CreatePlaylistDialog extends DialogFragment {
                         return;
                     final String name = charSequence.toString().trim();
                     if (!name.isEmpty()) {
-                        extracted();
+                        if (!PlaylistsUtil.doesPlaylistExist(getActivity(), name)) {
+                            final long playlistId = PlaylistsUtil.createPlaylist(getActivity(), name);
+                            addSongsToPlayList(playlistId);
+                        } else {
+                            Toast.makeText(getActivity(), getActivity().getResources().getString(
+                                    R.string.playlist_exists, name), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .build();
     }
 
-    private void extracted() {
-        if (!PlaylistsUtil.doesPlaylistExist(getActivity(), name)) {
-            final long playlistId = PlaylistsUtil.createPlaylist(getActivity(), name);
-            if (getActivity() != null) {
-                //noinspection unchecked
-                List<Song> songs = getArguments().getParcelableArrayList(SONGS);
-                if (songs != null && !songs.isEmpty()) {
-                    PlaylistsUtil.addToPlaylist(getActivity(), songs, playlistId, true);
-                }
+    private void addSongsToPlayList(long playlistId) {
+        if (getActivity() != null) {
+            //noinspection unchecked
+            List<Song> songs = getArguments().getParcelableArrayList(SONGS);
+            if (songs != null && !songs.isEmpty()) {
+                PlaylistsUtil.addToPlaylist(getActivity(), songs, playlistId, true);
             }
-        } else {
-            Toast.makeText(getActivity(), getActivity().getResources().getString(
-                    R.string.playlist_exists, name), Toast.LENGTH_SHORT).show();
         }
     }
 }
