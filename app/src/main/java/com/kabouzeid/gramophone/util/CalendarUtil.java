@@ -12,8 +12,15 @@ public class CalendarUtil {
 
     private Calendar calendar;
 
-    public CalendarUtil() {
+    private static CalendarUtil calendarUtil;
+
+    private CalendarUtil() {
         this.calendar = Calendar.getInstance();
+    }
+
+    public static CalendarUtil getInstance(){
+        if(calendarUtil == null) calendarUtil = new CalendarUtil();
+        return calendarUtil;
     }
 
     /**
