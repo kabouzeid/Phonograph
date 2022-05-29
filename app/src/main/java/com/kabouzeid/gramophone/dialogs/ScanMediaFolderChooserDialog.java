@@ -32,12 +32,8 @@ import java.util.List;
 /**
  * @author Aidan Follestad (afollestad), modified by Karim Abou Zeid
  */
-public class ScanMediaFolderChooserDialog extends DialogFragment implements MaterialDialog.ListCallback {
+public class ScanMediaFolderChooserDialog extends ChooserDialog implements MaterialDialog.ListCallback {
 
-    String initialPath = PreferenceUtil.getInstance(getContext()).getStartDirectory().getAbsolutePath();
-    private File parentFolder;
-    private File[] parentContents;
-    private boolean canGoUp = false;
 
     public static ScanMediaFolderChooserDialog create() {
         return new ScanMediaFolderChooserDialog();
@@ -52,45 +48,13 @@ public class ScanMediaFolderChooserDialog extends DialogFragment implements Mate
         }
     }
 
-    private String[] getContentsArray() {
-        if (parentContents == null) {
-            if (canGoUp) {
-                return new String[]{".."};
-            }
-            return new String[]{};
-        }
-        String[] results = new String[parentContents.length + (canGoUp ? 1 : 0)];
-        if (canGoUp) {
-            results[0] = "..";
-        }
-        for (int i = 0; i < parentContents.length; i++) {
-            results[canGoUp ? i + 1 : i] = parentContents[i].getName();
-        }
-        return results;
-    }
 
-    private File[] listFiles() {
-        File[] contents = parentFolder.listFiles();
-        List<File> results = new ArrayList<>();
-        if (contents != null) {
-            for (File fi : contents) {
-                if (fi.isDirectory()) {
-                    results.add(fi);
-                }
-            }
-            Collections.sort(results, new FolderSorter());
-            return results.toArray(new File[results.size()]);
-        }
-        return null;
-    }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                && ActivityCompat.checkSelfPermission(
-                getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (isSDKAboveAndroidMarshmallow
+                && isNotGrantedPermissionToReadExternalStorage) {
             return new MaterialDialog.Builder(getActivity())
                     .title(R.string.md_error_label)
                     .content(R.string.md_storage_perm_error)
@@ -103,12 +67,13 @@ public class ScanMediaFolderChooserDialog extends DialogFragment implements Mate
         if (!savedInstanceState.containsKey("current_path")) {
             savedInstanceState.putString("current_path", initialPath);
         }
-        parentFolder = new File(savedInstanceState.getString("current_path", File.pathSeparator));
+        setParentFolder(new File(savedInstanceState.getString("current_path", File.pathSeparator)));
+
         checkIfCanGoUp();
-        parentContents = listFiles();
+        setParentContents(listFiles());
         MaterialDialog.Builder builder =
                 new MaterialDialog.Builder(getActivity())
-                        .title(parentFolder.getAbsolutePath())
+                        .title(getParentFolder().getAbsolutePath())
                         .items((CharSequence[]) getContentsArray())
                         .itemsCallback(this)
                         .autoDismiss(false)
@@ -116,7 +81,7 @@ public class ScanMediaFolderChooserDialog extends DialogFragment implements Mate
                             final Context applicationContext = getActivity().getApplicationContext();
                             final WeakReference<Activity> activityWeakReference = new WeakReference<>(getActivity());
                             dismiss();
-                            new FoldersFragment.ArrayListPathsAsyncTask(getActivity(), paths -> scanPaths(activityWeakReference, applicationContext, paths)).execute(new FoldersFragment.ArrayListPathsAsyncTask.LoadingInfo(parentFolder, FoldersFragment.AUDIO_FILE_FILTER));
+                            new FoldersFragment.ArrayListPathsAsyncTask(getActivity(), paths -> scanPaths(activityWeakReference, applicationContext, paths)).execute(new FoldersFragment.ArrayListPathsAsyncTask.LoadingInfo(getParentFolder(), FoldersFragment.AUDIO_FILE_FILTER));
                         })
                         .onNegative((materialDialog, dialogAction) -> dismiss())
                         .positiveText(R.string.action_scan_directory)
@@ -127,43 +92,19 @@ public class ScanMediaFolderChooserDialog extends DialogFragment implements Mate
     @Override
     public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence s) {
         if (canGoUp && i == 0) {
-            parentFolder = parentFolder.getParentFile();
-            if (parentFolder.getAbsolutePath().equals("/storage/emulated")) {
-                parentFolder = parentFolder.getParentFile();
+            setParentFolder(getParentFolder().getParentFile());
+            if (getParentFolder().getAbsolutePath().equals("/storage/emulated")) {
+                setParentFolder(getParentFolder().getParentFile());
             }
             checkIfCanGoUp();
         } else {
-            parentFolder = parentContents[canGoUp ? i - 1 : i];
+            setParentFolder(getParentContents()[canGoUp ? i - 1 : i]);
             canGoUp = true;
-            if (parentFolder.getAbsolutePath().equals("/storage/emulated")) {
-                parentFolder = Environment.getExternalStorageDirectory();
+            if (getParentFolder().getAbsolutePath().equals("/storage/emulated")) {
+                setParentFolder(Environment.getExternalStorageDirectory());
             }
         }
         reload();
     }
 
-    private void checkIfCanGoUp() {
-        canGoUp = parentFolder.getParent() != null;
-    }
-
-    private void reload() {
-        parentContents = listFiles();
-        MaterialDialog dialog = (MaterialDialog) getDialog();
-        dialog.setTitle(parentFolder.getAbsolutePath());
-        dialog.setItems((CharSequence[]) getContentsArray());
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("current_path", parentFolder.getAbsolutePath());
-    }
-
-    private static class FolderSorter implements Comparator<File> {
-
-        @Override
-        public int compare(File lhs, File rhs) {
-            return lhs.getName().compareTo(rhs.getName());
-        }
-    }
 }
