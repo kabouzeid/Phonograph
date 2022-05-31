@@ -26,6 +26,8 @@ public class RemoveFromPlaylistDialog extends DialogFragment {
         return create(list);
     }
 
+
+
     @NonNull
     public static RemoveFromPlaylistDialog create(List<PlaylistSong> songs) {
         RemoveFromPlaylistDialog dialog = new RemoveFromPlaylistDialog();
