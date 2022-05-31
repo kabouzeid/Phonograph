@@ -2,8 +2,9 @@ package com.kabouzeid.gramophone.dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
@@ -22,16 +23,16 @@ public class AddToPlaylistDialog extends DialogFragment {
 
     @NonNull
     public static AddToPlaylistDialog create(Song song) {
-        List<Song> list = new ArrayList<>();
+        ArrayList<Song> list = new ArrayList<>();
         list.add(song);
         return create(list);
     }
 
     @NonNull
-    public static AddToPlaylistDialog create(List<Song> songs) {
+    public static AddToPlaylistDialog create(ArrayList<Song> songs) {
         AddToPlaylistDialog dialog = new AddToPlaylistDialog();
         Bundle args = new Bundle();
-        args.putParcelableArrayList("songs", new ArrayList<>(songs));
+        args.putParcelableArrayList("songs", songs);
         dialog.setArguments(args);
         return dialog;
     }
@@ -48,18 +49,28 @@ public class AddToPlaylistDialog extends DialogFragment {
         return new MaterialDialog.Builder(getActivity())
                 .title(R.string.add_playlist_title)
                 .items(playlistNames)
-                .itemsCallback((materialDialog, view, i, charSequence) -> {
-                    //noinspection unchecked
-                    final List<Song> songs = getArguments().getParcelableArrayList("songs");
-                    if (songs == null) return;
-                    if (i == 0) {
-                        materialDialog.dismiss();
-                        CreatePlaylistDialog.create(songs).show(getActivity().getSupportFragmentManager(), "ADD_TO_PLAYLIST");
-                    } else {
-                        materialDialog.dismiss();
-                        PlaylistsUtil.addToPlaylist(getActivity(), songs, playlists.get(i - 1).id, true);
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(@NonNull MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+                        //noinspection unchecked
+                        final ArrayList<Song> songs = getArguments().getParcelableArrayList("songs");
+                        if (songs == null) return;
+                        if (i == 0) {
+                            materialDialog.dismiss();
+                            CreatePlaylistDialog.create(songs).show(getActivity().getSupportFragmentManager(), "ADD_TO_PLAYLIST");
+                        } else {
+                            materialDialog.dismiss();
+                            PlaylistsUtil.addToPlaylist(getActivity(), songs, playlists.get(i - 1).id, true);
+                        }
                     }
                 })
                 .build();
     }
 }
+
+
+
+
+
+
+
