@@ -23,6 +23,7 @@ import java.util.List;
 /**
  * @author Aidan Follestad (afollestad), modified by Karim Abou Zeid
  */
+
 public class BlacklistFolderChooserDialog extends ChooserDialog implements MaterialDialog.ListCallback {
 
     private FolderCallback callback;

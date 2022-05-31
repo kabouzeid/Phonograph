@@ -286,7 +286,7 @@ public final class PreferenceUtil {
     }
 
     public long getLastAddedCutoff() {
-        final CalendarUtil calendarUtil = new CalendarUtil();
+        final CalendarUtil calendarUtil = CalendarUtil.getInstance();
         long interval;
 
         switch (mPreferences.getString(LAST_ADDED_CUTOFF, "")) {
