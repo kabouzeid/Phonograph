@@ -49,7 +49,8 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
     private BillingProcessor billingProcessor;
 
     private AsyncTask skuDetailsLoadAsyncTask;
-    public SkuDetails LoadSkuDetails;
+
+    private SkuDetailed LoadSkuDetails;
 
     public static DonationsDialog create() {
         return new DonationsDialog();
@@ -103,6 +104,12 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
     public void onBillingInitialized() {
         LoadSkuDetails.loadSkuDetails();
     }
+
+
+    public void setLoadSkuDetails(SkuDetailed LoadSkuDetails) {
+        this.LoadSkuDetails = LoadSkuDetails;
+    }
+
 
     @Override
     public void onDestroy() {
