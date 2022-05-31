@@ -42,11 +42,12 @@ public class DeleteSongsDialog extends DialogFragment {
         final List<Song> songs = getArguments().getParcelableArrayList("songs");
         int title;
         CharSequence content;
+        title = R.string.delete_songs_title;
         if (songs.size() > 1) {
-            title = R.string.delete_songs_title;
+
             content = Html.fromHtml(getString(R.string.delete_x_songs, songs.size()));
         } else {
-            title = R.string.delete_song_title;
+
             content = Html.fromHtml(getString(R.string.delete_song_x, songs.get(0).title));
         }
         return new MaterialDialog.Builder(getActivity())

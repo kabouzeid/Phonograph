@@ -49,7 +49,6 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
     private BillingProcessor billingProcessor;
 
     private AsyncTask skuDetailsLoadAsyncTask;
-
     public SkuDetails LoadSkuDetails;
 
     public static DonationsDialog create() {
