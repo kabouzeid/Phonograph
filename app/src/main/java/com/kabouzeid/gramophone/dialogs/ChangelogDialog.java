@@ -1,22 +1,19 @@
 package com.kabouzeid.gramophone.dialogs;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-
-import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 
-import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
@@ -24,16 +21,20 @@ import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
 /**
  * @author Aidan Follestad (afollestad)
  */
 public class ChangelogDialog extends DialogFragment {
+
     public static ChangelogDialog create() {
         return new ChangelogDialog();
     }
+
     @SuppressLint("InflateParams")
     @NonNull
     @Override
@@ -53,15 +54,17 @@ public class ChangelogDialog extends DialogFragment {
                 .title(R.string.changelog)
                 .customView(customView, false)
                 .positiveText(android.R.string.ok)
-                .showListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialog) {
-                        if (getActivity() != null)
-                            setChangelogRead(getActivity());
-                    }
+                .showListener(dialog1 -> {
+                    if (getActivity() != null)
+                        setChangelogRead(getActivity());
                 })
                 .build();
 
+        loadWebView(customView);
+        return dialog;
+    }
+
+    private void loadWebView(View customView) {
         final WebView webView = customView.findViewById(R.id.web_view);
         try {
             // Load from phonograph-changelog.html in the assets folder
@@ -72,20 +75,21 @@ public class ChangelogDialog extends DialogFragment {
             while ((str = in.readLine()) != null)
                 buf.append(str);
             in.close();
+
             // Inject color values for WebView body background and links
-            final String backgroundColor = colorToHex(ATHUtil.resolveColor(getActivity(), R.attr.md_background_color, Color.parseColor(ThemeSingleton.get().darkTheme ? "#424242" : "#ffffff")));
-            final String contentColor = ThemeSingleton.get().darkTheme ? "#ffffff" : "#000000";
-            webView.loadData(buf.toString()
-                            .replace("{style-placeholder}",
-                                    String.format("body { background-color: %s; color: %s; }", backgroundColor, contentColor))
-                            .replace("{link-color}", colorToHex(ThemeSingleton.get().positiveColor.getDefaultColor()))
-                            .replace("{link-color-active}", colorToHex(ColorUtil.lightenColor(ThemeSingleton.get().positiveColor.getDefaultColor())))
-                    , "text/html", "UTF-8");
+            final String backgroundColor = colorToCSS(ATHUtil.resolveColor(getActivity(), R.attr.md_background_color, Color.parseColor(ThemeSingleton.get().darkTheme ? "#424242" : "#ffffff")));
+            final String contentColor = colorToCSS(Color.parseColor(ThemeSingleton.get().darkTheme ? "#ffffff" : "#000000"));
+            final String changeLog = buf.toString()
+                    .replace("{style-placeholder}",
+                            String.format("body { background-color: %s; color: %s; }", backgroundColor, contentColor))
+                    .replace("{link-color}", colorToCSS(ThemeSingleton.get().positiveColor.getDefaultColor()))
+                    .replace("{link-color-active}", colorToCSS(ColorUtil.lightenColor(ThemeSingleton.get().positiveColor.getDefaultColor())));
+            webView.loadData(changeLog, "text/html", "UTF-8");
         } catch (Throwable e) {
             webView.loadData("<h1>Unable to load</h1><p>" + e.getLocalizedMessage() + "</p>", "text/html", "UTF-8");
         }
-        return dialog;
     }
+
     public static void setChangelogRead(@NonNull Context context) {
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
@@ -95,7 +99,8 @@ public class ChangelogDialog extends DialogFragment {
             e.printStackTrace();
         }
     }
-    private static String colorToHex(int color) {
-        return Integer.toHexString(color).substring(2);
+
+    private static String colorToCSS(int color) {
+        return String.format("rgb(%d, %d, %d)", Color.red(color), Color.green(color), Color.blue(color)); // on API 29, WebView doesn't load with hex colors
     }
 }

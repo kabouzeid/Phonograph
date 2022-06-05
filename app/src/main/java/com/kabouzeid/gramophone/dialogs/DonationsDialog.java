@@ -198,26 +198,26 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
             }
 
             SkuDetails skuDetails = getItem(position);
-            ViewHolder viewHolder = new ViewHolder(convertView);
+            DonationsDialogViewHolder donationsDialogViewHolder = new DonationsDialogViewHolder(convertView);
 
-            viewHolder.title.setText(skuDetails.title.replace("(Phonograph Music Player)", "").trim());
-            viewHolder.text.setText(skuDetails.description);
-            viewHolder.price.setText(skuDetails.priceText);
+            donationsDialogViewHolder.title.setText(skuDetails.title.replace("(Phonograph Music Player)", "").trim());
+            donationsDialogViewHolder.text.setText(skuDetails.description);
+            donationsDialogViewHolder.price.setText(skuDetails.priceText);
 
             final boolean purchased = donationsDialog.billingProcessor.isPurchased(skuDetails.productId);
             int titleTextColor = purchased ? ATHUtil.resolveColor(getContext(), android.R.attr.textColorHint) : ThemeStore.textColorPrimary(getContext());
             int contentTextColor = purchased ? titleTextColor : ThemeStore.textColorSecondary(getContext());
 
             //noinspection ResourceAsColor
-            viewHolder.title.setTextColor(titleTextColor);
+            donationsDialogViewHolder.title.setTextColor(titleTextColor);
             //noinspection ResourceAsColor
-            viewHolder.text.setTextColor(contentTextColor);
+            donationsDialogViewHolder.text.setTextColor(contentTextColor);
             //noinspection ResourceAsColor
-            viewHolder.price.setTextColor(titleTextColor);
+            donationsDialogViewHolder.price.setTextColor(titleTextColor);
 
-            strikeThrough(viewHolder.title, purchased);
-            strikeThrough(viewHolder.text, purchased);
-            strikeThrough(viewHolder.price, purchased);
+            strikeThrough(donationsDialogViewHolder.title, purchased);
+            strikeThrough(donationsDialogViewHolder.text, purchased);
+            strikeThrough(donationsDialogViewHolder.price, purchased);
 
             convertView.setOnTouchListener((v, event) -> purchased);
 
@@ -230,7 +230,7 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
             textView.setPaintFlags(strikeThrough ? textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG : textView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
-        static class ViewHolder {
+        static class DonationsDialogViewHolder {
             @BindView(R.id.title)
             TextView title;
             @BindView(R.id.text)
@@ -238,7 +238,7 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
             @BindView(R.id.price)
             TextView price;
 
-            public ViewHolder(View view) {
+            public DonationsDialogViewHolder(View view) {
                 ButterKnife.bind(this, view);
             }
         }
