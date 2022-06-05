@@ -1,3 +1,5 @@
+package dialog;
+
 import com.kabouzeid.gramophone.dialogs.DialogFactory;
 
 import org.junit.Assert;
