@@ -23,27 +23,16 @@ public class CalendarUtilTest {
         Assert.assertEquals(calendarUtil1,calendarUtil2);
     }
 
-    @Test
-    public void getElapsedToday() {
-    }
 
+    /**
+     * Purpose: to verify leap year
+     * Input: getDaysInMonth (2024,2) -> days in that month/year
+     * Expected:
+     *      (2024,2) = 29
+     */
     @Test
-    public void getElapsedDays() {
-    }
-
-    @Test
-    public void getElapsedWeek() {
-    }
-
-    @Test
-    public void getElapsedMonth() {
-    }
-
-    @Test
-    public void getElapsedMonths() {
-    }
-
-    @Test
-    public void getElapsedYear() {
+    public void testLeapYearGetDaysInMonth() {
+        int februaryDays = CalendarUtil.getInstance().getDaysInMonth(2024, 2);
+        Assert.assertEquals(29,februaryDays);
     }
 }
