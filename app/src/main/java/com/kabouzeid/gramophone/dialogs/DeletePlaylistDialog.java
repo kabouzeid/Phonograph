@@ -18,13 +18,33 @@ import java.util.List;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class DeletePlaylistDialog extends DialogFragment {
-
     @NonNull
     public static DeletePlaylistDialog create(Playlist playlist) {
-        List<Playlist> list = new ArrayList<>();
+        List<Playlist> list = new ArrayList<Playlist>();
         list.add(playlist);
         return create(list);
+
+        //private List<UpdateList> updateLists = new ArrayList<UpdateList>();
     }
+
+    /*public class UpdateListDialog extends DeletePlaylistDialog {
+        private List<UpdateList> updateLists;
+    }*/
+    /*
+    public List<Playlist> getSong() {
+        return list;
+    }
+
+    public void addUpdate(UpdateList updateList) {
+        updateLists.add(updateList);
+    }
+    public void addSong(Playlist playlist)
+    {
+        list.add(playlist);
+        for (UpdateList updateList: updateLists )
+            updateList.update();
+    }*/
+
 
     @NonNull
     public static DeletePlaylistDialog create(List<Playlist> playlists) {
@@ -43,11 +63,10 @@ public class DeletePlaylistDialog extends DialogFragment {
         int title;
         CharSequence content;
         //noinspection ConstantConditions
+        title = R.string.delete_playlists_title;
         if (playlists.size() > 1) {
-            title = R.string.delete_playlists_title;
             content = Html.fromHtml(getString(R.string.delete_x_playlists, playlists.size()));
         } else {
-            title = R.string.delete_playlist_title;
             content = Html.fromHtml(getString(R.string.delete_playlist_x, playlists.get(0).name));
         }
         return new MaterialDialog.Builder(getActivity())

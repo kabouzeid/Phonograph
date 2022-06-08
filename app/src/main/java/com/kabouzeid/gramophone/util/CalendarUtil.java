@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.util;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -12,8 +13,15 @@ public class CalendarUtil {
 
     private Calendar calendar;
 
-    public CalendarUtil() {
+    private static CalendarUtil calendarUtil;
+
+    private CalendarUtil() {
         this.calendar = Calendar.getInstance();
+    }
+
+    public static CalendarUtil getInstance(){
+        if(calendarUtil == null) calendarUtil = new CalendarUtil();
+        return calendarUtil;
     }
 
     /**
@@ -122,8 +130,8 @@ public class CalendarUtil {
      * @param month The month (1 - 12).
      * @return The days in that month/year.
      */
-    private int getDaysInMonth(int year, int month) {
-        final Calendar monthCal = new GregorianCalendar(calendar.get(Calendar.YEAR), month, 1);
+    public int getDaysInMonth(int year, int month) {
+        final Calendar monthCal = new GregorianCalendar(year, month, 1);
         return monthCal.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 }
