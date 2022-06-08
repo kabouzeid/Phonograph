@@ -28,17 +28,17 @@ public class CalendarUtilTest {
      * Purpose: to verify leap year
      * cf. month parameter value is needed to minus 1
      * Input: getDaysInMonth (2024,1) -> days in that month/year
-     *        getDaysInMonth (2023,1) -> days in that month/year
+     *        getDaysInMonth (2022,1) -> days in that month/year
      * Expected:
      *      (2024,1) = 29
-     *      (2023,1) = 28
+     *      (2022,1) = 28
      */
     @Test
     public void testLeapYearGetDaysInMonth() {
         int februaryDaysInLeafYear = CalendarUtil.getInstance().getDaysInMonth(2024, 1);
         Assert.assertEquals(29,februaryDaysInLeafYear);
 
-        int februaryDays = CalendarUtil.getInstance().getDaysInMonth(2023, 1);
+        int februaryDays = CalendarUtil.getInstance().getDaysInMonth(2022, 1);
         Assert.assertEquals(28,februaryDays);
     }
 }
