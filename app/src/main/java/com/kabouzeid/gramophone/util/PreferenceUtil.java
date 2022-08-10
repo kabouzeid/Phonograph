@@ -83,6 +83,8 @@ public final class PreferenceUtil {
 
     public static final String SYNCHRONIZED_LYRICS_SHOW = "synchronized_lyrics_show";
 
+    public static final String KEEP_SCREEN_ON = "keep_screen_on";
+
     public static final String INITIALIZED_BLACKLIST = "initialized_blacklist";
 
     public static final String LIBRARY_CATEGORIES = "library_categories";
@@ -487,6 +489,10 @@ public final class PreferenceUtil {
 
     public final boolean synchronizedLyricsShow() {
         return mPreferences.getBoolean(SYNCHRONIZED_LYRICS_SHOW, true);
+    }
+
+    public final boolean keepScreenOnWhilePlaying(){
+        return mPreferences.getBoolean(KEEP_SCREEN_ON,false);
     }
 
     public void setInitializedBlacklist() {

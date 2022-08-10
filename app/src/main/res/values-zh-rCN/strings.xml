@@ -132,6 +132,7 @@
     <string name="pref_title_audio_ducking">音频焦点丢失时降低音量</string>
     <string name="pref_title_last_added_interval">最近添加播放列表间隔</string>
     <string name="pref_title_synchronized_lyrics_show">显示同步歌词</string>
+    <string name="pref_title_keep_screen_on_while_playing">播放时屏幕常亮</string>
     <string name="pref_title_remember_last_tab">记住最后打开页面</string>
     <string name="pref_title_remember_shuffle">记住随机播放开关</string>
     <string name="no_equalizer">没有找到均衡器。</string>
