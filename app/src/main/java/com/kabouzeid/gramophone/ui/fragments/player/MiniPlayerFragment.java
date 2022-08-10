@@ -106,8 +106,8 @@ public class MiniPlayerFragment extends AbsMusicServiceFragment implements Music
 
     @Override
     public void onPlayStateChanged() {
+        super.onPlayStateChanged();
         updatePlayPauseDrawableState(true);
-        updateScreenOnState(requireActivity().getWindow());
     }
 
     @Override
@@ -120,7 +120,6 @@ public class MiniPlayerFragment extends AbsMusicServiceFragment implements Music
     public void onResume() {
         super.onResume();
         progressViewUpdateHelper.start();
-        updateScreenOnState(requireActivity().getWindow());
     }
 
     @Override
@@ -129,17 +128,7 @@ public class MiniPlayerFragment extends AbsMusicServiceFragment implements Music
         progressViewUpdateHelper.stop();
     }
 
-    private void updateScreenOnState(Window window){
-        if (isKeepScreenOnWhilePlaying() && MusicPlayerRemote.isPlaying()) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        } else {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
-    }
 
-    private boolean isKeepScreenOnWhilePlaying(){
-        return PreferenceUtil.getInstance(requireActivity()).keepScreenOnWhilePlaying();
-    }
 
     private static class FlingPlayBackController implements View.OnTouchListener {
 

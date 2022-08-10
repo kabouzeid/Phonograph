@@ -116,6 +116,7 @@ public class FlatPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
 
     @Override
     public void onPlayStateChanged() {
+        super.onPlayStateChanged();
         updatePlayPauseDrawableState(true);
     }
 

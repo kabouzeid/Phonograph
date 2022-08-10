@@ -5,9 +5,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
 import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -44,6 +48,24 @@ public class AbsMusicServiceFragment extends Fragment implements MusicServiceEve
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        updateScreenOnState(requireActivity().getWindow());
+    }
+
+    private void updateScreenOnState(Window window){
+        if (isKeepScreenOnWhilePlaying() && MusicPlayerRemote.isPlaying()) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+    }
+
+    private boolean isKeepScreenOnWhilePlaying(){
+        return PreferenceUtil.getInstance(requireActivity()).keepScreenOnWhilePlaying();
+    }
+
+    @Override
     public void onPlayingMetaChanged() {
 
     }
@@ -65,7 +87,7 @@ public class AbsMusicServiceFragment extends Fragment implements MusicServiceEve
 
     @Override
     public void onPlayStateChanged() {
-
+        updateScreenOnState(requireActivity().getWindow());
     }
 
     @Override
