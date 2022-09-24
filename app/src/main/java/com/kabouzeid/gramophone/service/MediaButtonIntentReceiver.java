@@ -17,7 +17,6 @@ import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
@@ -66,7 +65,7 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
                             command = MusicService.ACTION_SKIP;
                             break;
                         case 3:
-                            command = MusicService.ACTION_REWIND;
+                            command = MusicService.ACTION_PREVIOUS;
                             break;
                         default:
                             command = null;
@@ -118,13 +117,19 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
                     command = MusicService.ACTION_SKIP;
                     break;
                 case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
-                    command = MusicService.ACTION_REWIND;
+                    command = MusicService.ACTION_PREVIOUS;
                     break;
                 case KeyEvent.KEYCODE_MEDIA_PAUSE:
                     command = MusicService.ACTION_PAUSE;
                     break;
                 case KeyEvent.KEYCODE_MEDIA_PLAY:
                     command = MusicService.ACTION_PLAY;
+                    break;
+                case KeyEvent.KEYCODE_MEDIA_REWIND:
+                    command = MusicService.ACTION_REWIND;
+                    break;
+                case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:
+                    command = MusicService.ACTION_FASTFORWARD;
                     break;
             }
             if (command != null) {

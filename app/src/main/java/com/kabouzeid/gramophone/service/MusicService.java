@@ -30,6 +30,7 @@ import android.provider.MediaStore;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -64,6 +65,7 @@ import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 
 import java.lang.ref.WeakReference;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -82,7 +84,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String ACTION_PAUSE = PHONOGRAPH_PACKAGE_NAME + ".pause";
     public static final String ACTION_STOP = PHONOGRAPH_PACKAGE_NAME + ".stop";
     public static final String ACTION_SKIP = PHONOGRAPH_PACKAGE_NAME + ".skip";
+    public static final String ACTION_PREVIOUS = PHONOGRAPH_PACKAGE_NAME + ".previous";
+    public static final String ACTION_FASTFORWARD = PHONOGRAPH_PACKAGE_NAME + ".fastforward";
     public static final String ACTION_REWIND = PHONOGRAPH_PACKAGE_NAME + ".rewind";
+
     public static final String ACTION_QUIT = PHONOGRAPH_PACKAGE_NAME + ".quitservice";
     public static final String ACTION_PENDING_QUIT = PHONOGRAPH_PACKAGE_NAME + ".pendingquitservice";
     public static final String INTENT_EXTRA_PLAYLIST = PHONOGRAPH_PACKAGE_NAME + "intentextra.playlist";
@@ -340,11 +345,17 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                             Toast.makeText(getApplicationContext(), R.string.playlist_is_empty, Toast.LENGTH_LONG).show();
                         }
                         break;
-                    case ACTION_REWIND:
+                    case ACTION_PREVIOUS:
                         back(true);
                         break;
                     case ACTION_SKIP:
                         playNextSong(true);
+                        break;
+                    case ACTION_REWIND:
+                        seek(getSongProgressMillis() - 10000);
+                        break;
+                    case ACTION_FASTFORWARD:
+                        seek(getSongProgressMillis() + 10000);
                         break;
                     case ACTION_STOP:
                     case ACTION_QUIT:
